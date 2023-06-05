@@ -7,18 +7,42 @@
 
 import UIKit
 
-class TabBarItems {
-    static let tabTitles : [String] = ["홈화면","판매내역","관심목록","채팅","내 계정"]
-    static let tabImages : [UIImage?] = [UIImage(systemName:"house"),UIImage(systemName:"newspaper"),UIImage(systemName:"heart"),UIImage(systemName:"message"),UIImage(systemName:"person")]
+enum TabBarItemType: String {
+    case home = "홈화면"
+    case saleLog = "판매내역"
+    case wishlist = "관심목록"
+    case chat = "채팅"
+    case myAccount = "내 계정"
     
-    static func setItems() -> [UITabBarItem] {
-        var items = [UITabBarItem]()
-        
-        for index in 0...4 {
-            items.append(UITabBarItem(title: tabTitles[index], image: tabImages[index], tag: index))
+    var image: UIImage? {
+        switch self {
+        case .home:
+            return UIImage(systemName: "house")
+        case .saleLog:
+            return UIImage(systemName: "newspaper")
+        case .wishlist:
+            return UIImage(systemName: "heart")
+        case .chat:
+            return UIImage(systemName: "message")
+        case .myAccount:
+            return UIImage(systemName: "person")
         }
-        return items
+    }
+    
+    var tabBarItem: UITabBarItem {
+        return UITabBarItem(title: rawValue, image: image, tag: hashValue)
     }
 }
 
-
+class TabBarItems {
+    
+    static func setItems() -> [UITabBarItem] {
+        return [
+            TabBarItemType.home.tabBarItem,
+            TabBarItemType.saleLog.tabBarItem,
+            TabBarItemType.wishlist.tabBarItem,
+            TabBarItemType.chat.tabBarItem,
+            TabBarItemType.myAccount.tabBarItem
+        ]
+    }
+}

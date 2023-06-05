@@ -14,11 +14,18 @@ class SecondHandTabBarController: UITabBarController {
     }
     
     private func addViewController() {
-        let list : [UIViewController] = [HomeViewController(),SaleLogViewController(),InterestingListViewController(),ChattingViewController(),MyAccountViewController()]
-        for index in 0...4 {
-            list[index].tabBarItem = TabBarItems.setItems()[index]
+        let home = HomeViewController()
+        let saleLog = SaleLogViewController()
+        let wishList = WishListViewController()
+        let chatting = ChattingViewController()
+        let myAccount = MyAccountViewController()
+        
+        let viewControllers : [UIViewController] = [home,saleLog,wishList,chatting,myAccount]
+        home.setNavigationBar()
+        for index in .zero..<viewControllers.count {
+            viewControllers[index].tabBarItem = TabBarItems.setItems()[index]
         }
-        self.setViewControllers(list, animated: true)
+        self.setViewControllers(viewControllers, animated: true)
     }
 }
 
