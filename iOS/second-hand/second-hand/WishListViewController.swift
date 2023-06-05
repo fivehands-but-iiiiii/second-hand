@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InterestingListViewController: UINavigationController {
+class WishListViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

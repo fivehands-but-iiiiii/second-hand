@@ -16,7 +16,7 @@
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
 		E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */; };
 		E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */; };
-		E49EB83C2A2DD3AF001F2D56 /* InterestingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83B2A2DD3AF001F2D56 /* InterestingListViewController.swift */; };
+		E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */; };
 		E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */; };
 		E49EB8402A2DD3C9001F2D56 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */; };
 /* End PBXBuildFile section */
@@ -34,7 +34,7 @@
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleLogViewController.swift; sourceTree = "<group>"; };
-		E49EB83B2A2DD3AF001F2D56 /* InterestingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestingListViewController.swift; sourceTree = "<group>"; };
+		E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
 		E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 				E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */,
 				E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */,
 				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
-				E49EB83B2A2DD3AF001F2D56 /* InterestingListViewController.swift */,
+				E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */,
 				E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */,
 				E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */,
 				E49EB8352A2DC207001F2D56 /* TabBarItem.swift */,
@@ -207,7 +207,7 @@
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
-				E49EB83C2A2DD3AF001F2D56 /* InterestingListViewController.swift in Sources */,
+				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				E49EB8402A2DD3C9001F2D56 /* MyAccountViewController.swift in Sources */,

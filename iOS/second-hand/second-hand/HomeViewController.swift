@@ -8,10 +8,21 @@
 import UIKit
 
 class HomeViewController: UINavigationController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.navigationBar.barTintColor = .red
+        setNavigationBar()
+    }
+    func setNavigationBar() {
+        
+        navigationBar.tintColor = .black
+        navigationBar.barTintColor = .white
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "test"), style: .plain, target: self, action: #selector(rightButtonTouched))
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    
+    @objc private func rightButtonTouched() {
+        
     }
 }
