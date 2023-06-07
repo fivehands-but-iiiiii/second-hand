@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChattingViewController: UINavigationController {
+class ChattingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WishListViewController: UINavigationController {
+class WishListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
