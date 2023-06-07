@@ -21,12 +21,18 @@ class SecondHandTabBarController: UITabBarController {
         let myAccount = MyAccountViewController()
         
         let viewControllers : [UIViewController] = [home,saleLog,wishList,chatting,myAccount]
-        home.setNavigationBar()
-        for index in .zero..<viewControllers.count {
-            viewControllers[index].tabBarItem = TabBarItems.setItems()[index]
+        
+        let navigationControllerEmbeded = viewControllers.map { viewController in
+            UINavigationController(rootViewController: viewController)
         }
-        self.setViewControllers(viewControllers, animated: true)
+        
+        navigationControllerEmbeded.enumerated().forEach { index, controller in
+            controller.tabBarItem = TabBarItems.setItems()[index]
+        }
+        
+        self.setViewControllers(navigationControllerEmbeded, animated: true)
     }
+    
 }
 
 
