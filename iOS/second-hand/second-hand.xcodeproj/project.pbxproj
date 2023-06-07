@@ -90,20 +90,100 @@
 		DBB04D292A2DA5BF001233CC /* second-hand */ = {
 			isa = PBXGroup;
 			children = (
-				DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */,
-				DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */,
-				E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */,
-				E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */,
-				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
-				E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */,
-				E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */,
-				E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */,
-				E49EB8352A2DC207001F2D56 /* TabBarItem.swift */,
+				E49EB8492A304A17001F2D56 /* TabBarControl */,
+				E49EB8432A30495C001F2D56 /* Application */,
+				E49EB8442A304982001F2D56 /* Home */,
+				E49EB8452A3049CE001F2D56 /* SaleLog */,
+				E49EB8462A3049E1001F2D56 /* WishList */,
+				E49EB8472A3049EB001F2D56 /* Chatting */,
+				E49EB8482A3049F2001F2D56 /* MyAccount */,
 				DBB04D332A2DA5C0001233CC /* Assets.xcassets */,
 				DBB04D352A2DA5C0001233CC /* LaunchScreen.storyboard */,
 				DBB04D382A2DA5C0001233CC /* Info.plist */,
 			);
 			path = "second-hand";
+			sourceTree = "<group>";
+		};
+		E49EB8432A30495C001F2D56 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */,
+				DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E49EB8442A304982001F2D56 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB84B2A304A7B001F2D56 /* Controller */,
+				E49EB84A2A304A73001F2D56 /* Model */,
+				E49EB84C2A304A83001F2D56 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E49EB8452A3049CE001F2D56 /* SaleLog */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
+			);
+			path = SaleLog;
+			sourceTree = "<group>";
+		};
+		E49EB8462A3049E1001F2D56 /* WishList */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */,
+			);
+			name = WishList;
+			sourceTree = "<group>";
+		};
+		E49EB8472A3049EB001F2D56 /* Chatting */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */,
+			);
+			path = Chatting;
+			sourceTree = "<group>";
+		};
+		E49EB8482A3049F2001F2D56 /* MyAccount */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */,
+			);
+			path = MyAccount;
+			sourceTree = "<group>";
+		};
+		E49EB8492A304A17001F2D56 /* TabBarControl */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */,
+				E49EB8352A2DC207001F2D56 /* TabBarItem.swift */,
+			);
+			path = TabBarControl;
+			sourceTree = "<group>";
+		};
+		E49EB84A2A304A73001F2D56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E49EB84B2A304A7B001F2D56 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E49EB84C2A304A83001F2D56 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

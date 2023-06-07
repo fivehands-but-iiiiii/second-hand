@@ -24,7 +24,3 @@ class HomeViewController: UIViewController {
         
     }
 }
-
-extension UIBarButtonItem.Style {
-    
-}
