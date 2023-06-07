@@ -14,6 +14,7 @@
 		DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D352A2DA5C0001233CC /* LaunchScreen.storyboard */; };
 		DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C0362A3065DC00E6EF35 /* IdStackView.swift */; };
 		DBE3C0392A306D6800E6EF35 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */; };
+		DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
 		E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */; };
@@ -34,6 +35,7 @@
 		DBB04D382A2DA5C0001233CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBE3C0362A3065DC00E6EF35 /* IdStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdStackView.swift; sourceTree = "<group>"; };
 		DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */,
+				DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */,
 				E49EB8492A304A17001F2D56 /* TabBarControl */,
 				E49EB8432A30495C001F2D56 /* Application */,
 				E49EB8442A304982001F2D56 /* Home */,
@@ -294,6 +297,7 @@
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
+				DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */,
 				DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
