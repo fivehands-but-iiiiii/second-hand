@@ -35,7 +35,6 @@ enum TabBarItemType: String {
 }
 
 class TabBarItems {
-    
     static func setItems() -> [UITabBarItem] {
         return [
             TabBarItemType.home.tabBarItem,
