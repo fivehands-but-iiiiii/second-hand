@@ -11,6 +11,7 @@ class SecondHandTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addViewController()
+        tabBar.tintColor = .black
     }
     
     private func addViewController() {
