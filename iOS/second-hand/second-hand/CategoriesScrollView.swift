@@ -30,5 +30,7 @@ class CategoriesScrollView: UIScrollView {
             categoriStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             categoriStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        //스크롤바 가리기
+        self.showsHorizontalScrollIndicator = false
     }
 }
