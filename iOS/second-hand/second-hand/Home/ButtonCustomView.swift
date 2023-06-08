@@ -25,6 +25,7 @@ class ButtonCustomView: UIButton {
         
         label.text = "역삼1동"
         label.font = UIFont.headLine
+        label.textColor = UIColor.black
         label.textColor = .black
         self.addSubview(label)
     }

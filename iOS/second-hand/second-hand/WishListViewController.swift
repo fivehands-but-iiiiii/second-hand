@@ -23,14 +23,16 @@ class WishListViewController: UIViewController {
     
     func setup() {
         //네비게이션
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        let naviattributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold),
+                          NSAttributedString.Key.foregroundColor: UIColor.black]
+        self.navigationController?.navigationBar.titleTextAttributes = naviattributes
         self.navigationItem.title = "관심 목록"
+        
         
         let allCategoriButton = CategoriButton(title: "전체")
         categoriScrollView.categoriStackView.addArrangedSubview(allCategoriButton)
         allCategoriButton.backgroundColor = UIColor.orange
-        allCategoriButton.setTitleColor(.white, for: .normal)
+        allCategoriButton.setTitleColor(UIColor.white, for: .normal)
         allCategoriButton.layer.borderWidth = 0
     }
        
