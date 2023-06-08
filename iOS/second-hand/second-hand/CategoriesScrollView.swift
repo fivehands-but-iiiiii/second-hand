@@ -8,10 +8,11 @@
 import UIKit
 
 class CategoriesScrollView: UIScrollView {
-    var categoriLabel = CategoriLabel()
+    var categoriStackView = UIStackView()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        categoriStackView.spacing = 4
         configure()
     }
     
@@ -20,17 +21,14 @@ class CategoriesScrollView: UIScrollView {
     }
     
     func configure() {
-        self.addSubview(categoriLabel.categoriStackView)
-        self.categoriLabel.categoriStackView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.0).isActive = true
-        
-        self.addSubview(categoriLabel.categoriStackView)
-        categoriLabel.categoriStackView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(categoriStackView)
+        categoriStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoriLabel.categoriStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            categoriLabel.categoriStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            categoriLabel.categoriStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            categoriLabel.categoriStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+            categoriStackView.heightAnchor.constraint(equalTo: self.heightAnchor),
+            categoriStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            categoriStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            categoriStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            categoriStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-    
 }
