@@ -22,6 +22,9 @@
 		E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */; };
 		E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */; };
 		E49EB8402A2DD3C9001F2D56 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */; };
+		E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */; };
+		E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */; };
+		E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
 		E49EB83F2A2DD3C9001F2D56 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeLeftBarButton.swift; path = "second-hand/Home/HomeLeftBarButton.swift"; sourceTree = SOURCE_ROOT; };
+		E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeRightBarButton.swift; path = "second-hand/Home/HomeRightBarButton.swift"; sourceTree = SOURCE_ROOT; };
+		E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonCustomView.swift; path = "second-hand/Home/ButtonCustomView.swift"; sourceTree = SOURCE_ROOT; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,7 +140,9 @@
 		E49EB8452A3049CE001F2D56 /* SaleLog */ = {
 			isa = PBXGroup;
 			children = (
-				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
+				E49EB8572A31C877001F2D56 /* Controller */,
+				E49EB8592A31C889001F2D56 /* View */,
+				E49EB8582A31C882001F2D56 /* Model */,
 			);
 			path = SaleLog;
 			sourceTree = "<group>";
@@ -189,6 +197,31 @@
 			sourceTree = "<group>";
 		};
 		E49EB84C2A304A83001F2D56 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */,
+				E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */,
+				E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E49EB8572A31C877001F2D56 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E49EB8582A31C882001F2D56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E49EB8592A31C889001F2D56 /* View */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -294,8 +327,11 @@
 				E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
+				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
+				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
+				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */,
 				DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */,
