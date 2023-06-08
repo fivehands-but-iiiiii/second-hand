@@ -11,12 +11,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        setNavigationBarButton()
+        setNavigationRightBarButton()
     }
-    func setNavigationBarButton() {
-        let rightBarButton = UIBarButtonItem(image: UIImage(named: "threeLines.png"), style: .plain, target: self, action: #selector(rightButtonTouched))
-        
-        rightBarButton.tintColor = .black
+    
+    private func setNavigationRightBarButton() {
+        let rightBarButton = HomeRightBarButton()
         navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
     }
     
