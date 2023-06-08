@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
+		DB7E5EEC2A31682D00ECCBC2 /* CategoriLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoriLabel.swift */; };
+		DB7E5EEE2A31685600ECCBC2 /* CategoriStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EED2A31685600ECCBC2 /* CategoriStackView.swift */; };
 		DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */; };
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
 		DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D332A2DA5C0001233CC /* Assets.xcassets */; };
@@ -15,6 +17,7 @@
 		DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C0362A3065DC00E6EF35 /* IdStackView.swift */; };
 		DBE3C0392A306D6800E6EF35 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */; };
 		DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */; };
+		DBE3C03D2A30791F00E6EF35 /* CategoriesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
 		E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */; };
@@ -27,6 +30,8 @@
 /* Begin PBXFileReference section */
 		2356744C4EC7A65407925876 /* Pods_second_hand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_second_hand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
+		DB7E5EEB2A31682D00ECCBC2 /* CategoriLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriLabel.swift; sourceTree = "<group>"; };
+		DB7E5EED2A31685600ECCBC2 /* CategoriStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriStackView.swift; sourceTree = "<group>"; };
 		DBB04D272A2DA5BF001233CC /* second-hand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "second-hand.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +41,7 @@
 		DBE3C0362A3065DC00E6EF35 /* IdStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdStackView.swift; sourceTree = "<group>"; };
 		DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScrollView.swift; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */,
+				DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */,
+				DB7E5EEB2A31682D00ECCBC2 /* CategoriLabel.swift */,
+				DB7E5EED2A31685600ECCBC2 /* CategoriStackView.swift */,
 			);
 			name = WishList;
 			sourceTree = "<group>";
@@ -292,6 +301,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */,
+				DB7E5EEE2A31685600ECCBC2 /* CategoriStackView.swift in Sources */,
+				DBE3C03D2A30791F00E6EF35 /* CategoriesScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
@@ -302,6 +313,7 @@
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				E49EB8402A2DD3C9001F2D56 /* MyAccountViewController.swift in Sources */,
+				DB7E5EEC2A31682D00ECCBC2 /* CategoriLabel.swift in Sources */,
 				DBE3C0392A306D6800E6EF35 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
