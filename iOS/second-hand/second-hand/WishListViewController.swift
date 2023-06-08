@@ -12,6 +12,7 @@ class WishListViewController: UIViewController {
        override func viewDidLoad() {
            super.viewDidLoad()
            self.view.backgroundColor = .white
+           setNavigationBarBottomBorder()
            layout()
            setup()
            makeButton(categori: "가구/인테리어")
@@ -51,4 +52,11 @@ class WishListViewController: UIViewController {
            let categoriLabel = CategoriButton(title: categori)
            categoriScrollView.categoriStackView.addArrangedSubview(categoriLabel)
        }
+    
+    func setNavigationBarBottomBorder() {
+            let borderView = UIView(frame: CGRect(x: 0, y: navigationController?.navigationBar.frame.height ?? 0 - 1, width: navigationController?.navigationBar.frame.width ?? 0, height: 1))
+            borderView.backgroundColor = .lightGray
+            navigationController?.navigationBar.addSubview(borderView)
+        }
+    
 }
