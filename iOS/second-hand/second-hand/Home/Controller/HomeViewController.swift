@@ -12,6 +12,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setNavigationRightBarButton()
+        setNavigationBarBottomBorder()
     }
     
     private func setNavigationRightBarButton() {
@@ -21,5 +22,12 @@ class HomeViewController: UIViewController {
     
     @objc private func rightButtonTouched() {
         
-    }
+    func setNavigationBarBottomBorder() {
+            let borderView = UIView(frame: CGRect(x: 0, y: navigationController?.navigationBar.frame.height ?? 0 - 1, width: navigationController?.navigationBar.frame.width ?? 0, height: 1))
+            borderView.backgroundColor = .lightGray
+            navigationController?.navigationBar.addSubview(borderView)
+        }
+    
 }
+
+
