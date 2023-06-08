@@ -13,6 +13,7 @@
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
 		DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D332A2DA5C0001233CC /* Assets.xcassets */; };
 		DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D352A2DA5C0001233CC /* LaunchScreen.storyboard */; };
+		DBE01B612A32458E00A9F92C /* SaleLogNaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE01B602A32458E00A9F92C /* SaleLogNaviView.swift */; };
 		DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C0362A3065DC00E6EF35 /* IdStackView.swift */; };
 		DBE3C0392A306D6800E6EF35 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */; };
 		DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */; };
@@ -39,6 +40,7 @@
 		DBB04D332A2DA5C0001233CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBB04D362A2DA5C0001233CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBB04D382A2DA5C0001233CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBE01B602A32458E00A9F92C /* SaleLogNaviView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaleLogNaviView.swift; path = ../../../../../../../SaleLogNaviView.swift; sourceTree = "<group>"; };
 		DBE3C0362A3065DC00E6EF35 /* IdStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdStackView.swift; sourceTree = "<group>"; };
 		DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
+				DBE01B602A32458E00A9F92C /* SaleLogNaviView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */,
 				DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */,
+				DBE01B612A32458E00A9F92C /* SaleLogNaviView.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				E49EB8402A2DD3C9001F2D56 /* MyAccountViewController.swift in Sources */,
