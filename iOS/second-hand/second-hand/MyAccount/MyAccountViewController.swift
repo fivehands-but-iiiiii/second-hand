@@ -17,19 +17,23 @@ class MyAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.navigationItem.title = "내 계정"
         layout()
         setting()
     }
     
     func setting() {
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = "내 계정"
         loginButton.setTitle("로그인", for: .normal)
+        loginButton.titleLabel?.font = UIFont.subHead
         loginButton.backgroundColor = .orange
         self.view.layoutIfNeeded()
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
         
         joinMembershipButton.setTitle("회원가입", for: .normal)
+        joinMembershipButton.titleLabel?.font = UIFont.subHead
         joinMembershipButton.setTitleColor(.black, for: .normal)
         
         contour.backgroundColor = .lightGray

@@ -23,7 +23,9 @@ class IdStackView: UIStackView {
     
     func setUI() {
         idLabel.text = "아이디"
+        idLabel.font = UIFont.body
         idTextField.placeholder = "아이디를 입력하세요"
+        idTextField.font = UIFont.body
     }
     
     func layout() {

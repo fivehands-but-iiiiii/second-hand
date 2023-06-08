@@ -12,17 +12,21 @@ class WishListViewController: UIViewController {
        override func viewDidLoad() {
            super.viewDidLoad()
            self.view.backgroundColor = .white
-           self.navigationItem.title = "관심 목록"
            layout()
            setup()
-           makeLabel(categori: "가구/인테리어")
-           makeLabel(categori: "안녕안녕")
-           makeLabel(categori: "하하하")
-           makeLabel(categori: "스크롤~~된다~~")
-           makeLabel(categori: "길게길게길게길게길게길게")
+           makeButton(categori: "가구/인테리어")
+           makeButton(categori: "안녕안녕")
+           makeButton(categori: "하하하")
+           makeButton(categori: "스크롤~~된다~~")
+           makeButton(categori: "길게길게길게길게길게길게")
        }
     
     func setup() {
+        //네비게이션
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        self.navigationItem.title = "관심 목록"
+        
         let allCategoriButton = CategoriButton(title: "전체")
         categoriScrollView.categoriStackView.addArrangedSubview(allCategoriButton)
         allCategoriButton.backgroundColor = UIColor.orange
@@ -41,7 +45,7 @@ class WishListViewController: UIViewController {
         ])
     }
        
-       func makeLabel(categori: String) {
+       func makeButton(categori: String) {
            let categoriLabel = CategoriButton(title: categori)
            categoriScrollView.categoriStackView.addArrangedSubview(categoriLabel)
        }
