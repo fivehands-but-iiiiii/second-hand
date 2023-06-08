@@ -12,6 +12,9 @@ class ChattingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = "채팅"
+        
     }
 }
