@@ -7,13 +7,10 @@
 
 import UIKit
 
-class ChattingViewController: UIViewController {
+class ChattingViewController: NavigationUnderLineViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = "채팅"
 
     }
