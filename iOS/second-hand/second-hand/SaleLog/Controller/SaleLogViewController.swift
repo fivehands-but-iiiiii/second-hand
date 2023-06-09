@@ -26,7 +26,7 @@ class SaleLogViewController: UIViewController {
     
     func setupNavigationBarHeight() {
         if let navigationController = self.navigationController {
-            let navigationBarHeight: CGFloat = 100 // 원하는 네비게이션 바 높이
+            let navigationBarHeight: CGFloat = 100
             let statusBarHeight = UIApplication.shared.statusBarFrame.height
             let newNavigationBarFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: navigationBarHeight + statusBarHeight)
             navigationController.navigationBar.frame = newNavigationBarFrame
