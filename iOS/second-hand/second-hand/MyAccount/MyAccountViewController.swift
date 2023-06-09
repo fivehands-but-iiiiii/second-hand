@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyAccountViewController: UIViewController {
+class MyAccountViewController: NavigationUnderLineViewController {
     
     let idStackView = IdStackView()
     let loginButton = UIButton()
@@ -16,15 +16,11 @@ class MyAccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         layout()
         setting()
-        setNavigationBarBottomBorder()
     }
     
     func setting() {
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold)]
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
         self.navigationItem.title = "내 계정"
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.subHead
@@ -70,11 +66,4 @@ class MyAccountViewController: UIViewController {
             contour.widthAnchor.constraint(equalToConstant: self.view.frame.width)
         ])
     }
-    
-    func setNavigationBarBottomBorder() {
-            let borderView = UIView(frame: CGRect(x: 0, y: navigationController?.navigationBar.frame.height ?? 0 - 1, width: navigationController?.navigationBar.frame.width ?? 0, height: 1))
-            borderView.backgroundColor = .lightGray
-            navigationController?.navigationBar.addSubview(borderView)
-        }
-    
 }

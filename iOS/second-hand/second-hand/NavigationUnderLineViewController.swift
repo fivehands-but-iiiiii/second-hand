@@ -11,8 +11,10 @@ class NavigationUnderLineViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         setNavigationBarBottomBorder()
     }
+    
     func setNavigationBarBottomBorder() {
         let borderView = UIView(frame: CGRect(x: 0, y: navigationController?.navigationBar.frame.height ?? 0 - 1, width: navigationController?.navigationBar.frame.width ?? 0, height: 1))
         borderView.backgroundColor = .lightGray
