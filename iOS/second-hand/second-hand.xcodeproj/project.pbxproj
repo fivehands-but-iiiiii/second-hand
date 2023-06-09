@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoriButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoriButton.swift */; };
+		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */; };
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
 		DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D332A2DA5C0001233CC /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		2356744C4EC7A65407925876 /* Pods_second_hand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_second_hand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoriButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriButton.swift; sourceTree = "<group>"; };
+		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBB04D272A2DA5BF001233CC /* second-hand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "second-hand.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				DBE3C0382A306D6800E6EF35 /* UIColor+Extension.swift */,
 				DBE3C03A2A3071B100E6EF35 /* UIFont+Extension.swift */,
+				DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */,
 				E49EB8492A304A17001F2D56 /* TabBarControl */,
 				E49EB8432A30495C001F2D56 /* Application */,
 				E49EB8442A304982001F2D56 /* Home */,
@@ -345,6 +348,7 @@
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBE3C03B2A3071B100E6EF35 /* UIFont+Extension.swift in Sources */,
 				DBE3C0372A3065DC00E6EF35 /* IdStackView.swift in Sources */,
+				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				DBE01B612A32458E00A9F92C /* SaleLogNaviView.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
