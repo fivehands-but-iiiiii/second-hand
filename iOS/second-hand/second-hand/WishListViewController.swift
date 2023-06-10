@@ -25,7 +25,7 @@ class WishListViewController: NavigationUnderLineViewController {
         self.navigationItem.title = "관심 목록"
         
         
-        let allCategoriButton = CategoriButton(title: "전체")
+        let allCategoriButton = CategoryButton(title: "전체")
         categoriScrollView.categoriStackView.addArrangedSubview(allCategoriButton)
         allCategoriButton.backgroundColor = UIColor.orange
         allCategoriButton.setTitleColor(UIColor.white, for: .normal)
@@ -44,7 +44,7 @@ class WishListViewController: NavigationUnderLineViewController {
     }
        
        func makeButton(categori: String) {
-           let categoriLabel = CategoriButton(title: categori)
+           let categoriLabel = CategoryButton(title: categori)
            categoriScrollView.categoriStackView.addArrangedSubview(categoriLabel)
        }
 }

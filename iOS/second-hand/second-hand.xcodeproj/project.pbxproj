@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
-		DB7E5EEC2A31682D00ECCBC2 /* CategoriButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoriButton.swift */; };
+		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -34,7 +34,7 @@
 /* Begin PBXFileReference section */
 		2356744C4EC7A65407925876 /* Pods_second_hand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_second_hand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
-		DB7E5EEB2A31682D00ECCBC2 /* CategoriButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriButton.swift; sourceTree = "<group>"; };
+		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleLogNavigationView.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		DBAF839A2A32E30600194A02 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DB7E5EEB2A31682D00ECCBC2 /* CategoriButton.swift */,
+				DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */,
 				DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */,
 			);
 			name = View;
@@ -113,13 +113,13 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		DBAF83A22A32E38B00194A02 /* Extension */ = {
+		DBAF83A22A32E38B00194A02 /* UIExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */,
 				DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */,
 			);
-			path = Extension;
+			path = UIExtensions;
 			sourceTree = "<group>";
 		};
 		DBAF83A72A32E3A900194A02 /* View */ = {
@@ -188,7 +188,7 @@
 		DBB04D292A2DA5BF001233CC /* second-hand */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83A22A32E38B00194A02 /* Extension */,
+				DBAF83A22A32E38B00194A02 /* UIExtensions */,
 				E49EB8492A304A17001F2D56 /* TabBarControl */,
 				E49EB8432A30495C001F2D56 /* Application */,
 				E49EB8442A304982001F2D56 /* Home */,
@@ -432,7 +432,7 @@
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */,
-				DB7E5EEC2A31682D00ECCBC2 /* CategoriButton.swift in Sources */,
+				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
 				DBAF83B22A32E3E900194A02 /* MyAccountViewController.swift in Sources */,
 			);
