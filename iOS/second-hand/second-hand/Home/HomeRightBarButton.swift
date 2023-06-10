@@ -11,15 +11,15 @@ class HomeRightBarButton: UIBarButtonItem {
 
     override init() {
         super.init()
-        setConfiguration()
+        configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setConfiguration()
+        configure()
     }
     
-    private func setConfiguration() {
+    private func configure() {
         self.image = UIImage(named: "threeLines.png")
         self.style = .plain
         self.target = self
