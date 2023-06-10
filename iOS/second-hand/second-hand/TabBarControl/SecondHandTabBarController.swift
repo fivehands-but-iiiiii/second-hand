@@ -15,6 +15,7 @@ class SecondHandTabBarController: UITabBarController {
     }
     
     private func addViewController() {
+        // 이거 뭐 어떻게 못하나
         let home = HomeViewController()
         let saleLog = SaleLogViewController()
         let wishList = WishListViewController()

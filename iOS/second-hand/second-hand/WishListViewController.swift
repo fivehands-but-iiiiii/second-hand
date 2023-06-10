@@ -13,17 +13,16 @@ class WishListViewController: NavigationUnderLineViewController {
            super.viewDidLoad()
            layout()
            setup()
-           makeButton(categori: "가구/인테리어")
-           makeButton(categori: "안녕안녕")
-           makeButton(categori: "하하하")
-           makeButton(categori: "스크롤~~된다~~")
-           makeButton(categori: "길게길게길게길게길게길게")
+           makeButton(category: "가구/인테리어")
+           makeButton(category: "안녕안녕")
+           makeButton(category: "하하하")
+           makeButton(category: "스크롤~~된다~~")
+           makeButton(category: "길게길게길게길게길게길게")
        }
     
     func setup() {
         //네비게이션
         self.navigationItem.title = "관심 목록"
-        
         
         let allCategoriButton = CategoryButton(title: "전체")
         categoriScrollView.categoriStackView.addArrangedSubview(allCategoriButton)
@@ -43,8 +42,8 @@ class WishListViewController: NavigationUnderLineViewController {
         ])
     }
        
-       func makeButton(categori: String) {
-           let categoriLabel = CategoryButton(title: categori)
+       func makeButton(category: String) {
+           let categoriLabel = CategoryButton(title: category)
            categoriScrollView.categoriStackView.addArrangedSubview(categoriLabel)
        }
 }

@@ -43,7 +43,7 @@ class ButtonCustomView: UIButton {
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            sideImage.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 4),
+            sideImage.leadingAnchor.constraint(equalTo: label.trailingAnchor),
             sideImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             sideImage.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])

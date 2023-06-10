@@ -8,7 +8,7 @@
 import UIKit
 
 class CategoryButton: UIButton {
-    // TODO: 이 클래스 손 좀 봐야겠음
+    // TODO: 이 클래스는 공사가 필요할 듯 함
     convenience init(title: String) {
         self.init()
         self.setTitle(title, for: .normal)
@@ -18,7 +18,7 @@ class CategoryButton: UIButton {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.bounds.height / 2
         self.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        // TODO: 이거 디플리케잍 된거. 바꿔야함
+        // TODO: 이거 더이상 안쓰는 속성. 바꿔야함
         self.setTitleColor(.black, for: .normal)
         self.titleLabel?.font = UIFont.caption1
     }
