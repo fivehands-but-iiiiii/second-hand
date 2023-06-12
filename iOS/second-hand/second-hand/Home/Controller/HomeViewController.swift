@@ -10,6 +10,10 @@ import UIKit
 class HomeViewController: NavigationUnderLineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+    }
+    
+    private func setUI() {
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
     }
@@ -23,6 +27,8 @@ class HomeViewController: NavigationUnderLineViewController {
         let leftBarButton = HomeLeftBarButton()
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
+    
+
 }
 
 
