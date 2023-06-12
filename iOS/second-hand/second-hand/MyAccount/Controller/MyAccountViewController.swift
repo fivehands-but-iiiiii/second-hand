@@ -17,22 +17,32 @@ class MyAccountViewController: NavigationUnderLineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        setting()
+        setUI()
     }
     
-    func setting() {
+    func setUI() {
+        setLoginButton()
+        setJoinMembershipButton()
+        setContour()
         self.navigationItem.title = "내 계정"
+    }
+    
+    func setLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.subHead
         loginButton.backgroundColor = .orange
         self.view.layoutIfNeeded()
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
-        
+    }
+    
+    func setJoinMembershipButton() {
         joinMembershipButton.setTitle("회원가입", for: .normal)
         joinMembershipButton.titleLabel?.font = UIFont.subHead
         joinMembershipButton.setTitleColor(.black, for: .normal)
-        
+    }
+    
+    func setContour() {
         contour.backgroundColor = .lightGray
     }
     
