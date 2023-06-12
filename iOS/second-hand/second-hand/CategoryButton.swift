@@ -31,9 +31,8 @@ class CategoryButton: UIButton {
         super.init(coder: coder)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
         self.layer.cornerRadius = self.bounds.height / 2
     }
-    // TODO: layoutSubView에서 하는방법 말고 다른 방법 강구
 }
