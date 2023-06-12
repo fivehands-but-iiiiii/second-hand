@@ -25,10 +25,10 @@
 		E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */; };
 		E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */; };
 		E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */; };
-		E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */; };
 		E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */; };
 		E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */; };
 		E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */; };
+		E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8662A36F054001F2D56 /* ChattingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,10 +53,10 @@
 		E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleLogViewController.swift; sourceTree = "<group>"; };
 		E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
-		E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChattingViewController.swift; path = ../ChattingViewController.swift; sourceTree = "<group>"; };
 		E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeLeftBarButton.swift; path = "second-hand/Home/HomeLeftBarButton.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeRightBarButton.swift; path = "second-hand/Home/HomeRightBarButton.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonCustomView.swift; path = "second-hand/Home/ButtonCustomView.swift"; sourceTree = SOURCE_ROOT; };
+		E49EB8662A36F054001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,42 +120,6 @@
 				DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */,
 			);
 			path = UIExtensions;
-			sourceTree = "<group>";
-		};
-		DBAF83A72A32E3A900194A02 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DBAF83A82A32E3B100194A02 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		DBAF83A92A32E3BC00194A02 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		DBAF83AC2A32E3DA00194A02 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DBAF83AD2A32E3E200194A02 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		DBAF83AE2A32E3E900194A02 /* Controller */ = {
@@ -245,9 +209,9 @@
 		E49EB8472A3049EB001F2D56 /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83A92A32E3BC00194A02 /* Controller */,
-				DBAF83A82A32E3B100194A02 /* Model */,
-				DBAF83A72A32E3A900194A02 /* View */,
+				E49EB8652A36F03F001F2D56 /* Controller */,
+				E49EB8642A36F037001F2D56 /* Model */,
+				E49EB8632A36F02B001F2D56 /* View */,
 			);
 			path = Chatting;
 			sourceTree = "<group>";
@@ -255,9 +219,9 @@
 		E49EB8482A3049F2001F2D56 /* MyAccount */ = {
 			isa = PBXGroup;
 			children = (
+				E49EB8692A36F087001F2D56 /* View */,
+				E49EB8682A36F082001F2D56 /* Model */,
 				DBAF83AE2A32E3E900194A02 /* Controller */,
-				DBAF83AD2A32E3E200194A02 /* Model */,
-				DBAF83AC2A32E3DA00194A02 /* View */,
 			);
 			path = MyAccount;
 			sourceTree = "<group>";
@@ -316,6 +280,42 @@
 			isa = PBXGroup;
 			children = (
 				DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E49EB8632A36F02B001F2D56 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E49EB8642A36F037001F2D56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E49EB8652A36F03F001F2D56 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8662A36F054001F2D56 /* ChattingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E49EB8682A36F082001F2D56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E49EB8692A36F087001F2D56 /* View */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -417,9 +417,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
-				E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */,
 				DBE3C03D2A30791F00E6EF35 /* CategoriesScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
+				E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
