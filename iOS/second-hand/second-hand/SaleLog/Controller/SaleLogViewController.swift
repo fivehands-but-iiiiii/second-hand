@@ -34,8 +34,7 @@ class SaleLogViewController: UIViewController {
     }
 
     func setTitleView() {
-        let titleView = SaleLogNavigationView(frame: CGRect(x: .zero, y: .zero, width: view.frame.width, height: 300))
-        
+        let titleView = SaleLogNavigationView()
         navigationController?.navigationBar.topItem?.titleView = titleView
     }
 
