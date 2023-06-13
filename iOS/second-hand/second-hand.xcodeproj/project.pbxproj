@@ -14,7 +14,6 @@
 		DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
 		DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */; };
-		DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83AF2A32E3E900194A02 /* IdStackView.swift */; };
 		DBAF83B22A32E3E900194A02 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83B02A32E3E900194A02 /* MyAccountViewController.swift */; };
 		DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */; };
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
@@ -41,7 +40,6 @@
 		DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleLogNavigationView.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		DBAF83AF2A32E3E900194A02 /* IdStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdStackView.swift; sourceTree = "<group>"; };
 		DBAF83B02A32E3E900194A02 /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		DBB04D272A2DA5BF001233CC /* second-hand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "second-hand.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 		DBAF83AE2A32E3E900194A02 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83AF2A32E3E900194A02 /* IdStackView.swift */,
 				DBAF83B02A32E3E900194A02 /* MyAccountViewController.swift */,
 				DB2187072A380BFF0037CDF2 /* JoinViewController.swift */,
 			);
@@ -434,7 +431,6 @@
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
-				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,

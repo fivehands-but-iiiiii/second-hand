@@ -10,7 +10,8 @@ import UIKit
 class MyAccountViewController: NavigationUnderLineViewController {
     var joinViewController = JoinViewController()
     
-    let idStackView = IdStackView()
+    let idLabel = UILabel()
+    let idTextField = UITextField()
     let loginButton = UIButton()
     let joinMembershipButton = UIButton()
     let contour = UILabel()
@@ -22,17 +23,19 @@ class MyAccountViewController: NavigationUnderLineViewController {
     }
     
     func setUI() {
+        self.navigationItem.title = "내 계정"
         setLoginButton()
         setJoinMembershipButton()
+        setIdLabel()
+        setIdTextField()
         setContour()
-        self.navigationItem.title = "내 계정"
     }
     
     func setLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.subHead
         loginButton.backgroundColor = .orange
-        self.view.layoutIfNeeded()
+        self.view.setNeedsLayout()
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
     }
@@ -49,26 +52,39 @@ class MyAccountViewController: NavigationUnderLineViewController {
         present(UINavigationController(rootViewController: joinViewController), animated: true)
     }
     
+    func setIdLabel() {
+        idLabel.text = "아이디"
+        idLabel.font = UIFont.headLine
+        
+    }
+    
+    func setIdTextField() {
+        idTextField.placeholder = "아이디를 입력하세요"
+    }
     
     func setContour() {
-        contour.backgroundColor = .lightGray
+        contour.backgroundColor = UIColor.neutralBorder
     }
     
     func layout() {
         self.view.addSubview(loginButton)
-        self.view.addSubview(idStackView)
+        self.view.addSubview(idLabel)
+        self.view.addSubview(idTextField)
         self.view.addSubview(joinMembershipButton)
         self.view.addSubview(contour)
         
-        idStackView.translatesAutoresizingMaskIntoConstraints = false
+        idLabel.translatesAutoresizingMaskIntoConstraints = false
+        idTextField.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         joinMembershipButton.translatesAutoresizingMaskIntoConstraints = false
         contour.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 178),
-            idStackView.heightAnchor.constraint(equalToConstant: 44),
-            idStackView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            idLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 189),
+            idLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            
+            idTextField.leadingAnchor.constraint(equalTo: idLabel.trailingAnchor, constant: 52.74),
+            idTextField.topAnchor.constraint(equalTo: idLabel.topAnchor),
             
             loginButton.widthAnchor.constraint(equalToConstant: 361),
             loginButton.heightAnchor.constraint(equalToConstant: 52),
@@ -79,7 +95,7 @@ class MyAccountViewController: NavigationUnderLineViewController {
             joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             joinMembershipButton.heightAnchor.constraint(equalToConstant: 22),
             
-            contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor, constant: 0),
+            contour.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 10.5),
             contour.heightAnchor.constraint(equalToConstant: 0.5),
             contour.widthAnchor.constraint(equalToConstant: self.view.frame.width)
         ])
