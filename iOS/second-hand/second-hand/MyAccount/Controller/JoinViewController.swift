@@ -13,6 +13,9 @@ class JoinViewController: NavigationUnderLineViewController {
     let idTextField = UITextField()
     let contour = UILabel()
     let addLocationButton = UIButton()
+    let addLocationText = UILabel()
+    let plusLabel = UILabel()
+    let stackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +23,7 @@ class JoinViewController: NavigationUnderLineViewController {
     }
     
     private func setUI() {
-        self.navigationItem.title = "내 계정"
+        self.navigationItem.title = "회원가입"
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
         setCircleButton()
@@ -29,13 +32,16 @@ class JoinViewController: NavigationUnderLineViewController {
         setIdTextField()
         setContour()
         setAddLocationButton()
+        setAddLocationText()
+        setPlusLabel()
+        setStackView()
     }
     
     private func setNavigationRightBarButton() {
         let saveButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(save))
         
         let leftBarAttribute = [NSAttributedString.Key.font: UIFont.body,
-                                NSAttributedString.Key.foregroundColor: UIColor.neutralText]
+                                NSAttributedString.Key.foregroundColor: UIColor.neutralTextWeak]
         saveButton.setTitleTextAttributes(leftBarAttribute, for: .normal)
         navigationItem.rightBarButtonItem = saveButton
     }
@@ -64,12 +70,12 @@ class JoinViewController: NavigationUnderLineViewController {
         circleButton.layer.borderWidth = 1
         circleButton.layer.borderColor = CGColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
         circleButton.setImage(UIImage(systemName: "camera"), for: .normal)
+        circleButton.tintColor = .black
     }
     
     func setIdLabel() {
         idLabel.text = "아이디"
-        idLabel.font = UIFont(name: "SFPro-Regular", size: 17)
-        
+        idLabel.font = UIFont.body
     }
     
     func setIdTextField() {
@@ -81,28 +87,53 @@ class JoinViewController: NavigationUnderLineViewController {
     }
     
     func setAddLocationButton() {
-        addLocationButton.setTitle("위치 추가", for: .normal)
-        addLocationButton.titleLabel?.font = UIFont(name: "SFPro-Regular", size: 15)
+        addLocationButton.frame = CGRect(x: 0, y: 0, width: 361, height: 52)
         addLocationButton.layer.borderWidth = 1
         addLocationButton.layer.borderColor = CGColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
         addLocationButton.setTitleColor(.black, for: .normal)
+        addLocationButton.layer.cornerRadius = 8
+        addLocationButton.layer.masksToBounds = true
     }
+    
+    func setAddLocationText() {
+        addLocationText.text = "위치 추가"
+        addLocationText.font = UIFont.subHead
+    }
+    
+    func setPlusLabel() {
+        //일단 임의로 작성
+        plusLabel.text = "+"
+    }
+    
+    func setStackView() {
+        stackView.addArrangedSubview(plusLabel)
+        stackView.addArrangedSubview(addLocationText)
+        stackView.spacing = 4
+    }
+    
+    
     func layout() {
         self.view.addSubview(circleButton)
         self.view.addSubview(idLabel)
         self.view.addSubview(idTextField)
         self.view.addSubview(contour)
         self.view.addSubview(addLocationButton)
+        self.view.addSubview(addLocationText)
+        self.view.addSubview(plusLabel)
+        self.view.addSubview(stackView)
         
         circleButton.translatesAutoresizingMaskIntoConstraints = false
         idLabel.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
         contour.translatesAutoresizingMaskIntoConstraints = false
         addLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        addLocationText.translatesAutoresizingMaskIntoConstraints = false
+        plusLabel.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             circleButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 161.5),
+            circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130),
             circleButton.widthAnchor.constraint(equalToConstant: 80),
             circleButton.heightAnchor.constraint(equalToConstant: 80),
             
@@ -119,7 +150,10 @@ class JoinViewController: NavigationUnderLineViewController {
             addLocationButton.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 40),
             addLocationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             addLocationButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            addLocationButton.heightAnchor.constraint(equalToConstant: 52)
+            addLocationButton.heightAnchor.constraint(equalToConstant: 52),
+            
+            stackView.centerXAnchor.constraint(equalTo: self.addLocationButton.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor)
         ])
     }
 }
