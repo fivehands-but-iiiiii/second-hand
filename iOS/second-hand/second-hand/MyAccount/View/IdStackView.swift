@@ -14,22 +14,29 @@ class IdStackView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
-        layout()
+        setConstraint()
     }
     
     required init(coder: NSCoder) {
-        fatalError("필수생성자")
+        super.init(coder: coder)
     }
     
     func setUI() {
+        setLabel()
+        setTextField()
+        setConstraint()
+    }
+    private func setLabel() {
         idLabel.text = "아이디"
         idLabel.font = UIFont.body
+    }
+    
+    private func setTextField() {
         idTextField.placeholder = "아이디를 입력하세요"
         idTextField.font = UIFont.body
     }
     
-    func layout() {
-        
+    private func setConstraint() {
         self.addSubview(idLabel)
         self.addSubview(idTextField)
         idLabel.translatesAutoresizingMaskIntoConstraints = false
