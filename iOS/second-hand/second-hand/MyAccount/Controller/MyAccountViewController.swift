@@ -32,11 +32,11 @@ class MyAccountViewController: NavigationUnderLineViewController {
     }
     
     func setLoginButton() {
+        loginButton.frame = CGRect(x: 0, y: 0, width: 361, height: 52)
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.subHead
         loginButton.backgroundColor = .orange
-        self.view.setNeedsLayout()
-        loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
+        loginButton.layer.cornerRadius = 8
         loginButton.layer.masksToBounds = true
     }
     
