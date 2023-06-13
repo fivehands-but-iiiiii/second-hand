@@ -39,7 +39,7 @@ class MyAccountViewController: NavigationUnderLineViewController {
     }
     
     @objc func loginButtonTapped() {
-        present(loginViewController, animated: true)
+        present(UINavigationController(rootViewController: loginViewController), animated: true)
     }
     
     func setJoinMembershipButton() {
