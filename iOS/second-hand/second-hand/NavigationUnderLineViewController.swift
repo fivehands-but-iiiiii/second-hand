@@ -21,7 +21,7 @@ class NavigationUnderLineViewController: UIViewController {
     
     private func setNavigationBarBottomBorder() {
         let borderView = UIView(frame: CGRect(x: .zero, y: navigationController?.navigationBar.frame.height ?? .zero, width: navigationController?.navigationBar.frame.width ?? .zero, height: 1))
-        borderView.backgroundColor = .lightGray
+        borderView.backgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
         navigationController?.navigationBar.addSubview(borderView)
         
         navigationFontSetting()

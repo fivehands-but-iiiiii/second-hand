@@ -8,6 +8,8 @@
 import UIKit
 
 class SecondHandTabBarController: UITabBarController {
+    
+    var login = true
     override func viewDidLoad() {
         super.viewDidLoad()
         addViewController()
