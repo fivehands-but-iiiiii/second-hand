@@ -22,6 +22,7 @@ class WishListViewController: NavigationUnderLineViewController {
     
     func setup() {
         //네비게이션
+        
         self.navigationItem.title = "관심 목록"
         
         let allCategoriButton = CategoryButton(title: "전체")

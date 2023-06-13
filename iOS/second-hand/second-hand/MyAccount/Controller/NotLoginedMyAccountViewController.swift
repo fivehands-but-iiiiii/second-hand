@@ -7,36 +7,77 @@
 
 import UIKit
 
-class MyAccountViewController: NavigationUnderLineViewController {
+class NotLoginedMyAccountViewController: NavigationUnderLineViewController {
+    private let idStackView = IdStackView()
+    private let loginButton = UIButton()
+    private let joinMembershipButton = UIButton()
+    private let contour = UILabel()
+    private let loginedViewController = LoginedMyAccountViewController()
+    private var isLogined = false
     
-    let idStackView = IdStackView()
-    let loginButton = UIButton()
-    let joinMembershipButton = UIButton()
-    let contour = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        layout()
-        setting()
+        setNavigationBar()
+        self.addChild(loginedViewController)
     }
     
-    func setting() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.isLogined.toggle()
+        if isLogined {
+            setLoginedUI()
+        }
+        else {
+            setNotLoginedUI()
+        }
+    }
+
+    private func setLoginedUI() {
+        for subview in view.subviews {
+                subview.removeFromSuperview()
+            }
+        
+        view.addSubview(loginedViewController.view)
+        loginedViewController.didMove(toParent: self)
+        loginedViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                loginedViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+                loginedViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                loginedViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                loginedViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+    }
+    
+    private func setNavigationBar() {
         self.navigationItem.title = "내 계정"
+    }
+    
+    private func setLoginButton() {
         loginButton.setTitle("로그인", for: .normal)
         loginButton.titleLabel?.font = UIFont.subHead
         loginButton.backgroundColor = .orange
-        self.view.layoutIfNeeded()
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
-        
-        joinMembershipButton.setTitle("회원가입", for: .normal)
-        joinMembershipButton.titleLabel?.font = UIFont.subHead
-        joinMembershipButton.setTitleColor(.black, for: .normal)
-        
         contour.backgroundColor = .lightGray
     }
     
-    func layout() {
+    private func setJoinButton() {
+        joinMembershipButton.setTitle("회원가입", for: .normal)
+        joinMembershipButton.titleLabel?.font = UIFont.subHead
+        joinMembershipButton.setTitleColor(.black, for: .normal)
+    }
+    private func setNotLoginedUI() {
+        for subview in view.subviews {
+                subview.removeFromSuperview()
+            }
+        setNavigationBar()
+        setLoginButton()
+        setJoinButton()
+        setLoginedConstraints()
+    }
+    
+    private func setLoginedConstraints() {
         self.view.addSubview(loginButton)
         self.view.addSubview(idStackView)
         self.view.addSubview(joinMembershipButton)
@@ -51,6 +92,7 @@ class MyAccountViewController: NavigationUnderLineViewController {
             idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 178),
             idStackView.heightAnchor.constraint(equalToConstant: 44),
             idStackView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            idStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
             loginButton.widthAnchor.constraint(equalToConstant: 361),
             loginButton.heightAnchor.constraint(equalToConstant: 52),
@@ -63,7 +105,8 @@ class MyAccountViewController: NavigationUnderLineViewController {
             
             contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor, constant: 0),
             contour.heightAnchor.constraint(equalToConstant: 0.5),
-            contour.widthAnchor.constraint(equalToConstant: self.view.frame.width)
+            contour.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            contour.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
     }
 }
