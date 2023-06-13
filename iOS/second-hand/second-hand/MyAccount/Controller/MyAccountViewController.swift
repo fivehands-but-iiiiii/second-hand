@@ -54,7 +54,7 @@ class MyAccountViewController: NavigationUnderLineViewController {
     
     func setIdLabel() {
         idLabel.text = "아이디"
-        idLabel.font = UIFont.headLine
+        idLabel.font = UIFont(name: "SFPro-Regular", size: 17)
         
     }
     
@@ -68,9 +68,9 @@ class MyAccountViewController: NavigationUnderLineViewController {
     
     func layout() {
         self.view.addSubview(loginButton)
+        self.view.addSubview(joinMembershipButton)
         self.view.addSubview(idLabel)
         self.view.addSubview(idTextField)
-        self.view.addSubview(joinMembershipButton)
         self.view.addSubview(contour)
         
         idLabel.translatesAutoresizingMaskIntoConstraints = false
