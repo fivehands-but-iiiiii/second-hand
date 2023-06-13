@@ -8,11 +8,15 @@
 import UIKit
 
 class NavigationUnderLineViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNavigationBarBottomBorder()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        setNavigationBarBottomBorder()
     }
     
     private func setNavigationBarBottomBorder() {

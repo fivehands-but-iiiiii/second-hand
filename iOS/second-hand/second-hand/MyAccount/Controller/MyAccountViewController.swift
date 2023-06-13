@@ -8,7 +8,7 @@
 import UIKit
 
 class MyAccountViewController: NavigationUnderLineViewController {
-    var loginViewController = LoginViewController()
+    var joinViewController = JoinViewController()
     
     let idStackView = IdStackView()
     let loginButton = UIButton()
@@ -35,18 +35,20 @@ class MyAccountViewController: NavigationUnderLineViewController {
         self.view.layoutIfNeeded()
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
-        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
-    @objc func loginButtonTapped() {
-        present(UINavigationController(rootViewController: loginViewController), animated: true)
-    }
     
     func setJoinMembershipButton() {
         joinMembershipButton.setTitle("회원가입", for: .normal)
         joinMembershipButton.titleLabel?.font = UIFont.subHead
         joinMembershipButton.setTitleColor(.black, for: .normal)
+        joinMembershipButton.addTarget(self, action: #selector(joinButtonTapped), for: .touchUpInside)
     }
+    
+    @objc func joinButtonTapped() {
+        present(UINavigationController(rootViewController: joinViewController), animated: true)
+    }
+    
     
     func setContour() {
         contour.backgroundColor = .lightGray
