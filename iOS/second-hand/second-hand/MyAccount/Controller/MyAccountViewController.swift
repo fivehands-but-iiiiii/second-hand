@@ -8,6 +8,7 @@
 import UIKit
 
 class MyAccountViewController: NavigationUnderLineViewController {
+    var loginViewController = LoginViewController()
     
     let idStackView = IdStackView()
     let loginButton = UIButton()
@@ -34,6 +35,11 @@ class MyAccountViewController: NavigationUnderLineViewController {
         self.view.layoutIfNeeded()
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func loginButtonTapped() {
+        present(loginViewController, animated: true)
     }
     
     func setJoinMembershipButton() {
