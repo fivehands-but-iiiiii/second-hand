@@ -15,6 +15,9 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let loginViewController = LoginMyAccountViewController()
     private var isLogin = false
     
+    var joinViewController = JoinViewController()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
@@ -60,10 +63,17 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         loginButton.backgroundColor = .orange
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
+        
+        
         contour.backgroundColor = .lightGray
+        joinMembershipButton.addTarget(self, action: #selector(joinButtonTouched), for: .touchUpInside)
         
         loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
     }
+    
+    @objc func joinButtonTouched() {
+            present(UINavigationController(rootViewController: joinViewController), animated: true)
+        }
     
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))

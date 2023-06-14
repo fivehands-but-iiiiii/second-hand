@@ -30,6 +30,7 @@
 		E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */; };
 		E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8662A36F054001F2D56 /* ChattingViewController.swift */; };
 		E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */; };
+		E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C951442A3967D30094AD66 /* JoinViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonCustomView.swift; path = "second-hand/Home/ButtonCustomView.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8662A36F054001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
 		E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMyAccountViewController.swift; sourceTree = "<group>"; };
+		E4C951442A3967D30094AD66 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -221,6 +223,7 @@
 		E49EB8482A3049F2001F2D56 /* MyAccount */ = {
 			isa = PBXGroup;
 			children = (
+				E4C951422A3967840094AD66 /* SubScene */,
 				E49EB8692A36F087001F2D56 /* View */,
 				E49EB8682A36F082001F2D56 /* Model */,
 				DBAF83AE2A32E3E900194A02 /* Controller */,
@@ -323,6 +326,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E4C951422A3967840094AD66 /* SubScene */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951432A3967A80094AD66 /* Controller */,
+			);
+			path = SubScene;
+			sourceTree = "<group>";
+		};
+		E4C951432A3967A80094AD66 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951442A3967D30094AD66 /* JoinViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -419,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */,
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
 				DBE3C03D2A30791F00E6EF35 /* CategoriesScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
