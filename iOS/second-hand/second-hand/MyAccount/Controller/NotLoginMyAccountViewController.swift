@@ -7,14 +7,13 @@
 
 import UIKit
 
-class NotLoginedMyAccountViewController: NavigationUnderLineViewController {
+class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let idStackView = IdStackView()
     private let loginButton = UIButton()
     private let joinMembershipButton = UIButton()
     private let contour = UILabel()
     private let loginedViewController = LoginedMyAccountViewController()
     private var isLogined = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +23,6 @@ class NotLoginedMyAccountViewController: NavigationUnderLineViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.isLogined.toggle()
         if isLogined {
             setLoginedUI()
         }
@@ -33,6 +31,9 @@ class NotLoginedMyAccountViewController: NavigationUnderLineViewController {
         }
     }
 
+    private func setObserver() {
+    }
+    
     private func setLoginedUI() {
         for subview in view.subviews {
                 subview.removeFromSuperview()
@@ -60,6 +61,13 @@ class NotLoginedMyAccountViewController: NavigationUnderLineViewController {
         loginButton.layer.cornerRadius = loginButton.layer.frame.height/2
         loginButton.layer.masksToBounds = true
         contour.backgroundColor = .lightGray
+        
+        loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
+    }
+    
+    @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
+        let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
+        NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
     }
     
     private func setJoinButton() {

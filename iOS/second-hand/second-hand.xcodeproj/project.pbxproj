@@ -14,7 +14,7 @@
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
 		DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */; };
 		DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83AF2A32E3E900194A02 /* IdStackView.swift */; };
-		DBAF83B22A32E3E900194A02 /* NotLoginedMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83B02A32E3E900194A02 /* NotLoginedMyAccountViewController.swift */; };
+		DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83B02A32E3E900194A02 /* NotLoginMyAccountViewController.swift */; };
 		DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */; };
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
 		DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D332A2DA5C0001233CC /* Assets.xcassets */; };
@@ -29,7 +29,7 @@
 		E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */; };
 		E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */; };
 		E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8662A36F054001F2D56 /* ChattingViewController.swift */; };
-		E49EB86B2A371A0B001F2D56 /* LoginedMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB86A2A371A0B001F2D56 /* LoginedMyAccountViewController.swift */; };
+		E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,7 @@
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83AF2A32E3E900194A02 /* IdStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdStackView.swift; sourceTree = "<group>"; };
-		DBAF83B02A32E3E900194A02 /* NotLoginedMyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotLoginedMyAccountViewController.swift; sourceTree = "<group>"; };
+		DBAF83B02A32E3E900194A02 /* NotLoginMyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotLoginMyAccountViewController.swift; sourceTree = "<group>"; };
 		DBB04D272A2DA5BF001233CC /* second-hand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "second-hand.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeRightBarButton.swift; path = "second-hand/Home/HomeRightBarButton.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonCustomView.swift; path = "second-hand/Home/ButtonCustomView.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8662A36F054001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
-		E49EB86A2A371A0B001F2D56 /* LoginedMyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedMyAccountViewController.swift; sourceTree = "<group>"; };
+		E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMyAccountViewController.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,8 +127,8 @@
 		DBAF83AE2A32E3E900194A02 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83B02A32E3E900194A02 /* NotLoginedMyAccountViewController.swift */,
-				E49EB86A2A371A0B001F2D56 /* LoginedMyAccountViewController.swift */,
+				DBAF83B02A32E3E900194A02 /* NotLoginMyAccountViewController.swift */,
+				E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -426,7 +426,7 @@
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
-				E49EB86B2A371A0B001F2D56 /* LoginedMyAccountViewController.swift in Sources */,
+				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
@@ -438,7 +438,7 @@
 				DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
-				DBAF83B22A32E3E900194A02 /* NotLoginedMyAccountViewController.swift in Sources */,
+				DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
