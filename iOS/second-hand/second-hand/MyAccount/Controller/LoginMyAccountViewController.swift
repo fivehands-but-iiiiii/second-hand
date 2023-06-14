@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginedMyAccountViewController: NavigationUnderLineViewController {
+class LoginMyAccountViewController: NavigationUnderLineViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
