@@ -80,17 +80,21 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         githubLoginButton.backgroundColor = .black
         githubLoginButton.layer.cornerRadius = 8
         githubLoginButton.layer.masksToBounds = true
-        //githubLoginButton.addTarget(self, action: #selector(githubLoginButton), for: .touchUpInside)
+        githubLoginButton.addTarget(self, action: #selector(githubLoginButtonTouched), for: .touchUpInside)
     }
     
     @objc func joinButtonTouched() {
-            present(UINavigationController(rootViewController: joinViewController), animated: true)
+
         }
     
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
         // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
+    }
+    
+    @objc private func githubLoginButtonTouched() {
+        present(GIthubWebViewController(), animated: true)
     }
     
     
