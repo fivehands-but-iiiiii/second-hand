@@ -94,7 +94,8 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     @objc private func githubLoginButtonTouched() {
-        present(GIthubWebViewController(), animated: true)
+        present(GithubWebViewController(), animated: true)
+        
     }
     
     
