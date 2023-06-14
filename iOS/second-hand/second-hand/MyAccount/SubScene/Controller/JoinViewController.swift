@@ -18,6 +18,7 @@ class JoinViewController: NavigationUnderLineViewController {
     let addLocationText = UILabel()
     let idLabel = UILabel()
     let idTextField = UITextField()
+    var idDescription = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setLabel()
         setTextField()
         idTextField.delegate = self
+        setIdDescription()
     }
     
     func setCircleButton() {
@@ -121,6 +123,11 @@ class JoinViewController: NavigationUnderLineViewController {
         idTextField.font = UIFont.body
     }
     
+    func setIdDescription() {
+        idDescription.font = UIFont.caption2
+        idDescription.textColor = UIColor.orange
+    }
+    
     
     func setConstraints() {
         self.view.addSubview(idStackView)
@@ -130,6 +137,7 @@ class JoinViewController: NavigationUnderLineViewController {
         self.addLocationButton.addSubview(stackView)
         self.view.addSubview(idLabel)
         self.view.addSubview(idTextField)
+        self.view.addSubview(idDescription)
         
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -141,6 +149,7 @@ class JoinViewController: NavigationUnderLineViewController {
         addLocationText.translatesAutoresizingMaskIntoConstraints = false
         idLabel.translatesAutoresizingMaskIntoConstraints = false
         idTextField.translatesAutoresizingMaskIntoConstraints = false
+        idDescription.translatesAutoresizingMaskIntoConstraints = false
         
         
         NSLayoutConstraint.activate([
@@ -176,6 +185,9 @@ class JoinViewController: NavigationUnderLineViewController {
             idTextField.centerYAnchor.constraint(equalTo: idStackView.centerYAnchor),
             idTextField.heightAnchor.constraint(equalToConstant: 22),
             
+            idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3),
+            
             
 
         ])
@@ -193,7 +205,7 @@ extension JoinViewController: UITextFieldDelegate {
     //12자이상시 false, 숫자영어뺴곤 false
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard (textField.text?.count)! + string.count <= 12 else {return false}
-        var textVerification = isEnglishNumber(string)
+        let textVerification = isEnglishNumber(string)
         guard textVerification else {return false}
         return true
     }
