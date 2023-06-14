@@ -189,10 +189,24 @@ class JoinViewController: NavigationUnderLineViewController {
 
 extension JoinViewController: UITextFieldDelegate {
     
+    //한글자 적을때마다 적혀질지 불타입
+    //12자이상시 false, 숫자영어뺴곤 false
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard (textField.text?.count)! + string.count <= 12 else {return false}
+        var textVerification = isEnglishNumber(string)
+        guard textVerification else {return false}
+        return true
+    }
+    
     
     //화면 터치시 키보드 내려감
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         idTextField.resignFirstResponder()
 
+    }
+    
+    func isEnglishNumber(_ string: String) -> Bool{
+        let englishNumber = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
+        return englishNumber.contains(UnicodeScalar(String(string))!)
     }
 }
