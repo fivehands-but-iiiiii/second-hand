@@ -7,14 +7,14 @@
 
 import UIKit
 
-class GIthubWebViewController: UIViewController {
+class GithubWebViewController: UIViewController {
     
     var webView = UIWebView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        let url = URL(string: "http://www.naver.com")
+        let url = URL(string: "https://github.com/login/oauth/authorize?client_id=aeceaccd71d24266b1d3&redirect_url=http://localhost:8080/login/oauth2/code/github")
         let request = URLRequest(url: url!)
         webView.loadRequest(request)
         
