@@ -221,7 +221,7 @@ extension JoinViewController: UITextFieldDelegate {
         
         //중복된 아이디라면 디스크립션 텍스트 변경
         let testIdArray = ["hahahaha", "hohohoho"]
-        if testIdArray.contains(textField.text ?? "1") {
+        if testIdArray.contains(textField.text! + string ?? "1") {
             idDescription.text = "이미 사용중인 아이디예요"
         }
         return true
