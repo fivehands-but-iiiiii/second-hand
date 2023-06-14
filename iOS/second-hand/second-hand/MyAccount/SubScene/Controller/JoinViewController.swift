@@ -25,6 +25,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setAddLocationButton()
         setStackView()
         setConstraints()
+        idStackView.idTextFieldDelegate = self
     }
     
     func setCircleButton() {
@@ -150,4 +151,17 @@ class JoinViewController: NavigationUnderLineViewController {
         ])
     }
     
+}
+
+extension JoinViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == idStackView.idTextField {
+            // idTextField에서 리턴 키가 눌렸을 때의 동작을 처리해주세요
+            textField.resignFirstResponder() // 키보드 감추기
+            // 필요한 추가 작업을 수행해주세요
+        }
+        return true
+    }
+
+    // 필요한 다른 UITextFieldDelegate 메서드를 구현해주세요
 }

@@ -10,6 +10,14 @@ import UIKit
 class IdStackView: UIStackView {
     let idLabel = UILabel()
     let idTextField = UITextField()
+    var idTextFieldDelegate: UITextFieldDelegate? {
+            get {
+                return idTextField.delegate
+            }
+            set {
+                idTextField.delegate = newValue
+            }
+        }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
