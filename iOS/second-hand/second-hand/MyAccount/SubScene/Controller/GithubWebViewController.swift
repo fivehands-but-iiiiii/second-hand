@@ -14,10 +14,7 @@ class GithubWebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        let url = URL(string: "https://github.com/login/oauth/authorize?client_id=aeceaccd71d24266b1d3&redirect_url=http://localhost:8080/login/oauth2/code/github")
-        let request = URLRequest(url: url!)
-        webView.loadRequest(request)
-        
+        webViewLogic()
     }
     
     func layout() {
@@ -30,5 +27,11 @@ class GithubWebViewController: UIViewController {
         webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
         webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
+    }
+    
+    func webViewLogic() {
+        let url = URL(string: "https://github.com/login/oauth/authorize?client_id=aeceaccd71d24266b1d3&redirect_url=http://localhost:8080/login/oauth2/code/github")
+        let request = URLRequest(url: url!)
+        webView.loadRequest(request)
     }
 }
