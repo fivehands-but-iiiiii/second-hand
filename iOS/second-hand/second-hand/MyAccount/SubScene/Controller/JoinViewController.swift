@@ -10,12 +10,14 @@ import UIKit
 class JoinViewController: NavigationUnderLineViewController {
     // TODO: 공사예정
     var circleButton = UIButton()
-    let idStackView = IdStackView()
+    let idStackView = UIStackView()
     let contour = UILabel()
     let addLocationButton = UIButton()
     let stackView = UIStackView()
     let plusLabel = UILabel()
     let addLocationText = UILabel()
+    let idLabel = UILabel()
+    let idTextField = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,8 @@ class JoinViewController: NavigationUnderLineViewController {
         setAddLocationButton()
         setStackView()
         setConstraints()
-        idStackView.idTextFieldDelegate = self
+        setLabel()
+        setTextField()
     }
     
     func setCircleButton() {
@@ -113,19 +116,24 @@ class JoinViewController: NavigationUnderLineViewController {
         self.view.addSubview(contour)
         self.view.addSubview(addLocationButton)
         self.addLocationButton.addSubview(stackView)
+        self.view.addSubview(idLabel)
+        self.view.addSubview(idTextField)
         
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         idStackView.translatesAutoresizingMaskIntoConstraints = false
         circleButton.translatesAutoresizingMaskIntoConstraints = false
         contour.translatesAutoresizingMaskIntoConstraints = false
         addLocationButton.translatesAutoresizingMaskIntoConstraints = false
         plusLabel.translatesAutoresizingMaskIntoConstraints = false
         addLocationText.translatesAutoresizingMaskIntoConstraints = false
+        idLabel.translatesAutoresizingMaskIntoConstraints = false
+        idTextField.translatesAutoresizingMaskIntoConstraints = false
         
         
         NSLayoutConstraint.activate([
+            
+            
             circleButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130.0),
             circleButton.widthAnchor.constraint(equalToConstant: 80),
@@ -148,20 +156,33 @@ class JoinViewController: NavigationUnderLineViewController {
             stackView.centerXAnchor.constraint(equalTo: self.addLocationButton.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor),
             
+            idLabel.heightAnchor.constraint(equalToConstant: 22),
+            idLabel.leadingAnchor.constraint(equalTo: idStackView.leadingAnchor, constant: 16),
+            idLabel.centerYAnchor.constraint(equalTo: idStackView.centerYAnchor),
+            
+            idTextField.leadingAnchor.constraint(equalTo: idLabel.trailingAnchor, constant: 52.74),
+            idTextField.centerYAnchor.constraint(equalTo: idStackView.centerYAnchor),
+            idTextField.heightAnchor.constraint(equalToConstant: 22),
+            
+            
+
         ])
     }
+    
+    private func setLabel() {
+        idLabel.text = "아이디"
+        idLabel.font = UIFont.body
+    }
+    
+    private func setTextField() {
+        idTextField.placeholder = "아이디를 입력하세요"
+        idTextField.font = UIFont.body
+    }
+    
+    
     
 }
 
 extension JoinViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == idStackView.idTextField {
-            // idTextField에서 리턴 키가 눌렸을 때의 동작을 처리해주세요
-            textField.resignFirstResponder() // 키보드 감추기
-            // 필요한 추가 작업을 수행해주세요
-        }
-        return true
-    }
-
-    // 필요한 다른 UITextFieldDelegate 메서드를 구현해주세요
+    
 }
