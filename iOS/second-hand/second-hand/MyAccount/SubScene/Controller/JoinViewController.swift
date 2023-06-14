@@ -154,7 +154,6 @@ class JoinViewController: NavigationUnderLineViewController {
         
         NSLayoutConstraint.activate([
             
-            
             circleButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130.0),
             circleButton.widthAnchor.constraint(equalToConstant: 80),
@@ -162,7 +161,6 @@ class JoinViewController: NavigationUnderLineViewController {
             
             idStackView.topAnchor.constraint(equalTo: self.circleButton.bottomAnchor,constant: 35.0),
             idStackView.heightAnchor.constraint(equalToConstant: 44),
-            
             
             contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor),
             contour.heightAnchor.constraint(equalToConstant: 0.5),
@@ -188,8 +186,6 @@ class JoinViewController: NavigationUnderLineViewController {
             idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3),
             
-            
-
         ])
     }
     
@@ -201,12 +197,23 @@ class JoinViewController: NavigationUnderLineViewController {
 
 extension JoinViewController: UITextFieldDelegate {
     
-    //한글자 적을때마다 적혀질지 불타입
-    //12자이상시 false, 숫자영어뺴곤 false
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //12자이상시 false
         guard (textField.text?.count)! + string.count <= 12 else {return false}
+        //숫자영어뺴곤 false
         let textVerification = isEnglishNumber(string)
         guard textVerification else {return false}
+        
+        //6글자 미만일 경우 디스크립션 텍스트 변경
+        if (textField.text?.count)! + string.count < 6 {
+            idDescription.text = "6~12자 이내로 입력하세요"
+        }
+        
+        //중복된 아이디라면 디스크립션 텍스트 변경
+        var testIdArray = ["hahahaha", "hohohoho"]
+        if testIdArray.contains(textField.text ?? "1") {
+            idDescription.text = "이미 사용중인 아이디예요"
+        }
         return true
     }
     
