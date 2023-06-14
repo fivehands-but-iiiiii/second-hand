@@ -12,18 +12,18 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let loginButton = UIButton()
     private let joinMembershipButton = UIButton()
     private let contour = UILabel()
-    private let loginedViewController = LoginedMyAccountViewController()
-    private var isLogined = false
+    private let loginViewController = LoginMyAccountViewController()
+    private var isLogin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
-        self.addChild(loginedViewController)
+        self.addChild(loginViewController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isLogined {
+        if isLogin {
             setLoginedUI()
         }
         else {
@@ -39,14 +39,14 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
                 subview.removeFromSuperview()
             }
         
-        view.addSubview(loginedViewController.view)
-        loginedViewController.didMove(toParent: self)
-        loginedViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginViewController.view)
+        loginViewController.didMove(toParent: self)
+        loginViewController.view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                loginedViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                loginedViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                loginedViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                loginedViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+                loginViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+                loginViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                loginViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                loginViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
     }
     
@@ -68,6 +68,7 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
+        // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
     }
     
     private func setJoinButton() {

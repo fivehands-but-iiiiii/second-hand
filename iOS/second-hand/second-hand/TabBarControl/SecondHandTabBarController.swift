@@ -13,7 +13,7 @@ class SecondHandTabBarController: UITabBarController {
     private let saleLog = SaleLogViewController()
     private let wishList = WishListViewController()
     private let chatting = ChattingViewController()
-    private var myAccount = NotLoginedMyAccountViewController()
+    private var myAccount = NotLoginMyAccountViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
