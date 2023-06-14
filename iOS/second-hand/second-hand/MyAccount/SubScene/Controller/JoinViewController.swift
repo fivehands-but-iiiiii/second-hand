@@ -8,6 +8,7 @@
 import UIKit
 
 class JoinViewController: NavigationUnderLineViewController {
+    // TODO: 공사예정
     var circleButton = UIButton()
     let idStackView = IdStackView()
     let contour = UILabel()
@@ -25,7 +26,6 @@ class JoinViewController: NavigationUnderLineViewController {
         setStackView()
         setConstraints()
     }
-    
     
     func setCircleButton() {
         circleButton.frame = CGRect(x: 0, y: 0, width: 80, height: 80) // 크기 설정
@@ -91,8 +91,7 @@ class JoinViewController: NavigationUnderLineViewController {
     
     func setPlusLabel() {
         //일단 임의로 작성
-        
-        plusLabel.text = "✚"
+        plusLabel.text = "+"
         plusLabel.font = UIFont.subHead
         plusLabel.textAlignment = .center
         self.stackView.addArrangedSubview(plusLabel)
@@ -132,10 +131,8 @@ class JoinViewController: NavigationUnderLineViewController {
             circleButton.heightAnchor.constraint(equalToConstant: 80),
             
             idStackView.topAnchor.constraint(equalTo: self.circleButton.bottomAnchor,constant: 35.0),
-            idStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16.0),
-            idStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16.0),
             idStackView.heightAnchor.constraint(equalToConstant: 44),
-            idStackView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            
             
             contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor),
             contour.heightAnchor.constraint(equalToConstant: 0.5),
@@ -146,15 +143,9 @@ class JoinViewController: NavigationUnderLineViewController {
             addLocationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             addLocationButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             addLocationButton.heightAnchor.constraint(equalToConstant: 52),
-            
-            stackView.heightAnchor.constraint(equalToConstant: 20),
-            stackView.widthAnchor.constraint(equalToConstant: 80),
+
             stackView.centerXAnchor.constraint(equalTo: self.addLocationButton.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor),
-            
-            plusLabel.widthAnchor.constraint(equalToConstant: 16.0),
-            addLocationText.widthAnchor.constraint(equalToConstant: 40.0),
-            addLocationText.centerXAnchor.constraint(equalTo: stackView.centerXAnchor,constant: 10)
             
         ])
     }
