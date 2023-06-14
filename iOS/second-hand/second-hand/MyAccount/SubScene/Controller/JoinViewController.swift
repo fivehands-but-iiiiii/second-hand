@@ -198,6 +198,11 @@ class JoinViewController: NavigationUnderLineViewController {
 extension JoinViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string.isEmpty {
+            //백스페이스 버튼이 눌린다면 무조건 허용
+            return true
+        }
         //12자이상시 false
         guard (textField.text?.count)! + string.count <= 12 else {return false}
         //숫자영어뺴곤 false
@@ -210,16 +215,15 @@ extension JoinViewController: UITextFieldDelegate {
         }
         
         //중복된 아이디라면 디스크립션 텍스트 변경
-        var testIdArray = ["hahahaha", "hohohoho"]
+        let testIdArray = ["hahahaha", "hohohoho"]
         if testIdArray.contains(textField.text ?? "1") {
             idDescription.text = "이미 사용중인 아이디예요"
         }
         return true
     }
-    
-    
-    //화면 터치시 키보드 내려감
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //화면 터치시 키보드 내려감
         idTextField.resignFirstResponder()
 
     }
@@ -227,5 +231,9 @@ extension JoinViewController: UITextFieldDelegate {
     func isEnglishNumber(_ string: String) -> Bool{
         let englishNumber = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
         return englishNumber.contains(UnicodeScalar(String(string))!)
+    }
+  
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return true
     }
 }
