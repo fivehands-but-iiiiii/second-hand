@@ -14,6 +14,7 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let joinMembershipButton = UIButton()
     private let contour = UILabel()
     private let loginViewController = LoginMyAccountViewController()
+    private let githubWebViewController = GithubWebViewController()
     private var isLogin = false
     
     var joinViewController = JoinViewController()
@@ -84,7 +85,7 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     @objc func joinButtonTouched() {
-
+        present(UINavigationController(rootViewController: joinViewController), animated: true)
         }
     
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
@@ -94,8 +95,7 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     @objc private func githubLoginButtonTouched() {
-        present(GithubWebViewController(), animated: true)
-        
+        self.navigationController?.pushViewController(githubWebViewController, animated: true)
     }
     
     
