@@ -29,6 +29,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setConstraints()
         setLabel()
         setTextField()
+        idTextField.delegate = self
     }
     
     func setCircleButton() {
@@ -110,6 +111,17 @@ class JoinViewController: NavigationUnderLineViewController {
         stackView.alignment = .fill
     }
     
+    private func setLabel() {
+        idLabel.text = "아이디"
+        idLabel.font = UIFont.body
+    }
+    
+    private func setTextField() {
+        idTextField.placeholder = "아이디를 입력하세요"
+        idTextField.font = UIFont.body
+    }
+    
+    
     func setConstraints() {
         self.view.addSubview(idStackView)
         self.view.addSubview(circleButton)
@@ -169,15 +181,7 @@ class JoinViewController: NavigationUnderLineViewController {
         ])
     }
     
-    private func setLabel() {
-        idLabel.text = "아이디"
-        idLabel.font = UIFont.body
-    }
     
-    private func setTextField() {
-        idTextField.placeholder = "아이디를 입력하세요"
-        idTextField.font = UIFont.body
-    }
     
     
     
@@ -185,4 +189,10 @@ class JoinViewController: NavigationUnderLineViewController {
 
 extension JoinViewController: UITextFieldDelegate {
     
+    
+    //화면 터치시 키보드 내려감
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        idTextField.resignFirstResponder()
+
+    }
 }
