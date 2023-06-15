@@ -22,6 +22,12 @@ class JoinViewController: NavigationUnderLineViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
+        idTextField.delegate = self
+        idTextField.autocapitalizationType = .none
+    }
+    
+    func setUI() {
         setNavigationBar()
         setCircleButton()
         setContour()
@@ -30,9 +36,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setConstraints()
         setLabel()
         setTextField()
-        idTextField.delegate = self
         setIdDescription()
-        idTextField.autocapitalizationType = .none
     }
     
     func setCircleButton() {
@@ -131,27 +135,12 @@ class JoinViewController: NavigationUnderLineViewController {
     
     
     func setConstraints() {
-        self.view.addSubview(idStackView)
-        self.view.addSubview(circleButton)
-        self.view.addSubview(contour)
-        self.view.addSubview(addLocationButton)
+        let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription]
+        addSubviewComponent.forEach{self.view.addSubview($0)}
         self.addLocationButton.addSubview(stackView)
-        self.view.addSubview(idLabel)
-        self.view.addSubview(idTextField)
-        self.view.addSubview(idDescription)
         
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        idStackView.translatesAutoresizingMaskIntoConstraints = false
-        circleButton.translatesAutoresizingMaskIntoConstraints = false
-        contour.translatesAutoresizingMaskIntoConstraints = false
-        addLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        plusLabel.translatesAutoresizingMaskIntoConstraints = false
-        addLocationText.translatesAutoresizingMaskIntoConstraints = false
-        idLabel.translatesAutoresizingMaskIntoConstraints = false
-        idTextField.translatesAutoresizingMaskIntoConstraints = false
-        idDescription.translatesAutoresizingMaskIntoConstraints = false
-        
+        let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel]
+        component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
             
