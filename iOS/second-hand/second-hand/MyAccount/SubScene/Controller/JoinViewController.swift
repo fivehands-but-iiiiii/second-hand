@@ -208,7 +208,6 @@ extension JoinViewController: UITextFieldDelegate {
         }
        
         if string.isEmpty {
-            print("DD")
             //백스페이스 버튼이 눌린다면 무조건 허용
             return true
         }
@@ -217,8 +216,6 @@ extension JoinViewController: UITextFieldDelegate {
         //숫자영어뺴곤 false
         let textVerification = isEnglishNumber(string)
         guard textVerification else {return false}
-        
-        
         
         //중복된 아이디라면 디스크립션 텍스트 변경
         let testIdArray = ["hahahaha", "hohohoho"]
@@ -235,7 +232,7 @@ extension JoinViewController: UITextFieldDelegate {
     }
     
     func isEnglishNumber(_ string: String) -> Bool{
-        let englishNumber = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
+        let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
         return englishNumber.contains(UnicodeScalar(String(string))!)
     }
   
