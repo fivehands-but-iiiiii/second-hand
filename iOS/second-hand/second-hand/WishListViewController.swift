@@ -8,7 +8,7 @@
 import UIKit
 
 final class WishListViewController: NavigationUnderLineViewController {
-    private var categoryScrollView = CategoriesScrollView()
+    private var categoryScrollView = CategoryScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -36,12 +36,12 @@ final class WishListViewController: NavigationUnderLineViewController {
         
         let height: CGFloat = self.view.frame.height
         let width: CGFloat = self.view.frame.width
-        let figmaHeight: CGFloat = 794
-        let figmaWidth: CGFloat = 393
+        let figmaHeight: CGFloat = 852
+        let figmaWidth: CGFloat = 391
         let heightRatio: CGFloat = height/figmaHeight
         let widthRatio: CGFloat = width/figmaWidth
         NSLayoutConstraint.activate([
-            categoryScrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 16*heightRatio),
+            categoryScrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 122*heightRatio),
             categoryScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16*widthRatio),
             categoryScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
             categoryScrollView.heightAnchor.constraint(equalToConstant: 32*heightRatio)
