@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotLoginMyAccountViewController: NavigationUnderLineViewController {
+final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let joinViewController = JoinViewController()
     private let loginViewController = LoginMyAccountViewController()
     private let githubWebViewController = GithubWebViewController()
