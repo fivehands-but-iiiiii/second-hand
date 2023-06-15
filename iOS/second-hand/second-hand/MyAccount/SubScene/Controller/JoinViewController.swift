@@ -141,38 +141,42 @@ final class JoinViewController: NavigationUnderLineViewController {
         let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel]
         component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
+        let height: CGFloat = self.view.frame.height
+        let width: CGFloat = self.view.frame.width
+        let figmaHeight: CGFloat = 794
+        let figmaWidth: CGFloat = 393
+        let heightRatio: CGFloat = height/figmaHeight
+        let widthRatio: CGFloat = width/figmaWidth
+        
         NSLayoutConstraint.activate([
             circleButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130.0),
+            circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 136*heightRatio),
             circleButton.widthAnchor.constraint(equalToConstant: 80),
             circleButton.heightAnchor.constraint(equalToConstant: 80),
             
-            idStackView.topAnchor.constraint(equalTo: self.circleButton.bottomAnchor,constant: 35.0),
-            idStackView.heightAnchor.constraint(equalToConstant: 44),
-            
-            contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor),
-            contour.heightAnchor.constraint(equalToConstant: 0.5),
+            contour.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 10.5*heightRatio),
+            contour.heightAnchor.constraint(equalToConstant: 0.5*heightRatio),
             contour.widthAnchor.constraint(equalToConstant: self.view.frame.width),
             contour.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            addLocationButton.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 40),
-            addLocationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            addLocationButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            addLocationButton.heightAnchor.constraint(equalToConstant: 52),
+            addLocationButton.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 40*heightRatio),
+            addLocationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16*widthRatio),
+            addLocationButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
+            addLocationButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
             
             stackView.centerXAnchor.constraint(equalTo: self.addLocationButton.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor),
             
-            idLabel.heightAnchor.constraint(equalToConstant: 22),
-            idLabel.leadingAnchor.constraint(equalTo: idStackView.leadingAnchor, constant: 16),
-            idLabel.centerYAnchor.constraint(equalTo: idStackView.centerYAnchor),
+            idLabel.topAnchor.constraint(equalTo: self.circleButton.bottomAnchor,constant: 35.0*heightRatio),
+            idLabel.heightAnchor.constraint(equalToConstant: 22*heightRatio),
+            idLabel.leadingAnchor.constraint(equalTo: idStackView.leadingAnchor, constant: 16*widthRatio),
             
-            idTextField.leadingAnchor.constraint(equalTo: idLabel.trailingAnchor, constant: 52.74),
-            idTextField.centerYAnchor.constraint(equalTo: idStackView.centerYAnchor),
-            idTextField.heightAnchor.constraint(equalToConstant: 22),
+            idTextField.leadingAnchor.constraint(equalTo: idLabel.trailingAnchor, constant: 52.74*widthRatio),
+            idTextField.centerYAnchor.constraint(equalTo: idLabel.centerYAnchor),
+            idTextField.heightAnchor.constraint(equalToConstant: 22*heightRatio),
             
-            idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3),
+            idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
+            idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
         ])
     }
     
