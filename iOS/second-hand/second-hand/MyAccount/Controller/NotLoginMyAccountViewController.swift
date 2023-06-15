@@ -127,7 +127,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         
         NSLayoutConstraint.activate([
             idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 189*heightRatio),
-            idStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16*widthRatio),
+            idStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             
             contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor, constant: 10.5*widthRatio),
             contour.heightAnchor.constraint(equalToConstant: 0.5),
