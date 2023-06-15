@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryButton: UIButton {
+final class CategoryButton: UIButton {
 
     override func setNeedsLayout() {
         super.setNeedsLayout()
@@ -19,7 +19,7 @@ class CategoryButton: UIButton {
         setUI(title: title)
     }
     
-    func setUI(title: String) {
+    private func setUI(title: String) {
         self.setTitle(title, for: .normal)
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
