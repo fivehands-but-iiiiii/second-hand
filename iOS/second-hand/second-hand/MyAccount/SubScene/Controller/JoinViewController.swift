@@ -32,6 +32,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setTextField()
         idTextField.delegate = self
         setIdDescription()
+        idTextField.keyboardType = .alphabet
     }
     
     func setCircleButton() {
@@ -221,7 +222,7 @@ extension JoinViewController: UITextFieldDelegate {
         
         //중복된 아이디라면 디스크립션 텍스트 변경
         let testIdArray = ["hahahaha", "hohohoho"]
-        if testIdArray.contains(textField.text! + string ?? "1") {
+        if testIdArray.contains(textField.text! + string ) {
             idDescription.text = "이미 사용중인 아이디예요"
         }
         return true
@@ -234,7 +235,7 @@ extension JoinViewController: UITextFieldDelegate {
     }
     
     func isEnglishNumber(_ string: String) -> Bool{
-        let englishNumber = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
+        let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
         return englishNumber.contains(UnicodeScalar(String(string))!)
     }
   
