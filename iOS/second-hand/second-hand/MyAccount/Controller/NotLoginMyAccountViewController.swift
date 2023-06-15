@@ -61,7 +61,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         setLoginedConstraints()
         setGithubLoginButton()
         contour.backgroundColor = UIColor.neutralBorder
-        
     }
     
     
@@ -115,34 +114,43 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private func setLoginedConstraints() {
         let addSubviewComponent = [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton]
         addSubviewComponent.forEach{self.view.addSubview($0)}
-        
         let component = [idStackView, loginButton, joinMembershipButton, contour, githubLoginButton]
         component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
+        let height: CGFloat = self.view.frame.height
+        let width: CGFloat = self.view.frame.width
+        let figmaHeight: CGFloat = 748
+        let figmaWidth: CGFloat = 393
+        let heightRatio = height/figmaHeight
+        let widthRatio = width/figmaWidth
+        
+        
         NSLayoutConstraint.activate([
-            idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 178),
-            idStackView.heightAnchor.constraint(equalToConstant: 44),
-            idStackView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
-            idStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 189*heightRatio),
+            idStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16*widthRatio),
             
-            loginButton.widthAnchor.constraint(equalToConstant: 361),
-            loginButton.heightAnchor.constraint(equalToConstant: 52),
-            loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            loginButton.bottomAnchor.constraint(equalTo: joinMembershipButton.topAnchor, constant: -19),
-            
-            joinMembershipButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -163),
-            joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            joinMembershipButton.heightAnchor.constraint(equalToConstant: 22),
-            
-            contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor, constant: 0),
+            contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor, constant: 10.5*widthRatio),
             contour.heightAnchor.constraint(equalToConstant: 0.5),
             contour.widthAnchor.constraint(equalToConstant: self.view.frame.width),
             contour.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            githubLoginButton.widthAnchor.constraint(equalToConstant: 361),
-            githubLoginButton.heightAnchor.constraint(equalToConstant: 52),
+            joinMembershipButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120*heightRatio),
+            joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            
+            loginButton.bottomAnchor.constraint(equalTo: self.joinMembershipButton.topAnchor, constant: -19*heightRatio),
+            loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            loginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
+            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
+            
+            githubLoginButton.bottomAnchor.constraint(equalTo: self.loginButton.topAnchor, constant: -19*heightRatio),
             githubLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            githubLoginButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -19),
+            githubLoginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
+            githubLoginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
+            
+
+            
+//            githubLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            githubLoginButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
 }
