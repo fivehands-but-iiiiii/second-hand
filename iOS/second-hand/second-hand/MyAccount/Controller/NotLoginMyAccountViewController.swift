@@ -16,6 +16,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let joinMembershipButton = UIButton()
     private let contour = UILabel()
     private let idStackView = IdStackView()
+    //isLogin은 추후 싱글톤으로 대체될 예정
     private var isLogin = false
     
     override func viewDidLoad() {
@@ -26,6 +27,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //isLogin은 추후 싱글톤으로 대체될 예정
         if isLogin {
             setLoginedUI()
         }
@@ -33,24 +35,21 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             setNotLoginedUI()
         }
     }
-
-    private func setObserver() {
-    }
     
     private func setLoginedUI() {
         for subview in view.subviews {
-                subview.removeFromSuperview()
-            }
+            subview.removeFromSuperview()
+        }
         
         view.addSubview(loginViewController.view)
         loginViewController.didMove(toParent: self)
         loginViewController.view.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                loginViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
-                loginViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                loginViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                loginViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ])
+        NSLayoutConstraint.activate([
+            loginViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            loginViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loginViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loginViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setNavigationBar() {
@@ -84,12 +83,14 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     
     @objc func joinButtonTouched() {
         present(UINavigationController(rootViewController: joinViewController), animated: true)
-        }
+    }
     
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
         // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
+        
+        isLogin = true
     }
     
     @objc private func githubLoginButtonTouched() {
@@ -104,8 +105,8 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     private func setNotLoginedUI() {
         for subview in view.subviews {
-                subview.removeFromSuperview()
-            }
+            subview.removeFromSuperview()
+        }
         setNavigationBar()
         setLoginButton()
         setJoinButton()
