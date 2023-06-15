@@ -137,15 +137,16 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             joinMembershipButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120*heightRatio),
             joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            loginButton.bottomAnchor.constraint(equalTo: self.joinMembershipButton.topAnchor, constant: -19*heightRatio),
-            loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
-            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
-            
-            githubLoginButton.bottomAnchor.constraint(equalTo: self.loginButton.topAnchor, constant: -19*heightRatio),
+
+            githubLoginButton.bottomAnchor.constraint(equalTo: self.joinMembershipButton.topAnchor, constant: -19*heightRatio),
             githubLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             githubLoginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
             githubLoginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
+            
+            loginButton.bottomAnchor.constraint(equalTo: self.githubLoginButton.topAnchor, constant: -19*heightRatio),
+            loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            loginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
+            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
             
 
             
