@@ -8,17 +8,15 @@
 import UIKit
 
 class NotLoginMyAccountViewController: NavigationUnderLineViewController {
-    private let idStackView = IdStackView()
+    private let joinViewController = JoinViewController()
+    private let loginViewController = LoginMyAccountViewController()
+    private let githubWebViewController = GithubWebViewController()
     private let loginButton = UIButton()
     private let githubLoginButton = UIButton()
     private let joinMembershipButton = UIButton()
     private let contour = UILabel()
-    private let loginViewController = LoginMyAccountViewController()
-    private let githubWebViewController = GithubWebViewController()
+    private let idStackView = IdStackView()
     private var isLogin = false
-    
-    var joinViewController = JoinViewController()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,17 +114,11 @@ class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     private func setLoginedConstraints() {
-        self.view.addSubview(loginButton)
-        self.view.addSubview(idStackView)
-        self.view.addSubview(joinMembershipButton)
-        self.view.addSubview(contour)
-        self.view.addSubview(githubLoginButton)
+        let addSubviewComponent = [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton]
+        addSubviewComponent.forEach{self.view.addSubview($0)}
         
-        idStackView.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        joinMembershipButton.translatesAutoresizingMaskIntoConstraints = false
-        contour.translatesAutoresizingMaskIntoConstraints = false
-        githubLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        let component = [idStackView, loginButton, joinMembershipButton, contour, githubLoginButton]
+        component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
             idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 178),
