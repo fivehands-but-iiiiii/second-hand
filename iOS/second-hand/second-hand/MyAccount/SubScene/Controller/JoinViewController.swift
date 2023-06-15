@@ -238,9 +238,12 @@ extension JoinViewController: UITextFieldDelegate {
         idTextField.resignFirstResponder()
     }
     
-    private func isEnglishNumber(_ string: String) -> Bool{
+    private func isEnglishNumber(_ string: String) -> Bool {
         let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
-        return englishNumber.contains(UnicodeScalar(String(string))!)
+        guard let scalar = UnicodeScalar(string) else {
+            return false
+        }
+        return englishNumber.contains(scalar)
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
