@@ -31,7 +31,7 @@ final class SaleLogViewController: UIViewController {
         guard let navigationBar = navigationController?.navigationBar else {return}
         let borderView = UIView(frame: CGRect(x: .zero, y: navigationBar.frame.maxY, width: navigationBar.frame.width, height: 1))
         
-        borderView.backgroundColor = .lightGray
+        borderView.backgroundColor = UIColor.neutralBorder
         navigationBar.addSubview(borderView)
     }
     
