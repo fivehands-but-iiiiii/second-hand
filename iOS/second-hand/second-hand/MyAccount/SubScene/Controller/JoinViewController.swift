@@ -72,9 +72,10 @@ final class JoinViewController: NavigationUnderLineViewController {
     @objc private func save() {
         if idDescription.text == "" {
             alert.message = "회원가입이 완료되었습니다."
-            let check = UIAlertAction(title: "확인", style: .default)
-            alert.addAction(check)
-                    self.present(alert, animated: true, completion: dismisss)//다음화면으로 넘어가는 코드
+            self.present(alert, animated: true, completion: {
+                //TODO: 얼럿이 없어지기보단 모달형식의 JoinVC가 dismiss되야함
+                self.dismiss(animated: true)
+            })
         }else {
             alert.message = "아이디가 적절하지 않습니다."
             self.present(alert, animated: true, completion: nil)
@@ -88,15 +89,6 @@ final class JoinViewController: NavigationUnderLineViewController {
                                 NSAttributedString.Key.foregroundColor: UIColor.neutralText]
         backButton.setTitleTextAttributes(leftBarAttribute, for: .normal)
         navigationItem.leftBarButtonItem = backButton
-    }
-    
-    private func setAlert(){
-        
-        //UIAlertController(title: "아이디 부적합", message: "아이디를 확인하세요", preferredStyle: .alert)
-//        let success = UIAlertAction(title: "확인", style: .default)
-//        let cancel = UIAlertAction(title: "취소", style: .cancel)
-//        alert.addAction(success)
- 
     }
     
     @objc private func dismisss() {
