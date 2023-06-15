@@ -7,8 +7,8 @@
 
 import UIKit
 
-class WishListViewController: NavigationUnderLineViewController {
-    var categoryScrollView = CategoriesScrollView()
+final class WishListViewController: NavigationUnderLineViewController {
+    private var categoryScrollView = CategoriesScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -19,7 +19,7 @@ class WishListViewController: NavigationUnderLineViewController {
         makeButton(category: "길게길게길게길게길게길게")
     }
     
-    func setupUI() {
+    private func setupUI() {
         //네비게이션
         self.navigationItem.title = "관심 목록"
         let allCategoriButton = CategoryButton(title: "전체")
@@ -30,7 +30,7 @@ class WishListViewController: NavigationUnderLineViewController {
         categoryLayout()
     }
     
-    func categoryLayout() {
+    private func categoryLayout() {
         self.view.addSubview(categoryScrollView)
         categoryScrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -41,7 +41,7 @@ class WishListViewController: NavigationUnderLineViewController {
         ])
     }
     
-    func makeButton(category: String) {
+    private func makeButton(category: String) {
         let categoryLabel = CategoryButton(title: category)
         categoryScrollView.categoriStackView.addArrangedSubview(categoryLabel)
     }
