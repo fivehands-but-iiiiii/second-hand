@@ -32,7 +32,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setTextField()
         idTextField.delegate = self
         setIdDescription()
-        idTextField.keyboardType = .alphabet
+        idTextField.autocapitalizationType = .none
     }
     
     func setCircleButton() {
@@ -235,7 +235,7 @@ extension JoinViewController: UITextFieldDelegate {
     }
     
     func isEnglishNumber(_ string: String) -> Bool{
-        let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
+        let englishNumber = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
         return englishNumber.contains(UnicodeScalar(String(string))!)
     }
   
