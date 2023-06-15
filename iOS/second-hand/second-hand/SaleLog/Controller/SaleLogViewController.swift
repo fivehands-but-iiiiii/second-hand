@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SaleLogViewController: UIViewController {
-    let titleLabel = UILabel()
-    let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
+final class SaleLogViewController: UIViewController {
+    private let titleLabel = UILabel()
+    private let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +19,13 @@ class SaleLogViewController: UIViewController {
         setSegmentControl()
     }
     
-    func setSegmentControl() {
+    private func setSegmentControl() {
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(segmentValueChanged(_:)), for: .valueChanged)
         segmentControlLayout()
     }
     
-    func setNavigationBar() {
+    private func setNavigationBar() {
         navigationController?.navigationBar.frame = CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 100))
         
         guard let navigationBar = navigationController?.navigationBar else {return}
@@ -41,7 +41,7 @@ class SaleLogViewController: UIViewController {
         // 선택된 인덱스에 따라 원하는 동작 수행
     }
     
-    func segmentControlLayout() {
+    private func segmentControlLayout() {
         self.view.addSubview(segmentControl)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
         
