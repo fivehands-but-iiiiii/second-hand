@@ -8,17 +8,16 @@
 import UIKit
 
 class JoinViewController: NavigationUnderLineViewController {
-    // TODO: 공사예정
-    var circleButton = UIButton()
-    let idStackView = UIStackView()
-    let contour = UILabel()
-    let addLocationButton = UIButton()
-    let stackView = UIStackView()
-    let plusLabel = UILabel()
-    let addLocationText = UILabel()
-    let idLabel = UILabel()
-    let idTextField = UITextField()
-    var idDescription = UILabel()
+    private let circleButton = UIButton()
+    private let idStackView = UIStackView()
+    private let contour = UILabel()
+    private let addLocationButton = UIButton()
+    private let stackView = UIStackView()
+    private let plusLabel = UILabel()
+    private let addLocationText = UILabel()
+    private let idLabel = UILabel()
+    private let idTextField = UITextField()
+    private var idDescription = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +26,7 @@ class JoinViewController: NavigationUnderLineViewController {
         idTextField.autocapitalizationType = .none
     }
     
-    func setUI() {
+    private func setUI() {
         setNavigationBar()
         setCircleButton()
         setContour()
@@ -39,7 +38,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setIdDescription()
     }
     
-    func setCircleButton() {
+    private func setCircleButton() {
         circleButton.frame = CGRect(x: 0, y: 0, width: 80, height: 80) // 크기 설정
         circleButton.layer.cornerRadius = circleButton.layer.frame.size.width/2
         circleButton.layer.masksToBounds = true
@@ -55,7 +54,7 @@ class JoinViewController: NavigationUnderLineViewController {
         setNavigationLeftBarButton()
     }
     
-    func setContour() {
+    private func setContour() {
         contour.backgroundColor = UIColor.neutralBorder
     }
     
@@ -85,7 +84,7 @@ class JoinViewController: NavigationUnderLineViewController {
         self.dismiss(animated: true)
     }
     
-    func setAddLocationButton() {
+    private func setAddLocationButton() {
         addLocationButton.frame = CGRect(x: 0, y: 0, width: 361, height: 52)
         addLocationButton.layer.borderWidth = 1
         addLocationButton.layer.borderColor = CGColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
@@ -94,14 +93,14 @@ class JoinViewController: NavigationUnderLineViewController {
         addLocationButton.layer.masksToBounds = true
     }
     
-    func setAddLocationText() {
+    private func setAddLocationText() {
         
         addLocationText.text = "위치 추가"
         addLocationText.font = UIFont.subHead
         self.stackView.addArrangedSubview(addLocationText)
     }
     
-    func setPlusLabel() {
+    private func setPlusLabel() {
         //일단 임의로 작성
         plusLabel.text = "+"
         plusLabel.font = UIFont.subHead
@@ -109,7 +108,7 @@ class JoinViewController: NavigationUnderLineViewController {
         self.stackView.addArrangedSubview(plusLabel)
     }
     
-    func setStackView() {
+    private func setStackView() {
         setPlusLabel()
         setAddLocationText()
         stackView.spacing = 4
@@ -128,13 +127,13 @@ class JoinViewController: NavigationUnderLineViewController {
         idTextField.font = UIFont.body
     }
     
-    func setIdDescription() {
+    private func setIdDescription() {
         idDescription.font = UIFont.caption2
         idDescription.textColor = UIColor.orange
     }
     
     
-    func setConstraints() {
+    private func setConstraints() {
         let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription]
         addSubviewComponent.forEach{self.view.addSubview($0)}
         self.addLocationButton.addSubview(stackView)
@@ -220,7 +219,7 @@ extension JoinViewController: UITextFieldDelegate {
 
     }
     
-    func isEnglishNumber(_ string: String) -> Bool{
+    private func isEnglishNumber(_ string: String) -> Bool{
         let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
         return englishNumber.contains(UnicodeScalar(String(string))!)
     }
