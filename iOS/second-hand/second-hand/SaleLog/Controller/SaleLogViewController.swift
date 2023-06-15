@@ -15,38 +15,20 @@ class SaleLogViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
-        setNavigationBarFrame()
-        setNavigationBarBottomBorder()
-        setUI()
-        layout()
-    }
-    
-    func setUI() {
-        setTitleLabel()
+        setNavigationBar()
         setSegmentControl()
-        
-       
-    }
-    
-    func setTitleLabel() {
-        titleLabel.text = "판매내역"
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
     }
     
     func setSegmentControl() {
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(segmentValueChanged(_:)), for: .valueChanged)
+        segmentControlLayout()
     }
     
-    private func setNavigationBarFrame() {
+    func setNavigationBar() {
         navigationController?.navigationBar.frame = CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 100))
-    }
-    
-    func setNavigationBarBottomBorder() {
-        guard let navigationBar = navigationController?.navigationBar else {
-            return
-        }
         
+        guard let navigationBar = navigationController?.navigationBar else {return}
         let borderView = UIView(frame: CGRect(x: .zero, y: navigationBar.frame.maxY, width: navigationBar.frame.width, height: 1))
         
         borderView.backgroundColor = .lightGray
@@ -55,25 +37,25 @@ class SaleLogViewController: UIViewController {
     
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
         
-        let selectedIndex = sender.selectedSegmentIndex
+        //let selectedIndex = sender.selectedSegmentIndex
         // 선택된 인덱스에 따라 원하는 동작 수행
     }
     
-    func layout() {
-        self.view.addSubview(titleLabel)
+    func segmentControlLayout() {
         self.view.addSubview(segmentControl)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
         
+        let height: CGFloat = self.view.frame.height
+        let width: CGFloat = self.view.frame.width
+        let figmaHeight: CGFloat = 794
+        let figmaWidth: CGFloat = 393
+        let heightRatio: CGFloat = height/figmaHeight
+        let widthRatio: CGFloat = width/figmaWidth
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-            titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 22),
-            
-            segmentControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 102),
-            segmentControl.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
-            segmentControl.widthAnchor.constraint(equalToConstant: 240)
+            segmentControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 102*heightRatio),
+            segmentControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            segmentControl.widthAnchor.constraint(equalToConstant: 240*widthRatio),
+            segmentControl.heightAnchor.constraint(equalToConstant: 32*heightRatio)
         ])
     }
 }
