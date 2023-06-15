@@ -12,9 +12,8 @@ class SaleLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
+        self.navigationItem.title = "판매 내역"
         setNavigationBarFrame()
-        setTitleView()
         setNavigationBarBottomBorder()
     }
     
@@ -32,12 +31,5 @@ class SaleLogViewController: UIViewController {
         borderView.backgroundColor = .lightGray
         navigationBar.addSubview(borderView)
     }
-
-    func setTitleView() {
-        let titleView = SaleLogNavigationView(frame: CGRect(x: .zero, y: .zero, width: view.frame.width, height: 300))
-        
-        navigationController?.navigationBar.topItem?.titleView = titleView
-    }
-
 }
 
