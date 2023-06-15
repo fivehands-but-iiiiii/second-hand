@@ -7,7 +7,7 @@
 
 import UIKit
 
-class JoinViewController: NavigationUnderLineViewController {
+final class JoinViewController: NavigationUnderLineViewController {
     private let circleButton = UIButton()
     private let idStackView = UIStackView()
     private let contour = UILabel()
@@ -142,7 +142,6 @@ class JoinViewController: NavigationUnderLineViewController {
         component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
         NSLayoutConstraint.activate([
-            
             circleButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130.0),
             circleButton.widthAnchor.constraint(equalToConstant: 80),
@@ -160,7 +159,7 @@ class JoinViewController: NavigationUnderLineViewController {
             addLocationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             addLocationButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             addLocationButton.heightAnchor.constraint(equalToConstant: 52),
-
+            
             stackView.centerXAnchor.constraint(equalTo: self.addLocationButton.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor),
             
@@ -174,7 +173,6 @@ class JoinViewController: NavigationUnderLineViewController {
             
             idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3),
-            
         ])
     }
     
@@ -187,16 +185,15 @@ class JoinViewController: NavigationUnderLineViewController {
 extension JoinViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         //6글자 미만일 경우 디스크립션 텍스트 변경
         if (textField.text?.count)! + string.count < 6 {
             idDescription.text = "6~12자 이내로 입력하세요"
-        }else{
+        }else {
             idDescription.text = ""
         }
-       
+        
         if string.isEmpty {
-            //백스페이스 버튼이 눌린다면 무조건 허용
+            //백스페이스 버튼은 무조건 허용
             return true
         }
         //12자이상시 false
@@ -212,18 +209,17 @@ extension JoinViewController: UITextFieldDelegate {
         }
         return true
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //화면 터치시 키보드 내려감
         idTextField.resignFirstResponder()
-
     }
     
     private func isEnglishNumber(_ string: String) -> Bool{
         let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
         return englishNumber.contains(UnicodeScalar(String(string))!)
     }
-  
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return true
     }
