@@ -146,12 +146,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             loginButton.bottomAnchor.constraint(equalTo: self.githubLoginButton.topAnchor, constant: -19*heightRatio),
             loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             loginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
-            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
-            
-
-            
-//            githubLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            githubLoginButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio)
         ])
     }
 }
