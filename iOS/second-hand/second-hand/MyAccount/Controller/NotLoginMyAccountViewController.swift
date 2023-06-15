@@ -40,8 +40,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         for subview in view.subviews {
             subview.removeFromSuperview()
         }
-        
-        view.addSubview(loginViewController.view)
+        self.view.addSubview(loginViewController.view)
         loginViewController.didMove(toParent: self)
         loginViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -51,6 +50,20 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             loginViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+    
+    private func setNotLoginedUI() {
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+        }
+        setNavigationBar()
+        setLoginButton()
+        setJoinButton()
+        setLoginedConstraints()
+        setGithubLoginButton()
+        contour.backgroundColor = UIColor.neutralBorder
+        
+    }
+    
     
     private func setNavigationBar() {
         self.navigationItem.title = "내 계정"
@@ -63,11 +76,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         loginButton.backgroundColor = .orange
         loginButton.layer.cornerRadius = 8
         loginButton.layer.masksToBounds = true
-        
-        
-        contour.backgroundColor = .lightGray
-        joinMembershipButton.addTarget(self, action: #selector(joinButtonTouched), for: .touchUpInside)
-        
         loginButton.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
     }
     
@@ -89,7 +97,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
         // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
-        
         isLogin = true
     }
     
@@ -102,18 +109,9 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         joinMembershipButton.setTitle("회원가입", for: .normal)
         joinMembershipButton.titleLabel?.font = UIFont.subHead
         joinMembershipButton.setTitleColor(.black, for: .normal)
+        joinMembershipButton.addTarget(self, action: #selector(joinButtonTouched), for: .touchUpInside)
     }
-    private func setNotLoginedUI() {
-        for subview in view.subviews {
-            subview.removeFromSuperview()
-        }
-        setNavigationBar()
-        setLoginButton()
-        setJoinButton()
-        setLoginedConstraints()
-        setGithubLoginButton()
-    }
-    
+   
     private func setLoginedConstraints() {
         let addSubviewComponent = [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton]
         addSubviewComponent.forEach{self.view.addSubview($0)}
