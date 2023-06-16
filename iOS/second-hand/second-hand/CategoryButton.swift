@@ -24,7 +24,6 @@ final class CategoryButton: UIButton {
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
-        self.layer.cornerRadius = self.bounds.height / 2
         //contentEdgeInsets를 어떤걸로 대체할 수 있을까요?
         self.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         self.setTitleColor(.black, for: .normal)
