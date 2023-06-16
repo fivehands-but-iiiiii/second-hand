@@ -42,7 +42,7 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
         circleButton.backgroundColor = .black
     }
     
-    func setLogoutButton() {
+    private func setLogoutButton() {
         logoutButton.frame = CGRect(x: 0, y: 0, width: 361, height: 52)
         logoutButton.setTitle("로그아웃", for: .normal)
         logoutButton.titleLabel?.font = UIFont.subHead
