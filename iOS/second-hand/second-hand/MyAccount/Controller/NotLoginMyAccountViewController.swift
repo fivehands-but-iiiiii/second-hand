@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
+final class NotLoginMyAccountViewController: NavigationUnderLineViewController, isLoginChanged {
     private let joinViewController = JoinViewController()
     private let loginViewController = LoginMyAccountViewController()
     private let githubWebViewController = GithubWebViewController()
@@ -23,11 +23,25 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         super.viewDidLoad()
         setNavigationBar()
         self.addChild(loginViewController)
+        loginViewController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //isLogin은 추후 싱글톤으로 대체될 예정
+        loginStatus()
+        
+    }
+    
+    internal func toggleLogin() {
+        if isLogin == true {
+            isLogin = false
+        }else {
+            isLogin = true
+        }
+    }
+    
+    internal func loginStatus() {
         if isLogin {
             setLoginedUI()
         }

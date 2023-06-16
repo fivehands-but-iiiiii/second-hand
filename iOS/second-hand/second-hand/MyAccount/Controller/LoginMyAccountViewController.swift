@@ -4,23 +4,31 @@
 //
 //  Created by SONG on 2023/06/12.
 //
+protocol isLoginChanged: AnyObject {
+    func toggleLogin()
+    func loginStatus()
+}
 
 import UIKit
 
 final class LoginMyAccountViewController: NavigationUnderLineViewController {
+    weak var delegate : isLoginChanged?
     private let circleButton = UIButton()
-    private let label = UILabel()
+    private let nicknameLabel = UILabel()
+    private let logoutButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCircleButton()
-        setLabel()
+        setNicknameLabel()
+        setLogoutButton()
         layout()
     }
     
-    private func setLabel() {
-        label.frame = CGRect(x: 300, y: 300, width: 50, height: 50)
-        label.text = "로그인이 된 내계정 화면임 !!"
+    private func setNicknameLabel() {
+        nicknameLabel.frame = CGRect(x: 0, y: 0, width: 363, height: 22)
+        nicknameLabel.text = "닉네임"
+        nicknameLabel.font = UIFont.headLine
     }
     
     private func setCircleButton() {
@@ -34,9 +42,26 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
         circleButton.backgroundColor = .black
     }
     
+    func setLogoutButton() {
+        logoutButton.frame = CGRect(x: 0, y: 0, width: 361, height: 52)
+        logoutButton.setTitle("로그아웃", for: .normal)
+        logoutButton.titleLabel?.font = UIFont.subHead
+        logoutButton.backgroundColor = .orange
+        logoutButton.layer.cornerRadius = 8
+        logoutButton.layer.masksToBounds = true
+        logoutButton.addTarget(self, action: #selector(logoutButtonTouched), for: .touchUpInside)
+    }
+    
+    @objc func logoutButtonTouched() {
+        delegate?.toggleLogin()
+        delegate?.loginStatus()
+    }
+    
     private func layout() {
-        self.view.addSubview(circleButton)
-        circleButton.translatesAutoresizingMaskIntoConstraints = false
+        [circleButton, nicknameLabel, logoutButton].forEach{
+            self.view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         let height: CGFloat = self.view.frame.height
         let width: CGFloat = self.view.frame.width
@@ -50,6 +75,14 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
             circleButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 194*heightRatio),
             circleButton.widthAnchor.constraint(equalToConstant: 80),
             circleButton.heightAnchor.constraint(equalToConstant: 80),
+            
+            nicknameLabel.topAnchor.constraint(equalTo: self.circleButton.bottomAnchor, constant: 24*heightRatio),
+            nicknameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            
+            logoutButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -203*heightRatio),
+            logoutButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            logoutButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
+            logoutButton.heightAnchor.constraint(equalToConstant: 52*heightRatio)
         ])
     }
 }

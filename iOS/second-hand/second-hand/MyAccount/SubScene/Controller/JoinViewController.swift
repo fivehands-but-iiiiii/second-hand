@@ -105,7 +105,6 @@ final class JoinViewController: NavigationUnderLineViewController {
     }
     
     private func setAddLocationText() {
-        
         addLocationText.text = "위치 추가"
         addLocationText.font = UIFont.subHead
         self.stackView.addArrangedSubview(addLocationText)
