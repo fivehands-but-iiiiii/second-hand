@@ -46,5 +46,36 @@ class NetworkManager {
         session.resume()
     }
     
+    func RequestPOST(data: Data?, fromURL url: URL, httpMethod: HttpMethod = .post, completion: @escaping (Result<Codable, Error>) -> Void) {
+            
+            let asyncCompletion: (Result<Codable, Error>) -> Void = { result in
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
+            
+            var request = URLRequest(url: url, timeoutInterval: 10.0)
+            request.httpMethod = httpMethod.method
+            request.allHTTPHeaderFields = ["Content-Type": "application/json"]
+            request.httpBody = data!
+            
+            let session = URLSession.shared.dataTask(with: request) { data, response, error in
+                do {
+                    guard let urlResponse = response as? HTTPURLResponse else {
+                        return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    }
+                    switch urlResponse.statusCode {
+                    case 200..<300 :
+                        print(String(data: data!, encoding: .utf8))
+                    default :
+                        return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    }
+                } catch {
+                    asyncCompletion(.failure(error))
+                }
+            }
+            session.resume()
+        }
+
 }
 
