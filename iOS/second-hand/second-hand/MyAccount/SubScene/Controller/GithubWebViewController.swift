@@ -48,7 +48,18 @@ class GithubWebViewController: UIViewController {
         }
         logger.log("\naccess token: \(accessToken)")
         
+        guard let accessURL = URL(string: "http://13.125.243.239:8080/git/login?code=\(accessToken)") else {
+            return
+        }
         
+        networkManager.RequestGET(fromURL: accessURL) { (result: Result<Codable, Error>) in
+            switch result {
+            case .success(let user):
+            case .failure(let error):
+                self.logger.log("FAIL \(error.localizedDescription)")
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     private func extractAccessToken(from url: URL) -> String? {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let queryItems = components.queryItems {
