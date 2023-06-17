@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CategoriesScrollView: UIScrollView {
-    var categoriStackView = UIStackView()
+final class CategoryScrollView: UIScrollView {
+    internal var categoriStackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,7 +20,7 @@ class CategoriesScrollView: UIScrollView {
         super.init(coder: coder)
     }
     
-    func configure() {
+    private func configure() {
         self.addSubview(categoriStackView)
         categoriStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
