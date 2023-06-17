@@ -57,7 +57,7 @@ class NetworkManager {
             var request = URLRequest(url: url, timeoutInterval: 10.0)
             request.httpMethod = httpMethod.method
             request.allHTTPHeaderFields = ["Content-Type": "application/json"]
-            request.httpBody = data!
+            request.httpBody = data
             
             let session = URLSession.shared.dataTask(with: request) { data, response, error in
                 do {
