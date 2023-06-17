@@ -7,16 +7,17 @@
 
 import UIKit
 import WebKit
+import OSLog
 
 class GithubWebViewController: UIViewController {
-    
-    var webView = UIWebView()
+    private let networkManager = NetworkManager()
+    private let logger = Logger()
     private var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupWebView()
-        webViewLogic()
+        startOAuthFlow()
     }
     
     private func setupWebView() {
@@ -52,14 +53,36 @@ class GithubWebViewController: UIViewController {
             return
         }
         
+        guard let joinURL = URL(string:"http://13.125.243.239:8080/join") else {
+            return
+        }
+        
         networkManager.RequestGET(fromURL: accessURL) { (result: Result<Codable, Error>) in
             switch result {
             case .success(let user):
+                // MARK: 테스트용
+                let region = Region(id: 1, onFocus: true)
+                let jsonCreater = JSONCreater()
+                
+                guard let requestDataToJoin = user as? GitUserNeedsJoin else {
+                    return
+                }
+                
+                self.networkManager.RequestPOST(data: jsonCreater.createJSON(user: requestDataToJoin, region: region), fromURL: joinURL) { (result: Result<Codable, Error>) in
+                    switch result {
+                    case .success(_) :
+                        print("가입성공")
+                    case .failure(let error) :
+                        self.logger.log("FAIL \(error.localizedDescription)")
+                    }
+                }
+                
             case .failure(let error):
                 self.logger.log("FAIL \(error.localizedDescription)")
             }
             self.dismiss(animated: true, completion: nil)
         }
+    }
     private func extractAccessToken(from url: URL) -> String? {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let queryItems = components.queryItems {
@@ -71,6 +94,9 @@ class GithubWebViewController: UIViewController {
         }
         return nil
     }
+}
+
+
 extension GithubWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
