@@ -26,17 +26,21 @@ class GithubWebViewController: UIViewController {
         view.addSubview(webView)
         
         NSLayoutConstraint.activate([
-        webView.topAnchor.constraint(equalTo: self.view.topAnchor),
-        webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-        webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-        webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
-    func webViewLogic() {
-        let url = URL(string: "https://github.com/login/oauth/authorize?client_id=aeceaccd71d24266b1d3&redirect_url=http://localhost:8080/login/oauth2/code/github")
-        let request = URLRequest(url: url!)
-        webView.loadRequest(request)
+    private func startOAuthFlow() {
+        let authURLString = "https://github.com/login/oauth/authorize?client_id=5c4b10099c0ae232e5a1&redirect_url=http://localhost:5173/login/oauth2/code/github"
+        
+        if let authURL = URL(string: authURLString) {
+            let authRequest = URLRequest(url: authURL,timeoutInterval: 10.0) // 예처
+            webView.load(authRequest)
+        }
+    }
 extension GithubWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -46,3 +50,19 @@ extension GithubWebViewController: WKNavigationDelegate {
         decisionHandler(.allow)
     }
 }
+
+
+//// MARK: - 에러처리 일단 주석 
+//
+//extension GithubWebViewController {
+//    private func handleNetworkServiceError(with statusCode: Int) {
+//        let errorStatusCode = ManagerErrors.statuscode(rawValue: statusCode)
+//
+//        switch errorStatusCode {
+//        case .internalServerError:
+//            // something => 500번대 에러에 대한 처리
+//        case .notFound:
+//            // something => => 사용자한테 표시해야하는 에러
+//        }
+//    }
+//}
