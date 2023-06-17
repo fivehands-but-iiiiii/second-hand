@@ -41,6 +41,25 @@ class GithubWebViewController: UIViewController {
             webView.load(authRequest)
         }
     }
+    
+    private func handleRedirectURL(url: URL) {
+        guard let accessToken = extractAccessToken(from: url) else {
+            return
+        }
+        logger.log("\naccess token: \(accessToken)")
+        
+        
+    private func extractAccessToken(from url: URL) -> String? {
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+           let queryItems = components.queryItems {
+            for item in queryItems {
+                if item.name == "code" {
+                    return item.value
+                }
+            }
+        }
+        return nil
+    }
 extension GithubWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
