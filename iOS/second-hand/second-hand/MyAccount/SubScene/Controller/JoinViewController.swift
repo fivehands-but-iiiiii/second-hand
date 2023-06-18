@@ -8,6 +8,7 @@
 import UIKit
 
 final class JoinViewController: NavigationUnderLineViewController {
+    private let setLocationViewController = SetLocationViewController()
     private let circleButton = UIButton()
     private let idStackView = UIStackView()
     private let contour = UILabel()
@@ -102,6 +103,11 @@ final class JoinViewController: NavigationUnderLineViewController {
         addLocationButton.setTitleColor(.black, for: .normal)
         addLocationButton.layer.cornerRadius = 8
         addLocationButton.layer.masksToBounds = true
+        addLocationButton.addTarget(self, action: #selector(toSetLocation), for: .touchUpInside)
+    }
+    
+    @objc private func toSetLocation() {
+        present(UINavigationController(rootViewController: setLocationViewController), animated: true)
     }
     
     private func setAddLocationText() {

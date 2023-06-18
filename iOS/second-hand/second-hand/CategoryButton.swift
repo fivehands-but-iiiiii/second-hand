@@ -24,7 +24,7 @@ final class CategoryButton: UIButton {
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
-        //contentEdgeInsets를 어떤걸로 대체할 수 있을까요?
+        //contentEdgeInsets는 드로우텍스트나 nsdirctionEdgeInset으로 교체할 예정입니다.
         self.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         self.setTitleColor(.black, for: .normal)
         self.titleLabel?.font = UIFont.caption1
