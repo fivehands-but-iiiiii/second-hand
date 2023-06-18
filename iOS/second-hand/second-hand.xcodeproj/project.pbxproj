@@ -30,7 +30,12 @@
 		E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */; };
 		E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8662A36F054001F2D56 /* ChattingViewController.swift */; };
 		E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */; };
+		E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */; };
 		E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C951442A3967D30094AD66 /* JoinViewController.swift */; };
+		E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C951472A3AB4E80094AD66 /* NetworkManager.swift */; };
+		E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */; };
+		E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */; };
+		E4C951502A3AFF9B0094AD66 /* GitUser+Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514F2A3AFF9B0094AD66 /* GitUser+Region.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +65,12 @@
 		E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonCustomView.swift; path = "second-hand/Home/ButtonCustomView.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8662A36F054001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
 		E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMyAccountViewController.swift; sourceTree = "<group>"; };
+		E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCreater.swift; sourceTree = "<group>"; };
 		E4C951442A3967D30094AD66 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		E4C951472A3AB4E80094AD66 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
+		E4C9514F2A3AFF9B0094AD66 /* GitUser+Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GitUser+Region.swift"; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +166,7 @@
 		DBB04D292A2DA5BF001233CC /* second-hand */ = {
 			isa = PBXGroup;
 			children = (
+				E4C951462A3AB4A90094AD66 /* Network */,
 				DBAF83A22A32E38B00194A02 /* UIExtensions */,
 				E49EB8492A304A17001F2D56 /* TabBarControl */,
 				E49EB8432A30495C001F2D56 /* Application */,
@@ -342,6 +353,18 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		E4C951462A3AB4A90094AD66 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951472A3AB4E80094AD66 /* NetworkManager.swift */,
+				E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */,
+				E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */,
+				E4C9514F2A3AFF9B0094AD66 /* GitUser+Region.swift */,
+				E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -438,13 +461,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */,
 				E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */,
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
 				DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
 				E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */,
+				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
+				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
+				E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
@@ -457,6 +484,7 @@
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
+				E4C951502A3AFF9B0094AD66 /* GitUser+Region.swift in Sources */,
 				DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */,
 				DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */,
 			);
