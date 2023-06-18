@@ -7,7 +7,9 @@
 
 import UIKit
 
-class HomeViewController: NavigationUnderLineViewController {
+class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
+  
+    var setLocationViewController = SetLocationViewController()
     private var isLogin = false
 
     override func viewDidLoad() {
@@ -38,7 +40,13 @@ class HomeViewController: NavigationUnderLineViewController {
     
     private func setNavigationLeftBarButton() {
         let leftBarButton = HomeLeftBarButton()
+        let buttonCustomView = leftBarButton.customView as? ButtonCustomView
+        buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
+    }
+    
+    func tappedSetLocation() {
+        present(setLocationViewController, animated: true, completion: nil)
     }
     
 
