@@ -46,7 +46,7 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
     }
     
     func tappedSetLocation() {
-        present(setLocationViewController, animated: true, completion: nil)
+        present(UINavigationController(rootViewController: setLocationViewController), animated: true)
     }
     
 
