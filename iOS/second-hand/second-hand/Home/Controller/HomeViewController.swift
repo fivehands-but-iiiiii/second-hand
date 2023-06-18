@@ -16,7 +16,6 @@ class HomeViewController: NavigationUnderLineViewController {
         setObserver()
     }
     
-    
     private func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin(_:)), name: NSNotification.Name("LOGIN"), object: nil)
     }
@@ -40,7 +39,6 @@ class HomeViewController: NavigationUnderLineViewController {
         let leftBarButton = HomeLeftBarButton()
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
-    
 
 }
 

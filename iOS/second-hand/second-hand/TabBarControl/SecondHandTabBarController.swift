@@ -8,6 +8,7 @@
 import UIKit
 
 class SecondHandTabBarController: UITabBarController {
+
     private var isLogined = false
     private let home = HomeViewController()
     private let saleLog = SaleLogViewController()
