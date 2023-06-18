@@ -16,6 +16,8 @@ class ButtonCustomView: UIButton {
         setLabel()
         setSideImage()
         setContraints()
+        setMenu()
+
     }
     
     required init?(coder: NSCoder) {
@@ -42,11 +44,20 @@ class ButtonCustomView: UIButton {
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            
-            sideImage.leadingAnchor.constraint(equalTo: label.trailingAnchor),
+
+            sideImage.leadingAnchor.constraint(equalTo: label.trailingAnchor,constant: 5.0),
             sideImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             sideImage.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
-        
+    }
+    
+    private func setMenu() {
+        let children : [UIAction] =
+        [
+            UIAction(title: "역삼1동", handler: { _ in }),
+            UIAction(title: "동네를 설정하세요", handler: { _ in })
+        ]
+        self.menu = UIMenu(options: .displayInline,children: children)
+        self.showsMenuAsPrimaryAction = true
     }
 }

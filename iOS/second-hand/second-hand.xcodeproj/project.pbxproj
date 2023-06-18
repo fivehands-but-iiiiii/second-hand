@@ -10,25 +10,33 @@
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
-		DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
 		DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */; };
 		DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83AF2A32E3E900194A02 /* IdStackView.swift */; };
-		DBAF83B22A32E3E900194A02 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83B02A32E3E900194A02 /* MyAccountViewController.swift */; };
+		DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83B02A32E3E900194A02 /* NotLoginMyAccountViewController.swift */; };
 		DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */; };
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
 		DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D332A2DA5C0001233CC /* Assets.xcassets */; };
 		DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D352A2DA5C0001233CC /* LaunchScreen.storyboard */; };
-		DBE3C03D2A30791F00E6EF35 /* CategoriesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */; };
+
+		DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */; };
+		DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
 		E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */; };
 		E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */; };
 		E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */; };
-		E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */; };
 		E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */; };
 		E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */; };
 		E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */; };
+		E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8662A36F054001F2D56 /* ChattingViewController.swift */; };
+		E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */; };
+		E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */; };
+		E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C951442A3967D30094AD66 /* JoinViewController.swift */; };
+		E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C951472A3AB4E80094AD66 /* NetworkManager.swift */; };
+		E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */; };
+		E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */; };
+		E4C951502A3AFF9B0094AD66 /* GitUser+Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514F2A3AFF9B0094AD66 /* GitUser+Region.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,27 +44,34 @@
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
-		DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleLogNavigationView.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83AF2A32E3E900194A02 /* IdStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdStackView.swift; sourceTree = "<group>"; };
-		DBAF83B02A32E3E900194A02 /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		DBAF83B02A32E3E900194A02 /* NotLoginMyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotLoginMyAccountViewController.swift; sourceTree = "<group>"; };
 		DBB04D272A2DA5BF001233CC /* second-hand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "second-hand.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DBB04D332A2DA5C0001233CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBB04D362A2DA5C0001233CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBB04D382A2DA5C0001233CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScrollView.swift; sourceTree = "<group>"; };
+		DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubWebViewController.swift; sourceTree = "<group>"; };
+		DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScrollView.swift; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaleLogViewController.swift; sourceTree = "<group>"; };
 		E49EB83B2A2DD3AF001F2D56 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
-		E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChattingViewController.swift; path = ../ChattingViewController.swift; sourceTree = "<group>"; };
 		E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeLeftBarButton.swift; path = "second-hand/Home/HomeLeftBarButton.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeRightBarButton.swift; path = "second-hand/Home/HomeRightBarButton.swift"; sourceTree = SOURCE_ROOT; };
 		E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonCustomView.swift; path = "second-hand/Home/ButtonCustomView.swift"; sourceTree = SOURCE_ROOT; };
+		E49EB8662A36F054001F2D56 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
+		E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMyAccountViewController.swift; sourceTree = "<group>"; };
+		E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCreater.swift; sourceTree = "<group>"; };
+		E4C951442A3967D30094AD66 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		E4C951472A3AB4E80094AD66 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
+		E4C9514F2A3AFF9B0094AD66 /* GitUser+Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GitUser+Region.swift"; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */,
-				DBE3C03C2A30791F00E6EF35 /* CategoriesScrollView.swift */,
+				DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -122,47 +137,11 @@
 			path = UIExtensions;
 			sourceTree = "<group>";
 		};
-		DBAF83A72A32E3A900194A02 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DBAF83A82A32E3B100194A02 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		DBAF83A92A32E3BC00194A02 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				E49EB83D2A2DD3BF001F2D56 /* ChattingViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		DBAF83AC2A32E3DA00194A02 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DBAF83AD2A32E3E200194A02 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		DBAF83AE2A32E3E900194A02 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83AF2A32E3E900194A02 /* IdStackView.swift */,
-				DBAF83B02A32E3E900194A02 /* MyAccountViewController.swift */,
+				DBAF83B02A32E3E900194A02 /* NotLoginMyAccountViewController.swift */,
+				E49EB86A2A371A0B001F2D56 /* LoginMyAccountViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -188,6 +167,7 @@
 		DBB04D292A2DA5BF001233CC /* second-hand */ = {
 			isa = PBXGroup;
 			children = (
+				E4C951462A3AB4A90094AD66 /* Network */,
 				DBAF83A22A32E38B00194A02 /* UIExtensions */,
 				E49EB8492A304A17001F2D56 /* TabBarControl */,
 				E49EB8432A30495C001F2D56 /* Application */,
@@ -245,9 +225,9 @@
 		E49EB8472A3049EB001F2D56 /* Chatting */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83A92A32E3BC00194A02 /* Controller */,
-				DBAF83A82A32E3B100194A02 /* Model */,
-				DBAF83A72A32E3A900194A02 /* View */,
+				E49EB8652A36F03F001F2D56 /* Controller */,
+				E49EB8642A36F037001F2D56 /* Model */,
+				E49EB8632A36F02B001F2D56 /* View */,
 			);
 			path = Chatting;
 			sourceTree = "<group>";
@@ -255,9 +235,10 @@
 		E49EB8482A3049F2001F2D56 /* MyAccount */ = {
 			isa = PBXGroup;
 			children = (
+				E4C951422A3967840094AD66 /* SubScene */,
+				E49EB8692A36F087001F2D56 /* View */,
+				E49EB8682A36F082001F2D56 /* Model */,
 				DBAF83AE2A32E3E900194A02 /* Controller */,
-				DBAF83AD2A32E3E200194A02 /* Model */,
-				DBAF83AC2A32E3DA00194A02 /* View */,
 			);
 			path = MyAccount;
 			sourceTree = "<group>";
@@ -315,9 +296,75 @@
 		E49EB8592A31C889001F2D56 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DBAF83972A32E2BE00194A02 /* SaleLogNavigationView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+
+		E49EB8632A36F02B001F2D56 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E49EB8642A36F037001F2D56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E49EB8652A36F03F001F2D56 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E49EB8662A36F054001F2D56 /* ChattingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E49EB8682A36F082001F2D56 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E49EB8692A36F087001F2D56 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DBAF83AF2A32E3E900194A02 /* IdStackView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4C951422A3967840094AD66 /* SubScene */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951432A3967A80094AD66 /* Controller */,
+			);
+			path = SubScene;
+			sourceTree = "<group>";
+		};
+		E4C951432A3967A80094AD66 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951442A3967D30094AD66 /* JoinViewController.swift */,
+				DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E4C951462A3AB4A90094AD66 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951472A3AB4E80094AD66 /* NetworkManager.swift */,
+				E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */,
+				E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */,
+				E4C9514F2A3AFF9B0094AD66 /* GitUser+Region.swift */,
+				E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,13 +463,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */,
+				E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */,
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
-				E49EB83E2A2DD3BF001F2D56 /* ChattingViewController.swift in Sources */,
-				DBE3C03D2A30791F00E6EF35 /* CategoriesScrollView.swift in Sources */,
+				DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
+				E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */,
+				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
+				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
+				E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
+				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
@@ -431,10 +484,11 @@
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
-				DBAF83982A32E2BE00194A02 /* SaleLogNavigationView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
-				DBAF83B22A32E3E900194A02 /* MyAccountViewController.swift in Sources */,
+				E4C951502A3AFF9B0094AD66 /* GitUser+Region.swift in Sources */,
+				DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */,
+				DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +628,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7B9KLZFFL8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "second-hand/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -601,6 +656,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7B9KLZFFL8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "second-hand/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
