@@ -23,6 +23,7 @@ class ButtonCustomView: UIButton {
         setSideImage()
         setContraints()
         setMenu()
+
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +50,7 @@ class ButtonCustomView: UIButton {
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            
+
             sideImage.leadingAnchor.constraint(equalTo: label.trailingAnchor,constant: 5.0),
             sideImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             sideImage.centerYAnchor.constraint(equalTo: self.centerYAnchor)

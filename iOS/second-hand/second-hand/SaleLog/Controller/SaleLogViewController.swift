@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 final class SaleLogViewController: UIViewController {
     private let titleLabel = UILabel()
     private let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
@@ -58,5 +59,6 @@ final class SaleLogViewController: UIViewController {
             segmentControl.heightAnchor.constraint(equalToConstant: 32*heightRatio)
         ])
     }
+
 }
 

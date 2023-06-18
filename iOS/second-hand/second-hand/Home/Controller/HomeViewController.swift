@@ -18,7 +18,6 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         setObserver()
     }
     
-    
     private func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin(_:)), name: NSNotification.Name("LOGIN"), object: nil)
     }
@@ -44,12 +43,10 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
-    
+  
     func tappedSetLocation() {
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
     }
-    
-
 }
 
 
