@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
+		DB51315D2A3EA49900FBFA49 /* setLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51315C2A3EA49900FBFA49 /* setLocationViewController.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		2356744C4EC7A65407925876 /* Pods_second_hand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_second_hand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
+		DB51315C2A3EA49900FBFA49 /* setLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = setLocationViewController.swift; path = "../../../../../../../.Trash/second-hand 오전 11.32.16/iOS/second-hand/second-hand/Home/SubScene/setLocationViewController.swift"; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 				2356744C4EC7A65407925876 /* Pods_second_hand.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB51315B2A3EA48500FBFA49 /* subScene */ = {
+			isa = PBXGroup;
+			children = (
+				DB51315C2A3EA49900FBFA49 /* setLocationViewController.swift */,
+			);
+			path = subScene;
 			sourceTree = "<group>";
 		};
 		DBAF839A2A32E30600194A02 /* View */ = {
@@ -194,6 +204,7 @@
 		E49EB8442A304982001F2D56 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DB51315B2A3EA48500FBFA49 /* subScene */,
 				E49EB84B2A304A7B001F2D56 /* Controller */,
 				E49EB84A2A304A73001F2D56 /* Model */,
 				E49EB84C2A304A83001F2D56 /* View */,
@@ -483,6 +494,7 @@
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
+				DB51315D2A3EA49900FBFA49 /* setLocationViewController.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
 				E4C951502A3AFF9B0094AD66 /* GitUser+Region.swift in Sources */,
 				DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */,
