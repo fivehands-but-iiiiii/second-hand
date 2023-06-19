@@ -8,7 +8,7 @@
 import UIKit
 
 final class CategoryScrollView: UIScrollView {
-    internal var categoriStackView = UIStackView()
+    var categoriStackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

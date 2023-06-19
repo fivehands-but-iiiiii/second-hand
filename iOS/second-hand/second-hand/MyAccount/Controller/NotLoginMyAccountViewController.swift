@@ -33,7 +33,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         
     }
     
-    internal func toggleLogin() {
+    func toggleLogin() {
         if isLogin == true {
             isLogin = false
         }else {
@@ -41,7 +41,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         }
     }
     
-    internal func loginStatus() {
+    func loginStatus() {
         if isLogin {
             setLoginedUI()
         }
