@@ -10,7 +10,7 @@ import Foundation
 class JSONCreater {
     func createJSON(user: GitUserNeedsJoin, region: Region) -> Data? {
         
-        let userData = GitUserNeedsJoinRegisterRequest(memberId: user.login, profileImgURL: user.avatar_url, regions: [region])
+        let userData = GitUserNeedsJoinRegisterRequest(memberId: user.login, profileImgUrl: user.avatar_url, regions: [region])
 
         let jsonEncoder = JSONEncoder()
         do {
