@@ -131,11 +131,11 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
     }
    
     private func setLoginedConstraints() {
-        let addSubviewComponent = [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton]
-        addSubviewComponent.forEach{self.view.addSubview($0)}
-        let component = [idStackView, loginButton, joinMembershipButton, contour, githubLoginButton]
-        component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
-        
+        [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton].forEach{
+            self.view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+       
         let height: CGFloat = self.view.frame.height
         let width: CGFloat = self.view.frame.width
         let figmaHeight: CGFloat = 748
