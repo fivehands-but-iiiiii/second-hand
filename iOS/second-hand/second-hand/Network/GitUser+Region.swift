@@ -39,6 +39,6 @@ struct GitUserLoginDTO: Codable  {
 
 struct GitUserNeedsJoinRegisterRequest: Codable {
     let memberId: String
-    let profileImgURL: String
+    let profileImgUrl: String
     let regions: [Region]
 }
