@@ -22,6 +22,7 @@
 		DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */; };
 		DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */; };
 		DBEA327F2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEA327E2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift */; };
+		DBEA32812A4101B400C04E0A /* HomeProducCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEA32802A4101B400C04E0A /* HomeProducCollectionViewCell.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
 		E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */; };
@@ -59,6 +60,7 @@
 		DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubWebViewController.swift; sourceTree = "<group>"; };
 		DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScrollView.swift; sourceTree = "<group>"; };
 		DBEA327E2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProductListCollectionViewController.swift; sourceTree = "<group>"; };
+		DBEA32802A4101B400C04E0A /* HomeProducCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProducCollectionViewCell.swift; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			children = (
 				E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */,
 				DBEA327E2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift */,
+				DBEA32802A4101B400C04E0A /* HomeProducCollectionViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
+				DBEA32812A4101B400C04E0A /* HomeProducCollectionViewCell.swift in Sources */,
 				E4C951502A3AFF9B0094AD66 /* GitUser+Region.swift in Sources */,
 				DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */,
 				DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */,
