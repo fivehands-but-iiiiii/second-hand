@@ -206,7 +206,7 @@ extension JoinViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //6글자 미만일 경우 디스크립션 텍스트 변경
-        if (textField.text?.count)! + string.count < 6 {
+        if (textField.text?.count ?? 0) + string.count < 6 {
             idDescription.text = "6~12자 이내로 입력하세요"
         }else {
             idDescription.text = ""
