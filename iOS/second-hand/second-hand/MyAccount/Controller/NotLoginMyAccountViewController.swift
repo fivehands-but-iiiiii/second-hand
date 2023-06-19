@@ -112,9 +112,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
         isLogin = true
         
-        //얘를 사용하려니까 자식뷰컨트롤러라 사용이 안됨
-        //present(loginViewController, animated: true)
-        //대체한것이 이 메서드 호출
         setLoginedUI()
     }
     
