@@ -11,7 +11,7 @@ import OSLog
 class NetworkManager {
     let logger = Logger()
     
-    func RequestGET(fromURL url: URL, httpMethod: HttpMethod = .get, completion: @escaping (Result<Codable, Error>) -> Void) {
+    func requestGET(fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
         
         let asyncCompletion: (Result<Codable, Error>) -> Void = { result in
             DispatchQueue.main.async {
@@ -20,7 +20,7 @@ class NetworkManager {
         }
         
         var request = URLRequest(url: url, timeoutInterval: 10.0)
-        request.httpMethod = httpMethod.method
+        request.httpMethod = HttpMethod.get.method
         
         let session = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
@@ -46,7 +46,7 @@ class NetworkManager {
         session.resume()
     }
     
-    func RequestPOST(data: Data?, fromURL url: URL, httpMethod: HttpMethod = .post, completion: @escaping (Result<Codable, Error>) -> Void) {
+    func requestPOST(data: Data?, fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
             
             let asyncCompletion: (Result<Codable, Error>) -> Void = { result in
                 DispatchQueue.main.async {
@@ -55,12 +55,11 @@ class NetworkManager {
             }
             
             var request = URLRequest(url: url, timeoutInterval: 10.0)
-            request.httpMethod = httpMethod.method
+            request.httpMethod = HttpMethod.post.method
             request.allHTTPHeaderFields = ["Content-Type": "application/json"]
             request.httpBody = data
             
             let session = URLSession.shared.dataTask(with: request) { data, response, error in
-                do {
                     guard let urlResponse = response as? HTTPURLResponse else {
                         return asyncCompletion(.failure(ManagerErrors.invalidResponse))
                     }
@@ -70,12 +69,8 @@ class NetworkManager {
                     default :
                         return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
                     }
-                } catch {
-                    asyncCompletion(.failure(error))
-                }
             }
             session.resume()
         }
-
 }
 

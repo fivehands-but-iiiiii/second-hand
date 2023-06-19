@@ -57,7 +57,7 @@ class GithubWebViewController: UIViewController {
             return
         }
         
-        networkManager.RequestGET(fromURL: accessURL) { (result: Result<Codable, Error>) in
+        networkManager.requestGET(fromURL: accessURL) { (result: Result<Codable, Error>) in
             switch result {
             case .success(let user):
                 // MARK: 테스트용
@@ -68,14 +68,14 @@ class GithubWebViewController: UIViewController {
                     return
                 }
                 
-                self.networkManager.RequestPOST(data: jsonCreater.createJSON(user: requestDataToJoin, region: region), fromURL: joinURL) { (result: Result<Codable, Error>) in
-                    switch result {
-                    case .success(_) :
-                        print("가입성공")
-                    case .failure(let error) :
-                        self.logger.log("FAIL \(error.localizedDescription)")
-                    }
-                }
+//                self.networkManager.requestPOST(data: jsonCreater.createJSON(user: requestDataToJoin, region: region), fromURL: joinURL) { (result: Result<Codable, Error>) in
+//                    switch result {
+//                    case .success(_) :
+//                        print("가입성공")
+//                    case .failure(let error) :
+//                        self.logger.log("FAIL \(error.localizedDescription)")
+//                    }
+//                }
                 
             case .failure(let error):
                 self.logger.log("FAIL \(error.localizedDescription)")
@@ -83,6 +83,7 @@ class GithubWebViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     private func extractAccessToken(from url: URL) -> String? {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let queryItems = components.queryItems {
