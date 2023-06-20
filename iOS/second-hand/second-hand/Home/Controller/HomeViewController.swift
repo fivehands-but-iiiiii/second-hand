@@ -8,6 +8,7 @@
 import UIKit
 
 class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
+    
     var setLocationViewController = SetLocationViewController()
     private var isLogin = false
 
@@ -42,6 +43,11 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
+    
+    func tappedSetLocation() {
+        present(UINavigationController(rootViewController: setLocationViewController), animated: true)
+    }
+    
 }
 
 
