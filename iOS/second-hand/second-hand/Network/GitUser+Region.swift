@@ -12,7 +12,7 @@ struct GitUserLogin: Codable {
     let memberId: String
     let profileImgUrl: String
     let oauth: String
-    let region : [Region]
+    let regions : [Region]
 }
 
 struct Region: Codable {
