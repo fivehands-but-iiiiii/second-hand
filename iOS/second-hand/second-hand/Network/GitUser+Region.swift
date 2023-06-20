@@ -8,9 +8,10 @@
 import Foundation
 
 struct GitUserLogin: Codable {
-    let id: String
+    let id: Int
     let memberId: String
     let profileImgUrl: String
+    let oauth: String
     let region : [Region]
 }
 
@@ -32,13 +33,20 @@ struct GitUserJoinDTO: Codable  {
 }
 
 struct GitUserLoginDTO: Codable  {
-    let errorInfo: String
     let message: String
-    let body: GitUserLogin
+    let data: GitUserLogin
 }
 
 struct GitUserNeedsJoinRegisterRequest: Codable {
     let memberId: String
     let profileImgUrl: String
     let regions: [Region]
+}
+
+struct ResponseHeader: Codable {
+    let setCookie: String
+    
+    enum CodingKeys: String, CodingKey {
+        case setCookie = "Set-Cookie"
+    }
 }
