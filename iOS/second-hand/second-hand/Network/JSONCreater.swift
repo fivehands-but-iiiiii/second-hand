@@ -15,7 +15,9 @@ class JSONCreater {
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(userData)
-            print(String(data: jsonData, encoding: .utf8))
+            
+            //MARK: JSONCREATER PRINT
+            print("JSON CREATER : ", String(data: jsonData, encoding: .utf8))
             return jsonData
         } catch {
             print("JSON encoding error: \(error)")
