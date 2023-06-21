@@ -7,10 +7,24 @@
 
 import UIKit
 
+enum Section: CaseIterable {
+       case main
+}
+
+struct Product: Hashable {
+    let id = UUID()
+    var title: String
+    var price: String
+    var location: String
+    var registerTime: String
+}
+
 class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
-    
+    var productListCollectionView : UICollectionView!
     var setLocationViewController = SetLocationViewController()
     private var isLogin = false
+    var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
