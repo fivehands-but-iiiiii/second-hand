@@ -90,6 +90,13 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         line.backgroundColor = .neutralBorder
     }
     
+    func configure(title: String, price: String, location: String, registerTime: String) {
+            self.title.text = title
+            self.price.text = price
+            self.location.text = location
+            self.registerTime.text = registerTime
+        }
+    
     func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
             self.addSubview($0)

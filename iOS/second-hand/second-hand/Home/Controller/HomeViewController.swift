@@ -99,6 +99,9 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         
         self.dataSource = UICollectionViewDiffableDataSource<Section, Product>.init(collectionView: productListCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeProductCollectionViewCell.identifier, for: indexPath) as? HomeProductCollectionViewCell else { preconditionFailure() }
+            
+            cell.configure(title: itemIdentifier.title, price: itemIdentifier.price, location: itemIdentifier.location, registerTime: itemIdentifier.registerTime)
+
             return cell
         })
     }
