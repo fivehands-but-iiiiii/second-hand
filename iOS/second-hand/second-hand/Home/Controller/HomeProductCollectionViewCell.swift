@@ -37,6 +37,7 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         setDot()
         setRegisterTime()
         setStatusLabel()
+        setPrice()
     }
     
     private func setImageView() {
@@ -78,6 +79,11 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         statusLabel.layer.cornerRadius = 8
     }
     
+    private func setPrice() {
+            price.text = "24,000원"
+            price.font = .headLine
+            price.textColor = .neutralTextStrong
+        }
     
     func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
@@ -115,6 +121,10 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
             //TODO: 여기 22를 해야지 프라이스랑 높이가 같음...
             statusLabel.heightAnchor.constraint(equalToConstant: 22),
             statusLabel.widthAnchor.constraint(equalToConstant: 50*widthRatio),
+            
+            price.topAnchor.constraint(equalTo: statusLabel.topAnchor),
+                       price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 4*widthRatio),
+
         ])
     }
 }
