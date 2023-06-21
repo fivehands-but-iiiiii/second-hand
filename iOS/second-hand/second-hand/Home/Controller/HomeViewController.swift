@@ -24,7 +24,12 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
     var setLocationViewController = SetLocationViewController()
     private var isLogin = false
     var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
+    
+    var productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
 
+       lazy var products: [Product] = {
+           return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
+       }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
