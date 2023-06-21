@@ -24,21 +24,18 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     enum Section: CaseIterable {
         case main
     }
-    
+
     private var productListCollectionView : UICollectionView!
-    
     private var setLocationViewController = SetLocationViewController()
-    
-    private var isLogin = false
-    
+    private var joinViewController = JoinViewController()
     private var productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
 
     private lazy var products: [Product] = {
         return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
     }()
-    
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
+    private var isLogin = false
+    private let registerProductButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +73,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         self.view.addSubview(productListCollectionView)
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
+        setRegisterProductButton()
     }
     
     private func setNavigationRightBarButton() {
@@ -92,6 +90,25 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     
     func tappedSetLocation() {
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
+    }
+    
+    private func setRegisterProductButton() {
+        let registerButtonHeightWidth = CGFloat(56)
+        registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        registerProductButton.tintColor = .neutralBackground
+        registerProductButton.backgroundColor = .accentBackgroundPrimary
+        
+        self.view.addSubview(registerProductButton)
+        registerProductButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            registerProductButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -107),
+            registerProductButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+            registerProductButton.widthAnchor.constraint(equalToConstant: registerButtonHeightWidth),
+            registerProductButton.heightAnchor.constraint(equalToConstant: registerButtonHeightWidth)
+        ])
+        
+        registerProductButton.clipsToBounds = true
+        registerProductButton.layer.cornerRadius = registerButtonHeightWidth / 2
     }
     
     private func setupDataSource() {
