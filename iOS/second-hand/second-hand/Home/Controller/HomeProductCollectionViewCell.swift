@@ -33,6 +33,7 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
     private func setUI() {
         setImageView()
         setTitle()
+        setLocation()
     }
     
     private func setImageView() {
@@ -46,6 +47,11 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
     private func setTitle() {
         title.font = .subHead
         title.textColor = .neutralText
+    }
+    
+    private func setLocation() {
+        location.font = .footNote
+        location.textColor = .neutralTextWeak
     }
     
     func layout() {
@@ -69,6 +75,11 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
             
             title.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 15*widthRatio),
             title.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 4*heightRatio),
+            
+            location.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+            location.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4*heightRatio),
+            
+            
             
         ])
     }
