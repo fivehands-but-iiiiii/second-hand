@@ -35,6 +35,7 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         super.viewDidLoad()
         setUI()
         setObserver()
+        setupDataSource()
     }
     
     private func setObserver() {
@@ -67,6 +68,15 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
     }
     
+    func setupDataSource() {
+           self.productListCollectionView.register(HomeProductCollectionViewCell.self, forCellWithReuseIdentifier: HomeProductCollectionViewCell.identifier)
+           
+           self.dataSource = UICollectionViewDiffableDataSource<Section, Product>.init(collectionView: productListCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+               guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeProductCollectionViewCell.identifier, for: indexPath) as? HomeProductCollectionViewCell else { preconditionFailure() }
+               return cell
+           })
+       }
+
 }
 
 
