@@ -34,6 +34,7 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         setImageView()
         setTitle()
         setLocation()
+        setDot()
     }
     
     private func setImageView() {
@@ -52,6 +53,12 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
     private func setLocation() {
         location.font = .footNote
         location.textColor = .neutralTextWeak
+    }
+    
+    private func setDot() {
+        dot.text = " ・ "
+        dot.font = .footNote
+        dot.textColor = .neutralTextWeak
     }
     
     func layout() {
@@ -79,6 +86,8 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
             location.leadingAnchor.constraint(equalTo: title.leadingAnchor),
             location.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4*heightRatio),
             
+            dot.leadingAnchor.constraint(equalTo: location.trailingAnchor),
+            dot.topAnchor.constraint(equalTo: location.topAnchor),
             
             
         ])
