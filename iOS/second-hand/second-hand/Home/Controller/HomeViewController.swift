@@ -26,9 +26,10 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
 
     private var productListCollectionView : UICollectionView!
-    private var setLocationViewController = SetLocationViewController()
-    private var joinViewController = JoinViewController()
-    private var productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
+    private let setLocationViewController = SetLocationViewController()
+    private let joinViewController = JoinViewController()
+    private let registerNewProductViewController = RegisterNewProductViewController()
+    private let productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
 
     private lazy var products: [Product] = {
         return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
@@ -93,11 +94,16 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func setRegisterProductButton() {
-        let registerButtonHeightWidth = CGFloat(56)
         registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
         registerProductButton.tintColor = .neutralBackground
         registerProductButton.backgroundColor = .accentBackgroundPrimary
+        layoutRegisterProductButton()
         
+        registerProductButton.addTarget(self, action: #selector(registerProductButtonTapped), for: .touchUpInside)
+    }
+    
+    private func layoutRegisterProductButton() {
+        let registerButtonHeightWidth = CGFloat(56)
         self.view.addSubview(registerProductButton)
         registerProductButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -109,6 +115,10 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         
         registerProductButton.clipsToBounds = true
         registerProductButton.layer.cornerRadius = registerButtonHeightWidth / 2
+    }
+    
+    @objc func registerProductButtonTapped() {
+        present(UINavigationController(rootViewController: registerNewProductViewController), animated: true)
     }
     
     private func setupDataSource() {
