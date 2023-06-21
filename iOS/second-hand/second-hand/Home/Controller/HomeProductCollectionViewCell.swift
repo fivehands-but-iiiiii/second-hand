@@ -36,6 +36,7 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         setLocation()
         setDot()
         setRegisterTime()
+        setStatusLabel()
     }
     
     private func setImageView() {
@@ -66,6 +67,17 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         registerTime.font = .footNote
         registerTime.textColor = .neutralTextWeak
     }
+    
+    private func setStatusLabel() {
+        statusLabel.text = "예약중"
+        statusLabel.textAlignment = .center
+        statusLabel.font = .caption1
+        statusLabel.textColor = .accentText
+        statusLabel.backgroundColor = .accentBackgroundSecondary
+        statusLabel.layer.masksToBounds = true
+        statusLabel.layer.cornerRadius = 8
+    }
+    
     
     func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
@@ -98,7 +110,11 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
             registerTime.leadingAnchor.constraint(equalTo: dot.trailingAnchor),
             registerTime.topAnchor.constraint(equalTo: dot.topAnchor),
             
-            
+            statusLabel.leadingAnchor.constraint(equalTo: location.leadingAnchor),
+            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
+            //TODO: 여기 22를 해야지 프라이스랑 높이가 같음...
+            statusLabel.heightAnchor.constraint(equalToConstant: 22),
+            statusLabel.widthAnchor.constraint(equalToConstant: 50*widthRatio),
         ])
     }
 }
