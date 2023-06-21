@@ -21,7 +21,6 @@
 		DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D352A2DA5C0001233CC /* LaunchScreen.storyboard */; };
 		DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */; };
 		DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */; };
-		DBEA327F2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEA327E2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift */; };
 		DBEA32812A4101B400C04E0A /* HomeProducCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEA32802A4101B400C04E0A /* HomeProducCollectionViewCell.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
@@ -59,7 +58,6 @@
 		DBB04D382A2DA5C0001233CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubWebViewController.swift; sourceTree = "<group>"; };
 		DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScrollView.swift; sourceTree = "<group>"; };
-		DBEA327E2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProductListCollectionViewController.swift; sourceTree = "<group>"; };
 		DBEA32802A4101B400C04E0A /* HomeProducCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProducCollectionViewCell.swift; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
@@ -278,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */,
-				DBEA327E2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift */,
 				DBEA32802A4101B400C04E0A /* HomeProducCollectionViewCell.swift */,
 			);
 			path = Controller;
@@ -491,7 +488,6 @@
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
-				DBEA327F2A40FACB00C04E0A /* HomeProductListCollectionViewController.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
