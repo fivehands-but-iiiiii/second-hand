@@ -20,22 +20,40 @@ struct Product: Hashable {
 }
 
 class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
+    
+    enum Section: CaseIterable {
+        case main
+    }
+    
     var productListCollectionView : UICollectionView!
+    
     var setLocationViewController = SetLocationViewController()
+    
     private var isLogin = false
-    var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
     
     var productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
 
-       lazy var products: [Product] = {
-           return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
-       }()
-
+    lazy var products: [Product] = {
+        return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
+    }()
+    
+    
+    var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setObserver()
         setupDataSource()
+        applyInitialSnapshot()
+    }
+    
+    func applyInitialSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Product>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(products, toSection: .main)
+ 
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     private func setObserver() {
@@ -48,6 +66,14 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
     }
     
     private func setUI() {
+        let layout = UICollectionViewFlowLayout()
+        let figmaCellHight = 152
+        let figmaHeight = 852
+        
+        layout.minimumLineSpacing = .zero
+        layout.itemSize = .init(width: self.view.frame.width, height: CGFloat(figmaCellHight*figmaHeight)/self.view.frame.height)
+        productListCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        self.view.addSubview(productListCollectionView)
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
     }
@@ -69,14 +95,11 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
     }
     
     func setupDataSource() {
-           self.productListCollectionView.register(HomeProductCollectionViewCell.self, forCellWithReuseIdentifier: HomeProductCollectionViewCell.identifier)
-           
-           self.dataSource = UICollectionViewDiffableDataSource<Section, Product>.init(collectionView: productListCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-               guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeProductCollectionViewCell.identifier, for: indexPath) as? HomeProductCollectionViewCell else { preconditionFailure() }
-               return cell
-           })
-       }
-
+        self.productListCollectionView.register(HomeProductCollectionViewCell.self, forCellWithReuseIdentifier: HomeProductCollectionViewCell.identifier)
+        
+        self.dataSource = UICollectionViewDiffableDataSource<Section, Product>.init(collectionView: productListCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeProductCollectionViewCell.identifier, for: indexPath) as? HomeProductCollectionViewCell else { preconditionFailure() }
+            return cell
+        })
+    }
 }
-
-

@@ -31,6 +31,36 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUI() {
+        setImageView()
+    }
+    
+    private func setImageView() {
+            imageView.layer.borderWidth = 1
+            imageView.layer.borderColor = .init(red: 179/255, green: 179/255, blue: 179/255, alpha: 0.39)
+            
+            imageView.layer.masksToBounds = true
+            imageView.layer.cornerRadius = 8
+        }
+    
+    func layout() {
+        [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
+            self.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
+        let height: CGFloat = self.frame.height
+        let width: CGFloat = self.frame.width
+        let figmaHeight: CGFloat = 152
+        let figmaWidth: CGFloat = 393
+        let heightRatio: CGFloat = height/figmaHeight
+        let widthRatio: CGFloat = width/figmaWidth
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            imageView.widthAnchor.constraint(equalToConstant: height-32)
+        ])
     }
 }
+
