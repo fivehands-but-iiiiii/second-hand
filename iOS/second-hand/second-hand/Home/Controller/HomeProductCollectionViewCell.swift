@@ -38,6 +38,7 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
         setRegisterTime()
         setStatusLabel()
         setPrice()
+        setLine()
     }
     
     private func setImageView() {
@@ -80,10 +81,14 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     private func setPrice() {
-            price.text = "24,000원"
-            price.font = .headLine
-            price.textColor = .neutralTextStrong
-        }
+        price.text = "24,000원"
+        price.font = .headLine
+        price.textColor = .neutralTextStrong
+    }
+    
+    private func setLine() {
+        line.backgroundColor = .neutralBorder
+    }
     
     func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
@@ -123,8 +128,12 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
             statusLabel.widthAnchor.constraint(equalToConstant: 50*widthRatio),
             
             price.topAnchor.constraint(equalTo: statusLabel.topAnchor),
-                       price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 4*widthRatio),
-
+            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 4*widthRatio),
+            
+            line.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            line.heightAnchor.constraint(equalToConstant: 1),
+            line.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            line.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
     }
 }
