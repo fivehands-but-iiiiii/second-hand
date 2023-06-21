@@ -7,18 +7,18 @@
 
 import UIKit
 
-class HomeProductCollectionViewCell: UICollectionViewCell {
+final class HomeProductCollectionViewCell: UICollectionViewCell {
     static let identifier = "productCell"
-    let imageView = UIImageView()
-    var title = UILabel()
-    let location = UILabel()
-    let dot = UILabel()
-    let registerTime = UILabel()
-    let statusLabel = UILabel()
-    let price = UILabel()
-    let chat = UILabel()
-    let wish = UILabel()
-    let line = UILabel()
+    private let imageView = UIImageView()
+    private var title = UILabel()
+    private let location = UILabel()
+    private let dot = UILabel()
+    private let registerTime = UILabel()
+    private let statusLabel = UILabel()
+    private let price = UILabel()
+    private let chat = UILabel()
+    private let wish = UILabel()
+    private let line = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,7 +97,7 @@ class HomeProductCollectionViewCell: UICollectionViewCell {
             self.registerTime.text = registerTime
         }
     
-    func layout() {
+    private func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
             self.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
