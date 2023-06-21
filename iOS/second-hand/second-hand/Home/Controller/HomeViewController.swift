@@ -19,26 +19,26 @@ struct Product: Hashable {
     var registerTime: String
 }
 
-class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
+final class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
     
     enum Section: CaseIterable {
         case main
     }
     
-    var productListCollectionView : UICollectionView!
+    private var productListCollectionView : UICollectionView!
     
-    var setLocationViewController = SetLocationViewController()
+    private var setLocationViewController = SetLocationViewController()
     
     private var isLogin = false
     
-    var productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
+    private var productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
 
-    lazy var products: [Product] = {
+    private lazy var products: [Product] = {
         return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
     }()
     
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,7 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         applyInitialSnapshot()
     }
     
-    func applyInitialSnapshot() {
+    private func applyInitialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Product>()
         snapshot.appendSections([.main])
         snapshot.appendItems(products, toSection: .main)
@@ -94,7 +94,7 @@ class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDel
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
     }
     
-    func setupDataSource() {
+    private func setupDataSource() {
         self.productListCollectionView.register(HomeProductCollectionViewCell.self, forCellWithReuseIdentifier: HomeProductCollectionViewCell.identifier)
         
         self.dataSource = UICollectionViewDiffableDataSource<Section, Product>.init(collectionView: productListCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
