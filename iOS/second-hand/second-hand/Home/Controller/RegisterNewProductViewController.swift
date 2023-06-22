@@ -28,8 +28,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     
     private func setUI() {
         setNavigation()
-        setSquare()
         setCameraView()
+        setCountPictureLabel()
         setStackView()
     }
     
@@ -50,26 +50,32 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         print("저장")
     }
     
-    func setSquare() {
-        
-        square.setTitle("\(productPicture.count)/10", for: .normal)
-        square.setImage(UIImage(systemName: "camera"), for: .normal)
-        
-        square.contentHorizontalAlignment = .center
-        square.contentVerticalAlignment = .bottom
-    }
-    
     func setCameraView() {
         //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
-        square.setBackgroundImage(UIImage(systemName: imageRequest.image), for: .normal)
+        cameraView.image = UIImage(systemName: imageRequest.image)
+        cameraView.tintColor = .black
+        NSLayoutConstraint.activate([
+            cameraView.heightAnchor.constraint(equalToConstant: 29),
+            cameraView.widthAnchor.constraint(equalToConstant: 35)
+            ])
+    }
+    
+    func setCountPictureLabel() {
+        countPictureLabel.text = "\(productPicture.count)/10"
+        countPictureLabel.font = .systemFont(ofSize: 13)
+        countPictureLabel.textColor = .neutralTextStrong
+        countPictureLabel.textAlignment = .center
     }
     
     func setStackView() {
-        
+        imageLabelStackView.addArrangedSubview(cameraView)
+        imageLabelStackView.addArrangedSubview(countPictureLabel)
+        imageLabelStackView.spacing = 5
+        imageLabelStackView.axis = .vertical
     }
     
     private func layout() {
-        var sectionArr = [sectionLine1, sectionLine2, sectionLine3, square]
+        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, square, imageLabelStackView]
         sectionArr.forEach{
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +93,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             sectionLine3.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
             square.bottomAnchor.constraint(equalTo: sectionLine1.topAnchor, constant: -15),
-            square.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15)
+            square.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            
+            imageLabelStackView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
+            imageLabelStackView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
         ])
     }
 }
