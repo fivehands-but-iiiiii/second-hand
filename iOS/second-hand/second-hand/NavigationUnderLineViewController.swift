@@ -8,7 +8,8 @@
 import UIKit
 
 class NavigationUnderLineViewController: UIViewController {
-
+    
+    //TODO: 어피어로 하니까 계속 라인이 생김
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBarBottomBorder()

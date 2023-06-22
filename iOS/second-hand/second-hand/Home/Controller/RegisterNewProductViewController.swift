@@ -21,7 +21,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     let imageStackView = UIStackView()
     let titleTextField = UITextField()
     let priceTextField = UITextField()
-    let descriptionTextField = UITextField()
+    let descriptionTextField = UITextView()
+    let textViewPlaceHolder = "dddd"
+    //let textViewPlaceHolder = "\(location)"
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
     let location = "역삼1동"
     let wonIcon = UILabel()
@@ -38,6 +40,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         setCountPictureLabel()
         setStackView()
         setTextField()
+        setToolbar()
     }
     
     private func setNavigation() {
@@ -84,16 +87,27 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)"
-        descriptionTextField.placeholder = "\(location)에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)"
+        descriptionTextField.delegate = self // txtvReview가 유저가 선언한 outlet
+        descriptionTextField.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
+        descriptionTextField.textColor = .neutralTextWeak
+        descriptionTextField.font = .systemFont(ofSize: 15)
         wonIcon.text = "₩"
         wonIcon.font = .systemFont(ofSize: 15)
         wonIcon.textColor = .neutralTextWeak
         
-        [titleTextField, priceTextField, descriptionTextField].forEach{
+        [titleTextField, priceTextField].forEach{
             $0.font = .systemFont(ofSize: 15)
             $0.setPlaceholder(color: .neutralTextWeak)
         }
         
+    }
+    
+    private func setToolbar() {
+        navigationController?.isToolbarHidden = false
+        let appearance = UIToolbarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .neutralBackgroundWeak
+            navigationController?.toolbar.scrollEdgeAppearance = appearance
     }
     
     private func layout() {
@@ -122,9 +136,37 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             
             titleTextField.leadingAnchor.constraint(equalTo: square.leadingAnchor),
             titleTextField.topAnchor.constraint(equalTo: sectionLine1.bottomAnchor, constant: 15),
-            titleTextField.bottomAnchor.constraint(equalTo: sectionLine2.topAnchor, constant: -15)
+            titleTextField.bottomAnchor.constraint(equalTo: sectionLine2.topAnchor, constant: -15),
             
+            wonIcon.leadingAnchor.constraint(equalTo: square.leadingAnchor),
+            wonIcon.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 15),
+            wonIcon.bottomAnchor.constraint(equalTo: sectionLine3.topAnchor, constant: -15),
+            
+            priceTextField.leadingAnchor.constraint(equalTo: wonIcon.trailingAnchor, constant: 3),
+            priceTextField.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 15),
+            priceTextField.bottomAnchor.constraint(equalTo: sectionLine3.topAnchor, constant: -15),
+            
+            descriptionTextField.leadingAnchor.constraint(equalTo: square.leadingAnchor),
+            descriptionTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
+            descriptionTextField.topAnchor.constraint(equalTo: sectionLine3.bottomAnchor, constant: 15),
+            descriptionTextField.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -15)
         ])
+    }
+}
+
+extension RegisterNewProductViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .neutralTextWeak {
+            textView.text = nil
+            textView.textColor = UIColor.neutralText
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
+            textView.textColor = .neutralTextWeak
+        }
     }
 }
 
