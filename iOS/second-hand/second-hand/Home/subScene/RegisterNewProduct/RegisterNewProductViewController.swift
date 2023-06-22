@@ -87,6 +87,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)"
+        priceTextField.delegate = self
         descriptionTextField.delegate = self // txtvReview가 유저가 선언한 outlet
         descriptionTextField.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
         descriptionTextField.textColor = .neutralTextWeak
@@ -169,4 +170,30 @@ extension RegisterNewProductViewController: UITextViewDelegate {
         }
     }
 }
+
+extension RegisterNewProductViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if isNumber(string) {
+            return true
+        }
+           return false
+    }
+    
+    private func isNumber(_ string: String) -> Bool {
+        let number = CharacterSet(charactersIn: "1234567890")
+        guard let scalar = UnicodeScalar(string) else {
+            return false
+        }
+        return number.contains(scalar)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //화면 터치시 키보드 내려감
+        priceTextField.resignFirstResponder()
+    }
+    
+}
+
 
