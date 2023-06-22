@@ -51,7 +51,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         snapshot.appendSections([.main])
         snapshot.appendItems(products, toSection: .main)
  
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func setObserver() {
