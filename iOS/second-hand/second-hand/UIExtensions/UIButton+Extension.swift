@@ -20,4 +20,16 @@ extension UIButton {
         ])
         return button
     }
+    
+    static func makeCircle(size: CGFloat, title: String, BackgroundColor: UIColor) -> UIButton {
+        let button = UIButton()
+        button.layer.cornerRadius = size/2
+        button.clipsToBounds = true
+        button.backgroundColor = BackgroundColor
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: size),
+            button.heightAnchor.constraint(equalToConstant: size),
+        ])
+        return button
+    }
 }
