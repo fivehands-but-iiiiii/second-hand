@@ -9,10 +9,16 @@ import UIKit
 
 final class RegisterNewProductViewController: NavigationUnderLineViewController {
     
+    var productPicture = ProductPicture()
+    var imageRequest = ImageRequest()
     let sectionLine1 = UIView.makeLine()
     let sectionLine2 = UIView.makeLine()
     let sectionLine3 = UIView.makeLine()
     let square = UIButton.makeSquare(width: 80, height: 80, radius: 12)
+    let cameraView = UIImageView()
+    let countPictureLabel = UILabel()
+    let imageLabelStackView = UIStackView()
+    let imageStackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +29,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private func setUI() {
         setNavigation()
         setSquare()
+        setCameraView()
+        setStackView()
     }
     
     private func setNavigation() {
@@ -43,11 +51,21 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     }
     
     func setSquare() {
-        square.setTitle("0/10", for: .normal)
-            square.setImage(UIImage(systemName: "camera"), for: .normal)
-            
-            square.contentHorizontalAlignment = .center
-            square.contentVerticalAlignment = .bottom
+        
+        square.setTitle("\(productPicture.count)/10", for: .normal)
+        square.setImage(UIImage(systemName: "camera"), for: .normal)
+        
+        square.contentHorizontalAlignment = .center
+        square.contentVerticalAlignment = .bottom
+    }
+    
+    func setCameraView() {
+        //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
+        square.setBackgroundImage(UIImage(systemName: imageRequest.image), for: .normal)
+    }
+    
+    func setStackView() {
+        
     }
     
     private func layout() {
@@ -57,14 +75,14 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
-           
+            
             sectionLine1.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 167),
             sectionLine1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
             
             sectionLine2.topAnchor.constraint(equalTo: sectionLine1.bottomAnchor, constant: 52),
             sectionLine2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-
+            
             sectionLine3.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 52),
             sectionLine3.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
