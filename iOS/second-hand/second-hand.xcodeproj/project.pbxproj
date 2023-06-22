@@ -16,6 +16,7 @@
 		DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */; };
 		DB55CB112A4407CB00578ED5 /* ProductPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductPicture.swift */; };
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
+		DB55CB152A443E5B00578ED5 /* RegisterProductScrollVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -51,13 +52,14 @@
 		2356744C4EC7A65407925876 /* Pods_second_hand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_second_hand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
 		DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNewProductViewController.swift; sourceTree = "<group>"; };
-		DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetLocationViewController.swift; path = "second-hand/Home/SetLocationViewController.swift"; sourceTree = SOURCE_ROOT; };
+		DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetLocationViewController.swift; path = "second-hand/Home/subScene/SetLocation/Controller/SetLocationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DB55CB082A43E58800578ED5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		DB55CB102A4407CB00578ED5 /* ProductPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPicture.swift; sourceTree = "<group>"; };
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProductScrollVeiw.swift; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -124,9 +126,141 @@
 		DB51315B2A3EA48500FBFA49 /* subScene */ = {
 			isa = PBXGroup;
 			children = (
-				DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */,
+				DB55CB182A44470D00578ED5 /* RegisterNewProduct */,
+				DB55CB162A4446D800578ED5 /* SetLocation */,
 			);
 			path = subScene;
+			sourceTree = "<group>";
+		};
+		DB55CB162A4446D800578ED5 /* SetLocation */ = {
+			isa = PBXGroup;
+			children = (
+				DB55CB1E2A4447A100578ED5 /* Model */,
+				DB55CB1D2A44479B00578ED5 /* View */,
+				DB55CB1C2A44479600578ED5 /* Controller */,
+			);
+			path = SetLocation;
+			sourceTree = "<group>";
+		};
+		DB55CB182A44470D00578ED5 /* RegisterNewProduct */ = {
+			isa = PBXGroup;
+			children = (
+				DB55CB1A2A44474600578ED5 /* Model */,
+				DB55CB1B2A44474F00578ED5 /* View */,
+				DB55CB192A44473C00578ED5 /* Controller */,
+				DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */,
+			);
+			path = RegisterNewProduct;
+			sourceTree = "<group>";
+		};
+		DB55CB192A44473C00578ED5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB55CB1A2A44474600578ED5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */,
+				DB55CB102A4407CB00578ED5 /* ProductPicture.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB55CB1B2A44474F00578ED5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB55CB1C2A44479600578ED5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB55CB1D2A44479B00578ED5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB55CB1E2A4447A100578ED5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB55CB202A44481E00578ED5 /* Join */ = {
+			isa = PBXGroup;
+			children = (
+				DB55CB232A44483A00578ED5 /* Model */,
+				DB55CB222A44483500578ED5 /* View */,
+				DB55CB212A44482B00578ED5 /* Controller */,
+			);
+			path = Join;
+			sourceTree = "<group>";
+		};
+		DB55CB212A44482B00578ED5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E4C951442A3967D30094AD66 /* JoinViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB55CB222A44483500578ED5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB55CB232A44483A00578ED5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB55CB242A44485300578ED5 /* GithubWeb */ = {
+			isa = PBXGroup;
+			children = (
+				DB55CB272A44486B00578ED5 /* Model */,
+				DB55CB262A44486600578ED5 /* View */,
+				DB55CB252A44485F00578ED5 /* Controller */,
+			);
+			path = GithubWeb;
+			sourceTree = "<group>";
+		};
+		DB55CB252A44485F00578ED5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB55CB262A44486600578ED5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB55CB272A44486B00578ED5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DBAF839A2A32E30600194A02 /* View */ = {
@@ -294,10 +428,6 @@
 			isa = PBXGroup;
 			children = (
 				E49EB8372A2DCA45001F2D56 /* HomeViewController.swift */,
-				DBEA32802A4101B400C04E0A /* HomeProductCollectionViewCell.swift */,
-				DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */,
-				DB55CB102A4407CB00578ED5 /* ProductPicture.swift */,
-				DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -308,6 +438,7 @@
 				E49EB8512A3068A8001F2D56 /* HomeLeftBarButton.swift */,
 				E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */,
 				E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */,
+				DBEA32802A4101B400C04E0A /* HomeProductCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -374,6 +505,8 @@
 		E4C951422A3967840094AD66 /* SubScene */ = {
 			isa = PBXGroup;
 			children = (
+				DB55CB242A44485300578ED5 /* GithubWeb */,
+				DB55CB202A44481E00578ED5 /* Join */,
 				E4C951432A3967A80094AD66 /* Controller */,
 			);
 			path = SubScene;
@@ -382,8 +515,6 @@
 		E4C951432A3967A80094AD66 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E4C951442A3967D30094AD66 /* JoinViewController.swift */,
-				DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -522,6 +653,7 @@
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
+				DB55CB152A443E5B00578ED5 /* RegisterProductScrollVeiw.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */,
