@@ -19,6 +19,12 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     let countPictureLabel = UILabel()
     let imageLabelStackView = UIStackView()
     let imageStackView = UIStackView()
+    let titleTextField = UITextField()
+    let priceTextField = UITextField()
+    let descriptionTextField = UITextField()
+    //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
+    let location = "역삼1동"
+    let wonIcon = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +37,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         setCameraView()
         setCountPictureLabel()
         setStackView()
+        setTextField()
     }
     
     private func setNavigation() {
@@ -57,7 +64,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         NSLayoutConstraint.activate([
             cameraView.heightAnchor.constraint(equalToConstant: 29),
             cameraView.widthAnchor.constraint(equalToConstant: 35)
-            ])
+        ])
     }
     
     func setCountPictureLabel() {
@@ -74,8 +81,22 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         imageLabelStackView.axis = .vertical
     }
     
+    func setTextField() {
+        titleTextField.placeholder = "글제목"
+        priceTextField.placeholder = "가격(선택사항)"
+        descriptionTextField.placeholder = "\(location)에 올릴 게시물 내용을 작성해주세요.(판매금지 물품은 게시가 제한될 수 있어요.)"
+        wonIcon.text = "₩"
+        wonIcon.font = .systemFont(ofSize: 15)
+        wonIcon.textColor = .neutralTextWeak
+        
+        [titleTextField, priceTextField, descriptionTextField].forEach{
+            $0.font = .systemFont(ofSize: 15)
+        }
+        
+    }
+    
     private func layout() {
-        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, square, imageLabelStackView]
+        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, square, imageLabelStackView, titleTextField, priceTextField, descriptionTextField, wonIcon]
         sectionArr.forEach{
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +117,12 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             square.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
             
             imageLabelStackView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
-            imageLabelStackView.centerYAnchor.constraint(equalTo: square.centerYAnchor)
+            imageLabelStackView.centerYAnchor.constraint(equalTo: square.centerYAnchor),
+            
+            titleTextField.leadingAnchor.constraint(equalTo: square.leadingAnchor),
+            titleTextField.topAnchor.constraint(equalTo: sectionLine1.bottomAnchor, constant: 15),
+            titleTextField.bottomAnchor.constraint(equalTo: sectionLine2.topAnchor, constant: -15)
+            
         ])
     }
 }
