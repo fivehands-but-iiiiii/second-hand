@@ -91,6 +91,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         
         [titleTextField, priceTextField, descriptionTextField].forEach{
             $0.font = .systemFont(ofSize: 15)
+            $0.setPlaceholder(color: .neutralTextWeak)
         }
         
     }
