@@ -70,6 +70,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         
         layout.minimumLineSpacing = 1.1
         layout.itemSize = .init(width: self.view.frame.width, height: CGFloat(figmaCellHight*figmaHeight)/self.view.frame.height)
+
         productListCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         self.view.addSubview(productListCollectionView)
         setNavigationRightBarButton()
@@ -133,3 +134,5 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         })
     }
 }
+
+
