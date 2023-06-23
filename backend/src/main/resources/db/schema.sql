@@ -117,9 +117,9 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`item`
     `item_contents_id` BIGINT       NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_item_member_idx` (`seller_id` ASC) VISIBLE,
-    INDEX `fk_item_item_image1_idx` (`item_counts_id` ASC) VISIBLE,
-    INDEX `fk_item_region1_idx` (`region_id` ASC) VISIBLE,
-    INDEX `fk_item_item_contents1_idx` (`item_contents_id` ASC) VISIBLE,
+    INDEX `fk_item_item_count_idx` (`item_counts_id` ASC) VISIBLE,
+    INDEX `fk_item_region_idx` (`region_id` ASC) VISIBLE,
+    INDEX `fk_item_item_contents_idx` (`item_contents_id` ASC) VISIBLE,
     CONSTRAINT `fk_item_member`
         FOREIGN KEY (`seller_id`)
             REFERENCES `secondhand-db`.`member` (`id`)
@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`item`
             ON UPDATE NO ACTION
 )
     ENGINE = InnoDB;
+    create index index_category on item (category);
 
 
 -- -----------------------------------------------------
