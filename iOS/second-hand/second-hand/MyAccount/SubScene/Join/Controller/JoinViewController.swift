@@ -199,7 +199,9 @@ final class JoinViewController: NavigationUnderLineViewController {
             idConvention.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
             
             idDescription.topAnchor.constraint(equalTo: idConvention.bottomAnchor, constant: 3*widthRatio),
+
             idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio)
+
         ])
     }
     
