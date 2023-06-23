@@ -130,7 +130,6 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
             
             statusLabel.leadingAnchor.constraint(equalTo: location.leadingAnchor),
             statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
-            //TODO: 여기 22를 해야지 프라이스랑 높이가 같음...
             statusLabel.heightAnchor.constraint(equalToConstant: 22),
             statusLabel.widthAnchor.constraint(equalToConstant: 50*widthRatio),
             

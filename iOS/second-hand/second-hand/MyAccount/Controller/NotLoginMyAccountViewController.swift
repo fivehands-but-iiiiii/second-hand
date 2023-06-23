@@ -109,7 +109,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
-        // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
+        // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야하는데, 네트워킹 진행하면서 구현할 예정
         isLogin = true
         
         setLoginedUI()
