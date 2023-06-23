@@ -14,7 +14,7 @@ enum TabBarItemType: String {
     case chat = "채팅"
     case myAccount = "내 계정"
     
-    var image: UIImage? {
+    private var image: UIImage? {
         switch self {
         case .home:
             return UIImage(systemName: "house")

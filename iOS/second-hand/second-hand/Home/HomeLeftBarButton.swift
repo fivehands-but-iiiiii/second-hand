@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeLeftBarButton: UIBarButtonItem {
+final class HomeLeftBarButton: UIBarButtonItem {
     
     override init() {
         super.init()
