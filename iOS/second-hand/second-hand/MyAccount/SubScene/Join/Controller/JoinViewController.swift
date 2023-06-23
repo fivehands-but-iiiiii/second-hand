@@ -27,6 +27,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         setUI()
         idTextField.delegate = self
         idTextField.autocapitalizationType = .none
+        joinTest()
     }
     
     private func setUI() {
@@ -208,11 +209,34 @@ final class JoinViewController: NavigationUnderLineViewController {
             
         ])
     }
-    
-    
-    
-    
-    
+    //MARK: 일반회원가입 테스트
+    func joinTest() {
+        let networkManager = NetworkManager()
+        
+        let jsonString = """
+                        {"memberId": "woooooood","profileImgUrl":"woodddfURL","regions": [{"id": 1,"onFocus": true}]}
+                        """
+        guard let joinURL = URL(string:Server.shared.url(for: .join)) else {
+            return
+        }
+        
+        guard let jsonData = jsonString.data(using: .utf8) else {
+            return
+        }
+        
+        do {
+            networkManager.sendPOST(decodeType: JoinSuccess.self, what: jsonData, header: nil, fromURL: joinURL) { (result: Result<JoinSuccess, Error>) in
+                switch result {
+                case .success(let user) :
+                    print("가입성공  \(user)")
+                case .failure(let error) :
+                    print("가입실패 \(error)")
+                }
+            }
+           } catch {
+               print("Error decoding response header: \(error)")
+           }
+    }
 }
 
 extension JoinViewController: UITextFieldDelegate {
