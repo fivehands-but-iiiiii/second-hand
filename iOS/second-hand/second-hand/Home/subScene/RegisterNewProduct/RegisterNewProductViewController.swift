@@ -9,24 +9,24 @@ import UIKit
 
 final class RegisterNewProductViewController: NavigationUnderLineViewController {
     
-    var productPicture = ProductPicture()
-    var imageRequest = ImageRequest()
-    let sectionLine1 = UIView.makeLine()
-    let sectionLine2 = UIView.makeLine()
-    let sectionLine3 = UIView.makeLine()
-    let square = UIButton.makeSquare(width: 80, height: 80, radius: 12)
-    let cameraView = UIImageView()
-    let countPictureLabel = UILabel()
-    let imageLabelStackView = UIStackView()
-    let imageStackView = UIStackView()
-    let titleTextField = UITextField()
-    let priceTextField = UITextField()
-    let descriptionTextField = UITextView()
-    let textViewPlaceHolder = "dddd"
+    private let productPicture = ProductPicture()
+    private let imageRequest = ImageRequest()
+    private let sectionLine1 = UIView.makeLine()
+    private let sectionLine2 = UIView.makeLine()
+    private let sectionLine3 = UIView.makeLine()
+    private let square = UIButton.makeSquare(width: 80, height: 80, radius: 12)
+    private let cameraView = UIImageView()
+    private let countPictureLabel = UILabel()
+    private let imageLabelStackView = UIStackView()
+    private let imageStackView = UIStackView()
+    private let titleTextField = UITextField()
+    private let priceTextField = UITextField()
+    private let descriptionTextField = UITextView()
+    private let textViewPlaceHolder = "dddd"
     //let textViewPlaceHolder = "\(location)"
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
-    let location = "역삼1동"
-    let wonIcon = UILabel()
+    private let location = "역삼1동"
+    private let wonIcon = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         print("저장")
     }
     
-    func setCameraView() {
+    private func setCameraView() {
         //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
         cameraView.image = UIImage(systemName: imageRequest.image)
         cameraView.tintColor = .black
@@ -70,21 +70,21 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         ])
     }
     
-    func setCountPictureLabel() {
+    private func setCountPictureLabel() {
         countPictureLabel.text = "\(productPicture.count)/10"
         countPictureLabel.font = .systemFont(ofSize: 13)
         countPictureLabel.textColor = .neutralTextStrong
         countPictureLabel.textAlignment = .center
     }
     
-    func setStackView() {
+    private func setStackView() {
         imageLabelStackView.addArrangedSubview(cameraView)
         imageLabelStackView.addArrangedSubview(countPictureLabel)
         imageLabelStackView.spacing = 5
         imageLabelStackView.axis = .vertical
     }
     
-    func setTextField() {
+    private func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)"
         priceTextField.delegate = self

@@ -91,11 +91,11 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(title: String, price: String, location: String, registerTime: String) {
-            self.title.text = title
-            self.price.text = price
-            self.location.text = location
-            self.registerTime.text = registerTime
-        }
+        self.title.text = title
+        self.price.text = price
+        self.location.text = location
+        self.registerTime.text = registerTime
+    }
     
     private func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{

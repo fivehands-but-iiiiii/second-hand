@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ProductImage: UIImageView {
-    let cancelButton = UIButton.makeCircle(size: 28, title: "X", BackgroundColor: .black)
+final class ProductImage: UIImageView {
+    private let cancelButton = UIButton.makeCircle(size: 28, title: "X", BackgroundColor: .black)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,7 +20,7 @@ class ProductImage: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setImageView() {
+    private func setImageView() {
         let widthHeight: CGFloat = 80
         self.layer.borderColor = .init(red: 179/255, green: 179/255, blue: 179/255, alpha: 0.39)
         self.layer.borderWidth = 1
@@ -34,7 +34,7 @@ class ProductImage: UIImageView {
         ])
     }
     
-    func setcancelButton() {
+    private func setcancelButton() {
         cancelButton.tintColor = .neutralBackground
         
         self.addSubview(cancelButton)
