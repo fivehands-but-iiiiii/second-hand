@@ -23,7 +23,7 @@ public class ItemSliceRepositoryImpl implements ItemSliceRepository {
 
 
     @Override
-    public Slice<Item> findAllByBasedRegion(Long categoryId, Long sellerId, List<Status> sales, Region region, Pageable pageable) {
+    public Slice<Item> findAllByFilter(Long categoryId, Long sellerId, List<Status> sales, Region region, Pageable pageable) {
         int pageSize = pageable.getPageSize();
 
         List<Item> fetch = jpaQueryFactory.selectFrom(item)

@@ -31,7 +31,7 @@ public class ItemService {
     public ItemList getItemList(ItemFilteredSlice request, Region region) {
         Pageable pageable = PageRequest.of(request.getPage() , PAGE_SIZE, Sort.by("id").descending());
 
-        Slice<Item> pageResult = itemRepository.findAllByBasedRegion(request.getCategoryId(), request.getSellerId(), Status.isSales(request.getIsSales()), region, pageable);
+        Slice<Item> pageResult = itemRepository.findAllByFilter(request.getCategoryId(), request.getSellerId(), Status.isSales(request.getIsSales()), region, pageable);
 
         int number = 1;
 
