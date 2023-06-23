@@ -98,7 +98,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         }
     
     private func layout() {
-        [imageView, title, location, dot, registerTime, statusLabel, price, chat, wish, line].forEach{
+        [imageView, title, location, dot, registerTime, statusLabel, price, line].forEach{
             self.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -116,11 +116,11 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
             imageView.widthAnchor.constraint(equalToConstant: height-32),
             
-            title.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 15*widthRatio),
-            title.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 4*heightRatio),
+            title.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: round(15*widthRatio)),
+            title.topAnchor.constraint(equalTo: imageView.topAnchor, constant: round(4*heightRatio)),
             
             location.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            location.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4*heightRatio),
+            location.topAnchor.constraint(equalTo: title.bottomAnchor, constant: round(4*heightRatio)),
             
             dot.leadingAnchor.constraint(equalTo: location.trailingAnchor),
             dot.topAnchor.constraint(equalTo: location.topAnchor),
@@ -129,13 +129,13 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
             registerTime.topAnchor.constraint(equalTo: dot.topAnchor),
             
             statusLabel.leadingAnchor.constraint(equalTo: location.leadingAnchor),
-            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
+            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: round(4*heightRatio)),
             //TODO: 여기 22를 해야지 프라이스랑 높이가 같음...
             statusLabel.heightAnchor.constraint(equalToConstant: 22),
-            statusLabel.widthAnchor.constraint(equalToConstant: 50*widthRatio),
+            statusLabel.widthAnchor.constraint(equalToConstant: round(50*widthRatio)),
             
             price.topAnchor.constraint(equalTo: statusLabel.topAnchor),
-            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 4*widthRatio),
+            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: round(4*widthRatio)),
             
             line.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
