@@ -22,7 +22,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private let titleTextField = UITextField()
     private let priceTextField = UITextField()
     private let descriptionTextField = UITextView()
-    private let textViewPlaceHolder = "dddd"
+    private let textViewPlaceHolder = ""
     //let textViewPlaceHolder = "\(location)"
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
     private let location = "역삼1동"
@@ -175,7 +175,8 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if isNumber(string) {
+        if string.isEmpty || isNumber(string) {
+            //백스페이스 버튼은 무조건 허용
             return true
         }
            return false
