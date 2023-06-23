@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct GitUserLogin: Codable {
+struct LoginFetchedUserData: Codable {
     let id: Int
     let memberId: String
     let profileImgUrl: String
-    let oauth: String
+    let oauth: String?
     let regions : [Region]
 }
 
@@ -32,12 +32,17 @@ struct GitUserJoinDTO: Codable  {
     let body: GitUserNeedsJoin
 }
 
-struct GitUserLoginDTO: Codable  {
+struct LoginSuccess: Codable  {
     let message: String
-    let data: GitUserLogin
+    let data: LoginFetchedUserData
 }
 
-struct GitUserNeedsJoinRegisterRequest: Codable {
+struct JoinSuccess: Codable {
+    let message: String
+    let data: Int
+}
+
+struct UserNeedsJoinRegisterRequest: Codable {
     let memberId: String
     let profileImgUrl: String
     let regions: [Region]

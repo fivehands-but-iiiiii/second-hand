@@ -35,10 +35,11 @@ class GithubWebViewController: UIViewController {
     }
     
     private func startOAuthFlow() {
-        let authURLString = "https://github.com/login/oauth/authorize?client_id=5c4b10099c0ae232e5a1&redirect_url=http://localhost:5173/login/oauth2/code/github"
+        initializeWebViewCahChe()
+        let authURLString = Server.shared.oAuthAuthorizeURL()
         
         if let authURL = URL(string: authURLString) {
-            let authRequest = URLRequest(url: authURL,timeoutInterval: 10.0) // 예처
+            let authRequest = URLRequest(url: authURL,timeoutInterval: 30.0) // 예처
             webView.load(authRequest)
         }
     }
@@ -49,14 +50,15 @@ class GithubWebViewController: UIViewController {
         }
         logger.log("\naccess token: \(accessToken)")
         
-        guard let accessURL = URL(string: "http://13.125.243.239:8080/git/login?code=\(accessToken)") else {
-            return
-        }
-        guard let joinURL = URL(string:"http://13.125.243.239:8080/join") else {
+        guard let accessURL = URL(string:Server.shared.gitLoginURL(withCode: accessToken)) else {
             return
         }
         
-        networkManager.requestGET(fromURL: accessURL) { (result: Result<[Codable], Error>) in
+        guard let joinURL = URL(string:Server.shared.url(for: .join)) else {
+            return
+        }
+        
+        networkManager.sendOAuthGET(fromURL: accessURL) { (result: Result<[Codable], Error>) in
             switch result {
             case .success(let user):
                 if user.count == 2 {
@@ -64,7 +66,6 @@ class GithubWebViewController: UIViewController {
                 } else {
                     self.loginFlow(with: user)
                 }
-                
                 
             case .failure(let error):
                 self.logger.log("FAIL \(error.localizedDescription)")
@@ -96,7 +97,7 @@ class GithubWebViewController: UIViewController {
             return
         }
         
-        self.networkManager.requestPOST(data: jsonCreater.createJSON(user: requestDataToJoin, region: region),header: cookie, fromURL: path) { (result: Result<Codable, Error>) in
+        self.networkManager.sendOAuthPOST(data: jsonCreater.createJSON(user: requestDataToJoin, region: region),header: cookie, fromURL: path) { (result: Result<Codable, Error>) in
             switch result {
             case .success(_) :
                 print("가입성공")
@@ -107,7 +108,19 @@ class GithubWebViewController: UIViewController {
     }
     
     private func loginFlow(with user :[Codable]) {
-        print(user.last)
+        guard let loginDataFetched = user.last else {
+            return
+        }
+    }
+    
+    private func initializeWebViewCahChe() {
+        let configuration = webView.configuration
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            for record in records {
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
+        
     }
 }
 
