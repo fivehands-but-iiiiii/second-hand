@@ -20,6 +20,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     private let idTextField = UITextField()
     private var idDescription = UILabel()
     private let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+    private let idConvention = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         setLabel()
         setTextField()
         setIdDescription()
+        setIdConvention()
     }
     
     private func setCircleButton() {
@@ -73,10 +75,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     @objc private func save() {
         if idDescription.text == "" {
             alert.message = "회원가입이 완료되었습니다."
-            self.present(alert, animated: true, completion: {
-                //TODO: 얼럿이 없어지기보단 모달형식의 JoinVC가 dismiss되야함
-                self.dismiss(animated: true)
-            })
+            self.present(alert, animated: true, completion: nil)
         }else {
             alert.message = "아이디가 적절하지 않습니다."
             self.present(alert, animated: true, completion: nil)
@@ -84,7 +83,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     }
     
     private func setNavigationLeftBarButton() {
-        let backButton = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(dismisss))
+        let backButton = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(viewControllerDismiss))
         
         let leftBarAttribute = [NSAttributedString.Key.font: UIFont.body,
                                 NSAttributedString.Key.foregroundColor: UIColor.neutralText]
@@ -92,7 +91,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         navigationItem.leftBarButtonItem = backButton
     }
     
-    @objc private func dismisss() {
+    @objc private func viewControllerDismiss() {
         self.dismiss(animated: true)
     }
     
@@ -148,13 +147,18 @@ final class JoinViewController: NavigationUnderLineViewController {
         idDescription.textColor = UIColor.orange
     }
     
+    private func setIdConvention() {
+        idConvention.text = "아이디는 소문자와 숫자만 가능해요"
+        idConvention.font = UIFont.caption2
+        idConvention.textColor = UIColor.neutralTextWeak
+    }
     
     private func setConstraints() {
-        let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription]
+        let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription, idConvention]
         addSubviewComponent.forEach{self.view.addSubview($0)}
         self.addLocationButton.addSubview(stackView)
         
-        let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel]
+        let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel,idConvention]
         component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
         let height: CGFloat = self.view.frame.height
@@ -191,8 +195,14 @@ final class JoinViewController: NavigationUnderLineViewController {
             idTextField.centerYAnchor.constraint(equalTo: idLabel.centerYAnchor),
             idTextField.heightAnchor.constraint(equalToConstant: 22*heightRatio),
             
+            idConvention.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
+            idConvention.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
+            
+            idDescription.topAnchor.constraint(equalTo: idConvention.bottomAnchor, constant: 3*widthRatio),
             idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
-            idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
+            
+            
+            
         ])
     }
     
@@ -227,7 +237,14 @@ extension JoinViewController: UITextFieldDelegate {
         if testIdArray.contains(textField.text! + string ) {
             idDescription.text = "이미 사용중인 아이디예요"
         }
+        
         return true
+    }
+    
+    @objc func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text?.count == 0 {
+            idDescription.text = ""
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
