@@ -20,5 +20,6 @@ extension ManagerErrors {
         case invalidToken = 403
         case notFound = 404
         case idConflictError = 409
+
     }
 }

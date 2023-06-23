@@ -33,15 +33,18 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         
     }
     
+
     func toggleLogin() {
+
         if isLogin == true {
             isLogin = false
         }else {
             isLogin = true
         }
     }
-    
+
     func loginStatus() {
+
         if isLogin {
             setLoginedUI()
         }
@@ -77,6 +80,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         contour.backgroundColor = UIColor.neutralBorder
     }
     
+
     private func setNavigationBar() {
         self.navigationItem.title = "내 계정"
     }
@@ -108,11 +112,12 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
+
         // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야하는데, 네트워킹 진행하면서 구현할 예정
         isLogin = true
         loginTest()
         setLoginedUI()
-        
+
     }
     
     @objc private func githubLoginButtonTouched() {
@@ -126,12 +131,14 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         joinMembershipButton.setTitleColor(.black, for: .normal)
         joinMembershipButton.addTarget(self, action: #selector(joinButtonTouched), for: .touchUpInside)
     }
+
     
     private func setLoginedConstraints() {
         [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton].forEach{
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+
         
         let height: CGFloat = self.view.frame.height
         let width: CGFloat = self.view.frame.width
@@ -153,7 +160,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
             joinMembershipButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120*heightRatio),
             joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            
             githubLoginButton.bottomAnchor.constraint(equalTo: self.joinMembershipButton.topAnchor, constant: -19*heightRatio),
             githubLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             githubLoginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
@@ -165,6 +171,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
             loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio)
         ])
     }
+
     //MARK: 일반 로그인 테스트
     private func loginTest() {
         
@@ -192,5 +199,5 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
             }
         }
     }
-    
+
 }

@@ -1,12 +1,12 @@
 spring:
   profiles:
-    active: dev
+    active: prod
     group:
-      local: [db-local, local]
-      prod: [prod]
-      dev: [dev]
-    include: [aws, jwt]
+      local: [ db-local, local ] # localhost
+      prod: [ prod ] # production
+#      dev: [ dev ] #test
+    include: [ aws, jwt, oauth ]
   servlet:
     multipart:
-      max-file-size: 50MB
-      max-request-size: 50MB
+      max-file-size: 10MB
+      max-request-size: 100MB

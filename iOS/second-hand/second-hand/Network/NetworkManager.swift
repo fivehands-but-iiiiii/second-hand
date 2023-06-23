@@ -11,14 +11,16 @@ import OSLog
 class NetworkManager {
     let logger = Logger()
     
+
     func sendOAuthGET(fromURL url: URL, completion: @escaping (Result<[Codable], Error>) -> Void) {
         
         let asyncCompletion: (Result<[Codable], Error>) -> Void = { result in
+
             DispatchQueue.main.async {
                 completion(result)
             }
         }
-        
+      
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         request.httpMethod = HttpMethod.get.method
         
@@ -55,6 +57,7 @@ class NetworkManager {
         session.resume()
     }
     
+
     func sendOAuthPOST(data: Data?, header: ResponseHeader, fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
         
         let asyncCompletion: (Result<Codable, Error>) -> Void = { result in

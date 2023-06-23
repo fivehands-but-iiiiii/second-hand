@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 enum Section: CaseIterable {
        case main
 }
@@ -37,11 +38,12 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     private var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
     private var isLogin = false
     private let registerProductButton = UIButton()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setObserver()
+
         setupDataSource()
         applyInitialSnapshot()
     }
@@ -52,6 +54,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         snapshot.appendItems(products, toSection: .main)
  
         dataSource.apply(snapshot, animatingDifferences: true)
+
     }
     
     private func setObserver() {
@@ -64,6 +67,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func setUI() {
+
         let layout = UICollectionViewFlowLayout()
         let figmaCellHight = 152
         let figmaHeight = 852
@@ -73,6 +77,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
 
         productListCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         self.view.addSubview(productListCollectionView)
+
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
         setRegisterProductButton()
@@ -89,6 +94,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
+
     
     func tappedSetLocation() {
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
@@ -133,6 +139,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
             return cell
         })
     }
+
 }
 
 

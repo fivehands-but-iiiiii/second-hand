@@ -49,6 +49,7 @@
 		E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */; };
 		E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */; };
 		E4C951502A3AFF9B0094AD66 /* CodableTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -472,6 +473,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+
 		E49EB8632A36F02B001F2D56 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,8 +514,10 @@
 		E4C951422A3967840094AD66 /* SubScene */ = {
 			isa = PBXGroup;
 			children = (
+
 				DB55CB242A44485300578ED5 /* GithubWeb */,
 				DB55CB202A44481E00578ED5 /* Join */,
+
 				E4C951432A3967A80094AD66 /* Controller */,
 			);
 			path = SubScene;
@@ -522,6 +526,7 @@
 		E4C951432A3967A80094AD66 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -532,10 +537,12 @@
 				E4C951472A3AB4E80094AD66 /* NetworkManager.swift */,
 				E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */,
 				E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */,
+
 				E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */,
 				E4BD90732A3DF44F00ADCE89 /* JSONCreater.swift */,
 				E467380C2A440D0E006A46D1 /* MemberInfo.swift */,
 				E467380E2A453FBF006A46D1 /* Server.swift */,
+
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -636,8 +643,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
 				DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */,
 				DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */,
+
 				E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */,
 				E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */,
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
@@ -645,7 +654,9 @@
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
 				E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */,
 				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
+
 				E467380D2A440D0E006A46D1 /* MemberInfo.swift in Sources */,
+
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E467380F2A453FBF006A46D1 /* Server.swift in Sources */,
@@ -653,7 +664,9 @@
 				DB55CB112A4407CB00578ED5 /* ProductPicture.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */,
+
 				DB1636C82A42E65B009884E4 /* RegisterNewProductViewController.swift in Sources */,
+
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
@@ -670,9 +683,11 @@
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
+
 				DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */,
 				DBEA32812A4101B400C04E0A /* HomeProductCollectionViewCell.swift in Sources */,
 				E4C951502A3AFF9B0094AD66 /* CodableTemplate.swift in Sources */,
+
 				DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */,
 				DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */,
 			);
@@ -814,7 +829,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
+
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "second-hand/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -842,7 +859,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+
 				DEVELOPMENT_TEAM = B3PWYBKFUK;
+
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "second-hand/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

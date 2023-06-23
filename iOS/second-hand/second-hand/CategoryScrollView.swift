@@ -8,7 +8,9 @@
 import UIKit
 
 final class CategoryScrollView: UIScrollView {
+
     var categoriStackView = UIStackView()
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,8 +20,10 @@ final class CategoryScrollView: UIScrollView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+
         categoriStackView.spacing = 4
         configure()
+
     }
     
     private func configure() {

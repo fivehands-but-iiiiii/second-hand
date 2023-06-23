@@ -20,8 +20,9 @@ class IdStackView: UIStackView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private func setUI() {
+
         setLabel()
         setTextField()
         setConstraint()

@@ -26,6 +26,4 @@ extension UIColor {
      static let systemWarning = UIColor(red: 255/255, green: 59/255, blue: 48/255, alpha: 1)
      static let systemBackground = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
      static let systemBackgroundWeak = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 0.7)
-    
-    
 }

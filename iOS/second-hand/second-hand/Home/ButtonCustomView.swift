@@ -60,10 +60,11 @@ final class ButtonCustomView: UIButton {
     private func setMenu() {
         let children : [UIAction] =
         [
-            UIAction(title: "역삼1동", handler: { _ in }),
+
             UIAction(title: "동네를 설정하세요", handler: { [weak self] _ in
                 self?.delegate?.tappedSetLocation()
             })
+
         ]
         self.menu = UIMenu(options: .displayInline,children: children)
         self.showsMenuAsPrimaryAction = true
