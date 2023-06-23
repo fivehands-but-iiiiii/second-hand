@@ -203,7 +203,7 @@ final class JoinViewController: NavigationUnderLineViewController {
             
             idDescription.topAnchor.constraint(equalTo: idConvention.bottomAnchor, constant: 3*widthRatio),
             idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
-
+            
             
             
         ])
@@ -240,7 +240,14 @@ extension JoinViewController: UITextFieldDelegate {
         if testIdArray.contains(textField.text! + string ) {
             idDescription.text = "이미 사용중인 아이디예요"
         }
+        
         return true
+    }
+    
+    @objc func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text?.count == 0 {
+            idDescription.text = ""
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
