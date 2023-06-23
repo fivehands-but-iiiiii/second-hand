@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RegisterProductScrollVeiw: UIScrollView {
-    private let productView = UIImageView.makeSquare(width: 80, height: 80, radius: 12, image: UIImage(systemName: "photo") ?? UIImage())
-    private let stackView = UIStackView()
+class RegisterProductScrollVeiw: UIScrollView {
+    var productView = UIImageView.makeSquare(width: 80, height: 80, radius: 12, image: UIImage(systemName: "photo") ?? UIImage())
+    var stackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ final class RegisterProductScrollVeiw: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setStackView() {
+    func setStackView() {
         stackView.addArrangedSubview(productView)
     }
     

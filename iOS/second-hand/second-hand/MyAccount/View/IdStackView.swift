@@ -21,7 +21,7 @@ class IdStackView: UIStackView {
         super.init(coder: coder)
     }
     
-    private func setUI() {
+    func setUI() {
         setLabel()
         setTextField()
         setConstraint()

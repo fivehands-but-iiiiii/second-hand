@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol ButtonCustomViewDelegate {
+protocol ButtonCustomViewDelegate: class {
     func tappedSetLocation()
 }
 
-final class ButtonCustomView: UIButton {
-    var delegate: ButtonCustomViewDelegate?
+class ButtonCustomView: UIButton {
+    weak var delegate: ButtonCustomViewDelegate?
     
     private var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)

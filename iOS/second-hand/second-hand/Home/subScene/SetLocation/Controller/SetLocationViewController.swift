@@ -45,7 +45,9 @@ final class SetLocationViewController: NavigationUnderLineViewController {
         commentLabel.numberOfLines = 2
         commentLabel.textAlignment = .center
     }
-
+    //TODO: 버튼 이미지 사이즈 변경하는것 찾아보기
+    //TODO: 이거 버튼 위에 레이블을 올려야 할것같음
+    //이유: 텍스트가 늘어나는 길이에 맞게 유동적으로 스페이싱이 변해야할것같아서
     private func setFirstLocation() {
         var configuration = UIButton.Configuration.tinted()
         configuration.image = UIImage(systemName: "xmark")
@@ -62,6 +64,7 @@ final class SetLocationViewController: NavigationUnderLineViewController {
         firstLocation.layer.masksToBounds = true
     }
     
+    //TODO: 버튼 이미지 사이즈 변경하는것 찾아보기
     private func setSecondLocation() {
         var configuration = UIButton.Configuration.tinted()
         configuration.image = UIImage(systemName: "plus")

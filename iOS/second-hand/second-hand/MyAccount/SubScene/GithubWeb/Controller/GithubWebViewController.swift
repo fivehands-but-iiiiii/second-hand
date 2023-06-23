@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 import OSLog
 
-final class GithubWebViewController: UIViewController {
+class GithubWebViewController: UIViewController {
     private let networkManager = NetworkManager()
     private let logger = Logger()
     private var webView: WKWebView!
