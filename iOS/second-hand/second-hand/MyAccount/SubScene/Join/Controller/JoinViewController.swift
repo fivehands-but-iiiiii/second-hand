@@ -20,6 +20,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     private let idTextField = UITextField()
     private var idDescription = UILabel()
     private let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+    private let idConvention = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         setLabel()
         setTextField()
         setIdDescription()
+        setIdConvention()
     }
     
     private func setCircleButton() {
@@ -148,13 +150,18 @@ final class JoinViewController: NavigationUnderLineViewController {
         idDescription.textColor = UIColor.orange
     }
     
+    private func setIdConvention() {
+        idConvention.text = "아이디는 소문자와 숫자만 가능해요"
+        idConvention.font = UIFont.caption2
+        idConvention.textColor = UIColor.neutralTextWeak
+    }
     
     private func setConstraints() {
-        let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription]
+        let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription, idConvention]
         addSubviewComponent.forEach{self.view.addSubview($0)}
         self.addLocationButton.addSubview(stackView)
         
-        let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel]
+        let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel,idConvention]
         component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
         let height: CGFloat = self.view.frame.height
@@ -191,8 +198,14 @@ final class JoinViewController: NavigationUnderLineViewController {
             idTextField.centerYAnchor.constraint(equalTo: idLabel.centerYAnchor),
             idTextField.heightAnchor.constraint(equalToConstant: 22*heightRatio),
             
+            idConvention.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
+            idConvention.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
+            
+            idDescription.topAnchor.constraint(equalTo: idConvention.bottomAnchor, constant: 3*widthRatio),
             idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
-            idDescription.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
+
+            
+            
         ])
     }
     
