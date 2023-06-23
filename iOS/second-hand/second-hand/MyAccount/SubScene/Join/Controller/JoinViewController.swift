@@ -76,10 +76,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     @objc private func save() {
         if idDescription.text == "" {
             alert.message = "회원가입이 완료되었습니다."
-            self.present(alert, animated: true, completion: {
-                //TODO: 얼럿이 없어지기보단 모달형식의 JoinVC가 dismiss되야함
-                self.dismiss(animated: true)
-            })
+            self.present(alert, animated: true, completion: nil)
         }else {
             alert.message = "아이디가 적절하지 않습니다."
             self.present(alert, animated: true, completion: nil)
@@ -87,7 +84,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     }
     
     private func setNavigationLeftBarButton() {
-        let backButton = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(dismisss))
+        let backButton = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(viewControllerDismiss))
         
         let leftBarAttribute = [NSAttributedString.Key.font: UIFont.body,
                                 NSAttributedString.Key.foregroundColor: UIColor.neutralText]
@@ -95,7 +92,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         navigationItem.leftBarButtonItem = backButton
     }
     
-    @objc private func dismisss() {
+    @objc private func viewControllerDismiss() {
         self.dismiss(animated: true)
     }
     
@@ -203,10 +200,7 @@ final class JoinViewController: NavigationUnderLineViewController {
             idConvention.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
             
             idDescription.topAnchor.constraint(equalTo: idConvention.bottomAnchor, constant: 3*widthRatio),
-            idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
-            
-            
-            
+            idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio)
         ])
     }
     //MARK: 일반회원가입 테스트

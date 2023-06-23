@@ -91,11 +91,11 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(title: String, price: String, location: String, registerTime: String) {
-            self.title.text = title
-            self.price.text = price
-            self.location.text = location
-            self.registerTime.text = registerTime
-        }
+        self.title.text = title
+        self.price.text = price
+        self.location.text = location
+        self.registerTime.text = registerTime
+    }
     
     private func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, line].forEach{
@@ -129,8 +129,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
             registerTime.topAnchor.constraint(equalTo: dot.topAnchor),
             
             statusLabel.leadingAnchor.constraint(equalTo: location.leadingAnchor),
-            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: round(4*heightRatio)),
-            //TODO: 여기 22를 해야지 프라이스랑 높이가 같음...
+            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
             statusLabel.heightAnchor.constraint(equalToConstant: 22),
             statusLabel.widthAnchor.constraint(equalToConstant: round(50*widthRatio)),
             
