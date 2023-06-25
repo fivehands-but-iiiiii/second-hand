@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NotLoginMyAccountViewController: NavigationUnderLineViewController, isLoginChanged {
+final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let joinViewController = JoinViewController()
     private let loginViewController = LoginMyAccountViewController()
     private let githubWebViewController = GithubWebViewController()
@@ -16,44 +16,29 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
     private let joinMembershipButton = UIButton()
     private let contour = UILabel()
     private let idStackView = IdStackView()
-    //isLogin은 추후 싱글톤으로 대체될 예정
-    private var isLogin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBar()
+        setNotLogOnUI()
         self.addChild(loginViewController)
-        loginViewController.delegate = self
+        setObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //isLogin은 추후 싱글톤으로 대체될 예정
-        loginStatus()
         
     }
     
-
-    func toggleLogin() {
-
-        if isLogin == true {
-            isLogin = false
-        }else {
-            isLogin = true
-        }
-    }
-
-    func loginStatus() {
-
-        if isLogin {
-            setLoginedUI()
-        }
-        else {
-            setNotLoginedUI()
-        }
+    private func setObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin), name: NSNotification.Name("LOGIN"), object: nil)
     }
     
-    private func setLoginedUI() {
+    @objc private func didRecieveLogin() {
+        setLogOnUI()
+    }
+    
+    private func setLogOnUI() {
         for subview in view.subviews {
             subview.removeFromSuperview()
         }
@@ -68,7 +53,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         ])
     }
     
-    private func setNotLoginedUI() {
+    private func setNotLogOnUI() {
         for subview in view.subviews {
             subview.removeFromSuperview()
         }
@@ -110,13 +95,10 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
     }
     
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
-        let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
-        NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
 
         // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야하는데, 네트워킹 진행하면서 구현할 예정
-        isLogin = true
         loginTest()
-        setLoginedUI()
+        setLogOnUI()
 
     }
     
