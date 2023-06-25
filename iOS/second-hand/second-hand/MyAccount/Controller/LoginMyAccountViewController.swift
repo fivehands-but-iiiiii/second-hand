@@ -12,6 +12,9 @@ protocol isLoginChanged: AnyObject {
 import UIKit
 
 final class LoginMyAccountViewController: NavigationUnderLineViewController {
+
+    static let buttonHeightWidth: CGFloat = 80
+
     weak var delegate : isLoginChanged?
     private let circleButton = UIButton()
     private let nicknameLabel = UILabel()
@@ -32,18 +35,19 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     private func setCircleButton() {
-        circleButton.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
-        circleButton.layer.cornerRadius =  circleButton.layer.frame.size.width/2
-        circleButton.layer.masksToBounds = true
+
         circleButton.layer.borderWidth = 1
         circleButton.layer.borderColor = CGColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
         circleButton.setImage(UIImage(systemName: "camera"), for: .normal)
         circleButton.tintColor = .white
         circleButton.backgroundColor = .black
+
+        circleButton.layer.cornerRadius =  Self.buttonHeightWidth / 2
+        circleButton.layer.masksToBounds = true
     }
     
     private func setLogoutButton() {
-        logoutButton.frame = CGRect(x: 0, y: 0, width: 361, height: 52)
+
         logoutButton.setTitle("로그아웃", for: .normal)
         logoutButton.titleLabel?.font = UIFont.subHead
         logoutButton.backgroundColor = .orange

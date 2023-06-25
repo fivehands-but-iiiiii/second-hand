@@ -8,14 +8,17 @@
 import Foundation
 
 class JSONCreater {
+    static let headerKeyRequired = "Content-Type"
+    static let headerValueRequired = "application/json"
+    
     func createJSON(user: GitUserNeedsJoin, region: Region) -> Data? {
         
-        let userData = GitUserNeedsJoinRegisterRequest(memberId: user.login, profileImgURL: user.avatar_url, regions: [region])
+        let userData = UserNeedsJoinRegisterRequest(memberId: user.login, profileImgUrl: user.avatar_url, regions: [region])
 
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(userData)
-            print(String(data: jsonData, encoding: .utf8))
+            
             return jsonData
         } catch {
             print("JSON encoding error: \(error)")

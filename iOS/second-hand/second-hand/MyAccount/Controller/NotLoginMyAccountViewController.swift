@@ -33,15 +33,18 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         
     }
     
-    internal func toggleLogin() {
+
+    func toggleLogin() {
+
         if isLogin == true {
             isLogin = false
         }else {
             isLogin = true
         }
     }
-    
-    internal func loginStatus() {
+
+    func loginStatus() {
+
         if isLogin {
             setLoginedUI()
         }
@@ -77,7 +80,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         contour.backgroundColor = UIColor.neutralBorder
     }
     
-    
+
     private func setNavigationBar() {
         self.navigationItem.title = "내 계정"
     }
@@ -109,13 +112,12 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
         let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
         NotificationCenter.default.post(name: loginNotification.name, object: nil, userInfo: nil)
-        // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야 할 듯
+
+        // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야하는데, 네트워킹 진행하면서 구현할 예정
         isLogin = true
-        
-        //얘를 사용하려니까 자식뷰컨트롤러라 사용이 안됨
-        //present(loginViewController, animated: true)
-        //대체한것이 이 메서드 호출
+        loginTest()
         setLoginedUI()
+
     }
     
     @objc private func githubLoginButtonTouched() {
@@ -129,12 +131,14 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
         joinMembershipButton.setTitleColor(.black, for: .normal)
         joinMembershipButton.addTarget(self, action: #selector(joinButtonTouched), for: .touchUpInside)
     }
-   
+
+    
     private func setLoginedConstraints() {
-        let addSubviewComponent = [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton]
-        addSubviewComponent.forEach{self.view.addSubview($0)}
-        let component = [idStackView, loginButton, joinMembershipButton, contour, githubLoginButton]
-        component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
+        [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton].forEach{
+            self.view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
         
         let height: CGFloat = self.view.frame.height
         let width: CGFloat = self.view.frame.width
@@ -156,7 +160,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
             joinMembershipButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120*heightRatio),
             joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-
             githubLoginButton.bottomAnchor.constraint(equalTo: self.joinMembershipButton.topAnchor, constant: -19*heightRatio),
             githubLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             githubLoginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
@@ -168,4 +171,33 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController, 
             loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio)
         ])
     }
+
+    //MARK: 일반 로그인 테스트
+    private func loginTest() {
+        
+        let networkManager = NetworkManager()
+        
+        let jsonString = """
+                            {"memberId": "gandalf"}
+                        """
+        guard let loginURL = URL(string:Server.shared.url(for: .login)) else {
+            return
+        }
+        
+        guard let jsonData = jsonString.data(using: .utf8) else {
+            return
+        }
+        
+        do {
+            networkManager.sendPOST(decodeType: LoginSuccess.self, what: jsonData, header: nil, fromURL: loginURL) { (result: Result<LoginSuccess, Error>) in
+                switch result {
+                case .success(let user) :
+                    print("가입성공  \(user)")
+                case .failure(let error) :
+                    print("가입실패 \(error)")
+                }
+            }
+        }
+    }
+
 }

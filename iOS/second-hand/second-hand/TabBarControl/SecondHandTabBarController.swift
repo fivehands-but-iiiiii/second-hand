@@ -23,7 +23,6 @@ class SecondHandTabBarController: UITabBarController {
     }
     
     private func addViewController() {
-        
         let viewControllers : [UIViewController] = [home,saleLog,wishList,chatting,myAccount]
         
         let navigationControllerEmbeded = viewControllers.map { viewController in
