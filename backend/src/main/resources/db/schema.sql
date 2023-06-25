@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`region`
 )
     ENGINE = InnoDB;
 
+ALTER TABLE region ADD FULLTEXT INDEX fulltext_address (city, county, district) with parser ngram;
 
 -- -----------------------------------------------------
 -- Table `secondhand-db`.`category`
@@ -57,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`category`
 (
     `id`      BIGINT       NOT NULL,
     `title`   VARCHAR(16)  NOT NULL,
-    `img_url` VARCHAR(100) NOT NULL,
+    `img_url` VARCHAR(300) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `title_UNIQUE` (`title` ASC) VISIBLE
 )
@@ -89,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`item_contents`
 (
     `id`               BIGINT        NOT NULL AUTO_INCREMENT,
     `contents`         TEXT          NULL,
-    `detail_image_url` VARCHAR(3000) NULL,
+    `detail_image_url` TEXT          NULL,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
@@ -116,9 +117,9 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`item`
     `item_contents_id` BIGINT       NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_item_member_idx` (`seller_id` ASC) VISIBLE,
-    INDEX `fk_item_item_image1_idx` (`item_counts_id` ASC) VISIBLE,
-    INDEX `fk_item_region1_idx` (`region_id` ASC) VISIBLE,
-    INDEX `fk_item_item_contents1_idx` (`item_contents_id` ASC) VISIBLE,
+    INDEX `fk_item_item_count_idx` (`item_counts_id` ASC) VISIBLE,
+    INDEX `fk_item_region_idx` (`region_id` ASC) VISIBLE,
+    INDEX `fk_item_item_contents_idx` (`item_contents_id` ASC) VISIBLE,
     CONSTRAINT `fk_item_member`
         FOREIGN KEY (`seller_id`)
             REFERENCES `secondhand-db`.`member` (`id`)
@@ -141,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `secondhand-db`.`item`
             ON UPDATE NO ACTION
 )
     ENGINE = InnoDB;
+    create index index_category on item (category);
 
 
 -- -----------------------------------------------------

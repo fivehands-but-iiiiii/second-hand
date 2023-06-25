@@ -1,15 +1,11 @@
 package com.team5.secondhand.api.member.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@RequiredArgsConstructor
 public class MemberLogin {
-    @NotNull
-    @Size(min = 6, max = 16)
-    private final String memberId;
+    private String memberId;
 }

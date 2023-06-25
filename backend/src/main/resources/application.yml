@@ -10,3 +10,11 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+    session:
+      cookie:
+        domain: 13.125.243.239
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+        default_batch_fetch_size: 100

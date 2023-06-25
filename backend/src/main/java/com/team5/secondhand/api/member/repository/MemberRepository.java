@@ -18,6 +18,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     int updateMemberProfileImage(@Param("id") Long id,
                                  @Param("url") String url);
 
-    Optional<Member> findByMemberId(String memberId);
+    Optional<Member> findByMemberIdAndOauth(String memberId, Oauth oauth);
+
     boolean existsByMemberIdAndOauth(String memberId, Oauth oauth);
+
+    @Modifying
+    @Query("update BasedRegion br set br.represented = :status where br.member.id = :id and br.region.id = :regionId")
+    int switchBasedRegion(@Param("status") boolean status,
+                          @Param("id") Long id,
+                          @Param("regionId") Long regionId);
 }

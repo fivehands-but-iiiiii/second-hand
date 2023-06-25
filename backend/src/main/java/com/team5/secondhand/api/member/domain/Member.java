@@ -1,12 +1,14 @@
 package com.team5.secondhand.api.member.domain;
 
-import com.team5.secondhand.global.exception.EmptyBasedRegionException;
+import com.team5.secondhand.api.region.domain.Region;
+import com.team5.secondhand.api.region.exception.EmptyBasedRegionException;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -14,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String memberId;
     private String profileImgUrl;
@@ -23,7 +26,7 @@ public class Member {
     private Oauth oauth;
 
     @Size(min = 1, max = 2)
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BasedRegion> regions = new ArrayList<>();
 
     @Builder
@@ -62,7 +65,28 @@ public class Member {
         }
     }
 
-    public void updateBasedRegions(List<BasedRegion> basedRegions) {
-        this.regions = basedRegions;
+    public void updateBasedRegions(Map<Region, Boolean> regionMap) {
+        regions.clear();
+
+        regionMap.keySet().forEach(region -> {
+            if (regionMap.get(region)) {
+                regions.add(BasedRegion.create(this, region));
+            }
+            if (!regionMap.get(region)) {
+                regions.add(BasedRegion.addSubRegion(this, region));
+            }
+        });
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Member other = (Member) obj;
+        return this.memberId.equals(other.memberId) && this.profileImgUrl.equals(other.profileImgUrl);
+    }
+
+    public void updatePlatform(Oauth joinPlatform) {
+        this.oauth = joinPlatform;
     }
 }
