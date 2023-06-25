@@ -70,7 +70,6 @@ final class GithubWebViewController: UIViewController {
             case .failure(let error):
                 self.logger.log("FAIL \(error.localizedDescription)")
             }
-            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -108,9 +107,11 @@ final class GithubWebViewController: UIViewController {
     }
     
     private func loginFlow(with user :[Codable]) {
-        guard let loginDataFetched = user.last else {
+        guard let loginDataFetched = user.last as? LoginFetchedUserData else {
             return
         }
+        UserInfoManager.shared.updateData(from: loginDataFetched)
+        print(UserInfoManager.shared.userInfo)
     }
     
     private func initializeWebViewCahChe() {
