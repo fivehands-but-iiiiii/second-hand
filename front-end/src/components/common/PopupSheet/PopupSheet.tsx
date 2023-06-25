@@ -3,7 +3,7 @@ import Button from '@common/Button';
 import { styled, css } from 'styled-components';
 
 interface MenuItem {
-  id: string;
+  id: string | number;
   title: string;
   style?: string;
   onClick: () => void;
@@ -27,29 +27,26 @@ const PopupSheet = ({ type, menu, onSheetClose }: PopupSheetProps) => {
     <>
       {isSlideDown ? (
         <MyMenuPopdown>
-          {menu &&
-            // onClick 이벤트 페이지에서 주입해야함
-            menu.map(({ id, title, style, onClick }) => (
-              <MyPopupOption key={id} option={style} slidedown>
-                <Button fullWidth icon onClick={onClick}>
-                  {title}
-                </Button>
-              </MyPopupOption>
-            ))}
+          {menu.map(({ id, title, style, onClick }) => (
+            <MyPopupOption key={id} option={style} slidedown>
+              <Button fullWidth icon onClick={onClick}>
+                {title}
+              </Button>
+            </MyPopupOption>
+          ))}
         </MyMenuPopdown>
       ) : (
         <>
           <MyPopupBackground />
           <MyPopupSheet>
             <MyMenuPopUp>
-              {menu &&
-                menu.map(({ id, title, style, onClick }) => (
-                  <MyPopupOption key={id} option={style}>
-                    <Button fullWidth icon onClick={onClick}>
-                      {title}
-                    </Button>
-                  </MyPopupOption>
-                ))}
+              {menu.map(({ id, title, style, onClick }) => (
+                <MyPopupOption key={id} option={style}>
+                  <Button fullWidth icon onClick={onClick}>
+                    {title}
+                  </Button>
+                </MyPopupOption>
+              ))}
             </MyMenuPopUp>
             <Button fullWidth onClick={onSheetClose}>
               취소

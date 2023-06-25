@@ -6,18 +6,19 @@ interface NavBarProps {
   left?: ReactNode;
   center?: ReactNode;
   right?: ReactNode;
+  className?: string;
   children?: ReactNode;
 }
 
-const NavBar = ({ left, center, right, children }: NavBarProps) => {
+const NavBar = ({ left, center, right, className, children }: NavBarProps) => {
   return (
-    <MyNavBar>
+    <MyNavBar className={className}>
       <MyNavBarTitle>
-        <MyNavBarLeftTitle>{left}</MyNavBarLeftTitle>
-        <MyNavBarCenter>{center}</MyNavBarCenter>
-        {right && <MyNavBarRightTitle>{right}</MyNavBarRightTitle>}
+        <MyLeftTitle>{left}</MyLeftTitle>
+        <MyCenter>{center}</MyCenter>
+        {right && <MyRightTitle>{right}</MyRightTitle>}
       </MyNavBarTitle>
-      {children && <MyNavBarChildren>{children}</MyNavBarChildren>}
+      {children && <MyChildren>{children}</MyChildren>}
     </MyNavBar>
   );
 };
@@ -41,21 +42,22 @@ const MyNavBarTitle = styled.div`
   /* border-radius: 10px 10px 0px 0px; */ // TODO: 팝업 애니메이션 적용시 필요함
 `;
 
-const MyNavBarLeftTitle = styled.p`
+const MyLeftTitle = styled.p`
   text-align: left;
 `;
 
-const MyNavBarRightTitle = styled.p`
+const MyRightTitle = styled.p`
   text-align: right;
 `;
 
-const MyNavBarCenter = styled.p`
+const MyCenter = styled.p`
+  min-width: 80px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.neutral.textStrong};
   text-align: center;
 `;
 
-const MyNavBarChildren = styled.div`
+const MyChildren = styled.div`
   display: flex;
   justify-content: center;
   padding: 0 10px 10px;
