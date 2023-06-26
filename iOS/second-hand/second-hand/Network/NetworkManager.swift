@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import UIKit
 
 class NetworkManager {
     let logger = Logger()
@@ -153,6 +154,23 @@ class NetworkManager {
             } catch {
                 asyncCompletion(.failure(error))
             }
+        }
+        session.resume()
+    }
+    
+    func sendGETImage(fromURL url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        let session = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                completion(.failure(ManagerErrors.invalidResponse))
+                return
+            }
+            
+            completion(.success(image))
         }
         session.resume()
     }
