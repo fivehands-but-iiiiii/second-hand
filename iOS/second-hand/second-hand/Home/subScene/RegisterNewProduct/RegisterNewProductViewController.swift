@@ -174,12 +174,7 @@ extension RegisterNewProductViewController: UITextViewDelegate {
 extension RegisterNewProductViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if string.isEmpty || isNumber(string) {
-            //백스페이스 버튼은 무조건 허용
-            return true
-        }
-           return false
+        return string.isEmpty || isNumber(string)
     }
     
     private func isNumber(_ string: String) -> Bool {
