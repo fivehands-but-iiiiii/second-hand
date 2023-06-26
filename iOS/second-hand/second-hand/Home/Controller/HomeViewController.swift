@@ -35,7 +35,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     private lazy var products: [Product] = {
         return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
     }()
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Product>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Product>?
     private var isLogin = false
     private let registerProductButton = UIButton()
 
@@ -53,7 +53,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         snapshot.appendSections([.main])
         snapshot.appendItems(products, toSection: .main)
  
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: true)
 
     }
     
