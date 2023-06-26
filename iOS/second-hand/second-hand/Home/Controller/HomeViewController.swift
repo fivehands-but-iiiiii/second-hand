@@ -41,7 +41,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        setCollectionViewController()
         setObserver()
 
         setupDataSource()
@@ -66,7 +66,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         print("로그인 되었습니다.")
     }
     
-    private func setUI() {
+    private func setCollectionViewController() {
 
         let layout = UICollectionViewFlowLayout()
         let figmaCellHight = 152
