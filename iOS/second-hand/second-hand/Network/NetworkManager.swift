@@ -158,7 +158,7 @@ class NetworkManager {
         session.resume()
     }
     
-    func sendGETImage(fromURL url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
+    static func sendGETImage(fromURL url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
         let session = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
