@@ -99,7 +99,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     
     private func layout() {
         [imageView, title, location, dot, registerTime, statusLabel, price, line].forEach{
-            self.addSubview($0)
+            self.contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
