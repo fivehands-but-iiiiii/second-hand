@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  JoinViewController.swift
 //  second-hand
 //
 //  Created by SONG on 2023/06/14.
@@ -10,37 +10,26 @@ import UIKit
 final class JoinViewController: NavigationUnderLineViewController {
     private let setLocationViewController = SetLocationViewController()
     private let circleButton = UIButton()
-    private let idStackView = UIStackView()
-    private let contour = UILabel()
+    private let idInputSection = IdInputSection(frame: .zero)
     private let addLocationButton = UIButton()
     private let stackView = UIStackView()
     private let plusLabel = UILabel()
     private let addLocationText = UILabel()
-    private let idLabel = UILabel()
-    private let idTextField = UITextField()
-    private var idDescription = UILabel()
     private let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-    private let idConvention = UILabel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        idTextField.delegate = self
-        idTextField.autocapitalizationType = .none
         joinTest()
     }
     
     private func setUI() {
         setNavigationBar()
         setCircleButton()
-        setContour()
+        setConstraints()
         setAddLocationButton()
         setStackView()
-        setConstraints()
-        setLabel()
-        setTextField()
-        setIdDescription()
-        setIdConvention()
     }
     
     private func setCircleButton() {
@@ -59,10 +48,6 @@ final class JoinViewController: NavigationUnderLineViewController {
         setNavigationLeftBarButton()
     }
     
-    private func setContour() {
-        contour.backgroundColor = UIColor.neutralBorder
-    }
-    
     private func setNavigationRightBarButton() {
         let saveButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(save))
         
@@ -74,7 +59,7 @@ final class JoinViewController: NavigationUnderLineViewController {
     }
     
     @objc private func save() {
-        if idDescription.text == "" {
+        if idInputSection.idDescription.text == "" {
             alert.message = "회원가입이 완료되었습니다."
             self.present(alert, animated: true, completion: nil)
         }else {
@@ -133,33 +118,12 @@ final class JoinViewController: NavigationUnderLineViewController {
         stackView.alignment = .fill
     }
     
-    private func setLabel() {
-        idLabel.text = "아이디"
-        idLabel.font = UIFont.body
-    }
-    
-    private func setTextField() {
-        idTextField.placeholder = "아이디를 입력하세요"
-        idTextField.font = UIFont.body
-    }
-    
-    private func setIdDescription() {
-        idDescription.font = UIFont.caption2
-        idDescription.textColor = UIColor.orange
-    }
-    
-    private func setIdConvention() {
-        idConvention.text = "아이디는 소문자와 숫자만 가능해요"
-        idConvention.font = UIFont.caption2
-        idConvention.textColor = UIColor.neutralTextWeak
-    }
-    
     private func setConstraints() {
-        let addSubviewComponent = [idStackView, circleButton, contour, addLocationButton, idLabel, idTextField, idDescription, idConvention]
+        let addSubviewComponent = [circleButton, addLocationButton,idInputSection]
         addSubviewComponent.forEach{self.view.addSubview($0)}
         self.addLocationButton.addSubview(stackView)
         
-        let component = [circleButton, idStackView, contour, addLocationButton, plusLabel, addLocationText, idLabel, idTextField, idDescription, stackView, idTextField, idLabel,idConvention]
+        let component = [circleButton, addLocationButton, plusLabel, addLocationText, stackView, idInputSection]
         component.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         
         let height: CGFloat = self.view.frame.height
@@ -175,32 +139,19 @@ final class JoinViewController: NavigationUnderLineViewController {
             circleButton.widthAnchor.constraint(equalToConstant: 80),
             circleButton.heightAnchor.constraint(equalToConstant: 80),
             
-            contour.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: 10.5*heightRatio),
-            contour.heightAnchor.constraint(equalToConstant: 0.5*heightRatio),
-            contour.widthAnchor.constraint(equalToConstant: self.view.frame.width),
-            contour.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            idInputSection.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            idInputSection.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            idInputSection.topAnchor.constraint(equalTo: circleButton.bottomAnchor, constant:30),
+            idInputSection.heightAnchor.constraint(equalToConstant: 88.0),
             
-            addLocationButton.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 40*heightRatio),
+            addLocationButton.topAnchor.constraint(equalTo: idInputSection.bottomAnchor, constant: 10*heightRatio),
             addLocationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16*widthRatio),
             addLocationButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
             addLocationButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
             
             stackView.centerXAnchor.constraint(equalTo: self.addLocationButton.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.addLocationButton.centerYAnchor)
             
-            idLabel.topAnchor.constraint(equalTo: self.circleButton.bottomAnchor,constant: 35.0*heightRatio),
-            idLabel.heightAnchor.constraint(equalToConstant: 22*heightRatio),
-            idLabel.leadingAnchor.constraint(equalTo: idStackView.leadingAnchor, constant: 16*widthRatio),
-            
-            idTextField.leadingAnchor.constraint(equalTo: idLabel.trailingAnchor, constant: 52.74*widthRatio),
-            idTextField.centerYAnchor.constraint(equalTo: idLabel.centerYAnchor),
-            idTextField.heightAnchor.constraint(equalToConstant: 22*heightRatio),
-            
-            idConvention.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio),
-            idConvention.topAnchor.constraint(equalTo: contour.bottomAnchor, constant: 3*widthRatio),
-            
-            idDescription.topAnchor.constraint(equalTo: idConvention.bottomAnchor, constant: 3*widthRatio),
-            idDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16*widthRatio)
         ])
     }
     //MARK: 일반회원가입 테스트
@@ -227,61 +178,8 @@ final class JoinViewController: NavigationUnderLineViewController {
                     print("가입실패 \(error)")
                 }
             }
-           } catch {
-               print("Error decoding response header: \(error)")
-           }
-    }
-}
-
-extension JoinViewController: UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //6글자 미만일 경우 디스크립션 텍스트 변경
-        if (textField.text?.count ?? 0) + string.count < 6 {
-            idDescription.text = "6~12자 이내로 입력하세요"
-        }else {
-            idDescription.text = ""
+        } catch {
+            print("Error decoding response header: \(error)")
         }
-        
-        if string.isEmpty {
-            //백스페이스 버튼은 무조건 허용
-            return true
-        }
-        //12자이상시 false
-        guard (textField.text?.count)! + string.count <= 12 else {return false}
-        //숫자영어뺴곤 false
-        let textVerification = isEnglishNumber(string)
-        guard textVerification else {return false}
-        
-        //중복된 아이디라면 디스크립션 텍스트 변경
-        let testIdArray = ["hahahaha", "hohohoho"]
-        if testIdArray.contains(textField.text! + string ) {
-            idDescription.text = "이미 사용중인 아이디예요"
-        }
-        
-        return true
-    }
-    
-    @objc func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField.text?.count == 0 {
-            idDescription.text = ""
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        //화면 터치시 키보드 내려감
-        idTextField.resignFirstResponder()
-    }
-    
-    private func isEnglishNumber(_ string: String) -> Bool {
-        let englishNumber = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890")
-        guard let scalar = UnicodeScalar(string) else {
-            return false
-        }
-        return englishNumber.contains(scalar)
-    }
-    
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        return true
     }
 }
