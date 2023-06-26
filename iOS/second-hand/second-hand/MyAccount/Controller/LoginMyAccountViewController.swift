@@ -30,7 +30,7 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
     
     private func setNicknameLabel() {
         nicknameLabel.frame = CGRect(x: 0, y: 0, width: 363, height: 22)
-        nicknameLabel.text = "닉네임"
+        nicknameLabel.text = UserInfoManager.shared.userInfo?.memberId
         nicknameLabel.font = UIFont.headLine
     }
     
