@@ -73,7 +73,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     private func setStatusLabel() {
         statusLabel.text = "예약중"
         statusLabel.textAlignment = .center
-        statusLabel.font = .caption1
+        statusLabel.font = .fontA
         statusLabel.textColor = .accentText
         statusLabel.backgroundColor = .accentBackgroundSecondary
         statusLabel.layer.masksToBounds = true

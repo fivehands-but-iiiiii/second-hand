@@ -33,6 +33,6 @@ final class CategoryButton: UIButton {
 //        self.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
 
         self.setTitleColor(.black, for: .normal)
-        self.titleLabel?.font = UIFont.caption1
+        self.titleLabel?.font = UIFont.fontA
     }
 }

@@ -16,7 +16,7 @@ extension UIFont {
     static let callOut = UIFont.systemFont(ofSize: 16, weight: .regular)
     static let subHead = UIFont.systemFont(ofSize: 15, weight: .regular)
     static let footNote = UIFont.systemFont(ofSize: 13, weight: .regular)
-    static let caption1 = UIFont.systemFont(ofSize: 12, weight: .regular)
-    static let caption2 = UIFont.systemFont(ofSize: 11, weight: .regular)
+    static let fontA = UIFont.systemFont(ofSize: 12, weight: .regular)
+    static let fontB = UIFont.systemFont(ofSize: 11, weight: .regular)
 }
 
