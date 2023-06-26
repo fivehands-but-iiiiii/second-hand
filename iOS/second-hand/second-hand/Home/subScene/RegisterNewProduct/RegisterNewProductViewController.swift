@@ -150,7 +150,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             descriptionTextField.leadingAnchor.constraint(equalTo: square.leadingAnchor),
             descriptionTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
             descriptionTextField.topAnchor.constraint(equalTo: sectionLine3.bottomAnchor, constant: 15),
-            descriptionTextField.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -15)
+            descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
 }
