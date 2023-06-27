@@ -14,9 +14,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let loginButton = UIButton()
     private let githubLoginButton = UIButton()
     private let joinMembershipButton = UIButton()
-    private let contour = UILabel()
-    private let idStackView = IdStackView()
-    
+    private let idInputSection = IdInputSection(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
         setNotLogOnUI()
@@ -62,10 +60,8 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         setJoinButton()
         setLoginedConstraints()
         setGithubLoginButton()
-        contour.backgroundColor = UIColor.neutralBorder
     }
     
-
     private func setNavigationBar() {
         self.navigationItem.title = "내 계정"
     }
@@ -96,7 +92,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
 
-        // TODO: 싱글톤으로 전역처럼 사용할 변수만들어야하는데, 네트워킹 진행하면서 구현할 예정
         loginTest()
         setLogOnUI()
 
@@ -116,12 +111,11 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
 
     
     private func setLoginedConstraints() {
-        [loginButton, idStackView, joinMembershipButton, contour, githubLoginButton].forEach{
+        [loginButton, joinMembershipButton, githubLoginButton, idInputSection].forEach{
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        
         let height: CGFloat = self.view.frame.height
         let width: CGFloat = self.view.frame.width
         let figmaHeight: CGFloat = 748
@@ -131,13 +125,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         
         
         NSLayoutConstraint.activate([
-            idStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 189*heightRatio),
-            idStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            
-            contour.topAnchor.constraint(equalTo: idStackView.bottomAnchor, constant: 10.5*widthRatio),
-            contour.heightAnchor.constraint(equalToConstant: 0.5),
-            contour.widthAnchor.constraint(equalToConstant: self.view.frame.width),
-            contour.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
             joinMembershipButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -120*heightRatio),
             joinMembershipButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -150,7 +137,12 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             loginButton.bottomAnchor.constraint(equalTo: self.githubLoginButton.topAnchor, constant: -19*heightRatio),
             loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             loginButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
-            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio)
+            loginButton.heightAnchor.constraint(equalToConstant: 52*heightRatio),
+            
+            idInputSection.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            idInputSection.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            idInputSection.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 88.0),
+            idInputSection.heightAnchor.constraint(equalToConstant: 88.0),
         ])
     }
 
