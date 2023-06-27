@@ -24,6 +24,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setUI()
         layout()
+        
     }
     
     required init?(coder: NSCoder) {

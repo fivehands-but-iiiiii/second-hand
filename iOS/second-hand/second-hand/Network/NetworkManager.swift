@@ -59,7 +59,7 @@ class NetworkManager {
     }
     
 
-    func sendOAuthPOST(data: Data?, header: ResponseHeader, fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
+    static func sendOAuthPOST(data: Data?, header: ResponseHeader, fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
         
         let asyncCompletion: (Result<Codable, Error>) -> Void = { result in
             DispatchQueue.main.async {
@@ -122,7 +122,7 @@ class NetworkManager {
     }
 
     
-    func sendGET<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
+    static func sendGET<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
         
         let asyncCompletion: (Result<[T], Error>) -> Void = { result in
             DispatchQueue.main.async {
