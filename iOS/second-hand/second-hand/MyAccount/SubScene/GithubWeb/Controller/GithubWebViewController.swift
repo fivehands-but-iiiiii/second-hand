@@ -63,8 +63,10 @@ final class GithubWebViewController: UIViewController {
             case .success(let user):
                 if user.count == 2 {
                     self.joinFlow(with: user, path: joinURL)
+                    self.navigationController?.popViewController(animated: true)
                 } else {
                     self.loginFlow(with: user)
+                    self.navigationController?.popViewController(animated: true)
                 }
                 
             case .failure(let error):
@@ -111,7 +113,6 @@ final class GithubWebViewController: UIViewController {
             return
         }
         UserInfoManager.shared.updateData(from: loginDataFetched)
-        print(UserInfoManager.shared.userInfo)
     }
     
     private func initializeWebViewCahChe() {
@@ -124,7 +125,6 @@ final class GithubWebViewController: UIViewController {
         
     }
 }
-
 
 extension GithubWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
