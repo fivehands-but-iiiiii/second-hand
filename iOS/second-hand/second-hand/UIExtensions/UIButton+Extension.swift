@@ -32,4 +32,28 @@ extension UIButton {
         ])
         return button
     }
+    
+    func setImage(from url: String) {
+        
+        let cacheKey = NSString(string: url)
+        
+        if let cachedImage = ImageCacheManager.shared.object(forKey: cacheKey) {
+            self.setImage(cachedImage, for: .normal)
+            return
+        }
+        
+        guard let imageURL = URL(string: url) else {
+            return
+        }
+        
+        NetworkManager.sendGETImage(fromURL: imageURL) { result in
+            switch result {
+            case .success(let image):
+                self.setImage(image, for: .normal)
+                ImageCacheManager.shared.setObject(image, forKey: cacheKey)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

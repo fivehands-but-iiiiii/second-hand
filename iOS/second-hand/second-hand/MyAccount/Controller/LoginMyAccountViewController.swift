@@ -40,18 +40,13 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
         circleButton.layer.borderColor = CGColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
         circleButton.setImage(UIImage(systemName: "camera"), for: .normal)
         circleButton.tintColor = .white
-        let imageURL = URL(string: UserInfoManager.shared.userInfo!.profileImgUrl)!
-        NetworkManager.sendGETImage(fromURL: imageURL) { result in
-            switch result {
-            case .success(let image):
-                self.circleButton.setImage(image, for: .normal)
-            case .failure(let error):
-                ManagerErrors.invalidResponse
-                break
-            }
+        
+        guard let user = UserInfoManager.shared.userInfo else {
+            return
         }
         
-
+        circleButton.setImage(from: user.profileImgUrl)
+        
         circleButton.layer.cornerRadius =  Self.buttonHeightWidth / 2
         circleButton.layer.masksToBounds = true
     }

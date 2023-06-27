@@ -22,4 +22,28 @@ extension UIImageView {
         ])
         return view
     }
+    
+    func setImage(from url: String) {
+        
+        let cacheKey = NSString(string: url)
+        
+        if let cachedImage = ImageCacheManager.shared.object(forKey: cacheKey) {
+            self.image = cachedImage
+            return
+        }
+        
+        guard let imageURL = URL(string: url) else {
+            return
+        }
+        
+        NetworkManager.sendGETImage(fromURL: imageURL) { result in
+            switch result {
+            case .success(let image):
+                self.image = image
+                ImageCacheManager.shared.setObject(image, forKey: cacheKey)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
