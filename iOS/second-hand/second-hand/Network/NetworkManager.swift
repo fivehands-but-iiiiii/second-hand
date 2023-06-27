@@ -25,7 +25,7 @@ class NetworkManager {
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         request.httpMethod = HttpMethod.get.method
         
-        let session = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             do {
                 guard let data = data else {
@@ -55,7 +55,7 @@ class NetworkManager {
                 asyncCompletion(.failure(error))
             }
         }
-        session.resume()
+        task.resume()
     }
     
 
@@ -75,7 +75,7 @@ class NetworkManager {
         request.allHTTPHeaderFields = [keyOfCookie : valueOfCookie,JSONCreater.headerKeyRequired:JSONCreater.headerValueRequired]
         request.httpBody = data
 
-        let session = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
 
             do {
                 guard let urlResponse = response as? HTTPURLResponse else {
@@ -97,7 +97,7 @@ class NetworkManager {
                 
             }
         }
-        session.resume()
+        task.resume()
     }
     
     private func decodeHeader(httpResponse : HTTPURLResponse) -> Codable? {
@@ -120,8 +120,7 @@ class NetworkManager {
             return nil
         }
     }
-    
-    //MARK: 위에꺼 싹다 분리 후 제네릭으로 개조 예정
+
     
     func sendGET<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
         
@@ -134,7 +133,7 @@ class NetworkManager {
         request.httpMethod = HttpMethod.get.method
         request.httpBody = data
         
-        let session = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
                 guard let data = data else {
                     return
@@ -155,24 +154,30 @@ class NetworkManager {
                 asyncCompletion(.failure(error))
             }
         }
-        session.resume()
+        task.resume()
     }
     
     static func sendGETImage(fromURL url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        let session = URLSession.shared.dataTask(with: url) { data, response, error in
+        let asyncCompletion: (Result<UIImage, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                completion(.failure(error))
+                asyncCompletion(.failure(error))
                 return
             }
             
             guard let data = data, let image = UIImage(data: data) else {
-                completion(.failure(ManagerErrors.invalidResponse))
+                asyncCompletion(.failure(ManagerErrors.invalidResponse))
                 return
             }
             
-            completion(.success(image))
+            asyncCompletion(.success(image))
         }
-        session.resume()
+        task.resume()
     }
     
     func sendPOST<T:Codable>(decodeType:T.Type ,what data: Data?, header: ResponseHeader?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
@@ -188,7 +193,7 @@ class NetworkManager {
         
         let request = makeRequestPOST(header: header, url: url, body: data)
         
-        let session = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
                 guard let data = data else {
                     return
@@ -210,7 +215,7 @@ class NetworkManager {
                 asyncCompletion(.failure(error))
             }
         }
-        session.resume()
+        task.resume()
     }
     
     private func makeRequestPOST(header: ResponseHeader?, url: URL, body: Data) -> URLRequest {
