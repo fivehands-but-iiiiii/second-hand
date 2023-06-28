@@ -18,6 +18,8 @@ struct Product: Hashable {
     var price: String
     var location: String
     var registerTime: String
+    let chatCount = UILabel()
+    let wishCount = UILabel()
 }
 
 final class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
@@ -141,7 +143,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     
     private func getItemList() {
         
-        guard let url = URL(string: Server.shared.itemsListURL(page: 0, regionID: 1)) else {
+        guard let url = URL(string: Server.shared.itemsListURL(page: 2, regionID: 1)) else {
             return
         }
         

@@ -9,15 +9,22 @@ import UIKit
 
 final class HomeProductCollectionViewCell: UICollectionViewCell {
     static let identifier = "productCell"
-    private let imageView = UIImageView()
+    private let thumbnailImage = UIImageView()
+    
     private var title = UILabel()
+    
     private let location = UILabel()
     private let dot = UILabel()
     private let registerTime = UILabel()
+    
     private let statusLabel = UILabel()
     private let price = UILabel()
-    private let chat = UILabel()
-    private let wish = UILabel()
+    
+    private let chatCount = UILabel()
+    private let wishCount = UILabel()
+    private let chatImage = UIImageView()
+    private let wishImage = UIImageView()
+    
     private let line = UILabel()
     
     override init(frame: CGRect) {
@@ -28,7 +35,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     private func setUI() {
@@ -43,11 +50,11 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     private func setImageView() {
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = .init(red: 179/255, green: 179/255, blue: 179/255, alpha: 0.39)
+        thumbnailImage.layer.borderWidth = 1
+        thumbnailImage.layer.borderColor = .init(red: 179/255, green: 179/255, blue: 179/255, alpha: 0.39)
         
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 8
+        thumbnailImage.layer.masksToBounds = true
+        thumbnailImage.layer.cornerRadius = 8
     }
     
     private func setTitle() {
@@ -99,7 +106,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     }
     
     private func layout() {
-        [imageView, title, location, dot, registerTime, statusLabel, price, line].forEach{
+        [thumbnailImage, title, location, dot, registerTime, statusLabel, price, line].forEach{
             self.contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -112,13 +119,13 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         let widthRatio: CGFloat = width/figmaWidth
         
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
-            imageView.widthAnchor.constraint(equalToConstant: height-32),
+            thumbnailImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            thumbnailImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            thumbnailImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            thumbnailImage.widthAnchor.constraint(equalToConstant: height-32),
             
-            title.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: round(15*widthRatio)),
-            title.topAnchor.constraint(equalTo: imageView.topAnchor, constant: round(4*heightRatio)),
+            title.leadingAnchor.constraint(equalTo: thumbnailImage.trailingAnchor, constant: round(15*widthRatio)),
+            title.topAnchor.constraint(equalTo: thumbnailImage.topAnchor, constant: round(4*heightRatio)),
             
             location.leadingAnchor.constraint(equalTo: title.leadingAnchor),
             location.topAnchor.constraint(equalTo: title.bottomAnchor, constant: round(4*heightRatio)),
@@ -139,7 +146,7 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
             
             line.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
-            line.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            line.leadingAnchor.constraint(equalTo: thumbnailImage.leadingAnchor),
             line.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
     }
