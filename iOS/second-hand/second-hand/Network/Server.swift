@@ -18,6 +18,7 @@ struct Server {
         case join = "/join"
         case gitLogin = "/git/login"
         case login = "/login"
+        case items = "/items"
     }
 
     func url(for path: Path) -> String {
@@ -26,15 +27,24 @@ struct Server {
 
     func gitLoginURL(withCode code: String) -> String {
         let query = Server.Query.code.rawValue + code
-        return Server.baseURL + Path.gitLogin.rawValue + query
+        return Server.baseURL + Path.gitLogin.rawValue + "?" + query
     }
 
     func oAuthAuthorizeURL() -> String {
         let query = "client_id=\(Server.clientID)&redirect_url=\(Server.redirectURL)"
         return Server.oAuthURL + "?" + query
     }
+    
+    func itemsListURL(page: Int, regionID: Int) -> String {
+        let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.region.rawValue + "\(regionID)"
+        return Server.baseURL + Path.items.rawValue + "?" + query
+    }
 
     enum Query: String {
-        case code = "?code="
+        case code = "code="
+        case page = "page="
+        case region = "regionId="
+    
     }
 }
+
