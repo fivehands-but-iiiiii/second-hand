@@ -13,7 +13,7 @@ enum Section: CaseIterable {
 }
 
 struct Product: Hashable {
-    let id = UUID()
+    var id : Int
     var title: String
     var price: String
     var location: String
@@ -30,11 +30,10 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
     private let registerNewProductViewController = RegisterNewProductViewController()
-    private let productArray = [("선풍기", "25,000원", "역삼동", "4시간전"), ("에어팟", "50,000원", "점봉동", "1시간전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전"), ("냉장고", "999,999,999원","강남", "1초전")]
+    private var productArray : [ItemList] = []
 
-    private lazy var products: [Product] = {
-        return self.productArray.map { Product(title: $0.0, price: $0.1, location: $0.2, registerTime: $0.3) }
-    }()
+    private lazy var products: [Product] = []
+    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Product>?
     private var isLogin = false
     private let registerProductButton = UIButton()
@@ -43,9 +42,9 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         super.viewDidLoad()
         setCollectionViewController()
         setObserver()
-
         setupDataSource()
         applyInitialSnapshot()
+        getItemList()
     }
     
     private func applyInitialSnapshot() {
@@ -138,6 +137,22 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
 
             return cell
         })
+    }
+    
+    private func getItemList() {
+        
+        guard let url = URL(string: Server.shared.itemsListURL(page: 0, regionID: 1)) else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: ItemList.self, what: nil, fromURL: url) { (result: Result<[ItemList], Error>) in
+            switch result {
+            case .success(let itemList) :
+                print(itemList)
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
     }
 
 }
