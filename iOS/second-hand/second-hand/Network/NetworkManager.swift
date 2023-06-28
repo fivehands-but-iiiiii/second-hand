@@ -131,6 +131,7 @@ class NetworkManager {
         }
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         request.httpMethod = HttpMethod.get.method
+        request.allHTTPHeaderFields = [JSONCreater.headerKeyRequired: JSONCreater.headerValueRequired]
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

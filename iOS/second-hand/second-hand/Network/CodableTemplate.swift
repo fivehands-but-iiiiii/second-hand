@@ -58,47 +58,29 @@ struct ResponseHeader: Codable {
 
 
 //--------------------------------해당하는 지역의 상품을 볼 수 있다.--------------------------------
-struct ProductList: Codable {
+struct ItemList: Codable {
     let number: Int
     let hasPrevious, hasNext: Bool
-    let items: [ProductItem]
+    let items: [Item]
 }
 
 // MARK: - Item
-struct ProductItem: Codable {
+struct Item: Codable {
     let id: Int
     let title: String
-    let thumbnailURL: String?
+    let thumbnailUrl: String?
     let region: ProductRegion
-    let createdAt: Date
-    let price, status, hits, chatCount: Int
-    let likeCount: Int
+    let createdAt: String
+    let price, status, hits, chatCount,likeCount: Int
     let isLike: Bool
 }
 
 // MARK: - Region
 struct ProductRegion: Codable {
     let id: Int
-    let city: City
-    let county: County
-    let district: District
+    let city: String
+    let county: String
+    let district: String
 }
 
-enum City: Codable {
-    case 대구광역시
-    case 오스트리아
-    case 제주도
-}
-
-enum County: Codable {
-    case 나니시
-    case 달서구
-    case 이린시
-}
-
-enum District: Codable {
-    case 듀이동
-    case 릴리동
-    case 월성2동
-}
 
