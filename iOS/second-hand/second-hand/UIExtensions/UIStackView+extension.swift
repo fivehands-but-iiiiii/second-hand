@@ -9,10 +9,12 @@ import UIKit
 //
 extension UIStackView {
 
-    func setHorizontalStackViewConfig(spacing : CGFloat) {
-        self.axis = .horizontal
-        self.alignment = .fill
-        self.distribution = .fill
-        self.spacing = round(spacing)
+    static func setHorizontalStackViewConfig(spacing : CGFloat) -> UIStackView {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = round(spacing)
+        return stackView
     }
 }

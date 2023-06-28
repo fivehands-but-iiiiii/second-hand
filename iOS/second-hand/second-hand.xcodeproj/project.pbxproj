@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
 		DB08D4482A4BFC6F00D45E32 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB08D4472A4BFC6F00D45E32 /* UIStackView+extension.swift */; };
+		DB08D44B2A4C0C5E00D45E32 /* SellingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB08D44A2A4C0C5E00D45E32 /* SellingItem.swift */; };
 		DB1636C82A42E65B009884E4 /* RegisterNewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */; };
 		DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */; };
 		DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB082A43E58800578ED5 /* UIView+Extension.swift */; };
@@ -59,6 +60,7 @@
 		2356744C4EC7A65407925876 /* Pods_second_hand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_second_hand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
 		DB08D4472A4BFC6F00D45E32 /* UIStackView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
+		DB08D44A2A4C0C5E00D45E32 /* SellingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellingItem.swift; sourceTree = "<group>"; };
 		DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNewProductViewController.swift; sourceTree = "<group>"; };
 		DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetLocationViewController.swift; path = "second-hand/Home/subScene/SetLocation/Controller/SetLocationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DB55CB082A43E58800578ED5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 				2356744C4EC7A65407925876 /* Pods_second_hand.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB08D4492A4C0C4B00D45E32 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB08D44A2A4C0C5E00D45E32 /* SellingItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DB51315B2A3EA48500FBFA49 /* subScene */ = {
@@ -375,9 +385,9 @@
 		E49EB8442A304982001F2D56 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				DB08D4492A4C0C4B00D45E32 /* Model */,
 				DB51315B2A3EA48500FBFA49 /* subScene */,
 				E49EB84B2A304A7B001F2D56 /* Controller */,
-				E49EB84A2A304A73001F2D56 /* Model */,
 				E49EB84C2A304A83001F2D56 /* View */,
 			);
 			path = Home;
@@ -432,13 +442,6 @@
 				E49EB8352A2DC207001F2D56 /* TabBarItem.swift */,
 			);
 			path = TabBarControl;
-			sourceTree = "<group>";
-		};
-		E49EB84A2A304A73001F2D56 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		E49EB84B2A304A7B001F2D56 /* Controller */ = {
@@ -653,6 +656,7 @@
 				DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */,
 				E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */,
 				E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */,
+				DB08D44B2A4C0C5E00D45E32 /* SellingItem.swift in Sources */,
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
 				DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,

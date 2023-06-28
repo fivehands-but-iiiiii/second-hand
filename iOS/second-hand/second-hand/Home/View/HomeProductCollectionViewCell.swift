@@ -29,16 +29,16 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUI()
         layout()
         
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        layout()
     }
     
-    private func setUI() {
+    func setUI(from : SellingItem) {
         setImageView()
         setTitle()
         setLocation()
