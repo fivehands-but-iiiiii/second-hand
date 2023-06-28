@@ -7,21 +7,6 @@
 
 import UIKit
 
-
-enum Section: CaseIterable {
-       case main
-}
-
-struct Product: Hashable {
-    var id : Int
-    var title: String
-    var price: String
-    var location: String
-    var registerTime: String
-    let chatCount = UILabel()
-    let wishCount = UILabel()
-}
-
 final class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
     
     enum Section: CaseIterable {
@@ -32,11 +17,10 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
     private let registerNewProductViewController = RegisterNewProductViewController()
-    private var productArray : [ItemList] = []
 
-    private lazy var products: [Product] = []
+    private lazy var items: [SellingItem] = []
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Product>?
+    private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>?
     private var isLogin = false
     private let registerProductButton = UIButton()
 
@@ -50,9 +34,9 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func applyInitialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Product>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(products, toSection: .main)
+        snapshot.appendItems(items, toSection: .main)
  
         dataSource?.apply(snapshot, animatingDifferences: true)
 
@@ -130,15 +114,20 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func setupDataSource() {
-        self.productListCollectionView.register(HomeProductCollectionViewCell.self, forCellWithReuseIdentifier: HomeProductCollectionViewCell.identifier)
+        let cellRegistration = UICollectionView.CellRegistration<HomeProductCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+            cell.setUI(from: self.items[indexPath.item])
+        }
         
-        self.dataSource = UICollectionViewDiffableDataSource<Section, Product>.init(collectionView: productListCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeProductCollectionViewCell.identifier, for: indexPath) as? HomeProductCollectionViewCell else { preconditionFailure() }
-            
-            cell.configure(title: itemIdentifier.title, price: itemIdentifier.price, location: itemIdentifier.location, registerTime: itemIdentifier.registerTime)
+        self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { collectionView, indexPath, itemIdentifier:SellingItem in
+            <#code#>
+        }
 
-            return cell
-        })
+        
+    }
+    
+    private func convertToHashable(from item : Item) -> SellingItem{
+        let result = SellingItem(id: item.id, title: item.title, price: item.price, region: item.region.city, createdAt: item.createdAt)
+        return result
     }
     
     private func getItemList() {
@@ -149,8 +138,15 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         
         NetworkManager.sendGET(decodeType: ItemList.self, what: nil, fromURL: url) { (result: Result<[ItemList], Error>) in
             switch result {
-            case .success(let itemList) :
-                print(itemList)
+            case .success(let data) :
+                guard let itemList = data.last else {
+                    return
+                }
+                
+                itemList.items.forEach { item in
+                    self.items.append(self.convertToHashable(from: item))
+                }
+                
             case .failure(let error) :
                 print(error.localizedDescription)
             }
