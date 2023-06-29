@@ -11,18 +11,34 @@ class ChattingRoomTextStackView: UIStackView {
 
     let userName = UILabel()
     let lastChattingTime = UILabel()
-    let nameTimeStackView = UIStackView()
+    let nameTimeStackView = UIStackView.setHorizontalStackViewConfig(spacing: 1)
     let lastChatting = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
+        setUserName()
+        setLastChattingTime()
+        setNameTimeStackView()
+        setLastChatting()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setUserName() {
+        
+    }
     
+    private func setLastChattingTime() {
+        
+    }
+    
+    private func setNameTimeStackView() {
+        
+    }
+    
+    private func setLastChatting() {
+        
+    }
 }
