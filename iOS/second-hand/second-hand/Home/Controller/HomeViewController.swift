@@ -1,158 +1,158 @@
+////
+////  HomeViewController.swift
+////  second-hand
+////
+////  Created by SONG on 2023/06/05.
+////
 //
-//  HomeViewController.swift
-//  second-hand
+//import UIKit
 //
-//  Created by SONG on 2023/06/05.
+//final class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
 //
-
-import UIKit
-
-final class HomeViewController: NavigationUnderLineViewController, ButtonCustomViewDelegate {
-    
-    enum Section: CaseIterable {
-        case main
-    }
-
-    private var productListCollectionView : UICollectionView!
-    private let setLocationViewController = SetLocationViewController()
-    private let joinViewController = JoinViewController()
-    private let registerNewProductViewController = RegisterNewProductViewController()
-
-    private lazy var items: [SellingItem] = []
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>?
-    private var isLogin = false
-    private let registerProductButton = UIButton()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setCollectionViewController()
-        setObserver()
-        setupDataSource()
-        applyInitialSnapshot()
-        getItemList()
-    }
-    
-    private func applyInitialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(items, toSection: .main)
- 
-        dataSource?.apply(snapshot, animatingDifferences: true)
-
-    }
-    
-    private func setObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin(_:)), name: NSNotification.Name("LOGIN"), object: nil)
-    }
-    
-    @objc func didRecieveLogin(_ notification: Notification) {
-        self.isLogin = true
-        print("로그인 되었습니다.")
-    }
-    
-    private func setCollectionViewController() {
-
-        let layout = UICollectionViewFlowLayout()
-        let figmaCellHight = 152
-        let figmaHeight = 852
-        
-        layout.minimumLineSpacing = 1.1
-        layout.itemSize = .init(width: self.view.frame.width, height: CGFloat(figmaCellHight*figmaHeight)/self.view.frame.height)
-
-        productListCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        self.view.addSubview(productListCollectionView)
-
-        setNavigationRightBarButton()
-        setNavigationLeftBarButton()
-        setRegisterProductButton()
-    }
-    
-    private func setNavigationRightBarButton() {
-        let rightBarButton = HomeRightBarButton()
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
-    }
-    
-    private func setNavigationLeftBarButton() {
-        let leftBarButton = HomeLeftBarButton()
-        let buttonCustomView = leftBarButton.customView as? ButtonCustomView
-        buttonCustomView?.delegate = self
-        navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
-    }
-
-    
-    func tappedSetLocation() {
-        present(UINavigationController(rootViewController: setLocationViewController), animated: true)
-    }
-    
-    private func setRegisterProductButton() {
-        registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        registerProductButton.tintColor = .neutralBackground
-        registerProductButton.backgroundColor = .accentBackgroundPrimary
-        layoutRegisterProductButton()
-        
-        registerProductButton.addTarget(self, action: #selector(registerProductButtonTapped), for: .touchUpInside)
-    }
-    
-    private func layoutRegisterProductButton() {
-        let registerButtonHeightWidth = CGFloat(56)
-        self.view.addSubview(registerProductButton)
-        registerProductButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            registerProductButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -107),
-            registerProductButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
-            registerProductButton.widthAnchor.constraint(equalToConstant: registerButtonHeightWidth),
-            registerProductButton.heightAnchor.constraint(equalToConstant: registerButtonHeightWidth)
-        ])
-        
-        registerProductButton.clipsToBounds = true
-        registerProductButton.layer.cornerRadius = registerButtonHeightWidth / 2
-    }
-    
-    @objc func registerProductButtonTapped() {
-        present(UINavigationController(rootViewController: registerNewProductViewController), animated: true)
-    }
-    
-    private func setupDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<HomeProductCollectionViewCell,SellingItem> { (cell, indexPath, item) in
-            cell.setUI(from: self.items[indexPath.item])
-        }
-        
-        self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { collectionView, indexPath, itemIdentifier:SellingItem in
-            <#code#>
-        }
-
-        
-    }
-    
-    private func convertToHashable(from item : Item) -> SellingItem{
-        let result = SellingItem(id: item.id, title: item.title, price: item.price, region: item.region.city, createdAt: item.createdAt)
-        return result
-    }
-    
-    private func getItemList() {
-        
-        guard let url = URL(string: Server.shared.itemsListURL(page: 2, regionID: 1)) else {
-            return
-        }
-        
-        NetworkManager.sendGET(decodeType: ItemList.self, what: nil, fromURL: url) { (result: Result<[ItemList], Error>) in
-            switch result {
-            case .success(let data) :
-                guard let itemList = data.last else {
-                    return
-                }
-                
-                itemList.items.forEach { item in
-                    self.items.append(self.convertToHashable(from: item))
-                }
-                
-            case .failure(let error) :
-                print(error.localizedDescription)
-            }
-        }
-    }
-
-}
-
-
+//    enum Section: CaseIterable {
+//        case main
+//    }
+//
+//    private var productListCollectionView : UICollectionView!
+//    private let setLocationViewController = SetLocationViewController()
+//    private let joinViewController = JoinViewController()
+//    private let registerNewProductViewController = RegisterNewProductViewController()
+//
+//    private lazy var items: [SellingItem] = []
+//
+//    private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>?
+//    private var isLogin = false
+//    private let registerProductButton = UIButton()
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setCollectionViewController()
+//        setObserver()
+//        setupDataSource()
+//        applyInitialSnapshot()
+//        getItemList()
+//    }
+//
+//    private func applyInitialSnapshot() {
+//        var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
+//        snapshot.appendSections([.main])
+//        snapshot.appendItems(items, toSection: .main)
+//
+//        dataSource?.apply(snapshot, animatingDifferences: true)
+//
+//    }
+//
+//    private func setObserver() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin(_:)), name: NSNotification.Name("LOGIN"), object: nil)
+//    }
+//
+//    @objc func didRecieveLogin(_ notification: Notification) {
+//        self.isLogin = true
+//        print("로그인 되었습니다.")
+//    }
+//
+//    private func setCollectionViewController() {
+//
+//        let layout = UICollectionViewFlowLayout()
+//        let figmaCellHight = 152
+//        let figmaHeight = 852
+//
+//        layout.minimumLineSpacing = 1.1
+//        layout.itemSize = .init(width: self.view.frame.width, height: CGFloat(figmaCellHight*figmaHeight)/self.view.frame.height)
+//
+//        productListCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+//        self.view.addSubview(productListCollectionView)
+//
+//        setNavigationRightBarButton()
+//        setNavigationLeftBarButton()
+//        setRegisterProductButton()
+//    }
+//
+//    private func setNavigationRightBarButton() {
+//        let rightBarButton = HomeRightBarButton()
+//        navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
+//    }
+//
+//    private func setNavigationLeftBarButton() {
+//        let leftBarButton = HomeLeftBarButton()
+//        let buttonCustomView = leftBarButton.customView as? ButtonCustomView
+//        buttonCustomView?.delegate = self
+//        navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
+//    }
+//
+//
+//    func tappedSetLocation() {
+//        present(UINavigationController(rootViewController: setLocationViewController), animated: true)
+//    }
+//
+//    private func setRegisterProductButton() {
+//        registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
+//        registerProductButton.tintColor = .neutralBackground
+//        registerProductButton.backgroundColor = .accentBackgroundPrimary
+//        layoutRegisterProductButton()
+//
+//        registerProductButton.addTarget(self, action: #selector(registerProductButtonTapped), for: .touchUpInside)
+//    }
+//
+//    private func layoutRegisterProductButton() {
+//        let registerButtonHeightWidth = CGFloat(56)
+//        self.view.addSubview(registerProductButton)
+//        registerProductButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            registerProductButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -107),
+//            registerProductButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+//            registerProductButton.widthAnchor.constraint(equalToConstant: registerButtonHeightWidth),
+//            registerProductButton.heightAnchor.constraint(equalToConstant: registerButtonHeightWidth)
+//        ])
+//
+//        registerProductButton.clipsToBounds = true
+//        registerProductButton.layer.cornerRadius = registerButtonHeightWidth / 2
+//    }
+//
+//    @objc func registerProductButtonTapped() {
+//        present(UINavigationController(rootViewController: registerNewProductViewController), animated: true)
+//    }
+//
+//    private func setupDataSource() {
+//        let cellRegistration = UICollectionView.CellRegistration<HomeProductCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+//            cell.setUI(from: self.items[indexPath.item])
+//        }
+//
+//        self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { collectionView, indexPath, itemIdentifier:SellingItem in
+//            <#code#>
+//        }
+//
+//
+//    }
+//
+//    private func convertToHashable(from item : Item) -> SellingItem{
+//        let result = SellingItem(id: item.id, title: item.title, price: item.price, region: item.region.city, createdAt: item.createdAt)
+//        return result
+//    }
+//
+//    private func getItemList() {
+//
+//        guard let url = URL(string: Server.shared.itemsListURL(page: 2, regionID: 1)) else {
+//            return
+//        }
+//
+//        NetworkManager.sendGET(decodeType: ItemList.self, what: nil, fromURL: url) { (result: Result<[ItemList], Error>) in
+//            switch result {
+//            case .success(let data) :
+//                guard let itemList = data.last else {
+//                    return
+//                }
+//
+//                itemList.items.forEach { item in
+//                    self.items.append(self.convertToHashable(from: item))
+//                }
+//
+//            case .failure(let error) :
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
+//
+//}
+//
+//

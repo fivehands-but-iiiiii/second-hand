@@ -10,7 +10,7 @@ import UIKit
 class SecondHandTabBarController: UITabBarController {
 
     private var isLogined = false
-    private let home = HomeViewController()
+    //private let home = HomeViewController()
     private let saleLog = SaleLogViewController()
     private let wishList = WishListViewController()
     private let chatting = ChattingViewController()
@@ -23,7 +23,8 @@ class SecondHandTabBarController: UITabBarController {
     }
     
     private func addViewController() {
-        let viewControllers : [UIViewController] = [home,saleLog,wishList,chatting,myAccount]
+        //배열에 다시 home넣기
+        let viewControllers : [UIViewController] = [saleLog,wishList,chatting,myAccount]
         
         let navigationControllerEmbeded = viewControllers.map { viewController in
             UINavigationController(rootViewController: viewController)
