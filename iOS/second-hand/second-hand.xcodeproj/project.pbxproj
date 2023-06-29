@@ -21,6 +21,7 @@
 		DB55CB152A443E5B00578ED5 /* RegisterProductScrollVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */; };
 		DB55CB292A4499D200578ED5 /* ProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB282A4499D200578ED5 /* ProductImage.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
+		DB7FB86E2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7FB86D2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
 		DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */; };
@@ -72,6 +73,7 @@
 		DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProductScrollVeiw.swift; sourceTree = "<group>"; };
 		DB55CB282A4499D200578ED5 /* ProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImage.swift; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		DB7FB86D2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomTableViewCell.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 		E49EB8632A36F02B001F2D56 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DB7FB86D2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
 				E41076C42A4AF67A00F5204E /* ImageCacheManager.swift in Sources */,
 				E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */,
+				DB7FB86E2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift in Sources */,
 				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
 				E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */,
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
