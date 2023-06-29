@@ -10,6 +10,9 @@ import UIKit
 class ChattingRoomTableViewCell: UITableViewCell {
     
     let identifier = "ChattingRoomCell"
+    let textStackView = ChattingRoomTextStackView()
+    let userImage = UIImageView()
+    let itemImage = ChattingRoomItemImageStackView()
 
     override func awakeFromNib() {
         super.awakeFromNib()

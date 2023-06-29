@@ -22,6 +22,8 @@
 		DB55CB292A4499D200578ED5 /* ProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB282A4499D200578ED5 /* ProductImage.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DB7FB86E2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7FB86D2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift */; };
+		DB7FB8702A4E3A20007E3C26 /* ChattingRoomTextStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7FB86F2A4E3A20007E3C26 /* ChattingRoomTextStackView.swift */; };
+		DB7FB8722A4E3B6D007E3C26 /* ChattingRoomItemImageStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7FB8712A4E3B6D007E3C26 /* ChattingRoomItemImageStackView.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
 		DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */; };
@@ -74,6 +76,8 @@
 		DB55CB282A4499D200578ED5 /* ProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImage.swift; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DB7FB86D2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomTableViewCell.swift; sourceTree = "<group>"; };
+		DB7FB86F2A4E3A20007E3C26 /* ChattingRoomTextStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomTextStackView.swift; sourceTree = "<group>"; };
+		DB7FB8712A4E3B6D007E3C26 /* ChattingRoomItemImageStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomItemImageStackView.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -491,6 +495,8 @@
 			isa = PBXGroup;
 			children = (
 				DB7FB86D2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift */,
+				DB7FB86F2A4E3A20007E3C26 /* ChattingRoomTextStackView.swift */,
+				DB7FB8712A4E3B6D007E3C26 /* ChattingRoomItemImageStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -668,6 +674,7 @@
 				DB7FB86E2A4E38D7007E3C26 /* ChattingRoomTableViewCell.swift in Sources */,
 				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
 				E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */,
+				DB7FB8722A4E3B6D007E3C26 /* ChattingRoomItemImageStackView.swift in Sources */,
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E46738112A482DF1006A46D1 /* Updatable.swift in Sources */,
@@ -676,6 +683,7 @@
 				DB55CB112A4407CB00578ED5 /* ProductPicture.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */,
+				DB7FB8702A4E3A20007E3C26 /* ChattingRoomTextStackView.swift in Sources */,
 				DB1636C82A42E65B009884E4 /* RegisterNewProductViewController.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
