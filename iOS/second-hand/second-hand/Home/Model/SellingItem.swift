@@ -8,13 +8,17 @@
 import UIKit
 
 struct SellingItem: Hashable {
+    
     var id : Int
+    var thumbnailImageUrl : String
     var title: String
     var price: Int
     var region: String
     var createdAt: String
-    let chatCount = UILabel()
-    let wishCount = UILabel()
+    var chatCount : Int
+    var likeCount : Int
+    var status : Int
+    
 }
 
 
