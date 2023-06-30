@@ -49,22 +49,25 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         setLine()
     }
     
-    private func setImageView() {
+    private func setImageView(url: String) {
         thumbnailImage.layer.borderWidth = 1
         thumbnailImage.layer.borderColor = .init(red: 179/255, green: 179/255, blue: 179/255, alpha: 0.39)
         
         thumbnailImage.layer.masksToBounds = true
         thumbnailImage.layer.cornerRadius = 8
+        thumbnailImage.setImage(from: url)
     }
     
-    private func setTitle() {
+    private func setTitle(_ itemTitle: String) {
         title.font = .subHead
         title.textColor = .neutralText
+        title.text = itemTitle
     }
     
-    private func setLocation() {
+    private func setLocation(_ itemRegion: String) {
         location.font = .footNote
         location.textColor = .neutralTextWeak
+        location.text = itemRegion
     }
     
     private func setDot() {
@@ -93,6 +96,8 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         price.font = .headLine
         price.textColor = .neutralTextStrong
     }
+    
+    
     
     private func setLine() {
         line.backgroundColor = .neutralBorder
