@@ -38,14 +38,14 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         layout()
     }
     
-    func setUI(from : SellingItem) {
-        setImageView()
-        setTitle()
-        setLocation()
+    func setUI(from item : SellingItem) {
+        setImageView(url: item.thumbnailImageUrl)
+        setTitle(item.title)
+        setLocation(item.region)
         setDot()
-        setRegisterTime()
-        setStatusLabel()
-        setPrice()
+        setRegisterTime(item.createdAt)
+        setStatusLabel(item.status)
+        setPrice(item.price)
         setLine()
     }
     
