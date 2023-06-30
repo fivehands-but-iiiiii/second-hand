@@ -9,9 +9,9 @@ import UIKit
 
 class ChattingRoomTextStackView: UIStackView {
 
-    let userName = UILabel()
+    var userName = UILabel()
     let lastChattingTime = UILabel()
-    let nameTimeStackView = UIStackView.setHorizontalStackViewConfig(spacing: 1)
+    let nameTimeStackView = UIStackView()
     let lastChatting = UILabel()
 
     override init(frame: CGRect) {
@@ -20,25 +20,45 @@ class ChattingRoomTextStackView: UIStackView {
         setLastChattingTime()
         setNameTimeStackView()
         setLastChatting()
+        nameTimeStackView.addArrangedSubview(userName)
+        nameTimeStackView.addArrangedSubview(lastChattingTime)
+        nameTimeStackView.alignment = .leading
+        nameTimeStackView.distribution = .fillProportionally
+        nameTimeStackView.axis = .horizontal
+        nameTimeStackView.spacing = 1
+        self.addArrangedSubview(nameTimeStackView)
+        self.addArrangedSubview(lastChatting)
+        self.axis = .vertical
     }
     
     required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setUserName()
+        setLastChattingTime()
+        setNameTimeStackView()
+        setLastChatting()
     }
     
     private func setUserName() {
-        
+        userName.font = .subHead
+        userName.textColor = .neutralTextStrong
+        userName.text = "삼만보"
     }
     
     private func setLastChattingTime() {
-        
+        lastChattingTime.font = .footNote
+        lastChattingTime.textColor = .neutralTextWeak
+        lastChattingTime.text = "33분 전"
     }
     
     private func setNameTimeStackView() {
-        
+        nameTimeStackView.addArrangedSubview(userName)
+        nameTimeStackView.addArrangedSubview(lastChattingTime)
     }
     
     private func setLastChatting() {
-        
+        lastChatting.font = .footNote
+        lastChatting.textColor = .neutralText
+        lastChatting.text = "안녕하세요 ! 궁금한점이 있어서 채팅 드립니다."
     }
 }
