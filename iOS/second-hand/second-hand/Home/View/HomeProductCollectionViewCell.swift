@@ -76,23 +76,39 @@ final class HomeProductCollectionViewCell: UICollectionViewCell {
         dot.textColor = .neutralTextWeak
     }
     
-    private func setRegisterTime() {
+    private func setRegisterTime(_ time: String) {
         registerTime.font = .footNote
         registerTime.textColor = .neutralTextWeak
+        registerTime.text = time.convertToRelativeTime()
     }
     
-    private func setStatusLabel() {
-        statusLabel.text = "예약중"
+    private func setStatusLabel(_ status: Int) {
+        switch status {
+        case 1:
+            statusLabel.text = "예약중"
+            statusLabel.backgroundColor = .accentBackgroundSecondary
+        case 2:
+            statusLabel.text = "판매완료"
+            statusLabel.backgroundColor = .gray
+        default :
+            statusLabel.widthAnchor.constraint(equalToConstant: round(0)).isActive = true
+            
+            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor).isActive = true
+            
+            statusLabel.text = ""
+            
+        }
         statusLabel.textAlignment = .center
         statusLabel.font = .fontA
         statusLabel.textColor = .accentText
-        statusLabel.backgroundColor = .accentBackgroundSecondary
+        
         statusLabel.layer.masksToBounds = true
         statusLabel.layer.cornerRadius = 8
     }
     
-    private func setPrice() {
-        price.text = "24,000원"
+    private func setPrice(_ num : Int) {
+        let monetary = num.convertToMonetary()
+        price.text = "\(monetary)원"
         price.font = .headLine
         price.textColor = .neutralTextStrong
     }
