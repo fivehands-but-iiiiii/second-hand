@@ -32,12 +32,15 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         setNavigationLeftBarButton()
         setRegisterProductButton()
         setObserver()
-        getItemList()
+        setupInfiniteScroll()
         setupDataSource()
         
     }
     
-    private func applyInitialSnapshot() {
+    private func setupInfiniteScroll() {
+            productListCollectionView.delegate = self
+        }
+    
         var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items, toSection: .main)
@@ -168,6 +171,14 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
 
 }
 
-extension HomeViewController : UICollectionViewDelegate {
-    
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let lastSection = collectionView.numberOfSections - 1
+        let lastItem = collectionView.numberOfItems(inSection: lastSection) - 1
+        
+        if indexPath.section == lastSection && indexPath.item == lastItem {
+            loadNextPage()
+        }
+    }
 }
+
