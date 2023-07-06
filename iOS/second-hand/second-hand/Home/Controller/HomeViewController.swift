@@ -23,7 +23,9 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     private var isLogin = false
     private let registerProductButton = UIButton()
-
+    private var currentPage: Int = 0
+    private var isLoadingItems = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +35,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         setRegisterProductButton()
         setObserver()
         setupInfiniteScroll()
+        getItemList(page: currentPage)
         setupDataSource()
         
     }
@@ -41,6 +44,16 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
             productListCollectionView.delegate = self
         }
     
+    private func loadNextPage() {
+            if !isLoadingItems {
+                return
+            }
+        self.isLoadingItems  = true
+        currentPage += 1
+        getItemList(page: currentPage)
+        }
+    
+    private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items, toSection: .main)
@@ -145,9 +158,9 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         return result
     }
     
-    private func getItemList() {
+    private func getItemList(page: Int) {
         
-        guard let url = URL(string: Server.shared.itemsListURL(page: 2, regionID: 1)) else {
+        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 1)) else {
             return
         }
         
@@ -158,10 +171,15 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
                     return
                 }
                 
+                if itemList.items.count == 0 {
+                    self.isLoadingItems = false
+                    print("마지막 페이지에 대한 처리")
+                }
+                
                 itemList.items.forEach { item in
                     self.items.append(self.convertToHashable(from: item))
                 }
-                self.applyInitialSnapshot()
+                self.applySnapshot()
                 
             case .failure(let error) :
                 print(error.localizedDescription)
