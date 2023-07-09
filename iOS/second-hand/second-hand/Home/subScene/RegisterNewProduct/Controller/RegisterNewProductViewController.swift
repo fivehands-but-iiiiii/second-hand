@@ -153,6 +153,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
+    
+    private func registerPhotoButtonTapped() {
+        
+    }
 }
 
 extension RegisterNewProductViewController: UITextViewDelegate {
