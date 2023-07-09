@@ -8,6 +8,7 @@
 import UIKit
 
 class ItemDetailViewController: UIViewController {
+    private var backButton: UIButton? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,13 +17,33 @@ class ItemDetailViewController: UIViewController {
     
     private func setInitialScene() {
         self.view.backgroundColor = .white
-        setBarButton()
+        setNavigationBatHidden()
+        generateBackButton()
+        setConstraintsBackButton()
     }
     
-    private func setBarButton() {
-        let backButton = UIBarButtonItem(image:UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTouched))
-        backButton.tintColor = .gray
-        navigationItem.setLeftBarButton(backButton, animated: true)
+    private func generateBackButton() {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        button.tintColor = .gray
+        button.addTarget(self, action: #selector(backButtonTouched), for: .touchUpInside)
+        self.backButton = button
+    }
+    
+    private func setConstraintsBackButton() {
+        guard let backButton = self.backButton else {
+            return
+        }
+        
+        self.view.addSubview(backButton)
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16).isActive = true
+        backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+    }
+    
+    private func setNavigationBatHidden() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @objc private func backButtonTouched() {
