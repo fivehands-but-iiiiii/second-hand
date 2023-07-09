@@ -198,5 +198,10 @@ extension HomeViewController: UICollectionViewDelegate {
             loadNextPage()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemDetailViewController = ItemDetailViewController()
+        self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+    }
 }
 
