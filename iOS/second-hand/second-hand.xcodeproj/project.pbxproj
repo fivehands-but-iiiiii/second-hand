@@ -56,6 +56,7 @@
 		E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */; };
 		E4C951502A3AFF9B0094AD66 /* CodableTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */; };
 		E4CAD8432A5ACF5500C69F7D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */; };
+		E4CAD8492A5B313500C69F7D /* ItemDetailImagePages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CAD8482A5B313500C69F7D /* ItemDetailImagePages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
 		E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTemplate.swift; sourceTree = "<group>"; };
 		E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		E4CAD8482A5B313500C69F7D /* ItemDetailImagePages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailImagePages.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -581,6 +583,7 @@
 		E4CAD8452A5AE35C00C69F7D /* VIew */ = {
 			isa = PBXGroup;
 			children = (
+				E4CAD8482A5B313500C69F7D /* ItemDetailImagePages.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */,
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
+				E4CAD8492A5B313500C69F7D /* ItemDetailImagePages.swift in Sources */,
 				E46738112A482DF1006A46D1 /* Updatable.swift in Sources */,
 				E467380F2A453FBF006A46D1 /* Server.swift in Sources */,
 				E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */,

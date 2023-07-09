@@ -10,6 +10,7 @@ import UIKit
 class ItemDetailViewController: UIViewController {
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
+    private let imagePages = ItemDetailImagePages()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,11 @@ class ItemDetailViewController: UIViewController {
         setNavigationBatHidden()
         generateBackButton()
         generateMenuButton()
+        setImagePages()
         setConstraintsBackButton()
         setConstraintsMenuButton()
     }
+    // MARK: BUTTONS
     
     private func generateBackButton() {
         let button = UIButton(type: .system)
@@ -77,5 +80,26 @@ class ItemDetailViewController: UIViewController {
     
     @objc private func menuButtonTouched() {
         
+    }
+    
+    // MARK: IMAGE PAGES
+    
+    private func setImagePages() {
+        setConstraintsImagePages()
+    }
+    
+    private func setConstraintsImagePages() {
+        self.view.addSubview(imagePages)
+        
+        imagePages.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                imagePages.topAnchor.constraint(equalTo: self.view.topAnchor),
+                imagePages.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                imagePages.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+                imagePages.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
     }
 }
