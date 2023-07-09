@@ -13,6 +13,7 @@
 		DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */; };
 		DB51AD982A5A97E200EB939D /* RegisterNewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51AD972A5A97E200EB939D /* RegisterNewProductViewController.swift */; };
 		DB51AD9A2A5A9B8C00EB939D /* AddPhotoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51AD992A5A9B8C00EB939D /* AddPhotoScrollView.swift */; };
+		DB51AD9C2A5A9E5D00EB939D /* AddPhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51AD9B2A5A9E5D00EB939D /* AddPhotoImageView.swift */; };
 		DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB082A43E58800578ED5 /* UIView+Extension.swift */; };
 		DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */; };
 		DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */; };
@@ -64,6 +65,7 @@
 		DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetLocationViewController.swift; path = "second-hand/Home/subScene/SetLocation/Controller/SetLocationViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DB51AD972A5A97E200EB939D /* RegisterNewProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterNewProductViewController.swift; sourceTree = "<group>"; };
 		DB51AD992A5A9B8C00EB939D /* AddPhotoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoScrollView.swift; sourceTree = "<group>"; };
+		DB51AD9B2A5A9E5D00EB939D /* AddPhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoImageView.swift; sourceTree = "<group>"; };
 		DB55CB082A43E58800578ED5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				DB51AD992A5A9B8C00EB939D /* AddPhotoScrollView.swift */,
+				DB51AD9B2A5A9E5D00EB939D /* AddPhotoImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB08D4482A4BFC6F00D45E32 /* UIStackView+extension.swift in Sources */,
+				DB51AD9C2A5A9E5D00EB939D /* AddPhotoImageView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
