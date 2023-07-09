@@ -564,9 +564,25 @@
 		E4CAD8412A5ACEC300C69F7D /* ItemDetail */ = {
 			isa = PBXGroup;
 			children = (
-				E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */,
+				E4CAD8452A5AE35C00C69F7D /* VIew */,
+				E4CAD8442A5AE35200C69F7D /* Controller */,
 			);
 			path = ItemDetail;
+			sourceTree = "<group>";
+		};
+		E4CAD8442A5AE35200C69F7D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E4CAD8452A5AE35C00C69F7D /* VIew */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VIew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
