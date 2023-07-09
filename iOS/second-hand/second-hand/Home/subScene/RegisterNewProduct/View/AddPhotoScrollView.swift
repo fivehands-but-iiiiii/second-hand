@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddPhotoScrollView: UIScrollView {
+final class AddPhotoScrollView: UIScrollView {
 
     private var addPhotoStackView = UIStackView()
     
