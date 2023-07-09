@@ -55,6 +55,7 @@
 		E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */; };
 		E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */; };
 		E4C951502A3AFF9B0094AD66 /* CodableTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */; };
+		E4CAD8432A5ACF5500C69F7D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		E4C9514B2A3AFBDC0094AD66 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		E4C9514D2A3AFC0D0094AD66 /* HTTPErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
 		E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTemplate.swift; sourceTree = "<group>"; };
+		E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 		DB51315B2A3EA48500FBFA49 /* subScene */ = {
 			isa = PBXGroup;
 			children = (
+				E4CAD8412A5ACEC300C69F7D /* ItemDetail */,
 				DB55CB182A44470D00578ED5 /* RegisterNewProduct */,
 				DB55CB162A4446D800578ED5 /* SetLocation */,
 			);
@@ -558,6 +561,14 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		E4CAD8412A5ACEC300C69F7D /* ItemDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */,
+			);
+			path = ItemDetail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -666,6 +677,7 @@
 				E41076C42A4AF67A00F5204E /* ImageCacheManager.swift in Sources */,
 				E49EB8672A36F054001F2D56 /* ChattingViewController.swift in Sources */,
 				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
+				E4CAD8432A5ACF5500C69F7D /* ItemDetailViewController.swift in Sources */,
 				E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */,
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
