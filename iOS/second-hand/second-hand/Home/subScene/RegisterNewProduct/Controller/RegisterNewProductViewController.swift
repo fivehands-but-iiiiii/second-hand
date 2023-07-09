@@ -9,16 +9,10 @@ import UIKit
 
 final class RegisterNewProductViewController: NavigationUnderLineViewController {
     
-    private let productPicture = ProductPicture()
-    private let imageRequest = ImageRequest()
     private let sectionLine1 = UIView.makeLine()
     private let sectionLine2 = UIView.makeLine()
     private let sectionLine3 = UIView.makeLine()
-    private let square = UIButton.makeSquare(width: 80, height: 80, radius: 12)
-    private let cameraView = UIImageView()
-    private let countPictureLabel = UILabel()
-    private let imageLabelStackView = UIStackView()
-    private let imageStackView = UIStackView()
+    private let photoScrollView = AddPhotoScrollView()
     private let titleTextField = UITextField()
     private let priceTextField = UITextField()
     private let descriptionTextField = UITextView()
@@ -36,9 +30,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     
     private func setUI() {
         setNavigation()
-        setCameraView()
-        setCountPictureLabel()
-        setStackView()
         setTextField()
         setToolbar()
     }
@@ -58,30 +49,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     
     @objc func finishButtonTapped() {
         print("저장")
-    }
-    
-    private func setCameraView() {
-        //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
-        cameraView.image = UIImage(systemName: imageRequest.image)
-        cameraView.tintColor = .black
-        NSLayoutConstraint.activate([
-            cameraView.heightAnchor.constraint(equalToConstant: 29),
-            cameraView.widthAnchor.constraint(equalToConstant: 35)
-        ])
-    }
-    
-    private func setCountPictureLabel() {
-        countPictureLabel.text = "\(productPicture.count)/10"
-        countPictureLabel.font = .systemFont(ofSize: 13)
-        countPictureLabel.textColor = .neutralTextStrong
-        countPictureLabel.textAlignment = .center
-    }
-    
-    private func setStackView() {
-        imageLabelStackView.addArrangedSubview(cameraView)
-        imageLabelStackView.addArrangedSubview(countPictureLabel)
-        imageLabelStackView.spacing = 5
-        imageLabelStackView.axis = .vertical
     }
     
     private func setTextField() {
@@ -106,13 +73,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private func setToolbar() {
         navigationController?.isToolbarHidden = false
         let appearance = UIToolbarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .neutralBackgroundWeak
-            navigationController?.toolbar.scrollEdgeAppearance = appearance
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .neutralBackgroundWeak
+        navigationController?.toolbar.scrollEdgeAppearance = appearance
     }
     
     private func layout() {
-        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, square, imageLabelStackView, titleTextField, priceTextField, descriptionTextField, wonIcon]
+        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextField, wonIcon, photoScrollView]
         sectionArr.forEach{
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -129,17 +96,15 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             sectionLine3.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 52),
             sectionLine3.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             
-            square.bottomAnchor.constraint(equalTo: sectionLine1.topAnchor, constant: -15),
-            square.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            photoScrollView.bottomAnchor.constraint(equalTo: sectionLine1.topAnchor, constant: -15),
+            photoScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            photoScrollView.heightAnchor.constraint(equalToConstant: 80),
             
-            imageLabelStackView.centerXAnchor.constraint(equalTo: square.centerXAnchor),
-            imageLabelStackView.centerYAnchor.constraint(equalTo: square.centerYAnchor),
-            
-            titleTextField.leadingAnchor.constraint(equalTo: square.leadingAnchor),
+            titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
             titleTextField.topAnchor.constraint(equalTo: sectionLine1.bottomAnchor, constant: 15),
             titleTextField.bottomAnchor.constraint(equalTo: sectionLine2.topAnchor, constant: -15),
             
-            wonIcon.leadingAnchor.constraint(equalTo: square.leadingAnchor),
+            wonIcon.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor),
             wonIcon.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 15),
             wonIcon.bottomAnchor.constraint(equalTo: sectionLine3.topAnchor, constant: -15),
             
@@ -147,7 +112,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             priceTextField.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 15),
             priceTextField.bottomAnchor.constraint(equalTo: sectionLine3.topAnchor, constant: -15),
             
-            descriptionTextField.leadingAnchor.constraint(equalTo: square.leadingAnchor),
+            descriptionTextField.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor),
             descriptionTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
             descriptionTextField.topAnchor.constraint(equalTo: sectionLine3.bottomAnchor, constant: 15),
             descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
