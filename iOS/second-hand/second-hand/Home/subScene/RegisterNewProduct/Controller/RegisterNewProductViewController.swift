@@ -98,8 +98,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             
             photoScrollView.bottomAnchor.constraint(equalTo: sectionLine1.topAnchor, constant: -15),
             photoScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            photoScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
             photoScrollView.heightAnchor.constraint(equalToConstant: 80),
-            
             titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
             titleTextField.topAnchor.constraint(equalTo: sectionLine1.bottomAnchor, constant: 15),
             titleTextField.bottomAnchor.constraint(equalTo: sectionLine2.topAnchor, constant: -15),
