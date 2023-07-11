@@ -1,28 +1,36 @@
 PODS:
   - ReachabilitySwift (5.0.0)
+  - SocketRocket (0.7.0)
   - Starscream (4.0.4)
+  - StompClientLib (1.4.1):
+    - SocketRocket
   - SwiftLint (0.51.0)
   - SwiftStomp (1.1.1):
     - ReachabilitySwift (~> 5.0.0)
     - Starscream (~> 4.0.4)
 
 DEPENDENCIES:
+  - StompClientLib
   - SwiftLint
   - SwiftStomp
 
 SPEC REPOS:
   trunk:
     - ReachabilitySwift
+    - SocketRocket
     - Starscream
+    - StompClientLib
     - SwiftLint
     - SwiftStomp
 
 SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
+  StompClientLib: ac40390e9660c574675f1c933bec81c8e2811a4f
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
   SwiftStomp: d473421ceac1d47a4466a77e12277280aa03d4d7
 
-PODFILE CHECKSUM: 1eb0a3eda2a12147404e3dab86f059d6d13aad66
+PODFILE CHECKSUM: c0e651bc0f0e416648343e08becab95a393b5c7f
 
 COCOAPODS: 1.12.1
