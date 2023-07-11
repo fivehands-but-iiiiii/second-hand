@@ -1,16 +1,28 @@
 PODS:
+  - ReachabilitySwift (5.0.0)
+  - Starscream (4.0.4)
   - SwiftLint (0.51.0)
+  - SwiftStomp (1.1.1):
+    - ReachabilitySwift (~> 5.0.0)
+    - Starscream (~> 4.0.4)
 
 DEPENDENCIES:
   - SwiftLint
+  - SwiftStomp
 
 SPEC REPOS:
   trunk:
+    - ReachabilitySwift
+    - Starscream
     - SwiftLint
+    - SwiftStomp
 
 SPEC CHECKSUMS:
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
+  SwiftStomp: d473421ceac1d47a4466a77e12277280aa03d4d7
 
-PODFILE CHECKSUM: 000a1fecb910b1bf0367a33e65bdc4c72060f52b
+PODFILE CHECKSUM: 1eb0a3eda2a12147404e3dab86f059d6d13aad66
 
 COCOAPODS: 1.12.1

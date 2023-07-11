@@ -8,4 +8,5 @@ target 'second-hand' do
   # Pods for second-hand
   pod 'SwiftLint' 
   pod 'SwiftStomp'
+  pod 'StompClientLib'
 end
