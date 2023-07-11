@@ -48,6 +48,44 @@ class ItemDetailImagePages: UIView {
         setConstraintsScrollView()
     }
     
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
+        if superview != nil {
+            setImagesURL()
+            setImageViewOnScrollView()
+            scrollView.addSubview(pageControl)
+        }
+    }
+    
+    private func setImagesURL() {
+        images.append("paperplane")
+        images.append("trash")
+        images.append("checkmark")
+    }
+    
+    private func setImageViewOnScrollView() {
+        
+        guard let width = superview?.frame.width else {
+            return
+        }
+        
+        guard let height = superview?.frame.height else {
+            return
+        }
+        
+        for index in 0..<images.count {
+            imageView = UIImageView()
+            let positionX = round(width * CGFloat(index))
+            imageView.frame = CGRect(x: positionX, y: -Utils.safeAreaTopInset(), width: round(width), height: round(height / 2))
+            //imageView.setImage(from: images[index])
+            imageView.image = UIImage(systemName: images[index])
+            
+            scrollView.contentSize.width = round(imageView.frame.width * (CGFloat(index) + 1.0))
+            scrollView.addSubview(imageView)
+        }
+    }
+    
     private func setConstraintsScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,3 +113,11 @@ class ItemDetailImagePages: UIView {
     }
     
 }
+
+extension ItemDetailImagePages: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+}
+
