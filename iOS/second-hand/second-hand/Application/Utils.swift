@@ -8,15 +8,19 @@
 import UIKit
 
 class Utils {
-    public static let STATUS_HEIGHT = UIApplication.shared.statusBarFrame.size.height   // 상태바 높이
 
     static func safeAreaTopInset() -> CGFloat {
-        if #available(iOS 11.0, *) {
-            let window = UIApplication.shared.keyWindow
-            let topPadding = window?.safeAreaInsets.top
-            return topPadding ?? Utils.STATUS_HEIGHT
-        } else {
-            return Utils.STATUS_HEIGHT
+        if #available(iOS 13.0, *) {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                let window = windowScene.windows.first
+                let statusBarManager = window?.windowScene?.statusBarManager
+                guard let topPadding = statusBarManager?.statusBarFrame.height
+                else {
+                    return 0.0
+                }
+                return topPadding
+            }
         }
+        return 0.0
     }
 }
