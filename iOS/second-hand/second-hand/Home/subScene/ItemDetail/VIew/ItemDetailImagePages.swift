@@ -43,18 +43,35 @@ class ItemDetailImagePages: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-            setConstraintsPageControl()
-        }
+//        setConstraintsImageView()
+        setConstraintsPageControl()
+        setConstraintsScrollView()
+    }
+    
+    private func setConstraintsScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        private func setConstraintsPageControl() {
-            pageControl.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                pageControl.widthAnchor.constraint(equalTo: self.widthAnchor),
-                pageControl.heightAnchor.constraint(equalToConstant: round(self.frame.height * 44/491)),
-                pageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                pageControl.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-            ])
-        }
-
+        NSLayoutConstraint.activate(
+            [
+                scrollView.widthAnchor.constraint(equalTo: self.widthAnchor),
+                scrollView.heightAnchor.constraint(equalTo: self.heightAnchor),
+                scrollView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                scrollView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            ]
+        )
+    }
+    
+    private func setConstraintsPageControl() {
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+            pageControl.widthAnchor.constraint(equalTo: self.widthAnchor),
+            pageControl.heightAnchor.constraint(equalToConstant: round(self.frame.height * 44/491)),
+            pageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ]
+        )
+    }
+    
 }
