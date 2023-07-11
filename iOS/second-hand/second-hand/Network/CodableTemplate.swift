@@ -83,4 +83,9 @@ struct ProductRegion: Codable {
     let district: String
 }
 
+struct SendMessage: Codable {
+    let roomId: String
+    let from: String
+    let message: String
+}
 
