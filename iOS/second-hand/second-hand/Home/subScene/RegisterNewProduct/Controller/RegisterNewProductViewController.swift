@@ -27,16 +27,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         super.viewDidLoad()
         setUI()
         layout()
-        photoScrollView.addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func addPhotoButtonTapped() {
-        //버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
-            print("갤러리가 튀어나와야하는 상황")
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        self.present(picker, animated: true)
-        
+        setPicker()
     }
     
     private func setUI() {
@@ -89,6 +80,20 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         navigationController?.toolbar.scrollEdgeAppearance = appearance
     }
     
+    private func setPicker() {
+        photoScrollView.addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
+        picker.delegate = self
+    }
+    
+    @objc private func addPhotoButtonTapped() {
+        //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
+        
+        //갤러리로 화면이 전환
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
+    }
     
     private func layout() {
         let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextField, wonIcon, photoScrollView]
@@ -130,6 +135,25 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
+}
+
+extension RegisterNewProductViewController: UIImagePickerControllerDelegate {
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        <#code#>
+//    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        //이미지 피커 컨트롤창을 닫았을 경우
+        self.dismiss(animated: true) { () in
+            let alert = UIAlertController(title: "", message: "이미지의 선택이 취소되었습니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .cancel))
+            self.present(alert, animated: true)
+        }
+    }
+}
+
+extension RegisterNewProductViewController: UINavigationControllerDelegate {
+    
 }
 
 extension RegisterNewProductViewController: UITextViewDelegate {
