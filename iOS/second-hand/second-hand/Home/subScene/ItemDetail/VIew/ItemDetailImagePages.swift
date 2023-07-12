@@ -37,7 +37,7 @@ class ItemDetailImagePages: UIView {
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.pageIndicatorTintColor = .gray
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         setConstraintsPageControl()
@@ -46,9 +46,8 @@ class ItemDetailImagePages: UIView {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-
+        
         if superview != nil {
-            setImagesURL()
             setImageViewOnScrollView()
             scrollView.addSubview(pageControl)
         }
@@ -99,11 +98,11 @@ class ItemDetailImagePages: UIView {
         
         NSLayoutConstraint.activate(
             [
-            pageControl.widthAnchor.constraint(equalTo: self.widthAnchor),
-            pageControl.heightAnchor.constraint(equalToConstant: round(self.frame.height * 44/491)),
-            pageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ]
+                pageControl.widthAnchor.constraint(equalTo: self.widthAnchor),
+                pageControl.heightAnchor.constraint(equalToConstant: round(self.frame.height * 44/491)),
+                pageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                pageControl.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            ]
         )
     }
     
@@ -112,7 +111,7 @@ class ItemDetailImagePages: UIView {
 extension ItemDetailImagePages: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
     }
 }
 
