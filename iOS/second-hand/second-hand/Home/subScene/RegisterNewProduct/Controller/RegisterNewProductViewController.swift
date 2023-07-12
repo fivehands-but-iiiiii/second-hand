@@ -21,6 +21,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
     private let location = "역삼1동"
     private let wonIcon = UILabel()
+    private let picker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     @objc private func addPhotoButtonTapped() {
         //버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
             print("갤러리가 튀어나와야하는 상황")
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
     }
     
     private func setUI() {
