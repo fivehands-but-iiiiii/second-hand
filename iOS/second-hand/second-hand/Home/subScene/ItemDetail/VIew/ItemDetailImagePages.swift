@@ -30,10 +30,8 @@ class ItemDetailImagePages: UIView {
         scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
 
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.image = UIImage(systemName: "paperplane")
-//        scrollView.addSubview(imageView)
-        
+        setImagesURL()
+        pageControl.numberOfPages = images.count
         pageControl.numberOfPages = 2
         pageControl.backgroundColor = .clear
         pageControl.backgroundStyle = .automatic
@@ -43,7 +41,6 @@ class ItemDetailImagePages: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-//        setConstraintsImageView()
         setConstraintsPageControl()
         setConstraintsScrollView()
     }
@@ -78,7 +75,6 @@ class ItemDetailImagePages: UIView {
             imageView = UIImageView()
             let positionX = round(width * CGFloat(index))
             imageView.frame = CGRect(x: positionX, y: -Utils.safeAreaTopInset(), width: round(width), height: round(height / 2))
-            //imageView.setImage(from: images[index])
             imageView.image = UIImage(systemName: images[index])
             
             scrollView.contentSize.width = round(imageView.frame.width * (CGFloat(index) + 1.0))
