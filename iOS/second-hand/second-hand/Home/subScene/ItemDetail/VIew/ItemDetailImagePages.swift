@@ -32,7 +32,6 @@ class ItemDetailImagePages: UIView {
 
         setImagesURL()
         pageControl.numberOfPages = images.count
-        pageControl.numberOfPages = 2
         pageControl.backgroundColor = .clear
         pageControl.backgroundStyle = .automatic
         pageControl.currentPageIndicatorTintColor = .black
