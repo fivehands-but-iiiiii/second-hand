@@ -13,12 +13,14 @@ struct Server {
     static let oAuthURL = "https://github.com/login/oauth/authorize"
     static let clientID = "5c4b10099c0ae232e5a1"
     static let redirectURL = "http://localhost:5173/login/oauth2/code/github"
-
+    
     enum Path: String {
         case join = "/join"
         case gitLogin = "/git/login"
         case login = "/login"
         case items = "/items"
+        case chats = "/chats"
+        case chatsItems = "/chats/items"
     }
 
     func url(for path: Path) -> String {
