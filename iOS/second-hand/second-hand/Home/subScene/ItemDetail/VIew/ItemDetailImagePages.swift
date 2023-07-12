@@ -111,6 +111,10 @@ class ItemDetailImagePages: UIView {
 extension ItemDetailImagePages: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.frame.width != 0.0 {
+            let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
+            pageControl.currentPage = Int(pageIndex)
+        }
 
     }
 }
