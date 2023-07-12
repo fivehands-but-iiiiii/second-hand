@@ -83,10 +83,24 @@ struct ProductRegion: Codable {
     let district: String
 }
 
+//메세지를 보낼 수 있다.
 struct SendMessage: Codable {
     let roomId: String
     let from: String
     let message: String
 }
 
+//사용자는 아이템에 대한 채팅방 정보를 알 수 있다.
+struct ItemChatting: Codable {
+    let opponentId: String
+    let item: [ItemInfo]
+    let chatId: Int?
+}
 
+struct ItemInfo: Codable {
+    let itemId: Int
+    let title: String
+    let price: Int
+    let thumbnailImgUrl: String
+    let status: Int
+}
