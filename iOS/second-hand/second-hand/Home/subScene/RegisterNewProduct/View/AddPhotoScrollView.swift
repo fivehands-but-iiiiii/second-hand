@@ -57,6 +57,9 @@ final class AddPhotoScrollView: UIScrollView {
         //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
         cameraView.image = UIImage(systemName: imageRequest.image)
         cameraView.tintColor = .black
+        
+        cameraView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(cameraView)
         NSLayoutConstraint.activate([
             cameraView.heightAnchor.constraint(equalToConstant: 29),
             cameraView.widthAnchor.constraint(equalToConstant: 35)
@@ -75,6 +78,7 @@ final class AddPhotoScrollView: UIScrollView {
         buttonComponentStackView.addArrangedSubview(countPictureLabel)
         buttonComponentStackView.spacing = 5
         buttonComponentStackView.axis = .vertical
+        
     }
     
     private func setAddPhotoButton() {
@@ -83,9 +87,7 @@ final class AddPhotoScrollView: UIScrollView {
             
             NSLayoutConstraint.activate([
                 buttonComponentStackView.centerXAnchor.constraint(equalTo: addPhotoButton.centerXAnchor),
-                buttonComponentStackView.centerYAnchor.constraint(equalTo: addPhotoButton.centerYAnchor),
-                buttonComponentStackView.widthAnchor.constraint(equalToConstant: 80),
-                buttonComponentStackView.heightAnchor.constraint(equalToConstant: 80)
+                buttonComponentStackView.centerYAnchor.constraint(equalTo: addPhotoButton.centerYAnchor)
             ])
     }
 
