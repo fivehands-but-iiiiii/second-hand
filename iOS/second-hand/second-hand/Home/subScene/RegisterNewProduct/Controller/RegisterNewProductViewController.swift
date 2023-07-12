@@ -26,6 +26,12 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         super.viewDidLoad()
         setUI()
         layout()
+        photoScrollView.addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func addPhotoButtonTapped() {
+        //버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
+            print("갤러리가 튀어나와야하는 상황")
     }
     
     private func setUI() {
@@ -78,6 +84,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         navigationController?.toolbar.scrollEdgeAppearance = appearance
     }
     
+    
     private func layout() {
         let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextField, wonIcon, photoScrollView]
         sectionArr.forEach{
@@ -117,10 +124,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             descriptionTextField.topAnchor.constraint(equalTo: sectionLine3.bottomAnchor, constant: 15),
             descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
-    }
-    
-    private func registerPhotoButtonTapped() {
-        
     }
 }
 

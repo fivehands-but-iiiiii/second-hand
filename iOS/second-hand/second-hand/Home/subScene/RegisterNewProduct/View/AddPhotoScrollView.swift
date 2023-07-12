@@ -10,7 +10,7 @@ import UIKit
 final class AddPhotoScrollView: UIScrollView {
     
     private var addPhotoStackView = UIStackView()
-    private let addPhotoButton = UIButton.makeSquare(width: 80, height: 80, radius: 12)
+    let addPhotoButton = UIButton.makeSquare(width: 80, height: 80, radius: 12)
     private let cameraView = UIImageView()
     private let countPictureLabel = UILabel()
     private let squareimageView = AddPhotoImageView()
@@ -90,5 +90,4 @@ final class AddPhotoScrollView: UIScrollView {
                 buttonComponentStackView.centerYAnchor.constraint(equalTo: addPhotoButton.centerYAnchor)
             ])
     }
-
 }
