@@ -20,6 +20,24 @@ class ItemDetailViewController: UIViewController {
         initializeScene()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        bringButtonsToFront()
+    }
+    
+    private func bringButtonsToFront() {
+        guard let backButton = self.backButton else {
+            return
+        }
+        
+        guard let menuButton = self.menuButton else {
+            return
+        }
+        
+        self.view.bringSubviewToFront(backButton)
+        self.view.bringSubviewToFront(menuButton)
+    }
+    
     private func initializeScene() {
         self.view.backgroundColor = .white
         setNavigationBatHidden()
