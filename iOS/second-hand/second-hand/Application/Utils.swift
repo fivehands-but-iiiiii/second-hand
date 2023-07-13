@@ -18,7 +18,7 @@ class Utils {
                 else {
                     return 0.0
                 }
-                return topPadding
+                return topPadding + 10.0
             }
         }
         return 0.0
