@@ -18,7 +18,7 @@
 		DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */; };
 		DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */; };
 		DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */; };
-		DB55CB112A4407CB00578ED5 /* ProductPictureCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductPictureCount.swift */; };
+		DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */; };
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
@@ -79,7 +79,7 @@
 		DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
-		DB55CB102A4407CB00578ED5 /* ProductPictureCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPictureCount.swift; sourceTree = "<group>"; };
+		DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCount.swift; sourceTree = "<group>"; };
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */,
-				DB55CB102A4407CB00578ED5 /* ProductPictureCount.swift */,
+				DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -738,7 +738,7 @@
 				E467380F2A453FBF006A46D1 /* Server.swift in Sources */,
 				E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */,
 				DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */,
-				DB55CB112A4407CB00578ED5 /* ProductPictureCount.swift in Sources */,
+				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */,
 				E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */,

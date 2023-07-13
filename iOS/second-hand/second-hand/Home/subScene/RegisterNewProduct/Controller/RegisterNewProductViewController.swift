@@ -23,6 +23,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private let location = "역삼1동"
     private let wonIcon = UILabel()
     private var photoArray = [PHPickerResult]()
+    private var countImage = ProductImageCount()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,10 +139,12 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 utType.conforms(to: .image) {
                 itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                     if let image = image as? UIImage {
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.async { [self] in
                             //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜줘서 ..!!! 그런식으로 ~!~!
-                            let imageView = UIImageView(image: image)
-                            self.photoScrollView.addSubview(imageView)
+//                            let imageView = UIImageView(image: image)
+                            photoScrollView.addImage(image: image)
+                            countImage.addImage()
+//                            self.photoScrollView.addPhotoStackView
                         }
                     }
                 }
