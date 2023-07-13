@@ -134,13 +134,15 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         for result in results {
             let itemProvider = result.itemProvider
             if let typeIdentifier = itemProvider.registeredTypeIdentifiers.first,
-               let utType = UTType(typeIdentifier),
-               utType.conforms(to: .image) {
+                let utType = UTType(typeIdentifier),
+                utType.conforms(to: .image) {
                 itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                     if let image = image as? UIImage {
-                        // 선택한 이미지를 사용하는 로직을 작성합니다.
-                        // 예: 이미지를 배열에 저장하거나 화면에 표시합니다.
-                        print("Selected image: \(image)")
+                        DispatchQueue.main.async {
+                            //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜줘서 ..!!! 그런식으로 ~!~!
+                            let imageView = UIImageView(image: image)
+                            self.photoScrollView.addSubview(imageView)
+                        }
                     }
                 }
             }
