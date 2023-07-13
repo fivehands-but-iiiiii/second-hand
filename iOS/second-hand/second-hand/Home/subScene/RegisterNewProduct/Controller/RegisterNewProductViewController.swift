@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 final class RegisterNewProductViewController: NavigationUnderLineViewController {
     
@@ -21,13 +22,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
     private let location = "역삼1동"
     private let wonIcon = UILabel()
-    private let picker = UIImagePickerController()
+    private var photoArray = [PHPickerResult]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         layout()
-        setPicker()
+        setPHPPicker()
     }
     
     private func setUI() {
@@ -80,20 +81,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         navigationController?.toolbar.scrollEdgeAppearance = appearance
     }
     
-    private func setPicker() {
-        photoScrollView.addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
-        picker.delegate = self
-    }
-    
-    @objc private func addPhotoButtonTapped() {
-        //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
-        
-        //갤러리로 화면이 전환
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        self.present(picker, animated: true)
-        
-    }
     
     private func layout() {
         let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextField, wonIcon, photoScrollView]
@@ -137,22 +124,54 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     }
 }
 
-extension RegisterNewProductViewController: UIImagePickerControllerDelegate {
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        <#code#>
-//    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        //이미지 피커 컨트롤창을 닫았을 경우
-        self.dismiss(animated: true) { () in
-            let alert = UIAlertController(title: "", message: "이미지의 선택이 취소되었습니다.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: .cancel))
-            self.present(alert, animated: true)
-        }
-    }
-}
 
-extension RegisterNewProductViewController: UINavigationControllerDelegate {
+//갤러리와 관련된 코드들 집합
+extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true, completion: nil)
+        
+        for result in results {
+            let itemProvider = result.itemProvider
+            if let typeIdentifier = itemProvider.registeredTypeIdentifiers.first,
+               let utType = UTType(typeIdentifier),
+               utType.conforms(to: .image) {
+                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    if let image = image as? UIImage {
+                        // 선택한 이미지를 사용하는 로직을 작성합니다.
+                        // 예: 이미지를 배열에 저장하거나 화면에 표시합니다.
+                        print("Selected image: \(image)")
+                    }
+                }
+            }
+        }
+        photoArray.append(contentsOf: results)
+        print("포토어레이 \(photoArray)")
+    }
+    
+    private func setPHPPicker() {
+        photoScrollView.addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
+        
+    }
+    
+    @objc private func addPhotoButtonTapped() {
+        //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 3 // 0으로 설정하면 다중 선택이 가능합니다. 지금은 10-등록된사진을 최대로 하면 될듯
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+
+        DispatchQueue.main.async {
+            self.present(picker, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func pickerDidCancel(_ picker: PHPickerViewController) {
+        dismiss(animated: true, completion: nil)
+    }
     
 }
 
