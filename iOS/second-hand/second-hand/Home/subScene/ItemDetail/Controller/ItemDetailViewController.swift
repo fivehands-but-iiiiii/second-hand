@@ -19,15 +19,18 @@ class ItemDetailViewController: UIViewController {
         setItemDetailModel()
         initializeScene()
     }
-    
+
     private func initializeScene() {
         self.view.backgroundColor = .white
         setNavigationBatHidden()
         generateBackButton()
         generateMenuButton()
-        setImagePages()
         setConstraintsBackButton()
         setConstraintsMenuButton()
+    }
+    
+    func setItemDetailURL(_ url : String) {
+        self.itemDetailURL = URL(string: url)
     }
     private func setItemDetailModel() {
         guard let url = self.itemDetailURL else {
