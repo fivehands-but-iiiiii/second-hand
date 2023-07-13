@@ -10,10 +10,13 @@ import UIKit
 class ItemDetailViewController: UIViewController {
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
-    private let imagePages = ItemDetailImagePages()
+    private var itemDetailURL : URL? = nil
+    private var itemDetailModel = ItemDetailModel()
+    private var imagePages : ItemDetailImagePagesView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setItemDetailModel()
         initializeScene()
     }
     
@@ -25,6 +28,25 @@ class ItemDetailViewController: UIViewController {
         setImagePages()
         setConstraintsBackButton()
         setConstraintsMenuButton()
+    }
+    private func setItemDetailModel() {
+        guard let url = self.itemDetailURL else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemDetailInfoSuccess], Error>) in
+            switch result {
+            case .success(let data) :
+                guard let detailInfo = data.last else {
+                    return
+                }
+                self.itemDetailModel.updateData(from: detailInfo.data)
+                self.setImagePages()
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
     }
     // MARK: BUTTONS
     
