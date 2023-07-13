@@ -200,8 +200,20 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let id = extractItemIdFromTouchedCell(indexPath: indexPath)
+        
+        let url = Server.shared.itemDetailURL(itemId: id)
         let itemDetailViewController = ItemDetailViewController()
+        
+        itemDetailViewController.setItemDetailURL(url)
+        
         self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+    }
+    
+    private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
+        let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
+        return itemId
     }
 }
 
