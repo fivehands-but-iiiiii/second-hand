@@ -7,15 +7,17 @@
 
 import UIKit
 
-class ItemDetailImagePages: UIView {
+class ItemDetailImagePagesView: UIView {
     private var scrollView = UIScrollView()
-    private var images: [String] = []
     private var imageView : UIImageView!
     private var pageControl = UIPageControl(frame: .zero)
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private var images: [String] = [] 
+
+    init(images: [String]) {
+        super.init(frame: .zero)
+        self.images = images
         commonInit()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -29,34 +31,27 @@ class ItemDetailImagePages: UIView {
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         addSubview(scrollView)
-
-        setImagesURL()
+        setConstraintsScrollView()
+        
         pageControl.numberOfPages = images.count
         pageControl.backgroundColor = .clear
         pageControl.backgroundStyle = .automatic
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.pageIndicatorTintColor = .gray
+        pageControl.hidesForSinglePage = false
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         setConstraintsPageControl()
-        setConstraintsScrollView()
+
     }
     
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        setImageViewOnScrollView()
+        scrollView.addSubview(pageControl)
         
-        if superview != nil {
-            setImageViewOnScrollView()
-            scrollView.addSubview(pageControl)
-        }
-    }
-    
-    private func setImagesURL() {
-        images.append("paperplane")
-        images.append("trash")
-        images.append("checkmark")
     }
     
     private func setImageViewOnScrollView() {
@@ -71,9 +66,11 @@ class ItemDetailImagePages: UIView {
         
         for index in 0..<images.count {
             imageView = UIImageView()
+            
             let positionX = round(width * CGFloat(index))
             imageView.frame = CGRect(x: positionX, y: -Utils.safeAreaTopInset(), width: round(width), height: round(height / 2))
-            imageView.image = UIImage(systemName: images[index])
+            imageView.setImage(from: images[index])
+            imageView.contentMode = .scaleToFill
             
             scrollView.contentSize.width = round(imageView.frame.width * (CGFloat(index) + 1.0))
             scrollView.addSubview(imageView)
@@ -108,7 +105,7 @@ class ItemDetailImagePages: UIView {
     
 }
 
-extension ItemDetailImagePages: UIScrollViewDelegate {
+extension ItemDetailImagePagesView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.frame.width != 0.0 {
@@ -118,4 +115,3 @@ extension ItemDetailImagePages: UIScrollViewDelegate {
 
     }
 }
-
