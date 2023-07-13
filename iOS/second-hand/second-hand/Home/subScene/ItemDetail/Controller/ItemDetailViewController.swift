@@ -32,6 +32,18 @@ class ItemDetailViewController: UIViewController {
     func setItemDetailURL(_ url : String) {
         self.itemDetailURL = URL(string: url)
     }
+    
+    private func setItemDetailImagesURLToView() {
+        guard let info = itemDetailModel.info else {
+            return
+        }
+        var imageURLS : [String] = []
+        for item in info.images {
+            imageURLS.append(item.url)
+        }
+        imagePages = ItemDetailImagePagesView(images: imageURLS)
+    }
+    
     private func setItemDetailModel() {
         guard let url = self.itemDetailURL else {
             return
@@ -110,6 +122,7 @@ class ItemDetailViewController: UIViewController {
     // MARK: IMAGE PAGES
     
     private func setImagePages() {
+        setItemDetailImagesURLToView()
         setConstraintsImagePages()
     }
     
