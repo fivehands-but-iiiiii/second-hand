@@ -9,10 +9,9 @@ import UIKit
 
 class ItemDetailImagePagesView: UIView {
     private var scrollView = UIScrollView()
-    private var imageView : UIImageView!
     private var pageControl = UIPageControl(frame: .zero)
-    private var images: [String] = [] 
-
+    private var images: [String] = []
+    
     init(images: [String]) {
         super.init(frame: .zero)
         self.images = images
@@ -30,6 +29,8 @@ class ItemDetailImagePagesView: UIView {
         scrollView.isScrollEnabled = true
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.alwaysBounceVertical = true
         addSubview(scrollView)
         setConstraintsScrollView()
         
@@ -44,7 +45,7 @@ class ItemDetailImagePagesView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setConstraintsPageControl()
-
+        
     }
     
     override func didMoveToWindow() {
@@ -52,6 +53,21 @@ class ItemDetailImagePagesView: UIView {
         setImageViewOnScrollView()
         scrollView.addSubview(pageControl)
         
+    }
+    
+    private func setimageViewConstraints(imageView: UIImageView, width: CGFloat, height: CGFloat, positionX: CGFloat) {
+        
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: positionX),
+                imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                
+                imageView.heightAnchor.constraint(equalToConstant: height)
+            ]
+        )
     }
     
     private func setImageViewOnScrollView() {
@@ -64,16 +80,17 @@ class ItemDetailImagePagesView: UIView {
             return
         }
         
+        scrollView.contentSize = CGSize(width: round(width * CGFloat(images.count)), height: height/2 - Utils.safeAreaTopInset())
+        
         for index in 0..<images.count {
-            imageView = UIImageView()
+            let imageView = UIImageView()
             
             let positionX = round(width * CGFloat(index))
             imageView.frame = CGRect(x: positionX, y: -Utils.safeAreaTopInset(), width: round(width), height: round(height / 2))
             imageView.setImage(from: images[index])
-            imageView.contentMode = .scaleToFill
             
-            scrollView.contentSize.width = round(imageView.frame.width * (CGFloat(index) + 1.0))
             scrollView.addSubview(imageView)
+            imageView.contentMode = .scaleToFill
         }
     }
     
@@ -112,6 +129,6 @@ extension ItemDetailImagePagesView: UIScrollViewDelegate {
             let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
             pageControl.currentPage = Int(pageIndex)
         }
-
+        
     }
 }
