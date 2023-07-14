@@ -8,11 +8,11 @@
 import UIKit
 
 final class AddPhotoImageView: UIImageView {
-    private let cancelButton = UIButton(type: .custom)
+    lazy var cancelButton = UIButton()
     private let titlePhotoLabel = UILabel()
     private let cancleButtonSize: CGFloat = 28
-
-
+    
+    
     override init(image: UIImage?) {
         super.init(image: image)
         setTitlePhotoLabel()
@@ -25,6 +25,7 @@ final class AddPhotoImageView: UIImageView {
         setTitlePhotoLabel()
         setUI()
         layout()
+        
     }
     
     private func setTitlePhotoLabel() {
@@ -32,34 +33,34 @@ final class AddPhotoImageView: UIImageView {
         titlePhotoLabel.textColor = .neutralBackground
         titlePhotoLabel.font = .systemFont(ofSize: 11)
     }
-
+    
     private func setUI() {
         self.layer.cornerRadius = 12
         self.layer.masksToBounds = true
-
+        
         // cancelButton 설정
         cancelButton.setTitle("X", for: .normal)
         cancelButton.setTitleColor(.white, for: .normal)
         cancelButton.titleLabel?.font = .systemFont(ofSize: 14)
         cancelButton.backgroundColor = .black
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.layer.cornerRadius = cancleButtonSize/2
         cancelButton.layer.masksToBounds = true
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .allEvents)
+        
     }
-
+    
     private func layout() {
         [cancelButton, titlePhotoLabel].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
         NSLayoutConstraint.activate([
-            cancelButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 5),
-            cancelButton.topAnchor.constraint(equalTo: self.topAnchor, constant: -6),
+            cancelButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            cancelButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             cancelButton.widthAnchor.constraint(equalToConstant: cancleButtonSize),
             cancelButton.heightAnchor.constraint(equalToConstant: cancleButtonSize)
         ])
-
+        
         // titlePhotoLabel 레이아웃 설정
         titlePhotoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -69,8 +70,21 @@ final class AddPhotoImageView: UIImageView {
             titlePhotoLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
-
+    
     @objc private func cancelButtonTapped() {
-        // cancelButton이 탭되었을 때 수행할 동작 정의
+        removeFromSuperview()
+        removeImageFromScrollView()
+    }
+    
+    private func removeImageFromScrollView() {
+        guard let scrollView = superview as? AddPhotoScrollView else { return }
+        
+        for subview in scrollView.addPhotoStackView.arrangedSubviews {
+            if subview == self {
+                scrollView.addPhotoStackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+                break
+            }
+        }
     }
 }

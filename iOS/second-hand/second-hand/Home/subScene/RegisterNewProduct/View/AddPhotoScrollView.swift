@@ -12,7 +12,7 @@ final class AddPhotoScrollView: UIScrollView {
     var addPhotoStackView = UIStackView()
     let addPhotoButton = UIButton.makeSquare(width: 80, height: 80, radius: 12)
     private let cameraView = UIImageView()
-    private let countPictureLabel = UILabel()
+     let countPictureLabel = UILabel()
 
     private let imageRequest = ImageRequest()
     private let productPicture = ProductImageCount()

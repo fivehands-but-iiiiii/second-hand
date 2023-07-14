@@ -24,12 +24,14 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private let wonIcon = UILabel()
     private var photoArray = [PHPickerResult]()
     private var countImage = ProductImageCount()
+    private let maximumPhotoNumber = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         layout()
         setPHPPicker()
+        
     }
     
     private func setUI() {
@@ -140,11 +142,11 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                     if let image = image as? UIImage {
                         DispatchQueue.main.async { [self] in
-                            //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜줘서 ..!!! 그런식으로 ~!~!
-//                            let imageView = UIImageView(image: image)
+                            //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜주며 진행
+                            //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
                             countImage.addImage()
-//                            self.photoScrollView.addPhotoStackView
+                            self.photoScrollView.countPictureLabel.text = "\(countImage.number)/\(maximumPhotoNumber)"
                         }
                     }
                 }
@@ -152,6 +154,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         }
         photoArray.append(contentsOf: results)
         print("포토어레이 \(photoArray)")
+        print(photoArray.count)
     }
     
     private func setPHPPicker() {
@@ -163,15 +166,18 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = 3 // 0으로 설정하면 다중 선택이 가능합니다. 지금은 10-등록된사진을 최대로 하면 될듯
-
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-
-        DispatchQueue.main.async {
-            self.present(picker, animated: true, completion: nil)
-        }
+        configuration.selectionLimit = maximumPhotoNumber-photoArray.count
         
+        if photoArray.count == 10 {
+            print("더이상 사진을 추가할 수 없습니다.")
+        }else{
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+
+            DispatchQueue.main.async {
+                self.present(picker, animated: true, completion: nil)
+            }
+        }
     }
     
     func pickerDidCancel(_ picker: PHPickerViewController) {
