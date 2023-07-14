@@ -12,7 +12,7 @@ class ItemDetailViewController: UIViewController {
     private var menuButton: UIButton? = nil
     private var itemDetailURL : URL? = nil
     private var itemDetailModel = ItemDetailModel()
-    private var imagePages : ItemDetailImagePagesView!
+    private var imageSectionView: ItemDetailImageSectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class ItemDetailViewController: UIViewController {
         for item in info.images {
             imageURLS.append(item.url)
         }
-        imagePages = ItemDetailImagePagesView(images: imageURLS)
+        imageSectionView = ItemDetailImageSectionView(images: imageURLS)
     }
     
     private func setItemDetailModel() {
@@ -74,7 +74,7 @@ class ItemDetailViewController: UIViewController {
                     return
                 }
                 self.itemDetailModel.updateData(from: detailInfo.data)
-                self.setImagePages()
+                self.setImageSection()
                 
             case .failure(let error) :
                 print(error.localizedDescription)
@@ -138,24 +138,24 @@ class ItemDetailViewController: UIViewController {
         
     }
     
-    // MARK: IMAGE PAGES
+    // MARK: IMAGE SECTION
     
-    private func setImagePages() {
+    private func setImageSection() {
         setItemDetailImagesURLToView()
-        setConstraintsImagePages()
+        setConstraintsImageSection()
     }
     
-    private func setConstraintsImagePages() {
-        self.view.addSubview(imagePages)
+    private func setConstraintsImageSection() {
+        self.view.addSubview(imageSectionView)
         
-        imagePages.translatesAutoresizingMaskIntoConstraints = false
+        imageSectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
             [
-                imagePages.topAnchor.constraint(equalTo: self.view.topAnchor),
-                imagePages.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-                imagePages.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
-                imagePages.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+                imageSectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                imageSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                imageSectionView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5),
+                imageSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ]
         )
     }

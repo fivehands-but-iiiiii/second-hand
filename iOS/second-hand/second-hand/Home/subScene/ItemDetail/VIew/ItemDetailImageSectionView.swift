@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ItemDetailImagePagesView: UIView {
+class ItemDetailImageSectionView: UIView {
     private var scrollView = UIScrollView()
     private var pageControl = UIPageControl(frame: .zero)
     private var images: [String] = []
@@ -122,7 +122,7 @@ class ItemDetailImagePagesView: UIView {
     
 }
 
-extension ItemDetailImagePagesView: UIScrollViewDelegate {
+extension ItemDetailImageSectionView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.frame.width != 0.0 {
