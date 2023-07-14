@@ -10,9 +10,13 @@ import UIKit
 class ItemDetailViewController: UIViewController {
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
-    private var itemDetailURL : URL? = nil
+    private var itemDetailURL: URL? = nil
     private var itemDetailModel = ItemDetailModel()
     private var imageSectionView: ItemDetailImageSectionView!
+    
+    private lazy var textSectionView = ItemDetailTextSectionView(frame: .zero)
+    
+    private var sellerInfoView: SellerInfoView? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +49,7 @@ class ItemDetailViewController: UIViewController {
         generateMenuButton()
         setConstraintsBackButton()
         setConstraintsMenuButton()
+        setTextSectionViewConstraints()
     }
     
     func setItemDetailURL(_ url : String) {
@@ -159,4 +164,29 @@ class ItemDetailViewController: UIViewController {
             ]
         )
     }
+    
+    //MARK: TEXT SECTION
+    private func setTextSectionView() {
+        
+        setTextSectionViewConstraints()
+    }
+    
+    private func setTextSectionViewConstraints() {
+        
+        self.view.addSubview(textSectionView)
+        
+        textSectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                textSectionView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 5.0),
+                textSectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -40),
+                textSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                textSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
+    }
+    
+    
+
 }
