@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface ItemSliceRepository {
 
-    Slice<Item> findAllByBasedRegion(Long categoryId, Long sellerId, List<Status> sales, Region region, Pageable pageable);
+    Slice<Item> findAllByFilter(Long categoryId, Long sellerId, List<Status> sales, Region region, Pageable pageable);
 }
