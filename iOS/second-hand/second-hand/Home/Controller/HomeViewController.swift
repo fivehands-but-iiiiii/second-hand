@@ -207,8 +207,12 @@ extension HomeViewController: UICollectionViewDelegate {
         let itemDetailViewController = ItemDetailViewController()
         
         itemDetailViewController.setItemDetailURL(url)
-        
+        hideTabBar()
         self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+    }
+    
+    private func hideTabBar() {
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{

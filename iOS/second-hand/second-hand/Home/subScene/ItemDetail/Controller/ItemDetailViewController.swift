@@ -40,7 +40,7 @@ class ItemDetailViewController: UIViewController {
     
     private func initializeScene() {
         self.view.backgroundColor = .white
-        setNavigationBatHidden()
+        hideNavigationBar()
         generateBackButton()
         generateMenuButton()
         setConstraintsBackButton()
@@ -125,12 +125,13 @@ class ItemDetailViewController: UIViewController {
         menubutton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
     }
     
-    private func setNavigationBatHidden() {
+    private func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     @objc private func backButtonTouched() {
         navigationController?.popViewController(animated: true)
+        tabBarController?.tabBar.isHidden = false
     }
     
     @objc private func menuButtonTouched() {
