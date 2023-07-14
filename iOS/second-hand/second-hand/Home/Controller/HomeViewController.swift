@@ -40,6 +40,11 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     private func setupInfiniteScroll() {
             productListCollectionView.delegate = self
         }
