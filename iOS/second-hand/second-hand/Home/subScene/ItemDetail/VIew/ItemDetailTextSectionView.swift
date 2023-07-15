@@ -53,7 +53,7 @@ class ItemDetailTextSectionView: UIScrollView {
         NSLayoutConstraint.activate(
             [
                 sellerInfoView.topAnchor.constraint(equalTo: self.topAnchor),
-                sellerInfoView.widthAnchor.constraint(equalToConstant: self.frame.width - 30),
+                sellerInfoView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
                 sellerInfoView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 54/491),
                 sellerInfoView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
             ]
@@ -73,7 +73,7 @@ class ItemDetailTextSectionView: UIScrollView {
         
         NSLayoutConstraint.activate(
             [
-                statusButton.widthAnchor.constraint(equalToConstant: self.frame.width/3),
+                statusButton.widthAnchor.constraint(equalToConstant: round(self.frame.width/3)),
                 statusButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 54/491),
                 statusButton.topAnchor.constraint(equalTo: self.sellerInfoView.bottomAnchor, constant: 20.0),
                 statusButton.leadingAnchor.constraint(equalTo: self.sellerInfoView.leadingAnchor)

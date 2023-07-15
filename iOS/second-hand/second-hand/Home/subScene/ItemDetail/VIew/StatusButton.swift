@@ -85,8 +85,7 @@ class StatusButton: UIButton {
         ]
         
         self.menu = UIMenu(options: .displayInline,children: children)
-        self.menu?.preferredElementSize = .medium
-        
+
         self.showsMenuAsPrimaryAction = true
     }
     
