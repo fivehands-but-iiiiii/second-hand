@@ -31,6 +31,13 @@ class ItemDetailTextSectionView: UIScrollView {
         setSellerInfoConstraints()
     }
     
+    func setStatusButton(isMine: Bool, status: Int) {
+        //TODO: 분기 하기
+        if isMine == true {
+//            self.statusButton = StatusButton(status: status)
+        }
+        self.statusButton = StatusButton(status: status)
+    }
     
     private func setSellerInfoConstraints() {
         guard let sellerInfoView = sellerInfoView else {
