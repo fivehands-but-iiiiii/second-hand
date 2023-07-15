@@ -32,7 +32,7 @@ class ItemDetailTextSectionView: UIScrollView {
     }
     
     func setStatusButton(isMine: Bool, status: Int) {
-        //TODO: 분기 하기
+        //TODO: 분기 하기 , 지금은 상시 표시됨 
         if isMine == true {
 //            self.statusButton = StatusButton(status: status)
         }
