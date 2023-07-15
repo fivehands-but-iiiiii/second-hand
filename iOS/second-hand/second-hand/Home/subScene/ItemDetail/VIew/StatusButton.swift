@@ -49,4 +49,24 @@ class StatusButton: UIButton {
         layer.masksToBounds = true
     }
     
+    private func setMenu() {
+        
+        let children : [UIAction] =
+        [
+            UIAction(title: "판매중", handler: { [weak self] _ in
+                self?.label.text = "판매중"
+            }),
+            UIAction(title: "예약중", handler: { [weak self] _ in
+                self?.label.text = "예약중"
+            }),
+            UIAction(title: "판매완료", handler: { [weak self] _ in
+                self?.label.text = "판매완료"
+            })
+        ]
+        
+        self.menu = UIMenu(options: .displayInline,children: children)
+        self.menu?.preferredElementSize = .medium
+        
+        self.showsMenuAsPrimaryAction = true
+    }
 }
