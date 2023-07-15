@@ -9,6 +9,7 @@ import UIKit
 
 class ItemDetailTextSectionView: UIScrollView {
     private var sellerInfoView : SellerInfoView!
+    private var statusButton : StatusButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +23,7 @@ class ItemDetailTextSectionView: UIScrollView {
         super.layoutSubviews()
 //        self.contentSize = CGSize(width: self.frame.width, height: self.frame.height)
         setSellerInfoConstraints()
-
+        setStatusButtonConstraints()
     }
     
     func setSellerInfoView(sellerName: String) {
@@ -50,7 +51,28 @@ class ItemDetailTextSectionView: UIScrollView {
                 sellerInfoView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
             ]
         )
+    }
+    
+    private func setStatusButtonConstraints() {
+        guard let statusButton = statusButton else {
+            return
+        }
         
+        if !self.subviews.contains(statusButton) {
+            self.addSubview(statusButton)
+        }
+        
+        statusButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                statusButton.widthAnchor.constraint(equalToConstant: self.frame.width/3),
+                statusButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 54/491),
+                statusButton.topAnchor.constraint(equalTo: self.sellerInfoView.bottomAnchor, constant: 20.0),
+                statusButton.leadingAnchor.constraint(equalTo: self.sellerInfoView.leadingAnchor)
+            ]
+        )
+ 
     }
     
 }
