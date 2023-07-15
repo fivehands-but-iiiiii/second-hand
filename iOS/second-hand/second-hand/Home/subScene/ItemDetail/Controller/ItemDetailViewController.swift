@@ -13,7 +13,6 @@ class ItemDetailViewController: UIViewController {
     private var itemDetailURL: URL? = nil
     private var itemDetailModel = ItemDetailModel()
     private var imageSectionView: ItemDetailImageSectionView!
-    
     private lazy var textSectionView = ItemDetailTextSectionView(frame: .zero)
     
     override func viewDidLoad() {
@@ -171,6 +170,15 @@ class ItemDetailViewController: UIViewController {
             return
         }
         textSectionView.setSellerInfoView(sellerName: name)
+        
+        guard let isMine = itemDetailModel.info?.isMyItem else {
+            return
+        }
+        
+        guard let status = itemDetailModel.info?.status else {
+            return
+        }
+        textSectionView.setStatusButton(isMine: isMine, status: status)
     }
     
     private func setTextSectionViewConstraints() {
