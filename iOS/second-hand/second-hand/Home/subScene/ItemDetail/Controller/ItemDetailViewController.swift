@@ -16,8 +16,6 @@ class ItemDetailViewController: UIViewController {
     
     private lazy var textSectionView = ItemDetailTextSectionView(frame: .zero)
     
-    private var sellerInfoView: SellerInfoView? = nil
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setItemDetailModel()
@@ -49,7 +47,6 @@ class ItemDetailViewController: UIViewController {
         generateMenuButton()
         setConstraintsBackButton()
         setConstraintsMenuButton()
-        setTextSectionViewConstraints()
     }
     
     func setItemDetailURL(_ url : String) {
@@ -80,6 +77,7 @@ class ItemDetailViewController: UIViewController {
                 }
                 self.itemDetailModel.updateData(from: detailInfo.data)
                 self.setImageSection()
+                self.setTextSectionView()
                 
             case .failure(let error) :
                 print(error.localizedDescription)
@@ -167,8 +165,12 @@ class ItemDetailViewController: UIViewController {
     
     //MARK: TEXT SECTION
     private func setTextSectionView() {
-        
         setTextSectionViewConstraints()
+        
+        guard let name = itemDetailModel.info?.seller.memberId else {
+            return
+        }
+        textSectionView.setSellerInfoView(sellerName: name)
     }
     
     private func setTextSectionViewConstraints() {
@@ -179,7 +181,7 @@ class ItemDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate(
             [
-                textSectionView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 5.0),
+                textSectionView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 10.0),
                 textSectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -40),
                 textSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
                 textSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
@@ -187,6 +189,4 @@ class ItemDetailViewController: UIViewController {
         )
     }
     
-    
-
 }
