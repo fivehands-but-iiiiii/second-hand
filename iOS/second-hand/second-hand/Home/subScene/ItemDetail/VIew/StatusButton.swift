@@ -69,4 +69,18 @@ class StatusButton: UIButton {
         
         self.showsMenuAsPrimaryAction = true
     }
+    
+    private func setContraints(){
+        label.translatesAutoresizingMaskIntoConstraints = false
+        sideImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 15),
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
+            sideImage.leadingAnchor.constraint(equalTo: label.trailingAnchor,constant: 5.0),
+            sideImage.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -10),
+            sideImage.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+    }
+    
 }
