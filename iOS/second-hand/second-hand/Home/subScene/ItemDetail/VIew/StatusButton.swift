@@ -12,6 +12,26 @@ class StatusButton: UIButton {
     private var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)
     
+    init(status: Int) {
+        super.init(frame: .zero)
+        setInitialStatus(status: status)
+        setLabel()
+        setSideImage()
+        setMenu()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setContraints()
+        setBorder()
+    }
+    
+    
     private func setInitialStatus(status : Int){
         switch status{
         case 0:
