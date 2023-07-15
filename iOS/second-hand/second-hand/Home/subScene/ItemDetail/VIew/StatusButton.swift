@@ -41,4 +41,12 @@ class StatusButton: UIButton {
         self.addSubview(sideImage)
     }
     
+    private func setBorder() {
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        let cornerRadius = min(bounds.width, bounds.height) / 3
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
+    }
+    
 }
