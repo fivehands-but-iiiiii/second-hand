@@ -34,4 +34,11 @@ class StatusButton: UIButton {
         self.addSubview(label)
     }
     
+    private func setSideImage() {
+        sideImage = UIImageView(image: UIImage(systemName: "chevron.down"))
+        sideImage.tintColor = .black
+        sideImage.contentMode = .scaleAspectFit
+        self.addSubview(sideImage)
+    }
+    
 }
