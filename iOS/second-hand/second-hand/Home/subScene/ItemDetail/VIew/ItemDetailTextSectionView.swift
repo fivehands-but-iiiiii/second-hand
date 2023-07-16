@@ -28,17 +28,10 @@ class ItemDetailTextSectionView: UIScrollView {
         setContenetOfPostConstraints()
     }
     
+    
+    // MARK: SELLER INFO VIEW
     func setSellerInfoView(sellerName: String) {
         self.sellerInfoView = SellerInfoView(sellerName: sellerName)
-        setSellerInfoConstraints()
-    }
-    
-    func setStatusButton(isMine: Bool, status: Int) {
-        //TODO: 분기 하기 , 지금은 상시 표시됨 
-        if isMine == true {
-//            self.statusButton = StatusButton(status: status)
-        }
-        self.statusButton = StatusButton(status: status)
     }
     
     private func setSellerInfoConstraints() {
@@ -60,6 +53,15 @@ class ItemDetailTextSectionView: UIScrollView {
                 sellerInfoView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
             ]
         )
+    }
+    
+    // MARK: STATUS BUTTON (DROP DOWN MENU)
+    func setStatusButton(isMine: Bool, status: Int) {
+        //TODO: 분기 하기 , 지금은 상시 표시됨
+        if isMine == true {
+//            self.statusButton = StatusButton(status: status)
+        }
+        self.statusButton = StatusButton(status: status)
     }
     
     private func setStatusButtonConstraints() {
