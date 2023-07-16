@@ -10,6 +10,7 @@ import UIKit
 class ItemDetailTextSectionView: UIScrollView {
     private var sellerInfoView : SellerInfoView!
     private var statusButton : StatusButton!
+    private var contentOfPost : ContentOfPost!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,6 +25,7 @@ class ItemDetailTextSectionView: UIScrollView {
 //        self.contentSize = CGSize(width: self.frame.width, height: self.frame.height)
         setSellerInfoConstraints()
         setStatusButtonConstraints()
+        setContenetOfPostConstraints()
     }
     
     func setSellerInfoView(sellerName: String) {
@@ -79,7 +81,44 @@ class ItemDetailTextSectionView: UIScrollView {
                 statusButton.leadingAnchor.constraint(equalTo: self.sellerInfoView.leadingAnchor)
             ]
         )
- 
     }
     
+    // MARK: CONTENT OF POST
+    
+    func setContenetOfPost(title: String, category: Int, createAt: String, content: String, chatCount: Int, likeCount: Int, hits: Int) {
+        self.contentOfPost = ContentOfPost(title: title, category: category, createAt: createAt, content: content, chatCount: chatCount, likeCount: likeCount, hits: hits)
+    }
+    
+    private func setContenetOfPostConstraints() {
+        guard let contentOfPost = contentOfPost else {
+            return
+        }
+        
+        if !self.subviews.contains(contentOfPost) {
+            self.addSubview(contentOfPost)
+        }
+        
+        contentOfPost.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        if self.subviews.contains(statusButton) {
+            NSLayoutConstraint.activate(
+                [
+                    contentOfPost.topAnchor.constraint(equalTo: statusButton.bottomAnchor, constant: 10),
+                    contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
+                    contentOfPost.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                    contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+                ]
+            )
+        } else {
+            NSLayoutConstraint.activate(
+                [
+                    contentOfPost.topAnchor.constraint(equalTo: sellerInfoView.bottomAnchor, constant: 10),
+                    contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
+                    contentOfPost.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                    contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+                ]
+            )
+        }
+    }
 }
