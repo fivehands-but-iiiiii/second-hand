@@ -12,12 +12,41 @@ class ContentOfPost: UIView {
     private var categotyAndCreateAtLabel : UILabel? = nil
     private var descriptionView : UITextView? = nil
     private var countsLabel : UILabel? = nil
+    
+    override var intrinsicContentSize: CGSize {
+        guard let titleLabel = titleLabel else {
+            return CGSize(width: 0.0, height: 0.0)
+        }
+        
+        guard let categotyAndCreateAtLabel = categotyAndCreateAtLabel else {
+            return CGSize(width: 0.0, height: 0.0)
+        }
+        
+        guard let descriptionView = descriptionView else {
+            return CGSize(width: 0.0, height: 0.0)
+        }
+        
+        guard let countsLabel = countsLabel else {
+            return CGSize(width: 0.0, height: 0.0)
+        }
+        
+        let contentWidth = bounds.width
+        let titleHeight = titleLabel.intrinsicContentSize.height
+        let categoryHeight = categotyAndCreateAtLabel.intrinsicContentSize.height
+        let descriptionHeight = descriptionView.intrinsicContentSize.height
+        let countHegith = countsLabel.intrinsicContentSize.height
+        
+        let totalHeight = titleHeight + categoryHeight + descriptionHeight + countHegith + 30 
 
+        return CGSize(width: contentWidth, height: totalHeight)
+    }
+    
     init(title: String, category: Int, createAt:String, content: String, chatCount: Int, likeCount: Int, hits: Int) {
         super.init(frame: .zero)
         setTitleLabel(title: title)
         setCategotyAndCreateAtLabel(category: category, createAt: createAt)
         setDescriptionView(content: content)
+        setCountLabel(chatCount: chatCount, likeCount: likeCount, hits: hits)
     }
     
     required init?(coder: NSCoder) {
@@ -29,6 +58,8 @@ class ContentOfPost: UIView {
         setTitleLabelConstraints()
         setCategotyAndCreateAtLabelConstraints()
         setDescriptionViewConstraints()
+        setCountLabelConstraints()
+        invalidateIntrinsicContentSize()
     }
     // MARK: TITLE
     
@@ -39,6 +70,10 @@ class ContentOfPost: UIView {
     }
     
     private func setTitleLabelConstraints() {
+        guard let superview = superview else {
+            return
+        }
+        
         guard let titleLabel = titleLabel else {
             return
         }
@@ -60,7 +95,7 @@ class ContentOfPost: UIView {
                 titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
                 titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                 titleLabel.widthAnchor.constraint(equalToConstant: width),
-                titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05)
+                titleLabel.heightAnchor.constraint(equalTo: superview.heightAnchor, multiplier: 0.05)
             ]
         )
     }
@@ -81,6 +116,11 @@ class ContentOfPost: UIView {
     }
     
     private func setCategotyAndCreateAtLabelConstraints() {
+        
+        guard let superview = superview else {
+            return
+        }
+        
         guard let categotyAndCreateAtLabel = categotyAndCreateAtLabel else {
             return
         }
@@ -106,7 +146,7 @@ class ContentOfPost: UIView {
                 categotyAndCreateAtLabel.topAnchor.constraint(equalTo: standard ,constant: 5.0),
                 categotyAndCreateAtLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                 categotyAndCreateAtLabel.widthAnchor.constraint(equalToConstant: width),
-                categotyAndCreateAtLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05)
+                categotyAndCreateAtLabel.heightAnchor.constraint(equalTo: superview.heightAnchor, multiplier: 0.05)
             ]
         )
     }
@@ -117,7 +157,9 @@ class ContentOfPost: UIView {
         self.descriptionView = UITextView(frame: .zero)
         
         self.descriptionView?.text = content
+        self.descriptionView?.textAlignment = .left
         self.descriptionView?.font = .systemFont(ofSize: 15.0)
+        self.descriptionView?.isScrollEnabled = false
     }
     
     private func setDescriptionViewConstraints() {
@@ -146,7 +188,7 @@ class ContentOfPost: UIView {
         NSLayoutConstraint.activate(
             [
                 descriptionView.topAnchor.constraint(equalTo: standard ,constant: 10.0),
-                descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -5.0),
                 descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor),
                 descriptionView.heightAnchor.constraint(equalToConstant: height)
             ]
