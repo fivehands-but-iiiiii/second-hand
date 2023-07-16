@@ -32,6 +32,8 @@ class ItemDetailBottomSectionView: UIView {
         setPriceLabelConstraints()
         setChattingRoomButtonConstraints()
     }
+    
+    //MARK: LIKE BUTTON
     func setLikeButton(isLike: Bool) {
         self.likeButton = UIButton(type: .system)
         
@@ -43,6 +45,12 @@ class ItemDetailBottomSectionView: UIView {
             self.likeButton?.tintColor = .black
             self.likeButton?.setImage(UIImage(systemName: "heart"), for: .normal)
         }
+        
+        self.likeButton?.addTarget(self, action: #selector(likeButtonTouched), for: .touchUpInside)
+    }
+    
+    @objc private func likeButtonTouched() {
+        print("하트 터치시 구현")
     }
     
     private func setsetLikeButtonConstraints() {
@@ -64,6 +72,8 @@ class ItemDetailBottomSectionView: UIView {
             ]
         )
     }
+    
+    //MARK: PRICE LABEL
     
     func setPriceLabel(price: Int) {
         self.priceLabel = UILabel(frame: .zero)
@@ -105,6 +115,7 @@ class ItemDetailBottomSectionView: UIView {
         )
     }
     
+    //MARK: CHATTING ROOM BUTTON
     func setChattingRoomButton() {
         
     }
