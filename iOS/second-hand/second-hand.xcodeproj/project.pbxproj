@@ -44,6 +44,7 @@
 		E46EFD062A61AFDF00FFC3B8 /* ItemDetailTextSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD052A61AFDF00FFC3B8 /* ItemDetailTextSectionView.swift */; };
 		E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */; };
 		E46EFD0A2A63116100FFC3B8 /* ContentOfPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */; };
+		E46EFD0C2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */; };
 		E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4987E442A4D9F7600337543 /* Int,String+Extension.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
@@ -106,6 +107,7 @@
 		E46EFD052A61AFDF00FFC3B8 /* ItemDetailTextSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailTextSectionView.swift; sourceTree = "<group>"; };
 		E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusButton.swift; sourceTree = "<group>"; };
 		E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOfPost.swift; sourceTree = "<group>"; };
+		E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailBottomSectionView.swift; sourceTree = "<group>"; };
 		E4987E442A4D9F7600337543 /* Int,String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int,String+Extension.swift"; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 				E46EFD052A61AFDF00FFC3B8 /* ItemDetailTextSectionView.swift */,
 				E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */,
 				E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */,
+				E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
+				E46EFD0C2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift in Sources */,
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
 				DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,

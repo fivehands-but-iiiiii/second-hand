@@ -13,7 +13,8 @@ class ItemDetailViewController: UIViewController {
     private var itemDetailURL: URL? = nil
     private var itemDetailModel = ItemDetailModel()
     private var imageSectionView: ItemDetailImageSectionView!
-    private lazy var textSectionView = ItemDetailTextSectionView(frame: .zero)
+    private var textSectionView = ItemDetailTextSectionView(frame: .zero)
+    private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
