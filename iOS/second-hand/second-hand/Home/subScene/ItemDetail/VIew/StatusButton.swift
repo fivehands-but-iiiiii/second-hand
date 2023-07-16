@@ -11,10 +11,12 @@ class StatusButton: UIButton {
     private var status : String? = nil
     private var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)
+    var isMine: Bool? = nil
     
-    init(status: Int) {
+    init(status: Int,isMine: Bool) {
         super.init(frame: .zero)
         setInitialStatus(status: status)
+        self.isMine = isMine
         setLabel()
         setSideImage()
         setMenu()

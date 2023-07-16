@@ -45,7 +45,7 @@ class ItemDetailTextSectionView: UIScrollView {
         if !self.subviews.contains(sellerInfoView) {
             self.addSubview(sellerInfoView)
         }
- 
+        
         sellerInfoView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
@@ -60,15 +60,16 @@ class ItemDetailTextSectionView: UIScrollView {
     
     // MARK: STATUS BUTTON (DROP DOWN MENU)
     func setStatusButton(isMine: Bool, status: Int) {
-        //TODO: 분기 하기 , 지금은 상시 표시됨
-        if isMine == true {
-//            self.statusButton = StatusButton(status: status)
-        }
-        self.statusButton = StatusButton(status: status)
+        //TODO: isMine에 따라 분기 하기
+        self.statusButton = StatusButton(status: status, isMine: isMine)
+        
     }
     
     private func setStatusButtonConstraints() {
         guard let statusButton = statusButton else {
+            return
+        }
+        guard let isMine = self.statusButton.isMine else {
             return
         }
         
@@ -77,15 +78,25 @@ class ItemDetailTextSectionView: UIScrollView {
         }
         
         statusButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate(
-            [
-                statusButton.widthAnchor.constraint(equalToConstant: round(self.frame.width/3)),
-                statusButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 54/491),
-                statusButton.topAnchor.constraint(equalTo: self.sellerInfoView.bottomAnchor, constant: 20.0),
-                statusButton.leadingAnchor.constraint(equalTo: self.sellerInfoView.leadingAnchor)
-            ]
-        )
+        if isMine {
+            NSLayoutConstraint.activate(
+                [
+                    statusButton.widthAnchor.constraint(equalToConstant: round(self.frame.width/3)),
+                    statusButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 54/491),
+                    statusButton.topAnchor.constraint(equalTo: self.sellerInfoView.bottomAnchor, constant: 10.0),
+                    statusButton.leadingAnchor.constraint(equalTo: self.sellerInfoView.leadingAnchor)
+                ]
+            )
+        } else {
+            NSLayoutConstraint.activate(
+                [
+                    statusButton.widthAnchor.constraint(equalToConstant: round(self.frame.width/3)),
+                    statusButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.0),
+                    statusButton.topAnchor.constraint(equalTo: self.sellerInfoView.bottomAnchor, constant: 5.0),
+                    statusButton.leadingAnchor.constraint(equalTo: self.sellerInfoView.leadingAnchor)
+                ]
+            )
+        }
     }
     
     // MARK: CONTENT OF POST
