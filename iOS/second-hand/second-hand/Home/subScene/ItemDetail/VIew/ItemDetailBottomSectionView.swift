@@ -31,6 +31,7 @@ class ItemDetailBottomSectionView: UIView {
         setsetLikeButtonConstraints()
         setPriceLabelConstraints()
         setChattingRoomButtonConstraints()
+        setchattingRoomButtonCornerRadius()
     }
     
     //MARK: LIKE BUTTON
@@ -116,11 +117,56 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     //MARK: CHATTING ROOM BUTTON
-    func setChattingRoomButton() {
+    func setChattingRoomButton(isMine: Bool) {
+        self.chattingRoomButton = UIButton(type: .system)
+        
+        self.chattingRoomButton?.titleLabel?.textAlignment = .center
+        self.chattingRoomButton?.backgroundColor = .systemOrange
+        self.chattingRoomButton?.titleLabel?.font = .systemFont(ofSize: 15.0, weight: .medium)
+        self.chattingRoomButton?.tintColor = .white
+
+        switch isMine {
+        case true :
+            self.chattingRoomButton?.setTitle("대화 중인 채팅방", for: .normal)
+        default :
+            self.chattingRoomButton?.setTitle("채팅 하기", for: .normal)
+        }
         
     }
     
     private func setChattingRoomButtonConstraints() {
+        guard let chattingRoomButton = chattingRoomButton else {
+            return
+        }
         
+        guard let centerYAnchor = likeButton?.centerYAnchor else {
+            return
+        }
+        
+        if !self.subviews.contains(chattingRoomButton) {
+            self.addSubview(chattingRoomButton)
+        }
+        
+        guard let text = chattingRoomButton.titleLabel?.text else {
+            return
+        }
+        
+        let width = CGFloat(text.count * 18)
+        
+        chattingRoomButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                chattingRoomButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 32/83),
+                chattingRoomButton.widthAnchor.constraint(equalToConstant: width),
+                chattingRoomButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15.0),
+                chattingRoomButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ]
+        )
+    }
+    
+    private func setchattingRoomButtonCornerRadius() {
+        let radius = self.chattingRoomButton?.frame.height
+        chattingRoomButton?.layer.cornerRadius = (radius ?? 0) / 3
+        chattingRoomButton?.layer.masksToBounds = true
     }
 }
