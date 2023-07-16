@@ -28,6 +28,7 @@ class ContentOfPost: UIView {
         super.layoutSubviews()
         setTitleLabelConstraints()
         setCategotyAndCreateAtLabelConstraints()
+        setDescriptionViewConstraints()
     }
     // MARK: TITLE
     
@@ -117,6 +118,39 @@ class ContentOfPost: UIView {
         
         self.descriptionView?.text = content
         self.descriptionView?.font = .systemFont(ofSize: 15.0)
+    }
+    
+    private func setDescriptionViewConstraints() {
+        guard let descriptionView = descriptionView else {
+            return
+        }
+        
+        guard let text = descriptionView.text else {
+            return
+        }
+        
+        guard let standard = categotyAndCreateAtLabel?.bottomAnchor else {
+            return
+        }
+        
+        if !self.subviews.contains(descriptionView) {
+            self.addSubview(descriptionView)
+        }
+        
+        let lineCount = text.components(separatedBy: "\n").count
+        
+        let height = CGFloat((lineCount+(text.count / 25)) * 30)
+        
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                descriptionView.topAnchor.constraint(equalTo: standard ,constant: 10.0),
+                descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor),
+                descriptionView.heightAnchor.constraint(equalToConstant: height)
+            ]
+        )
     }
 }
 
