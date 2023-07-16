@@ -152,6 +152,47 @@ class ContentOfPost: UIView {
             ]
         )
     }
+    
+    // MARK: countsLabel
+    
+    private func setCountLabel(chatCount: Int, likeCount: Int, hits: Int) {
+        let text = "채팅 \(chatCount) 관심 \(likeCount) 조회 \(hits)"
+        self.countsLabel = UILabel(frame:.zero)
+        self.countsLabel?.text = text
+        self.countsLabel?.font = .footNote
+        self.countsLabel?.font = .systemFont(ofSize: 13.0)
+        self.countsLabel?.textColor = .lightGray
+    }
+    
+    private func setCountLabelConstraints() {
+        guard let superview = superview else {
+            return
+        }
+        
+        guard let countsLabel = countsLabel else {
+            return
+        }
+        
+        guard let standard = descriptionView?.bottomAnchor else {
+            return
+        }
+        
+        if !self.subviews.contains(countsLabel) {
+            self.addSubview(countsLabel)
+        }
+        
+        
+        countsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                countsLabel.topAnchor.constraint(equalTo: standard ,constant: 10.0),
+                countsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                countsLabel.widthAnchor.constraint(equalTo: self.widthAnchor),
+                countsLabel.heightAnchor.constraint(equalTo:superview.heightAnchor, multiplier: 0.05)
+            ]
+        )
+    }
 }
 
 extension ContentOfPost {
