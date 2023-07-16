@@ -78,6 +78,7 @@ class ItemDetailViewController: UIViewController {
                 self.itemDetailModel.updateData(from: detailInfo.data)
                 self.setImageSection()
                 self.setTextSectionView()
+                self.setBottomSectionView()
                 
             case .failure(let error) :
                 print(error.localizedDescription)
@@ -220,11 +221,45 @@ class ItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate(
             [
                 textSectionView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 10.0),
-                textSectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -40),
+                textSectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -50),
                 textSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
                 textSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ]
         )
     }
+    //MARK: BOTTOM SECTION
+    private func setBottomSectionView() {
+        setBottomSectionViewConstraints()
+        
+        guard let isLike = itemDetailModel.info?.isLike else {
+            return
+        }
+        
+        guard let price = itemDetailModel.info?.price else {
+            return
+        }
+        
+        guard let isMine = itemDetailModel.info?.isMyItem else {
+            return
+        }
+        
+        bottomSectionView.setLikeButton(isLike: isLike)
+        bottomSectionView.setPriceLabel(price: price)
+        bottomSectionView.setChattingRoomButton(isMine: isMine)
+    }
     
+    private func setBottomSectionViewConstraints() {
+        self.view.addSubview(bottomSectionView)
+        
+        bottomSectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                bottomSectionView.topAnchor.constraint(equalTo: self.textSectionView.bottomAnchor),
+                bottomSectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                bottomSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                bottomSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
+    }
 }
