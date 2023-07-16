@@ -8,13 +8,45 @@
 import UIKit
 
 class ItemDetailBottomSectionView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private var likeButton : UIButton? = nil
+    private var priceLabel : UILabel? = nil
+    private var chattingRoomButton : UIButton? = nil
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setsetLikeButtonConstraints()
+        setPriceLabelConstraints()
+        setChattingRoomButtonConstraints()
+    }
+    func setLikeButton(isLike: Bool) {
+        
+    }
+    
+    private func setsetLikeButtonConstraints() {
+        
+    }
+    
+    func setPriceLabel(price: Int) {
+        
+    }
+    
+    private func setPriceLabelConstraints() {
+        
+    }
+    
+    func setChattingRoomButton() {
+        
+    }
+    
+    private func setChattingRoomButtonConstraints() {
+        
+    }
 }
