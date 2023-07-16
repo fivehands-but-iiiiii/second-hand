@@ -40,6 +40,11 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     private func setupInfiniteScroll() {
             productListCollectionView.delegate = self
         }
@@ -197,6 +202,28 @@ extension HomeViewController: UICollectionViewDelegate {
         if indexPath.section == lastSection && indexPath.item == lastItem {
             loadNextPage()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let id = extractItemIdFromTouchedCell(indexPath: indexPath)
+        
+        let url = Server.shared.itemDetailURL(itemId: id)
+        let itemDetailViewController = ItemDetailViewController()
+        
+        itemDetailViewController.setItemDetailURL(url)
+        hideTabBar()
+        self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+    }
+    
+    private func hideTabBar() {
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    //TODO: 콜렉션뷰 아래 섹션으로 가면 값이 이상해진다. 추후 확인하도록.
+    private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
+        let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
+        return itemId
     }
 }
 

@@ -29,18 +29,18 @@ extension String {
         
         if let date = dateFormatter.date(from: self) {
             let calendar = Calendar.current
-            let components = calendar.dateComponents([.minute, .hour, .day], from: date, to: Date())
+            let components = calendar.dateComponents([.minute, .hour, .day, .month], from: date, to: Date())
             
-            if let minutes = components.minute, minutes < 60 {
-                if minutes < 1 {
-                    return "방금 전"
-                } else {
-                    return "\(minutes)분 전"
-                }
-            } else if let hours = components.hour, hours < 24 {
-                return "\(hours)시간 전"
-            } else if let days = components.day {
+            if let months = components.month, months > 0 {
+                return "\(months)개월 전"
+            } else if let days = components.day, days > 0 {
                 return "\(days)일 전"
+            } else if let hours = components.hour, hours > 0 {
+                return "\(hours)시간 전"
+            } else if let minutes = components.minute, minutes > 0 {
+                return "\(minutes)분 전"
+            } else {
+                return "방금 전"
             }
         }
         

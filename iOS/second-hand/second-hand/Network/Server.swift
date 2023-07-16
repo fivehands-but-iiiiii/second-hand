@@ -39,6 +39,10 @@ struct Server {
         let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.region.rawValue + "\(regionID)"
         return Server.baseURL + Path.items.rawValue + "?" + query
     }
+    
+    func itemDetailURL(itemId: Int) -> String {
+        return Server.baseURL + Path.items.rawValue + "/" + String(itemId)
+    }
 
     enum Query: String {
         case code = "code="

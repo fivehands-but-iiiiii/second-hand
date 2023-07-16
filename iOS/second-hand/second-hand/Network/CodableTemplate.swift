@@ -83,4 +83,33 @@ struct ProductRegion: Codable {
     let district: String
 }
 
+struct ItemDetailInfoSuccess: Codable {
+    let message : String
+    let data : ItemDetailInfo
+}
 
+struct ItemDetailInfo: Codable {
+    let id: Int
+    let title: String
+    let contents: String
+    let category: Int
+    let price: Int
+    let status: Int
+    let seller: Seller
+    let isMyItem: Bool
+    let images: [ItemDetailImage]
+    let hits: Int
+    let chatCount: Int
+    let likesCount: Int
+    let isLike: Bool
+    let createAt: String
+}
+
+struct Seller: Codable {
+    let id: Int
+    let memberId: String
+}
+
+struct ItemDetailImage: Codable {
+    let url: String
+}
