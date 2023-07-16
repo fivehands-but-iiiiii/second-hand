@@ -220,6 +220,7 @@ extension HomeViewController: UICollectionViewDelegate {
         tabBarController?.tabBar.isHidden = true
     }
     
+    //TODO: 콜렉션뷰 아래 섹션으로 가면 값이 이상해진다. 추후 확인하도록.
     private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
         let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
         return itemId
