@@ -66,11 +66,43 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     func setPriceLabel(price: Int) {
-        
+        self.priceLabel = UILabel(frame: .zero)
+        self.priceLabel?.text = price.convertToMonetary() + "원"
+        self.priceLabel?.font = .systemFont(ofSize: 15.0)
     }
     
     private func setPriceLabelConstraints() {
+        guard let priceLabel = priceLabel else {
+            return
+        }
         
+        guard let leadingAnchor = likeButton?.trailingAnchor else {
+            return
+        }
+        
+        guard let centerYAnchor = likeButton?.centerYAnchor else {
+            return
+        }
+        
+        if !self.subviews.contains(priceLabel) {
+            self.addSubview(priceLabel)
+        }
+        
+        guard let text = priceLabel.text else {
+            return
+        }
+        
+        let width = CGFloat(text.count * 13)
+        
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                priceLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 18/83),
+                priceLabel.widthAnchor.constraint(equalToConstant: width),
+                priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5.0),
+                priceLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ]
+        )
     }
     
     func setChattingRoomButton() {
