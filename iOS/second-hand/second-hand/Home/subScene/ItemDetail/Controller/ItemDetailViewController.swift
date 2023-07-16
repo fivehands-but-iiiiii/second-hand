@@ -179,6 +179,35 @@ class ItemDetailViewController: UIViewController {
             return
         }
         textSectionView.setStatusButton(isMine: isMine, status: status)
+        
+        guard let title = itemDetailModel.info?.title else {
+            return
+        }
+        
+        guard let category = itemDetailModel.info?.category else {
+            return
+        }
+        
+        guard let createAt = itemDetailModel.info?.createAt else {
+            return
+        }
+        
+        guard let content = itemDetailModel.info?.contents else {
+            return
+        }
+        
+        guard let chatCount = itemDetailModel.info?.chatCount else {
+            return
+        }
+        
+        guard let likeCount = itemDetailModel.info?.likesCount else {
+            return
+        }
+        
+        guard let hits = itemDetailModel.info?.hits else {
+            return
+        }
+        textSectionView.setContenetOfPost(title: title, category: category, createAt: createAt, content: content, chatCount: chatCount, likeCount: likeCount, hits: hits)
     }
     
     private func setTextSectionViewConstraints() {
