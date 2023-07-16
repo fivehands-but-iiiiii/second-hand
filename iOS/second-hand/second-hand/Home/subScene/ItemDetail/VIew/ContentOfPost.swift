@@ -17,7 +17,7 @@ class ContentOfPost: UIView {
         super.init(frame: .zero)
         setTitleLabel(title: title)
         setCategotyAndCreateAtLabel(category: category, createAt: createAt)
-        
+        setDescriptionView(content: content)
     }
     
     required init?(coder: NSCoder) {
@@ -108,6 +108,15 @@ class ContentOfPost: UIView {
                 categotyAndCreateAtLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05)
             ]
         )
+    }
+    
+    // MARK: descriptionView
+    
+    private func setDescriptionView(content: String) {
+        self.descriptionView = UITextView(frame: .zero)
+        
+        self.descriptionView?.text = content
+        self.descriptionView?.font = .systemFont(ofSize: 15.0)
     }
 }
 
