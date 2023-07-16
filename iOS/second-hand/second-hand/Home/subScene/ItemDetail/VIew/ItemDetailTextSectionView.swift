@@ -22,11 +22,14 @@ class ItemDetailTextSectionView: UIScrollView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        self.contentSize = CGSize(width: self.frame.width, height: self.frame.height)
+        
+        self.contentSize = CGSize(width: self.frame.width, height: contentOfPost.intrinsicContentSize.height + sellerInfoView.frame.height + statusButton.frame.height + 40)
+        invalidateIntrinsicContentSize()
         setSellerInfoConstraints()
         setStatusButtonConstraints()
         setContenetOfPostConstraints()
     }
+    
     
     
     // MARK: SELLER INFO VIEW
@@ -108,7 +111,7 @@ class ItemDetailTextSectionView: UIScrollView {
                 [
                     contentOfPost.topAnchor.constraint(equalTo: statusButton.bottomAnchor, constant: 10),
                     contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
-                    contentOfPost.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                    contentOfPost.heightAnchor.constraint(equalToConstant: contentOfPost.intrinsicContentSize.height),
                     contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
                 ]
             )
@@ -117,8 +120,8 @@ class ItemDetailTextSectionView: UIScrollView {
                 [
                     contentOfPost.topAnchor.constraint(equalTo: sellerInfoView.bottomAnchor, constant: 10),
                     contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
-                    contentOfPost.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                    contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+                    contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                    contentOfPost.heightAnchor.constraint(equalToConstant: contentOfPost.intrinsicContentSize.height)
                 ]
             )
         }
