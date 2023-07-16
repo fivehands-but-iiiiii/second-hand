@@ -132,6 +132,8 @@ class ItemDetailBottomSectionView: UIView {
             self.chattingRoomButton?.setTitle("채팅 하기", for: .normal)
         }
         
+        self.chattingRoomButton?.addTarget(self, action: #selector(chattingRoomButtonTouched), for: .touchUpInside)
+        
     }
     
     private func setChattingRoomButtonConstraints() {
@@ -168,5 +170,9 @@ class ItemDetailBottomSectionView: UIView {
         let radius = self.chattingRoomButton?.frame.height
         chattingRoomButton?.layer.cornerRadius = (radius ?? 0) / 3
         chattingRoomButton?.layer.masksToBounds = true
+    }
+    
+    @objc private func chattingRoomButtonTouched() {
+        print("채팅 버튼 터치시 구현")
     }
 }
