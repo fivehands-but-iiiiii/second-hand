@@ -10,16 +10,16 @@
 		A2F9E652DE5EA18F6C93261E /* Pods_second_hand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2356744C4EC7A65407925876 /* Pods_second_hand.framework */; };
 		DB08D4482A4BFC6F00D45E32 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB08D4472A4BFC6F00D45E32 /* UIStackView+extension.swift */; };
 		DB08D44B2A4C0C5E00D45E32 /* SellingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB08D44A2A4C0C5E00D45E32 /* SellingItem.swift */; };
-		DB1636C82A42E65B009884E4 /* RegisterNewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */; };
 		DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */; };
+		DB51AD982A5A97E200EB939D /* RegisterNewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51AD972A5A97E200EB939D /* RegisterNewProductViewController.swift */; };
+		DB51AD9A2A5A9B8C00EB939D /* AddPhotoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51AD992A5A9B8C00EB939D /* AddPhotoScrollView.swift */; };
+		DB51AD9C2A5A9E5D00EB939D /* AddPhotoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51AD9B2A5A9E5D00EB939D /* AddPhotoImageView.swift */; };
 		DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB082A43E58800578ED5 /* UIView+Extension.swift */; };
 		DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */; };
 		DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */; };
 		DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */; };
-		DB55CB112A4407CB00578ED5 /* ProductPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductPicture.swift */; };
+		DB55CB112A4407CB00578ED5 /* ProductPictureCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductPictureCount.swift */; };
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
-		DB55CB152A443E5B00578ED5 /* RegisterProductScrollVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */; };
-		DB55CB292A4499D200578ED5 /* ProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB282A4499D200578ED5 /* ProductImage.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -71,16 +71,16 @@
 		3607CF790A1450A1D89902D2 /* Pods-second-hand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.release.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.release.xcconfig"; sourceTree = "<group>"; };
 		DB08D4472A4BFC6F00D45E32 /* UIStackView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
 		DB08D44A2A4C0C5E00D45E32 /* SellingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellingItem.swift; sourceTree = "<group>"; };
-		DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNewProductViewController.swift; sourceTree = "<group>"; };
 		DB51315E2A3EB18800FBFA49 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetLocationViewController.swift; path = "second-hand/Home/subScene/SetLocation/Controller/SetLocationViewController.swift"; sourceTree = SOURCE_ROOT; };
+		DB51AD972A5A97E200EB939D /* RegisterNewProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterNewProductViewController.swift; sourceTree = "<group>"; };
+		DB51AD992A5A9B8C00EB939D /* AddPhotoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoScrollView.swift; sourceTree = "<group>"; };
+		DB51AD9B2A5A9E5D00EB939D /* AddPhotoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoImageView.swift; sourceTree = "<group>"; };
 		DB55CB082A43E58800578ED5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0A2A43E59700578ED5 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0C2A43E63200578ED5 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
-		DB55CB102A4407CB00578ED5 /* ProductPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPicture.swift; sourceTree = "<group>"; };
+		DB55CB102A4407CB00578ED5 /* ProductPictureCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPictureCount.swift; sourceTree = "<group>"; };
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
-		DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProductScrollVeiw.swift; sourceTree = "<group>"; };
-		DB55CB282A4499D200578ED5 /* ProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImage.swift; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -177,6 +177,14 @@
 			path = subScene;
 			sourceTree = "<group>";
 		};
+		DB51AD962A5A97E200EB939D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DB51AD972A5A97E200EB939D /* RegisterNewProductViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		DB55CB162A4446D800578ED5 /* SetLocation */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,26 +198,18 @@
 		DB55CB182A44470D00578ED5 /* RegisterNewProduct */ = {
 			isa = PBXGroup;
 			children = (
+				DB51AD962A5A97E200EB939D /* Controller */,
 				DB55CB1A2A44474600578ED5 /* Model */,
 				DB55CB1B2A44474F00578ED5 /* View */,
-				DB55CB192A44473C00578ED5 /* Controller */,
-				DB1636C72A42E65B009884E4 /* RegisterNewProductViewController.swift */,
 			);
 			path = RegisterNewProduct;
-			sourceTree = "<group>";
-		};
-		DB55CB192A44473C00578ED5 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		DB55CB1A2A44474600578ED5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */,
-				DB55CB102A4407CB00578ED5 /* ProductPicture.swift */,
+				DB55CB102A4407CB00578ED5 /* ProductPictureCount.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -217,8 +217,8 @@
 		DB55CB1B2A44474F00578ED5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DB55CB142A443E5B00578ED5 /* RegisterProductScrollVeiw.swift */,
-				DB55CB282A4499D200578ED5 /* ProductImage.swift */,
+				DB51AD992A5A9B8C00EB939D /* AddPhotoScrollView.swift */,
+				DB51AD9B2A5A9E5D00EB939D /* AddPhotoImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -713,6 +713,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB51AD9A2A5A9B8C00EB939D /* AddPhotoScrollView.swift in Sources */,
 				DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */,
 				E41076C22A49B5EC00F5204E /* IdInputSection.swift in Sources */,
 				DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */,
@@ -737,7 +738,7 @@
 				E467380F2A453FBF006A46D1 /* Server.swift in Sources */,
 				E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */,
 				DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */,
-				DB55CB112A4407CB00578ED5 /* ProductPicture.swift in Sources */,
+				DB55CB112A4407CB00578ED5 /* ProductPictureCount.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */,
 				E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */,
@@ -745,6 +746,7 @@
 				DB1636C82A42E65B009884E4 /* RegisterNewProductViewController.swift in Sources */,
 				E46EFD042A61A73400FFC3B8 /* SellerInfoView.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
+				DB51AD982A5A97E200EB939D /* RegisterNewProductViewController.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
@@ -752,13 +754,12 @@
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
 				DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
-				DB55CB292A4499D200578ED5 /* ProductImage.swift in Sources */,
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
-				DB55CB152A443E5B00578ED5 /* RegisterProductScrollVeiw.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB08D4482A4BFC6F00D45E32 /* UIStackView+extension.swift in Sources */,
+				DB51AD9C2A5A9E5D00EB939D /* AddPhotoImageView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
