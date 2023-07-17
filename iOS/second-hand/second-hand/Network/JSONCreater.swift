@@ -8,8 +8,9 @@
 import Foundation
 
 class JSONCreater {
-    static let headerKeyRequired = "Content-Type"
-    static let headerValueRequired = "application/json"
+    static let headerKeyContentType = "Content-Type"
+    static let headerValueContentType = "application/json"
+    static let headerKeyAuthorization = "Authorization"
     
     func createJSON(user: GitUserNeedsJoin, region: Region) -> Data? {
         
