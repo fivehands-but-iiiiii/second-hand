@@ -159,7 +159,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         let networkManager = NetworkManager()
         
         let jsonString = """
-                        {"memberId": "woooooood","profileImgUrl":"woodddfURL","regions": [{"id": 1,"onFocus": true}]}
+                        {"memberId": "gandalf","profileImgUrl":"https://i.namu.wiki/i/Jn2dtgfZ9U5q2tiuzbm61OWamtZG3gto17M8L3mJiKnLPFAEJteImAQuIVPv-TiFROjhNa50okMMFhtJJ3mc5yNotLQsLU910vNhtYbRJt05mH-LudmopQPfOVXEJDoWQrEV5vY5PbNAO_3XAg8_HQ.webp","regions": [{"id": 1,"onFocus": true}]}
                         """
         guard let joinURL = URL(string:Server.shared.url(for: .join)) else {
             return
