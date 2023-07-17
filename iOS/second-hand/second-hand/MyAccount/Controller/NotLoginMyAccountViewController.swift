@@ -166,9 +166,12 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             networkManager.sendPOST(decodeType: LoginSuccess.self, what: jsonData, header: nil, fromURL: loginURL) { (result: Result<LoginSuccess, Error>) in
                 switch result {
                 case .success(let user) :
-                    print("가입성공  \(user)")
+                    UserInfoManager.shared.updateData(from: user.data)
+                    
+                    print("로그인성공  \(user)")
+                    
                 case .failure(let error) :
-                    print("가입실패 \(error)")
+                    print("로그인실패 \(error)")
                 }
             }
         }
