@@ -11,6 +11,7 @@ class UserInfoManager: Updatable{
     static let shared = UserInfoManager()
     var userInfo: LoginFetchedUserData? = nil
     var isLogOn: Bool = false
+    var loginToken: String? = nil
     
     private let loginNotification = Notification(name: NSNotification.Name("LOGIN"))
 

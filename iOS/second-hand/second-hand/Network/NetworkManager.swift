@@ -12,16 +12,16 @@ import UIKit
 class NetworkManager {
     let logger = Logger()
     
-
+    
     func sendOAuthGET(fromURL url: URL, completion: @escaping (Result<[Codable], Error>) -> Void) {
         
         let asyncCompletion: (Result<[Codable], Error>) -> Void = { result in
-
+            
             DispatchQueue.main.async {
                 completion(result)
             }
         }
-      
+        
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         request.httpMethod = HttpMethod.get.method
         
@@ -58,7 +58,7 @@ class NetworkManager {
         task.resume()
     }
     
-
+    
     static func sendOAuthPOST(data: Data?, header: ResponseHeader, fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
         
         let asyncCompletion: (Result<Codable, Error>) -> Void = { result in
@@ -72,11 +72,11 @@ class NetworkManager {
         
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         request.httpMethod = HttpMethod.post.method
-        request.allHTTPHeaderFields = [keyOfCookie : valueOfCookie,JSONCreater.headerKeyRequired:JSONCreater.headerValueRequired]
+        request.allHTTPHeaderFields = [keyOfCookie : valueOfCookie,JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
         request.httpBody = data
-
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-
+            
             do {
                 guard let urlResponse = response as? HTTPURLResponse else {
                     return asyncCompletion(.failure(ManagerErrors.invalidResponse))
@@ -110,17 +110,17 @@ class NetworkManager {
             }
             
             let jsonData = try JSONSerialization.data(withJSONObject: setCookieHeaders, options: [])
-
+            
             let decoder = JSONDecoder()
             let responseHeader = try decoder.decode(ResponseHeader.self, from: jsonData)
-
+            
             return responseHeader
         } catch {
             print("JSON 디코딩 에러: \(error)")
             return nil
         }
     }
-
+    
     
     static func sendGET<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
         
@@ -130,8 +130,13 @@ class NetworkManager {
             }
         }
         var request = URLRequest(url: url, timeoutInterval: 30.0)
-        request.httpMethod = HttpMethod.get.method
-        request.allHTTPHeaderFields = [JSONCreater.headerKeyRequired: JSONCreater.headerValueRequired]
+        
+        
+        if let loginToken = UserInfoManager.shared.loginToken {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
+        } else {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+        }
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -191,6 +196,7 @@ class NetworkManager {
         guard let data = data else {
             return
         }
+        var loginToken : String? = nil
         
         let request = makeRequestPOST(header: header, url: url, body: data)
         
@@ -203,10 +209,15 @@ class NetworkManager {
                 guard let urlResponse = response as? HTTPURLResponse else {
                     return asyncCompletion(.failure(ManagerErrors.invalidResponse))
                 }
-
+                //MARK: 보안상 문제 있다... 방법을 찾아보자
+                loginToken = self.extractLoginToken(from: urlResponse)
+                
                 switch urlResponse.statusCode {
                 case 200..<300 :
                     let answer = try JSONDecoder().decode(T.self, from: data)
+                    
+                    UserInfoManager.shared.loginToken = loginToken
+                    
                     return asyncCompletion(.success(answer))
                 default :
                     return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
@@ -219,6 +230,15 @@ class NetworkManager {
         task.resume()
     }
     
+    private func extractLoginToken(from response: HTTPURLResponse) -> String? {
+        if let responseHeaders = response.allHeaderFields as? [String:String] {
+            if let authorization = responseHeaders["Authorization"] {
+                return authorization
+            }
+        }
+        return nil
+    }
+    
     private func makeRequestPOST(header: ResponseHeader?, url: URL, body: Data) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.post.method
@@ -227,11 +247,11 @@ class NetworkManager {
         if let header = header {
             let keyOfCookie : String = "Cookie"
             let valueOfCookie : String = header.setCookie.description
-            request.allHTTPHeaderFields = [keyOfCookie: valueOfCookie,JSONCreater.headerKeyRequired:JSONCreater.headerValueRequired]
-    
+            request.allHTTPHeaderFields = [keyOfCookie: valueOfCookie,JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
+            
             return request
         } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyRequired:JSONCreater.headerValueRequired]
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
             
             return request
         }
