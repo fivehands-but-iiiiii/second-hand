@@ -23,7 +23,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private let location = "역삼1동"
     private let wonIcon = UILabel()
     private var photoArray = [PHPickerResult]()
-    private var countImage = ProductImageCount()
+    var countImage = ProductImageCount()
     private let maximumPhotoNumber = 10
     
     override func viewDidLoad() {
@@ -49,19 +49,53 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         navigationItem.rightBarButtonItem?.tintColor = .neutralTextWeak
     }
     
-    @objc func closeButtonTapped() {
-        dismiss(animated: true)
+    @objc func finishButtonTapped() {
+        let group = DispatchGroup()
+        var imagesData: [Data] = []
+        
+        for result in photoArray {
+            group.enter()
+            getImageData(from: result) { imageData in
+                if let imageData = imageData {
+                    imagesData.append(imageData)
+                }
+                group.leave()
+            }
+        }
+        
     }
     
-    @objc func finishButtonTapped() {
-        print("저장")
+    func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
+        let itemProvider = result.itemProvider
+        
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                if let error = error {
+                    print("Error loading image: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+                
+                if let image = image as? UIImage, let data = image.jpegData(compressionQuality: 0.8) {
+                    completion(data)
+                } else {
+                    completion(nil)
+                }
+            }
+        } else {
+            completion(nil)
+        }
+    }
+    
+    @objc func closeButtonTapped() {
+        dismiss(animated: true)
     }
     
     private func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)"
         priceTextField.delegate = self
-        descriptionTextField.delegate = self // txtvReview가 유저가 선언한 outlet
+        descriptionTextField.delegate = self
         descriptionTextField.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
         descriptionTextField.textColor = .neutralTextWeak
         descriptionTextField.font = .systemFont(ofSize: 15)
@@ -137,12 +171,12 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         for result in results {
             let itemProvider = result.itemProvider
             if let typeIdentifier = itemProvider.registeredTypeIdentifiers.first,
-                let utType = UTType(typeIdentifier),
-                utType.conforms(to: .image) {
+               let utType = UTType(typeIdentifier),
+               utType.conforms(to: .image) {
                 itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                     if let image = image as? UIImage {
                         DispatchQueue.main.async { [self] in
-                            //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜주며 진행
+                            
                             //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
                             countImage.addImage()
@@ -173,7 +207,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         }else{
             let picker = PHPickerViewController(configuration: configuration)
             picker.delegate = self
-
+            
             DispatchQueue.main.async {
                 self.present(picker, animated: true, completion: nil)
             }
