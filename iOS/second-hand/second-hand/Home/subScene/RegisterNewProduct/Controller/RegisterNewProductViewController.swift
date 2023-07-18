@@ -101,8 +101,52 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             }
             
             body.append(Data(boundarySuffix.utf8))
+            // POST 요청 보내기
+            let url = URL(string: Server.shared.url(for: .items))!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            request.httpBody = body
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                
+                if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                    print("Response: \(responseString)")
+                }
+            }.resume()
         }
     }
+    
+    private func createBody(parameters: [String: String],
+                               boundary: String,
+                               data: Data,
+                               mimeType: String,
+                               filename: String) -> Data {
+           var body = Data()
+           let imgDataKey = "img"
+           let boundaryPrefix = "--\(boundary)\r\n"
+           let boundarySuffix = "--\(boundary)--\r\n"
+
+           for (key, value) in parameters {
+               body.append(Data(boundaryPrefix.utf8))
+               body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+               body.append(Data("\(value)\r\n".utf8))
+           }
+
+           body.append(Data(boundaryPrefix.utf8))
+           body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(filename)\"\r\n".utf8))
+           body.append(Data("Content-Type: \(mimeType)\r\n\r\n".utf8))
+           body.append(data)
+           body.append(Data("\r\n".utf8))
+           body.append(Data(boundarySuffix.utf8))
+
+           return body
+       }
+
     
     func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
         let itemProvider = result.itemProvider
