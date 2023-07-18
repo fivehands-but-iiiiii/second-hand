@@ -63,6 +63,45 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             }
         }
         
+        group.notify(queue: .main) { [self] in
+            let title = titleTextField.text
+            let contents = descriptionTextField.text
+            let category: Int64 = 1
+            let region: Int64 = 1
+            let price: Int32 = Int32(Int(priceTextField.text!)!)
+            
+            // Multipart form data 생성
+            let boundary = "Boundary-\(UUID().uuidString)"
+            
+            var body = Data()
+            
+            let parameters: [String: Any] = ["title": title ?? "",
+                                             "contents": contents ?? "",
+                                             "category": category,
+                                             "region": region,
+                                             "price": price]
+            
+            for (key, value) in parameters {
+                body.append(Data("--\(boundary)\r\n".utf8))
+                body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+                body.append(Data("\(value)\r\n".utf8))
+            }
+            
+            let imgDataKey = "img"
+            let boundaryPrefix = "--\(boundary)\r\n"
+            let boundarySuffix = "--\(boundary)--\r\n"
+            
+            for (index, imageData) in imagesData.enumerated() {
+                let imageName = "image\(index)"
+                body.append(Data(boundaryPrefix.utf8))
+                body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpg\"\r\n".utf8))
+                body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
+                body.append(imageData)
+                body.append(Data("\r\n".utf8))
+            }
+            
+            body.append(Data(boundarySuffix.utf8))
+        }
     }
     
     func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
