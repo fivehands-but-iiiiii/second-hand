@@ -1,4 +1,4 @@
-//
+
 //  RegisterNewProductViewController.swift
 //  second-hand
 //
@@ -49,10 +49,19 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         navigationItem.rightBarButtonItem?.tintColor = .neutralTextWeak
     }
     
+    @objc func closeButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    private func generateBoundaryString() -> String {
+        return "Boundary-\(UUID().uuidString)"
+    }
+    
     @objc func finishButtonTapped() {
+        // 이미지 데이터를 가져오는 비동기 작업을 관리하는 DispatchGroup 생성
         let group = DispatchGroup()
         var imagesData: [Data] = []
-        
+
         for result in photoArray {
             group.enter()
             getImageData(from: result) { imageData in
@@ -62,95 +71,74 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
                 group.leave()
             }
         }
-        
+       
         group.notify(queue: .main) { [self] in
+            
             let title = titleTextField.text
             let contents = descriptionTextField.text
-            let category: Int64 = 1
-            let region: Int64 = 1
-            let price: Int32 = Int32(Int(priceTextField.text!)!)
-            
-            // Multipart form data 생성
-            let boundary = "Boundary-\(UUID().uuidString)"
-            
+            let category: Int = 1
+            let region: Int = 1
+            let price: Int = Int(priceTextField.text!)!
+           
+            let boundary = generateBoundaryString()
             var body = Data()
-            
+
             let parameters: [String: Any] = ["title": title ?? "",
                                              "contents": contents ?? "",
                                              "category": category,
                                              "region": region,
                                              "price": price]
             
+            let boundaryPrefix = "--\(boundary)\r\n"
+            let boundarySuffix = "--\(boundary)--\r\n"
             for (key, value) in parameters {
-                body.append(Data("--\(boundary)\r\n".utf8))
+                body.append(Data(boundaryPrefix.utf8))
                 body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
                 body.append(Data("\(value)\r\n".utf8))
             }
             
-            let imgDataKey = "img"
-            let boundaryPrefix = "--\(boundary)\r\n"
-            let boundarySuffix = "--\(boundary)--\r\n"
-            
+            let imgDataKey = "images"
             for (index, imageData) in imagesData.enumerated() {
                 let imageName = "image\(index)"
                 body.append(Data(boundaryPrefix.utf8))
-                body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpg\"\r\n".utf8))
+                body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpeg\"\r\n".utf8))
                 body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
                 body.append(imageData)
                 body.append(Data("\r\n".utf8))
             }
-            
+
             body.append(Data(boundarySuffix.utf8))
+
             // POST 요청 보내기
-            let url = URL(string: Server.shared.url(for: .items))!
-            var request = URLRequest(url: url)
+            let url = URL(string: Server.shared.url(for: .items))
+            var request = URLRequest(url: url!)
             request.httpMethod = "POST"
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            if let loginToken = UserInfoManager.shared.loginToken {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart,JSONCreater.headerKeyAuthorization: loginToken]
+            } else {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart]
+            }
             request.httpBody = body
-            
+
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
                     return
                 }
-                
+
                 if let data = data, let responseString = String(data: data, encoding: .utf8) {
                     print("Response: \(responseString)")
                 }
             }.resume()
         }
     }
-    
-    private func createBody(parameters: [String: String],
-                               boundary: String,
-                               data: Data,
-                               mimeType: String,
-                               filename: String) -> Data {
-           var body = Data()
-           let imgDataKey = "img"
-           let boundaryPrefix = "--\(boundary)\r\n"
-           let boundarySuffix = "--\(boundary)--\r\n"
 
-           for (key, value) in parameters {
-               body.append(Data(boundaryPrefix.utf8))
-               body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
-               body.append(Data("\(value)\r\n".utf8))
-           }
-
-           body.append(Data(boundaryPrefix.utf8))
-           body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(filename)\"\r\n".utf8))
-           body.append(Data("Content-Type: \(mimeType)\r\n\r\n".utf8))
-           body.append(data)
-           body.append(Data("\r\n".utf8))
-           body.append(Data(boundarySuffix.utf8))
-
-           return body
-       }
 
     
+    // 이미지 데이터를 가져오는 함수
     func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
         let itemProvider = result.itemProvider
-        
+
         if itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                 if let error = error {
@@ -158,8 +146,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
                     completion(nil)
                     return
                 }
-                
+
                 if let image = image as? UIImage, let data = image.jpegData(compressionQuality: 0.8) {
+                    // 이미지 데이터 반환
                     completion(data)
                 } else {
                     completion(nil)
@@ -170,15 +159,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         }
     }
     
-    @objc func closeButtonTapped() {
-        dismiss(animated: true)
-    }
+    
     
     private func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)"
         priceTextField.delegate = self
-        descriptionTextField.delegate = self
+        descriptionTextField.delegate = self // txtvReview가 유저가 선언한 outlet
         descriptionTextField.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
         descriptionTextField.textColor = .neutralTextWeak
         descriptionTextField.font = .systemFont(ofSize: 15)
@@ -259,7 +246,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
                     if let image = image as? UIImage {
                         DispatchQueue.main.async { [self] in
-                            
+                            //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜주며 진행
                             //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
                             countImage.addImage()
@@ -339,5 +326,3 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
     }
     
 }
-
-
