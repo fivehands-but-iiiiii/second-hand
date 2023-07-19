@@ -16,12 +16,13 @@ class ItemDetailViewController: UIViewController {
     private var textSectionView = ItemDetailTextSectionView(frame: .zero)
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setItemDetailModel()
         initializeScene()
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bringButtonsToFront()
@@ -246,6 +247,7 @@ class ItemDetailViewController: UIViewController {
         bottomSectionView.setLikeButton(isLike: isLike)
         bottomSectionView.setPriceLabel(price: price)
         bottomSectionView.setChattingRoomButton(isMine: isMine)
+        bottomSectionView.delegate = self
     }
     
     private func setBottomSectionViewConstraints() {
@@ -263,3 +265,26 @@ class ItemDetailViewController: UIViewController {
         )
     }
 }
+
+//MARK: DELEGATE
+
+extension ItemDetailViewController : ButtonActionDelegate {
+    func requestOpenChattingRoom() {
+        if !UserInfoManager.shared.isLogOn {
+            let alertController = UIAlertController(
+                title: "로그인이 필요합니다",
+                message: "당장하라",
+                preferredStyle: .alert
+            )
+            alertController.addAction(
+                UIAlertAction(title: "확인", style: .default, handler: nil)
+            )
+            present(alertController, animated: true, completion: nil)
+        } else {
+            
+        }
+    }
+    
+    
+}
+
