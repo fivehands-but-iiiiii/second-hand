@@ -15,6 +15,7 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
     private var imageSectionView: ItemDetailImageSectionView!
     private var textSectionView = ItemDetailTextSectionView(frame: .zero)
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
+    private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +90,27 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
     }
     
     func likeButtonTouched() {
-        print("좋아요가 눌렸습니다.")
+        let id = (itemDetailModel.info?.id) ?? 0
+        let jsonData: [String: Int] = ["itemId" : id]
+        
+        do {
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonData)
+                
+                guard let wishlistLikeURL = URL(string: Server.shared.url(for: .wishlistLike)) else {
+                    return
+                }
+                
+            networkManager.sendPOST(decodeType: WishlistLike.self, what: jsonData, fromURL: wishlistLikeURL) { (result: Result<WishlistLike, Error>) in
+                    switch result {
+                    case .success(let user) :
+                        print("찜 성공  \(user)")
+                    case .failure(let error) :
+                        print("찜 실패 \(error)")
+                    }
+                }
+            } catch {
+                print("Error encoding JSON data: \(error)")
+            }
     }
     
     // MARK: BUTTONS

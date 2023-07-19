@@ -115,5 +115,6 @@ struct ItemDetailImage: Codable {
 }
 
 struct WishlistLike : Codable {
-    let itemID: Int
+    let message: String
+    let data: Int
 }
