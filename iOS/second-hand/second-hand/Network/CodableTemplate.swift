@@ -113,3 +113,7 @@ struct Seller: Codable {
 struct ItemDetailImage: Codable {
     let url: String
 }
+
+struct WishlistLike : Codable {
+    let itemID: Int
+}
