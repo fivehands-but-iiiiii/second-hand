@@ -11,6 +11,8 @@ class ItemDetailBottomSectionView: UIView {
     private var likeButton : UIButton? = nil
     private var priceLabel : UILabel? = nil
     private var chattingRoomButton : UIButton? = nil
+    var delegate: ButtonActionDelegate?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -173,6 +175,6 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     @objc private func chattingRoomButtonTouched() {
-        print("채팅 버튼 터치시 구현")
+        delegate?.requestOpenChattingRoom?()
     }
 }
