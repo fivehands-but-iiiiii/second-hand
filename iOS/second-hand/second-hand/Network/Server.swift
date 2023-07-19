@@ -19,6 +19,7 @@ struct Server {
         case gitLogin = "/git/login"
         case login = "/login"
         case items = "/items"
+        case wishlistLike = "/wishlist/like"
     }
 
     func url(for path: Path) -> String {

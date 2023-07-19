@@ -186,7 +186,7 @@ class NetworkManager {
         task.resume()
     }
     
-    func sendPOST<T:Codable>(decodeType:T.Type ,what data: Data?, header: ResponseHeader?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+    func sendPOST<T:Codable>(decodeType:T.Type ,what data: Data?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         
         let asyncCompletion: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
@@ -198,7 +198,14 @@ class NetworkManager {
         }
         var loginToken : String? = nil
         
-        let request = makeRequestPOST(header: header, url: url, body: data)
+        var request = makeRequestPOST(url: url, body: data)
+        
+        if let loginToken = UserInfoManager.shared.loginToken {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
+        } else {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+        }
+        request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
@@ -239,21 +246,12 @@ class NetworkManager {
         return nil
     }
     
-    private func makeRequestPOST(header: ResponseHeader?, url: URL, body: Data) -> URLRequest {
+    private func makeRequestPOST(url: URL, body: Data) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.post.method
         request.httpBody = body
-        
-        if let header = header {
-            let keyOfCookie : String = "Cookie"
-            let valueOfCookie : String = header.setCookie.description
-            request.allHTTPHeaderFields = [keyOfCookie: valueOfCookie,JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
             
-            return request
-        } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
-            
-            return request
-        }
+        return request
     }
 }
+

@@ -51,7 +51,7 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     @objc private func likeButtonTouched() {
-        print("하트 터치시 구현")
+        //TODO: 여기서 사용자는 상품으 관심상품으로 등록할 수 있다 이슈 처리
     }
     
     private func setsetLikeButtonConstraints() {
