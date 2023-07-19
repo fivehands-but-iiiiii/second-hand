@@ -34,9 +34,9 @@ class ContentOfPost: UIView {
         let titleHeight = titleLabel.intrinsicContentSize.height
         let categoryHeight = categotyAndCreateAtLabel.intrinsicContentSize.height
         let descriptionHeight = descriptionView.intrinsicContentSize.height
-        let countHegith = countsLabel.intrinsicContentSize.height
+        let countHeight = countsLabel.intrinsicContentSize.height
         
-        let totalHeight = titleHeight + categoryHeight + descriptionHeight + countHegith + 30 
+        let totalHeight = titleHeight + categoryHeight + descriptionHeight + countHeight + 30 
 
         return CGSize(width: contentWidth, height: totalHeight)
     }

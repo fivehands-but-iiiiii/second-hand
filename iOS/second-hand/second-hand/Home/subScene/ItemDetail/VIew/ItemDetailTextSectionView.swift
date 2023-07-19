@@ -122,7 +122,7 @@ class ItemDetailTextSectionView: UIScrollView {
                 [
                     contentOfPost.topAnchor.constraint(equalTo: statusButton.bottomAnchor, constant: 10),
                     contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
-                    contentOfPost.heightAnchor.constraint(equalToConstant: contentOfPost.intrinsicContentSize.height),
+                    contentOfPost.heightAnchor.constraint(equalToConstant: self.contentSize.height),
                     contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
                 ]
             )
