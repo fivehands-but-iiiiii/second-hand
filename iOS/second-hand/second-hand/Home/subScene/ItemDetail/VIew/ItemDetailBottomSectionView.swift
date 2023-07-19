@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol LikeButtonTouchedDelegate: AnyObject {
+    func likeButtonTouched()
+}
+
 class ItemDetailBottomSectionView: UIView {
     private var likeButton : UIButton? = nil
     private var priceLabel : UILabel? = nil
     private var chattingRoomButton : UIButton? = nil
+    weak var delegate: LikeButtonTouchedDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,7 +56,7 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     @objc private func likeButtonTouched() {
-        //TODO: 여기서 사용자는 상품으 관심상품으로 등록할 수 있다 이슈 처리
+        delegate?.likeButtonTouched()
     }
     
     private func setsetLikeButtonConstraints() {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ItemDetailViewController: UIViewController {
+class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
     private var itemDetailURL: URL? = nil
@@ -20,6 +20,7 @@ class ItemDetailViewController: UIViewController {
         super.viewDidLoad()
         setItemDetailModel()
         initializeScene()
+        bottomSectionView.delegate = self
     }
 
     override func viewDidLayoutSubviews() {
@@ -80,13 +81,18 @@ class ItemDetailViewController: UIViewController {
                 self.setTextSectionView()
                 self.setBottomSectionView()
                 
+                
             case .failure(let error) :
                 print(error.localizedDescription)
             }
         }
     }
-    // MARK: BUTTONS
     
+    func likeButtonTouched() {
+        print("좋아요가 눌렸습니다.")
+    }
+    
+    // MARK: BUTTONS
     private func generateBackButton() {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
@@ -263,3 +269,4 @@ class ItemDetailViewController: UIViewController {
         )
     }
 }
+
