@@ -103,7 +103,7 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
                     return
                 }
                 
-                networkManager.sendPOST(decodeType: WishlistLike.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<WishlistLike, Error>) in
+                networkManager.sendPOST(decodeType: ResponseMessage.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<ResponseMessage, Error>) in
                     switch result {
                     case .success(let user) :
                         print("찜 성공  \(user)")

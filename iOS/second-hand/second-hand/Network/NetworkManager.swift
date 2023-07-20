@@ -131,12 +131,7 @@ class NetworkManager {
         }
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         
-        
-        if let loginToken = UserInfoManager.shared.loginToken {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
-        } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
-        }
+        appendLoginToken(request: &request)
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -200,11 +195,7 @@ class NetworkManager {
         
         var request = makeRequestPOST(url: url, body: data)
         
-        if let loginToken = UserInfoManager.shared.loginToken {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
-        } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
-        }
+        NetworkManager.appendLoginToken(request: &request)
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -252,6 +243,54 @@ class NetworkManager {
         request.httpBody = body
             
         return request
+    }
+    
+    private static func sendDelete<T:Codable> (decodeType:T.Type, url: URL, what data: Data?, completion: @escaping (Result<[T], Error>) -> Void) {
+        
+        let asyncCompletion: (Result<[T], Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        
+        var request = URLRequest(url: url, timeoutInterval: 30.0)
+        
+        request.httpMethod = "DELETE"
+        
+        appendLoginToken(request: &request)
+        request.httpBody = data
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            do {
+                guard let data = data else {
+                    return
+                }
+                
+                guard let urlResponse = response as? HTTPURLResponse else {
+                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                }
+                
+                switch urlResponse.statusCode {
+                case 200..<300 :
+                    let answer = try JSONDecoder().decode(decodeType, from: data)
+                    asyncCompletion(.success([answer]))
+                default :
+                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                }
+            } catch {
+                asyncCompletion(.failure(error))
+            }
+        }
+        task.resume()
+        
+    }
+    
+    static func appendLoginToken(request: inout URLRequest) {
+        if let loginToken = UserInfoManager.shared.loginToken {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
+        } else {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+        }
     }
 }
 
