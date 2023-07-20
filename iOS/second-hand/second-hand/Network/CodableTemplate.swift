@@ -114,7 +114,12 @@ struct ItemDetailImage: Codable {
     let url: String
 }
 
-struct ResponseMessage : Codable {
+struct LikeResponseMessage : Codable {
     let message: String
     let data: Int
+}
+
+struct UnlikeResponseMessage : Codable {
+    let message: String
+    let data: String
 }

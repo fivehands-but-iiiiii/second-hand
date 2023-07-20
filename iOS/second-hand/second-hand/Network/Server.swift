@@ -25,6 +25,10 @@ struct Server {
     func url(for path: Path) -> String {
         return Server.baseURL + path.rawValue
     }
+    
+    func url(path: Path, query: Query, queryValue: Int) -> String {
+        return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
+    }
 
     func gitLoginURL(withCode code: String) -> String {
         let query = Server.Query.code.rawValue + code
@@ -49,7 +53,7 @@ struct Server {
         case code = "code="
         case page = "page="
         case region = "regionId="
-    
+        case itemId = "itemId="
     }
 }
 

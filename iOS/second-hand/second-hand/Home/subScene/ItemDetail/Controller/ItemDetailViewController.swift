@@ -90,9 +90,9 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
     }
     
     func likeButtonTouched() {
-        let id = (itemDetailModel.info?.id)!
+        let itemId = (itemDetailModel.info?.id)!
         
-        let jsonData: [String: Int] = ["itemId" : id]
+        let jsonData: [String: Int] = ["itemId" : itemId]
         
         if itemDetailModel.info?.isLike == false {
             //찜하기 실행
@@ -103,10 +103,10 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
                     return
                 }
                 
-                networkManager.sendPOST(decodeType: ResponseMessage.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<ResponseMessage, Error>) in
+                networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<LikeResponseMessage, Error>) in
                     switch result {
-                    case .success(let user) :
-                        print("찜 성공  \(user)")
+                    case .success(let message) :
+                        print("찜 성공  \(message)")
                         //다시 다시 그리기
                         bottomSectionView.likeButton?.removeFromSuperview()
                         bottomSectionView.setLikeButton(isLike: true)
@@ -120,7 +120,24 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
             }
         }else {
             //찜 해제
-           print("이미 찜이 된 상태임")
+            do {
+                guard let unwishlistLikeURL = URL(string: Server.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {return}
+                
+                NetworkManager.sendDelete(decodeType: UnlikeResponseMessage.self, what: nil, fromURL: unwishlistLikeURL) { [self] (result: Result<UnlikeResponseMessage?, Error>) in
+                    switch result {
+                    case .success(let message) :
+                        print("찜 해제 성공  \(message)")
+                        //다시 다시 그리기
+                        bottomSectionView.likeButton?.removeFromSuperview()
+                        bottomSectionView.setLikeButton(isLike: false)
+                        bottomSectionView.layoutIfNeeded()
+                    case .failure(let error) :
+                        print("찜 해제 실패 \(error)")
+                    }
+                }
+            } catch {
+                print("Error encoding JSON data: \(error)")
+            }
         }
     }
     

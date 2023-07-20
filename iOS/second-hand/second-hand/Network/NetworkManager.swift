@@ -245,9 +245,9 @@ class NetworkManager {
         return request
     }
     
-    private static func sendDelete<T:Codable> (decodeType:T.Type, url: URL, what data: Data?, completion: @escaping (Result<[T], Error>) -> Void) {
+    static func sendDelete<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<T?, Error>) -> Void) {
         
-        let asyncCompletion: (Result<[T], Error>) -> Void = { result in
+        let asyncCompletion: (Result<T?, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 completion(result)
             }
@@ -255,7 +255,7 @@ class NetworkManager {
         
         var request = URLRequest(url: url, timeoutInterval: 30.0)
         
-        request.httpMethod = "DELETE"
+        request.httpMethod = HttpMethod.delete.method
         
         appendLoginToken(request: &request)
         request.httpBody = data
@@ -272,8 +272,7 @@ class NetworkManager {
                 
                 switch urlResponse.statusCode {
                 case 200..<300 :
-                    let answer = try JSONDecoder().decode(decodeType, from: data)
-                    asyncCompletion(.success([answer]))
+                    asyncCompletion(.success(nil))
                 default :
                     return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
                 }
