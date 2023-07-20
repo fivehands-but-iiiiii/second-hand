@@ -23,7 +23,7 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
         initializeScene()
         bottomSectionView.delegate = self
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bringButtonsToFront()
@@ -90,20 +90,27 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
     }
     
     func likeButtonTouched() {
-        let id = (itemDetailModel.info?.id) ?? 0
+        let id = (itemDetailModel.info?.id)!
+        
         let jsonData: [String: Int] = ["itemId" : id]
         
-        do {
+        if itemDetailModel.info?.isLike == false {
+            //찜하기 실행
+            do {
                 let jsonData = try JSONSerialization.data(withJSONObject: jsonData)
                 
                 guard let wishlistLikeURL = URL(string: Server.shared.url(for: .wishlistLike)) else {
                     return
                 }
                 
-            networkManager.sendPOST(decodeType: WishlistLike.self, what: jsonData, fromURL: wishlistLikeURL) { (result: Result<WishlistLike, Error>) in
+                networkManager.sendPOST(decodeType: WishlistLike.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<WishlistLike, Error>) in
                     switch result {
                     case .success(let user) :
                         print("찜 성공  \(user)")
+                        //다시 다시 그리기
+                        bottomSectionView.likeButton?.removeFromSuperview()
+                        bottomSectionView.setLikeButton(isLike: true)
+                        bottomSectionView.layoutIfNeeded()
                     case .failure(let error) :
                         print("찜 실패 \(error)")
                     }
@@ -111,6 +118,14 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
             } catch {
                 print("Error encoding JSON data: \(error)")
             }
+        }else {
+            //찜 해제
+           print("이미 찜이 된 상태임")
+        }
+    }
+    
+    private func InfoNotLogin() {
+        print("로그인을 하세요")
     }
     
     // MARK: BUTTONS

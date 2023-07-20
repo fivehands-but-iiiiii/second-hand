@@ -12,7 +12,7 @@ protocol LikeButtonTouchedDelegate: AnyObject {
 }
 
 class ItemDetailBottomSectionView: UIView {
-    private var likeButton : UIButton? = nil
+    var likeButton : UIButton? = nil
     private var priceLabel : UILabel? = nil
     private var chattingRoomButton : UIButton? = nil
     weak var delegate: LikeButtonTouchedDelegate?
@@ -38,11 +38,11 @@ class ItemDetailBottomSectionView: UIView {
         setChattingRoomButtonConstraints()
         setchattingRoomButtonCornerRadius()
     }
-    
+   
     //MARK: LIKE BUTTON
     func setLikeButton(isLike: Bool) {
         self.likeButton = UIButton(type: .system)
-        
+       
         switch isLike {
         case true:
             self.likeButton?.tintColor = .red
