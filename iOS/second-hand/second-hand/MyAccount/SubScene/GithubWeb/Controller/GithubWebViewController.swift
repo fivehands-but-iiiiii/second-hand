@@ -98,7 +98,7 @@ final class GithubWebViewController: UIViewController {
             return
         }
         
-        NetworkManager.sendOAuthPOST(data: jsonCreater.createJSON(user: requestDataToJoin, region: region),header: cookie, fromURL: path) { (result: Result<Codable, Error>) in
+        NetworkManager.sendOAuthPOST(data: jsonCreater.createGithubLoginRequestBody(user: requestDataToJoin, region: region),header: cookie, fromURL: path) { (result: Result<Codable, Error>) in
             switch result {
             case .success(_) :
                 print("가입성공")
