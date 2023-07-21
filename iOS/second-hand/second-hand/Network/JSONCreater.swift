@@ -12,7 +12,7 @@ class JSONCreater {
     static let headerValueContentType = "application/json"
     static let headerKeyAuthorization = "Authorization"
     
-    func createJSON(user: GitUserNeedsJoin, region: Region) -> Data? {
+    func createGithubLoginRequestBody(user: GitUserNeedsJoin, region: Region) -> Data? {
         
         let userData = UserNeedsJoinRegisterRequest(memberId: user.login, profileImgUrl: user.avatar_url, regions: [region])
 
