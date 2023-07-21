@@ -38,6 +38,7 @@
 		E4375C172A666843003F6F5B /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C162A666843003F6F5B /* SocketManager.swift */; };
 		E4375C192A67D82D003F6F5B /* ChattingRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C182A67D82D003F6F5B /* ChattingRoomViewController.swift */; };
 		E4375C1C2A67DBE4003F6F5B /* ButtonActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */; };
+		E4375C232A6A7D31003F6F5B /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4375C222A6A7D31003F6F5B /* Secrets.plist */; };
 		E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042B2A5D56C300FDADE4 /* Utils.swift */; };
 		E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */; };
 		E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380C2A440D0E006A46D1 /* UserInfoManager.swift */; };
@@ -104,6 +105,7 @@
 		E4375C162A666843003F6F5B /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		E4375C182A67D82D003F6F5B /* ChattingRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomViewController.swift; sourceTree = "<group>"; };
 		E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActionDelegate.swift; sourceTree = "<group>"; };
+		E4375C222A6A7D31003F6F5B /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		E448042B2A5D56C300FDADE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailModel.swift; sourceTree = "<group>"; };
 		E467380C2A440D0E006A46D1 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 		DBB04D1E2A2DA5BF001233CC = {
 			isa = PBXGroup;
 			children = (
+				E4375C212A6A7D21003F6F5B /* Secrets */,
 				DBB04D292A2DA5BF001233CC /* second-hand */,
 				DBB04D282A2DA5BF001233CC /* Products */,
 				94BA97CE86293EDB3FC68F03 /* Pods */,
@@ -407,6 +410,14 @@
 				E4375C182A67D82D003F6F5B /* ChattingRoomViewController.swift */,
 			);
 			path = subScene;
+			sourceTree = "<group>";
+		};
+		E4375C212A6A7D21003F6F5B /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				E4375C222A6A7D31003F6F5B /* Secrets.plist */,
+			);
+			path = Secrets;
 			sourceTree = "<group>";
 		};
 		E448042D2A5EA21000FDADE4 /* Model */ = {
@@ -695,6 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */,
+				E4375C232A6A7D31003F6F5B /* Secrets.plist in Resources */,
 				DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
