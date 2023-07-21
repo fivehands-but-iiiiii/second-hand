@@ -19,6 +19,7 @@ struct Server {
         case gitLogin = "/git/login"
         case login = "/login"
         case items = "/items"
+        case chats = "/chats"
     }
 
     func url(for path: Path) -> String {
@@ -43,7 +44,15 @@ struct Server {
     func itemDetailURL(itemId: Int) -> String {
         return Server.baseURL + Path.items.rawValue + "/" + String(itemId)
     }
-
+    
+    func requestIsExistChattingRoom(itemId: Int) -> String {
+        return Server.baseURL + Path.chats.rawValue + Path.items.rawValue + "/" + String(itemId)
+    }
+    
+    func requestToCreateChattingRoom() -> String {
+        return Server.baseURL + Path.chats.rawValue
+    }
+    
     enum Query: String {
         case code = "code="
         case page = "page="
