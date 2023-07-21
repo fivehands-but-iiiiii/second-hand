@@ -16,7 +16,6 @@ class ItemDetailViewController: UIViewController {
     private var textSectionView = ItemDetailTextSectionView(frame: .zero)
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setItemDetailModel()
@@ -281,10 +280,76 @@ extension ItemDetailViewController : ButtonActionDelegate {
             )
             present(alertController, animated: true, completion: nil)
         } else {
+            guard let itemId = itemDetailModel.info?.id else {
+                return
+            }
+            
+            guard let url = URL(string: Server.shared.requestIsExistChattingRoom(itemId: itemId)) else {
+                return
+            }
+            
+            guard let requestBody = JSONCreater().createOpenChatroomRequestBody(itemId: itemId) else {
+                return
+            }
+            
+            NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+                switch result {
+                case .success(let data) :
+                    guard let response = data.last else {
+                        return
+                    }
+                    
+                    if let chatRoomId = response.data.chatroomId {
+                        print("채팅방입장")
+                        self.enterChattingRoom(chatroomId: chatRoomId)
+                        
+                    } else {
+                        print("채팅방생성")
+                        self.createChattingRoom(body: requestBody)
+                    }
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
             
         }
     }
     
+    private func enterChattingRoom(chatroomId: String) {
+        guard let url = URL(string: Server.baseURL + "/chats/" + chatroomId ) else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+            switch result {
+            case .success(let data) :
+                guard let data = data.last else {
+                    return
+                }
+                print(data)
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
     
+    private func createChattingRoom(body: Data) {
+        guard let url = URL(string: Server.shared.requestToCreateChattingRoom()) else {
+            return
+        }
+        
+        NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body, header: nil, fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
+            switch result {
+            case .success(let data) :
+                print(data)
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
+
 
