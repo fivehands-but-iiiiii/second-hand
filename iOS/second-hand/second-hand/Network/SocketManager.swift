@@ -22,6 +22,7 @@ class SocketManager {
     
     func disconnect() {
         socketClient.disconnect()
+        //unsubscribe는 disconnect 이전에 한번 해주자.
     }
     
 }
