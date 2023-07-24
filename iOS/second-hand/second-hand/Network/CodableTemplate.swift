@@ -145,3 +145,12 @@ struct WishItem: Codable {
     let status: Int
     let price, chatCount,likeCount: Int
 }
+
+struct GetCategories: Codable {
+    let message: String
+    let data: Categories
+}
+
+struct Categories: Codable {
+    let categories: [Int]
+}

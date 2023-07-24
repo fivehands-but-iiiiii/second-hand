@@ -27,12 +27,8 @@ final class WishListViewController: NavigationUnderLineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCategory()
-        makeButton(category: "가구/인테리어")
-        makeButton(category: "안녕안녕")
-        makeButton(category: "하하하")
-        makeButton(category: "스크롤~~된다~~")
-        makeButton(category: "길게길게길게길게길게길게")
         
+        getCategories()
         setCollectionView()
         setObserver()
         setupInfiniteScroll()
@@ -172,6 +168,29 @@ final class WishListViewController: NavigationUnderLineViewController {
                 itemList.data.items.forEach { item in
                     self.items.append(self.convertToHashable(from: item))
                 }
+                self.applySnapshot()
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getCategories() {
+        
+        let url = URL(string: Server.shared.url(for: .wishlistCategories))
+        
+        NetworkManager.sendGET(decodeType: GetCategories.self, what: nil, fromURL: url!) { (result: Result<[GetCategories], Error>) in
+            switch result {
+            case .success(let data) :
+              
+                let categories: [Int] = (data.last?.data.categories)!
+                
+                for category in categories {
+                    let temp = Category.convertCategoryIntToString(category)
+                    self.makeButton(category: temp)
+                }
+
                 self.applySnapshot()
                 
             case .failure(let error) :

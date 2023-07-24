@@ -104,7 +104,7 @@ class ContentOfPost: UIView {
     
     private func setCategotyAndCreateAtLabel(category: Int, createAt:String) {
         
-        let convertedCategory = convertCategoryIntToString(category)
+        let convertedCategory = Category.convertCategoryIntToString(category)
         let convertedCreateAt = createAt.convertToRelativeTime()
         
         let text = convertedCategory + " • " + convertedCreateAt
@@ -237,8 +237,8 @@ class ContentOfPost: UIView {
     }
 }
 
-extension ContentOfPost {
-    private func convertCategoryIntToString(_ num: Int) -> String{
+struct Category {
+    static func convertCategoryIntToString(_ num: Int) -> String{
         switch num {
         case 1 :
             return "디지털기기"
