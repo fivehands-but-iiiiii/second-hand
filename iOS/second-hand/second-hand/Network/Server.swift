@@ -19,6 +19,7 @@ struct Server {
         case gitLogin = "/git/login"
         case login = "/login"
         case items = "/items"
+        case wishlist = "/wishlist"
         case wishlistLike = "/wishlist/like"
     }
 
@@ -45,6 +46,11 @@ struct Server {
         return Server.baseURL + Path.items.rawValue + "?" + query
     }
     
+    func wishItemListURL(page: Int) -> String {
+        let query = Server.Query.page.rawValue + "\(page)" 
+        return Server.baseURL + Path.wishlist.rawValue + "?" + query
+    }
+    
     func itemDetailURL(itemId: Int) -> String {
         return Server.baseURL + Path.items.rawValue + "/" + String(itemId)
     }
@@ -54,6 +60,7 @@ struct Server {
         case page = "page="
         case region = "regionId="
         case itemId = "itemId="
+        case category = "category="
     }
 }
 

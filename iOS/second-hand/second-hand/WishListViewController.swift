@@ -7,18 +7,37 @@
 
 import UIKit
 
+enum Section: CaseIterable {
+    case main
+}
+
 final class WishListViewController: NavigationUnderLineViewController {
     private var categoryScrollView = CategoryScrollView()
-    private var wishlistCollectionView: UICollectionView!
+    private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
+    private let setLocationViewController = SetLocationViewController()
+    private let joinViewController = JoinViewController()
+    private var items: [SellingItem] = []
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
+    private var isLogin = false
+    private let registerProductButton = UIButton()
+    private var currentPage: Int = 0
+    private var isLoadingItems = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCategory()
-        setCollectionView()
         makeButton(category: "가구/인테리어")
         makeButton(category: "안녕안녕")
         makeButton(category: "하하하")
         makeButton(category: "스크롤~~된다~~")
         makeButton(category: "길게길게길게길게길게길게")
+        
+        setCollectionView()
+        setObserver()
+        setupInfiniteScroll()
+        getItemList(page: currentPage)
+        setupDataSource()
     }
     
     private func setCategory() {
@@ -30,16 +49,6 @@ final class WishListViewController: NavigationUnderLineViewController {
         allCategoriButton.setTitleColor(UIColor.white, for: .normal)
         allCategoriButton.layer.borderWidth = 0
         categoryLayout()
-    }
-    
-    private func setCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: self.view.frame.width, height: 150)
-        wishlistCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        wishlistCollectionView.delegate = self
-        wishlistCollectionView.dataSource = self
-        wishlistCollectionView.register(WishListCollectionViewCell.self, forCellWithReuseIdentifier: WishListCollectionViewCell.identifier)
-        collectionViewConstraint()
     }
     
     private func categoryLayout() {
@@ -65,30 +74,144 @@ final class WishListViewController: NavigationUnderLineViewController {
         categoryScrollView.categoriStackView.addArrangedSubview(categoryLabel)
     }
     
-    private func collectionViewConstraint() {
-        self.view.addSubview(wishlistCollectionView)
-        wishlistCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            wishlistCollectionView.topAnchor.constraint(equalTo: categoryScrollView.bottomAnchor, constant: 10),
-            wishlistCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            wishlistCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            wishlistCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
-        ])
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
+    private func setupInfiniteScroll() {
+            productListCollectionView.delegate = self
+        }
+    
+    private func loadNextPage() {
+            if !isLoadingItems {
+                return
+            }
+        self.isLoadingItems  = true
+        currentPage += 1
+        getItemList(page: currentPage)
+        }
+    
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(self.items, toSection: .main)
+ 
+        dataSource?.apply(snapshot, animatingDifferences: true)
+
+    }
+    
+    private func setObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin(_:)), name: NSNotification.Name("LOGIN"), object: nil)
+    }
+    
+    @objc func didRecieveLogin(_ notification: Notification) {
+        self.isLogin = true
+        print("로그인 되었습니다.")
+    }
+    
+    private func setCollectionView() {
+
+        let layout = UICollectionViewFlowLayout()
+        let figmaCellHight = 152
+        let figmaHeight = 852
+        
+        layout.minimumLineSpacing = 1.1
+        layout.itemSize = .init(width: self.view.frame.width, height: CGFloat(figmaCellHight*figmaHeight)/self.view.frame.height)
+        productListCollectionView.setCollectionViewLayout(layout, animated: true)
+        self.view.addSubview(productListCollectionView)
+        setCollectionViewConstraints()
+        
+    }
+    
+    private func setCollectionViewConstraints() {
+        productListCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                productListCollectionView.topAnchor.constraint(equalTo: categoryScrollView.bottomAnchor, constant: 10),
+                productListCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                productListCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                productListCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            ]
+        )
+    }
+    
+    private func setupDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+            cell.setUI(from: self.items[indexPath.item])
+        }
+        
+        self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { (collectionView, indexPath, itemIdentifier: SellingItem) -> UICollectionViewCell? in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        }
+    }
+    
+    private func convertToHashable(from item : WishItem) -> SellingItem {
+        let result =
+        SellingItem(id: item.id,thumbnailImageUrl: item.thumbnailUrl, title: item.title, price: item.price, region: item.region, createdAt: item.createdAt, chatCount: item.chatCount ,likeCount: item.likeCount, status: item.status)
+        return result
+    }
+    
+    private func getItemList(page: Int) {
+        
+        let url = URL(string: Server.shared.wishItemListURL(page: page))
+        
+        NetworkManager.sendGET(decodeType: ResponseDTO.self, what: nil, fromURL: url!) { (result: Result<[ResponseDTO], Error>) in
+            switch result {
+            case .success(let data) :
+               
+                guard let itemList = data.last else {
+                    return
+                }
+
+                if itemList.data.items.count == 0 {
+                    self.isLoadingItems = false
+                    print("마지막 페이지에 대한 처리")
+                }
+
+                itemList.data.items.forEach { item in
+                    self.items.append(self.convertToHashable(from: item))
+                }
+                self.applySnapshot()
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
+
 }
 
 extension WishListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let lastSection = collectionView.numberOfSections - 1
+        let lastItem = collectionView.numberOfItems(inSection: lastSection) - 1
+        
+        if indexPath.section == lastSection && indexPath.item == lastItem {
+            loadNextPage()
+        }
+    }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let id = extractItemIdFromTouchedCell(indexPath: indexPath)
+        
+        let url = Server.shared.itemDetailURL(itemId: id)
+        let itemDetailViewController = ItemDetailViewController()
+        
+        itemDetailViewController.setItemDetailURL(url)
+        hideTabBar()
+        self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+    }
+    
+    private func hideTabBar() {
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    //TODO: 콜렉션뷰 아래 섹션으로 가면 값이 이상해진다. 추후 확인하도록.
+    private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
+        let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
+        return itemId
+    }
 }
 
-extension WishListViewController : UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WishListCollectionViewCell.identifier, for: indexPath) as? WishListCollectionViewCell
-        return cell ?? UICollectionViewCell()
-    }
-}

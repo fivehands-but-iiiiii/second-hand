@@ -147,7 +147,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func setupDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<HomeProductCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
             cell.setUI(from: self.items[indexPath.item])
         }
         

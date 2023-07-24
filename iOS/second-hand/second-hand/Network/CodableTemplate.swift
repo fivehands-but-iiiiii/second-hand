@@ -123,3 +123,25 @@ struct UnlikeResponseMessage : Codable {
     let message: String
     let data: String
 }
+
+struct ResponseDTO: Codable {
+    let message: String
+    let data: DataDTO
+}
+
+struct DataDTO: Codable {
+    let page: Int
+    let hasPrevious: Bool
+    let hasNext: Bool
+    let items: [WishItem]
+}
+
+struct WishItem: Codable {
+    let id: Int
+    let title: String
+    let thumbnailUrl: String
+    let region: String
+    let createdAt: String
+    let status: Int
+    let price, chatCount,likeCount: Int
+}
