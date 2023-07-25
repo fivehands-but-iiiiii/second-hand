@@ -11,7 +11,7 @@ enum Section: CaseIterable {
     case main
 }
 
-final class WishListViewController: NavigationUnderLineViewController {
+final class WishListViewController: NavigationUnderLineViewController, BackButtonTouchedDelegate {
     private var categoryScrollView = CategoryScrollView()
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private let setLocationViewController = SetLocationViewController()
@@ -23,9 +23,11 @@ final class WishListViewController: NavigationUnderLineViewController {
     private var page: Int = 0
     private var isLoadingItems = true
     private var categoryNumber = 0
+    private var lastCategoryNumber : Int? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setCategory()
         getCategories()
         setCollectionView()
@@ -185,6 +187,7 @@ final class WishListViewController: NavigationUnderLineViewController {
     }
     
     private func fetchItemList(page: Int, categoryNumber: Int? = nil) {
+        lastCategoryNumber = categoryNumber
         var urlString: String
         if let category = categoryNumber {
             urlString = Server.shared.wishItemListCategoryURL(page: page, categoryValue: category)
@@ -227,6 +230,11 @@ final class WishListViewController: NavigationUnderLineViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func backButtonTouched() {
+        fetchItemList(page: page, categoryNumber: lastCategoryNumber)
+        print("패치 완료 \(Category.convertCategoryIntToString(lastCategoryNumber ?? 19))")
     }
 
     private func getCategories() {
@@ -272,6 +280,7 @@ extension WishListViewController: UICollectionViewDelegate {
         
         let url = Server.shared.itemDetailURL(itemId: id)
         let itemDetailViewController = ItemDetailViewController()
+        itemDetailViewController.delegate = self
         
         itemDetailViewController.setItemDetailURL(url)
         hideTabBar()

@@ -7,7 +7,11 @@
 
 import UIKit
 
+protocol BackButtonTouchedDelegate {
+    func backButtonTouched()
+}
 class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
+    var delegate: BackButtonTouchedDelegate? = nil
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
     private var itemDetailURL: URL? = nil
@@ -192,9 +196,10 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    @objc private func backButtonTouched() {
+    @objc func backButtonTouched() {
         navigationController?.popViewController(animated: true)
         tabBarController?.tabBar.isHidden = false
+        delegate?.backButtonTouched()
     }
     
     @objc private func menuButtonTouched() {
