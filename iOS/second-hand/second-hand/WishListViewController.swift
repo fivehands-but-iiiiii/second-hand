@@ -17,24 +17,21 @@ final class WishListViewController: NavigationUnderLineViewController {
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
     private var items: [SellingItem] = []
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     private var isLogin = false
     private let registerProductButton = UIButton()
-    private var currentPageGeneral: Int = 0
-    private var currentPageCategory: Int = 0
+    private var page: Int = 0
     private var isLoadingItems = true
     private var categoryNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setCategory()
-        
         getCategories()
         setCollectionView()
         setObserver()
         setupInfiniteScroll()
-        getItemList(page: currentPageGeneral)
+        fetchItemList(page: page)
         setupDataSource()
     }
     
@@ -91,8 +88,8 @@ final class WishListViewController: NavigationUnderLineViewController {
             sender.changeOrangeColor()
             sender.setTitleColor(UIColor.white, for: .normal)
             sender.layer.borderWidth = 0
-            currentPageGeneral = 0
-            getItemList(page: currentPageGeneral)
+            page = 0
+            fetchItemList(page: page)
             return
         }
         
@@ -103,8 +100,8 @@ final class WishListViewController: NavigationUnderLineViewController {
         sender.layer.borderWidth = 0
         
         //해당 상품리스트가 조회되도록
-        currentPageCategory = 0
-        categoryGetItemList(categoryNumber: categoryNumber, page: currentPageCategory)
+        page = 0
+        fetchItemList(page: page, categoryNumber: categoryNumber)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,11 +115,11 @@ final class WishListViewController: NavigationUnderLineViewController {
     
     private func loadNextPage() {
         if categoryNumber == 0 {
-            currentPageGeneral += 1
-            getItemList(page: currentPageGeneral)
+            page += 1
+            fetchItemList(page: page)
         } else {
-            currentPageCategory += 1
-            categoryGetItemList(categoryNumber: categoryNumber, page: currentPageCategory)
+            page += 1
+            fetchItemList(page: page, categoryNumber: categoryNumber)
         }
     }
 
@@ -187,105 +184,76 @@ final class WishListViewController: NavigationUnderLineViewController {
         return result
     }
     
-    private func getItemList(page: Int) {
+    private func fetchItemList(page: Int, categoryNumber: Int? = nil) {
+        var urlString: String
+        if let category = categoryNumber {
+            urlString = Server.shared.wishItemListCategoryURL(page: page, categoryValue: category)
+        } else {
+            urlString = Server.shared.wishItemListURL(page: page)
+        }
         
-        let url = URL(string: Server.shared.wishItemListURL(page: page))
+        guard let url = URL(string: urlString) else {
+            return
+        }
         
-        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url!) { (result: Result<[WishItemList], Error>) in
+        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url) { [weak self] (result: Result<[WishItemList], Error>) in
             switch result {
-            case .success(let data) :
-                
+            case .success(let data):
                 guard let itemList = data.last else {
                     return
                 }
                 
                 if itemList.data.items.count == 0 {
-                    self.isLoadingItems = false
+                    self?.isLoadingItems = false
                     print("마지막 페이지에 대한 처리")
                 }
                 
                 // 새로운 페이지의 데이터를 새로운 배열에 저장합니다.
                 var newItems: [SellingItem] = []
                 itemList.data.items.forEach { item in
-                    newItems.append(self.convertToHashable(from: item))
+                    newItems.append((self?.convertToHashable(from: item))!)
                 }
                 
                 // 현재 페이지가 0인 경우에만 기존 items 배열을 비웁니다.
                 if page == 0 {
-                    self.items.removeAll()
+                    self?.items.removeAll()
                 }
                 
                 // 새로운 페이지의 데이터를 기존 items 배열에 추가합니다.
-                self.items.append(contentsOf: newItems)
-                self.applySnapshot()
+                self?.items.append(contentsOf: newItems)
+                self?.applySnapshot()
                 
-            case .failure(let error) :
+            case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
-    
-    private func categoryGetItemList(categoryNumber: Int, page: Int) {
-        let url = URL(string: Server.shared.wishItemListCategoryURL(page: page, categoryValue: categoryNumber))
-        
-        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url!) { (result: Result<[WishItemList], Error>) in
-            switch result {
-            case .success(let data) :
-                
-                guard let itemList = data.last else {
-                    return
-                }
-                
-                if itemList.data.items.count == 0 {
-                    self.isLoadingItems = false
-                    print("마지막 페이지에 대한 처리")
-                }
-                
-               
-                // 새로운 페이지의 데이터를 새로운 배열에 저장합니다.
-                var newItems: [SellingItem] = []
-                itemList.data.items.forEach { item in
-                    newItems.append(self.convertToHashable(from: item))
-                }
-                
-                // 현재 페이지가 0인 경우에만 기존 items 배열을 비웁니다.
-                if page == 0 {
-                    self.items.removeAll()
-                }
-                
-                // 새로운 페이지의 데이터를 기존 items 배열에 추가합니다.
-                self.items.append(contentsOf: newItems)
-                self.applySnapshot()
-                
-            case .failure(let error) :
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
+
     private func getCategories() {
+        guard let url = URL(string: Server.shared.url(for: .wishlistCategories)) else {
+            return
+        }
         
-        let url = URL(string: Server.shared.url(for: .wishlistCategories))
-        
-        NetworkManager.sendGET(decodeType: GetCategories.self, what: nil, fromURL: url!) { (result: Result<[GetCategories], Error>) in
+        NetworkManager.sendGET(decodeType: GetCategories.self, what: nil, fromURL: url) { [weak self] (result: Result<[GetCategories], Error>) in
             switch result {
-            case .success(let data) :
-                
-                let categories: [Int] = (data.last?.data.categories)!
-                //찜했던 상품들이 해당하는 카테고리를 버튼으로 만듬
-                for category in categories {
-                    let temp = Category.convertCategoryIntToString(category)
-                    let categoryButton = self.makeButton(category: temp)
+            case .success(let data):
+                guard let categories = data.last?.data.categories else {
+                    return
                 }
                 
-                self.applySnapshot()
+                //찜했던 상품들이 해당하는 카테고리를 버튼으로 만듬
+                categories.forEach { category in
+                    let temp = Category.convertCategoryIntToString(category)
+                    self?.makeButton(category: temp)
+                }
                 
-            case .failure(let error) :
+                self?.applySnapshot()
+                
+            case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
-    
 }
 
 extension WishListViewController: UICollectionViewDelegate {

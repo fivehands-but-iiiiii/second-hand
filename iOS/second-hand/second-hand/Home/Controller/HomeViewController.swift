@@ -12,7 +12,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     enum Section: CaseIterable {
         case main
     }
-
+    
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
@@ -44,25 +44,25 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func setupInfiniteScroll() {
-            productListCollectionView.delegate = self
-        }
+        productListCollectionView.delegate = self
+    }
     
     private func loadNextPage() {
-            if !isLoadingItems {
-                return
-            }
+        if !isLoadingItems {
+            return
+        }
         self.isLoadingItems  = true
         currentPage += 1
         getItemList(page: currentPage)
-        }
+    }
     
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items, toSection: .main)
- 
+        
         dataSource?.apply(snapshot, animatingDifferences: true)
-
+        
     }
     
     private func setObserver() {
@@ -75,7 +75,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
     }
     
     private func setCollectionView() {
-
+        
         let layout = UICollectionViewFlowLayout()
         let figmaCellHight = 152
         let figmaHeight = 852
@@ -111,7 +111,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
         buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
-
+    
     
     func tappedSetLocation() {
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
@@ -190,7 +190,7 @@ final class HomeViewController: NavigationUnderLineViewController, ButtonCustomV
             }
         }
     }
-
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate {
