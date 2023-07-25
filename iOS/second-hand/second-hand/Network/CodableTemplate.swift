@@ -56,8 +56,6 @@ struct ResponseHeader: Codable {
     }
 }
 
-
-//--------------------------------해당하는 지역의 상품을 볼 수 있다.--------------------------------
 struct ItemList: Codable {
     let number: Int
     let hasPrevious, hasNext: Bool
@@ -124,12 +122,12 @@ struct UnlikeResponseMessage : Codable {
     let data: String
 }
 
-struct ResponseDTO: Codable {
+struct WishItemList: Codable {
     let message: String
-    let data: DataDTO
+    let data: WishItemData
 }
 
-struct DataDTO: Codable {
+struct WishItemData: Codable {
     let page: Int
     let hasPrevious: Bool
     let hasNext: Bool

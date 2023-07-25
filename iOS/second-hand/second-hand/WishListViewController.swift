@@ -69,21 +69,30 @@ final class WishListViewController: NavigationUnderLineViewController {
     private func makeButton(category: String)  {
         let categoryButton = CategoryButton(title: category)
         categoryScrollView.categoriStackView.addArrangedSubview(categoryButton)
-
         let categoryNumber = Category.convertCategoryStringToInt(category)
         categoryButton.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
-
-        // 클로저 내에서 categoryNumber를 직접 캡처하지 않고, tag 속성을 활용하여 값을 전달합니다.
         categoryButton.tag = categoryNumber
     }
 
     @objc private func categoryButtonTapped(_ sender: CategoryButton) {
-        // sender.tag를 사용하여 파라미터를 전달합니다.
-        
+        // sender.tag를 사용하여 파라미터를 전달
         categoryNumber = sender.tag
+        
+        //(버튼)활성화UI를 비활성화UI로
+        for case let button as CategoryButton in categoryScrollView.categoriStackView.arrangedSubviews {
+            if button.backgroundColor == .orange {
+                button.changeWhiteColor()
+                button.setTitleColor(.black, for: .normal)
+                button.layer.borderWidth = 1
+            }
+        }
+        
+        //(버튼)비활성화UI를 활성화UI로
         sender.changeOrangeColor()
         sender.setTitleColor(UIColor.white, for: .normal)
         sender.layer.borderWidth = 0
+        
+        //해당 상품리스트가 조회되도록
         //categoryGetItemList(categoryNumber: categoryNumber)
     }
     
@@ -169,7 +178,7 @@ final class WishListViewController: NavigationUnderLineViewController {
         
         let url = URL(string: Server.shared.wishItemListURL(page: page))
         
-        NetworkManager.sendGET(decodeType: ResponseDTO.self, what: nil, fromURL: url!) { (result: Result<[ResponseDTO], Error>) in
+        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url!) { (result: Result<[WishItemList], Error>) in
             switch result {
             case .success(let data) :
                
@@ -198,7 +207,7 @@ final class WishListViewController: NavigationUnderLineViewController {
         
         let url = URL(string: Server.shared.wishItemListCategoryURL(page: page, categoryValue: categoryNumber))
         
-        NetworkManager.sendGET(decodeType: ResponseDTO.self, what: nil, fromURL: url!) { (result: Result<[ResponseDTO], Error>) in
+        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url!) { (result: Result<[WishItemList], Error>) in
             switch result {
             case .success(let data) :
                
