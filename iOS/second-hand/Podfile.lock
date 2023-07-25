@@ -1,16 +1,24 @@
 PODS:
+  - SocketRocket (0.7.0)
+  - StompClientLib (1.4.1):
+    - SocketRocket
   - SwiftLint (0.51.0)
 
 DEPENDENCIES:
+  - StompClientLib
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - SocketRocket
+    - StompClientLib
     - SwiftLint
 
 SPEC CHECKSUMS:
+  SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
+  StompClientLib: ac40390e9660c574675f1c933bec81c8e2811a4f
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
 
-PODFILE CHECKSUM: 000a1fecb910b1bf0367a33e65bdc4c72060f52b
+PODFILE CHECKSUM: eaea9746c1c6833974ee539581c3b85a6b78264d
 
 COCOAPODS: 1.12.1

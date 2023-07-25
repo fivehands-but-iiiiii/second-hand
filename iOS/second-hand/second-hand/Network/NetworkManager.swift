@@ -137,6 +137,8 @@ class NetworkManager {
         } else {
             request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
         }
+        
+        request.httpMethod = "GET"
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -196,9 +198,10 @@ class NetworkManager {
         guard let data = data else {
             return
         }
-        var loginToken : String? = nil
         
-        let request = makeRequestPOST(header: header, url: url, body: data)
+        var loginToken = UserInfoManager.shared.loginToken
+        
+        let request = makeRequestPOST(cookie: header, url: url, body: data, loginToken: loginToken)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
@@ -207,11 +210,13 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ManagerErrors.invalidResponse)) 
                 }
                 //MARK: 보안상 문제 있다... 방법을 찾아보자
-                loginToken = self.extractLoginToken(from: urlResponse)
                 
+                if loginToken == nil {
+                    loginToken = self.extractLoginToken(from: urlResponse)
+                }
                 switch urlResponse.statusCode {
                 case 200..<300 :
                     let answer = try JSONDecoder().decode(T.self, from: data)
@@ -239,19 +244,24 @@ class NetworkManager {
         return nil
     }
     
-    private func makeRequestPOST(header: ResponseHeader?, url: URL, body: Data) -> URLRequest {
+    private func makeRequestPOST(cookie: ResponseHeader?, url: URL, body: Data, loginToken : String?) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.post.method
         request.httpBody = body
         
-        if let header = header {
+        if let header = cookie {
             let keyOfCookie : String = "Cookie"
             let valueOfCookie : String = header.setCookie.description
             request.allHTTPHeaderFields = [keyOfCookie: valueOfCookie,JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
             
             return request
         } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
+            guard let loginToken = loginToken else {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType]
+                return request
+            }
+            
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType:JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
             
             return request
         }

@@ -6,6 +6,7 @@ target 'second-hand' do
   use_frameworks!
 
   # Pods for second-hand
-  pod 'SwiftLint' 
+  pod 'SwiftLint'
+  pod 'StompClientLib' 
 
 end
