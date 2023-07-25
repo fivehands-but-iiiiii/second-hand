@@ -58,6 +58,11 @@ struct ResponseHeader: Codable {
 
 
 //--------------------------------해당하는 지역의 상품을 볼 수 있다.--------------------------------
+struct ItemListSuccess: Codable {
+    let message : String
+    let data : ItemList
+}
+
 struct ItemList: Codable {
     let number: Int
     let hasPrevious, hasNext: Bool
