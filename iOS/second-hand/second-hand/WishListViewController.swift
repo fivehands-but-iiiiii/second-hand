@@ -65,9 +65,22 @@ final class WishListViewController: NavigationUnderLineViewController {
         ])
     }
     
-    private func makeButton(category: String) {
-        let categoryLabel = CategoryButton(title: category)
-        categoryScrollView.categoriStackView.addArrangedSubview(categoryLabel)
+    private func makeButton(category: String)  {
+        let categoryButton = CategoryButton(title: category)
+        categoryScrollView.categoriStackView.addArrangedSubview(categoryButton)
+
+        let categoryNumber = Category.convertCategoryStringToInt(category)
+        categoryButton.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
+
+        // 클로저 내에서 categoryNumber를 직접 캡처하지 않고, tag 속성을 활용하여 값을 전달합니다.
+        categoryButton.tag = categoryNumber
+    }
+
+    @objc private func categoryButtonTapped(_ sender: CategoryButton) {
+        // sender.tag를 사용하여 파라미터를 전달합니다.
+        let categoryNumber = sender.tag
+        
+        categoryGetItemList(categoryNumber: categoryNumber)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,6 +189,35 @@ final class WishListViewController: NavigationUnderLineViewController {
         }
     }
     
+    @objc func categoryGetItemList(categoryNumber: Int) {
+        let page = currentPage
+        
+        let url = URL(string: Server.shared.wishItemListCategoryURL(page: page, categoryValue: categoryNumber))
+        
+        NetworkManager.sendGET(decodeType: ResponseDTO.self, what: nil, fromURL: url!) { (result: Result<[ResponseDTO], Error>) in
+            switch result {
+            case .success(let data) :
+               
+                guard let itemList = data.last else {
+                    return
+                }
+
+                if itemList.data.items.count == 0 {
+                    self.isLoadingItems = false
+                    print("마지막 페이지에 대한 처리")
+                }
+
+                itemList.data.items.forEach { item in
+                    self.items.append(self.convertToHashable(from: item))
+                }
+                self.applySnapshot()
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     private func getCategories() {
         
         let url = URL(string: Server.shared.url(for: .wishlistCategories))
@@ -185,10 +227,10 @@ final class WishListViewController: NavigationUnderLineViewController {
             case .success(let data) :
               
                 let categories: [Int] = (data.last?.data.categories)!
-                
+                //찜했던 상품들이 해당하는 카테고리를 버튼으로 만듬
                 for category in categories {
                     let temp = Category.convertCategoryIntToString(category)
-                    self.makeButton(category: temp)
+                    let categoryButton = self.makeButton(category: temp)
                 }
 
                 self.applySnapshot()

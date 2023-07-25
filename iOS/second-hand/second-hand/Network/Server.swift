@@ -52,6 +52,11 @@ struct Server {
         return Server.baseURL + Path.wishlist.rawValue + "?" + query
     }
     
+    func wishItemListCategoryURL(page: Int, categoryValue: Int) -> String {
+        let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.category.rawValue + "\(categoryValue)"
+        return Server.baseURL + Path.wishlist.rawValue + "?" + query
+    }
+    
     func itemDetailURL(itemId: Int) -> String {
         return Server.baseURL + Path.items.rawValue + "/" + String(itemId)
     }
