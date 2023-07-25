@@ -8,5 +8,5 @@
 import Foundation
 
 @objc protocol ButtonActionDelegate {
-    @objc optional func requestOpenChattingRoom()
+    @objc optional func requestForChattingRoom()
 }

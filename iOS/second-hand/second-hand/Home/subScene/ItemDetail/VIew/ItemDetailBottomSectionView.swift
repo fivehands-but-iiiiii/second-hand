@@ -175,6 +175,6 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     @objc private func chattingRoomButtonTouched() {
-        delegate?.requestOpenChattingRoom?()
+        delegate?.requestForChattingRoom?()
     }
 }

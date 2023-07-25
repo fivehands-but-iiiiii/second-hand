@@ -167,10 +167,10 @@ final class HomeViewController: NavigationUnderLineViewController{
         guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 2729060200)) else {
             return
         }
-        NetworkManager.sendGET(decodeType: ItemList.self, what: nil, fromURL: url) { (result: Result<[ItemList], Error>) in
+        NetworkManager.sendGET(decodeType: ItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
             switch result {
-            case .success(let data) :
-                guard let itemList = data.last else {
+            case .success(let response) :
+                guard let itemList = response.last?.data else {
                     return
                 }
                 
