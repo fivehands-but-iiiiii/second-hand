@@ -23,6 +23,7 @@ final class WishListViewController: NavigationUnderLineViewController {
     private let registerProductButton = UIButton()
     private var currentPage: Int = 0
     private var isLoadingItems = true
+    private var categoryNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +79,12 @@ final class WishListViewController: NavigationUnderLineViewController {
 
     @objc private func categoryButtonTapped(_ sender: CategoryButton) {
         // sender.tag를 사용하여 파라미터를 전달합니다.
-        let categoryNumber = sender.tag
         
-        categoryGetItemList(categoryNumber: categoryNumber)
+        categoryNumber = sender.tag
+        sender.changeOrangeColor()
+        sender.setTitleColor(UIColor.white, for: .normal)
+        sender.layer.borderWidth = 0
+        //categoryGetItemList(categoryNumber: categoryNumber)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -189,7 +193,7 @@ final class WishListViewController: NavigationUnderLineViewController {
         }
     }
     
-    @objc func categoryGetItemList(categoryNumber: Int) {
+    private func categoryGetItemList(categoryNumber: Int) {
         let page = currentPage
         
         let url = URL(string: Server.shared.wishItemListCategoryURL(page: page, categoryValue: categoryNumber))
