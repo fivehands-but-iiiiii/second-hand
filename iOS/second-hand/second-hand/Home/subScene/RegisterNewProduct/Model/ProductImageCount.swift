@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct ProductPictureCount {
+struct ProductImageCount {
     var number = 0
     
-    mutating func addPicture() {
+    mutating func addImage() {
         number += 1
     }
     
-    mutating func removePicture() {
+    mutating func removeImage() {
         number -= 1
     }
 }

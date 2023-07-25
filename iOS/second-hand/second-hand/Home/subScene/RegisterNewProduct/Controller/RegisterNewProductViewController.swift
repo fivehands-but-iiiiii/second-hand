@@ -1,4 +1,4 @@
-//
+
 //  RegisterNewProductViewController.swift
 //  second-hand
 //
@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 final class RegisterNewProductViewController: NavigationUnderLineViewController {
     
@@ -21,11 +22,16 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
     private let location = "역삼1동"
     private let wonIcon = UILabel()
+    private var photoArray = [PHPickerResult]()
+    var countImage = ProductImageCount()
+    private let maximumPhotoNumber = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         layout()
+        setPHPPicker()
+        
     }
     
     private func setUI() {
@@ -47,9 +53,113 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         dismiss(animated: true)
     }
     
-    @objc func finishButtonTapped() {
-        print("저장")
+    private func generateBoundaryString() -> String {
+        return "Boundary-\(UUID().uuidString)"
     }
+    
+    @objc func finishButtonTapped() {
+        // 이미지 데이터를 가져오는 비동기 작업을 관리하는 DispatchGroup 생성
+        let group = DispatchGroup()
+        var imagesData: [Data] = []
+
+        for result in photoArray {
+            group.enter()
+            getImageData(from: result) { imageData in
+                if let imageData = imageData {
+                    imagesData.append(imageData)
+                }
+                group.leave()
+            }
+        }
+       
+        group.notify(queue: .main) { [self] in
+            
+            let title = titleTextField.text
+            let contents = descriptionTextField.text
+            let category: Int = 1
+            let region: Int = 1
+            let price: Int = Int(priceTextField.text!)!
+           
+            let boundary = generateBoundaryString()
+            var body = Data()
+
+            let parameters: [String: Any] = ["title": title ?? "",
+                                             "contents": contents ?? "",
+                                             "category": category,
+                                             "region": region,
+                                             "price": price]
+            
+            let boundaryPrefix = "--\(boundary)\r\n"
+            let boundarySuffix = "--\(boundary)--\r\n"
+            for (key, value) in parameters {
+                body.append(Data(boundaryPrefix.utf8))
+                body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+                body.append(Data("\(value)\r\n".utf8))
+            }
+            
+            let imgDataKey = "images"
+            for (index, imageData) in imagesData.enumerated() {
+                let imageName = "image\(index)"
+                body.append(Data(boundaryPrefix.utf8))
+                body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpeg\"\r\n".utf8))
+                body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
+                body.append(imageData)
+                body.append(Data("\r\n".utf8))
+            }
+
+            body.append(Data(boundarySuffix.utf8))
+
+            // POST 요청 보내기
+            let url = URL(string: Server.shared.url(for: .items))
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            if let loginToken = UserInfoManager.shared.loginToken {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart,JSONCreater.headerKeyAuthorization: loginToken]
+            } else {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart]
+            }
+            request.httpBody = body
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                    print("Response: \(responseString)")
+                }
+            }.resume()
+        }
+    }
+
+
+    
+    // 이미지 데이터를 가져오는 함수
+    func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
+        let itemProvider = result.itemProvider
+
+        if itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                if let error = error {
+                    print("Error loading image: \(error.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+
+                if let image = image as? UIImage, let data = image.jpegData(compressionQuality: 0.8) {
+                    // 이미지 데이터 반환
+                    completion(data)
+                } else {
+                    completion(nil)
+                }
+            }
+        } else {
+            completion(nil)
+        }
+    }
+    
+    
     
     private func setTextField() {
         titleTextField.placeholder = "글제목"
@@ -78,6 +188,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         navigationController?.toolbar.scrollEdgeAppearance = appearance
     }
     
+    
     private func layout() {
         let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextField, wonIcon, photoScrollView]
         sectionArr.forEach{
@@ -98,8 +209,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             
             photoScrollView.bottomAnchor.constraint(equalTo: sectionLine1.topAnchor, constant: -15),
             photoScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            photoScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
             photoScrollView.heightAnchor.constraint(equalToConstant: 80),
-            
             titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
             titleTextField.topAnchor.constraint(equalTo: sectionLine1.bottomAnchor, constant: 15),
             titleTextField.bottomAnchor.constraint(equalTo: sectionLine2.topAnchor, constant: -15),
@@ -118,10 +229,65 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
+}
+
+
+//갤러리와 관련된 코드들 집합
+extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
     
-    private func registerPhotoButtonTapped() {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true, completion: nil)
+        
+        for result in results {
+            let itemProvider = result.itemProvider
+            if let typeIdentifier = itemProvider.registeredTypeIdentifiers.first,
+               let utType = UTType(typeIdentifier),
+               utType.conforms(to: .image) {
+                itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async { [self] in
+                            //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜주며 진행
+                            //TODO: 특정한 사진이 안올라가는 버그 고치기
+                            photoScrollView.addImage(image: image)
+                            countImage.addImage()
+                            self.photoScrollView.countPictureLabel.text = "\(countImage.number)/\(maximumPhotoNumber)"
+                        }
+                    }
+                }
+            }
+        }
+        photoArray.append(contentsOf: results)
+        print("포토어레이 \(photoArray)")
+        print(photoArray.count)
+    }
+    
+    private func setPHPPicker() {
+        photoScrollView.addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
         
     }
+    
+    @objc private func addPhotoButtonTapped() {
+        //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = maximumPhotoNumber-photoArray.count
+        
+        if photoArray.count == 10 {
+            print("더이상 사진을 추가할 수 없습니다.")
+        }else{
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            
+            DispatchQueue.main.async {
+                self.present(picker, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func pickerDidCancel(_ picker: PHPickerViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension RegisterNewProductViewController: UITextViewDelegate {
@@ -160,5 +326,3 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
     }
     
 }
-
-
