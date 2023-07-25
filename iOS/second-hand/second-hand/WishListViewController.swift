@@ -21,7 +21,8 @@ final class WishListViewController: NavigationUnderLineViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     private var isLogin = false
     private let registerProductButton = UIButton()
-    private var currentPage: Int = 0
+    private var currentPageGeneral: Int = 0
+    private var currentPageCategory: Int = 0
     private var isLoadingItems = true
     private var categoryNumber = 0
     
@@ -33,7 +34,7 @@ final class WishListViewController: NavigationUnderLineViewController {
         setCollectionView()
         setObserver()
         setupInfiniteScroll()
-        getItemList(page: currentPage)
+        getItemList(page: currentPageGeneral)
         setupDataSource()
     }
     
@@ -46,6 +47,7 @@ final class WishListViewController: NavigationUnderLineViewController {
         allCategoriButton.setTitleColor(UIColor.white, for: .normal)
         allCategoriButton.layer.borderWidth = 0
         categoryLayout()
+        allCategoriButton.addTarget(nil, action: #selector(categoryButtonTapped), for: .touchUpInside)
     }
     
     private func categoryLayout() {
@@ -73,11 +75,9 @@ final class WishListViewController: NavigationUnderLineViewController {
         categoryButton.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
         categoryButton.tag = categoryNumber
     }
-
+    
     @objc private func categoryButtonTapped(_ sender: CategoryButton) {
-        // sender.tag를 사용하여 파라미터를 전달
-        categoryNumber = sender.tag
-        
+       
         //(버튼)활성화UI를 비활성화UI로
         for case let button as CategoryButton in categoryScrollView.categoriStackView.arrangedSubviews {
             if button.backgroundColor == .orange {
@@ -87,13 +87,24 @@ final class WishListViewController: NavigationUnderLineViewController {
             }
         }
         
+        guard sender.currentTitle != "전체" else {
+            sender.changeOrangeColor()
+            sender.setTitleColor(UIColor.white, for: .normal)
+            sender.layer.borderWidth = 0
+            currentPageGeneral = 0
+            getItemList(page: currentPageGeneral)
+            return
+        }
+        
         //(버튼)비활성화UI를 활성화UI로
+        categoryNumber = sender.tag
         sender.changeOrangeColor()
         sender.setTitleColor(UIColor.white, for: .normal)
         sender.layer.borderWidth = 0
         
         //해당 상품리스트가 조회되도록
-        //categoryGetItemList(categoryNumber: categoryNumber)
+        currentPageCategory = 0
+        categoryGetItemList(categoryNumber: categoryNumber, page: currentPageCategory)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,25 +113,27 @@ final class WishListViewController: NavigationUnderLineViewController {
     }
     
     private func setupInfiniteScroll() {
-            productListCollectionView.delegate = self
-        }
+        productListCollectionView.delegate = self
+    }
     
     private func loadNextPage() {
-            if !isLoadingItems {
-                return
-            }
-        self.isLoadingItems  = true
-        currentPage += 1
-        getItemList(page: currentPage)
+        if categoryNumber == 0 {
+            currentPageGeneral += 1
+            getItemList(page: currentPageGeneral)
+        } else {
+            currentPageCategory += 1
+            categoryGetItemList(categoryNumber: categoryNumber, page: currentPageCategory)
         }
+    }
+
     
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items, toSection: .main)
- 
+        
         dataSource?.apply(snapshot, animatingDifferences: true)
-
+        
     }
     
     private func setObserver() {
@@ -133,7 +146,7 @@ final class WishListViewController: NavigationUnderLineViewController {
     }
     
     private func setCollectionView() {
-
+        
         let layout = UICollectionViewFlowLayout()
         let figmaCellHight = 152
         let figmaHeight = 852
@@ -181,19 +194,29 @@ final class WishListViewController: NavigationUnderLineViewController {
         NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url!) { (result: Result<[WishItemList], Error>) in
             switch result {
             case .success(let data) :
-               
+                
                 guard let itemList = data.last else {
                     return
                 }
-
+                
                 if itemList.data.items.count == 0 {
                     self.isLoadingItems = false
                     print("마지막 페이지에 대한 처리")
                 }
-
+                
+                // 새로운 페이지의 데이터를 새로운 배열에 저장합니다.
+                var newItems: [SellingItem] = []
                 itemList.data.items.forEach { item in
-                    self.items.append(self.convertToHashable(from: item))
+                    newItems.append(self.convertToHashable(from: item))
                 }
+                
+                // 현재 페이지가 0인 경우에만 기존 items 배열을 비웁니다.
+                if page == 0 {
+                    self.items.removeAll()
+                }
+                
+                // 새로운 페이지의 데이터를 기존 items 배열에 추가합니다.
+                self.items.append(contentsOf: newItems)
                 self.applySnapshot()
                 
             case .failure(let error) :
@@ -202,27 +225,36 @@ final class WishListViewController: NavigationUnderLineViewController {
         }
     }
     
-    private func categoryGetItemList(categoryNumber: Int) {
-        let page = currentPage
-        
+    private func categoryGetItemList(categoryNumber: Int, page: Int) {
         let url = URL(string: Server.shared.wishItemListCategoryURL(page: page, categoryValue: categoryNumber))
         
         NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url!) { (result: Result<[WishItemList], Error>) in
             switch result {
             case .success(let data) :
-               
+                
                 guard let itemList = data.last else {
                     return
                 }
-
+                
                 if itemList.data.items.count == 0 {
                     self.isLoadingItems = false
                     print("마지막 페이지에 대한 처리")
                 }
-
+                
+               
+                // 새로운 페이지의 데이터를 새로운 배열에 저장합니다.
+                var newItems: [SellingItem] = []
                 itemList.data.items.forEach { item in
-                    self.items.append(self.convertToHashable(from: item))
+                    newItems.append(self.convertToHashable(from: item))
                 }
+                
+                // 현재 페이지가 0인 경우에만 기존 items 배열을 비웁니다.
+                if page == 0 {
+                    self.items.removeAll()
+                }
+                
+                // 새로운 페이지의 데이터를 기존 items 배열에 추가합니다.
+                self.items.append(contentsOf: newItems)
                 self.applySnapshot()
                 
             case .failure(let error) :
@@ -238,14 +270,14 @@ final class WishListViewController: NavigationUnderLineViewController {
         NetworkManager.sendGET(decodeType: GetCategories.self, what: nil, fromURL: url!) { (result: Result<[GetCategories], Error>) in
             switch result {
             case .success(let data) :
-              
+                
                 let categories: [Int] = (data.last?.data.categories)!
                 //찜했던 상품들이 해당하는 카테고리를 버튼으로 만듬
                 for category in categories {
                     let temp = Category.convertCategoryIntToString(category)
                     let categoryButton = self.makeButton(category: temp)
                 }
-
+                
                 self.applySnapshot()
                 
             case .failure(let error) :
@@ -253,7 +285,7 @@ final class WishListViewController: NavigationUnderLineViewController {
             }
         }
     }
-
+    
 }
 
 extension WishListViewController: UICollectionViewDelegate {
