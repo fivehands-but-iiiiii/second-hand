@@ -130,7 +130,6 @@ class NetworkManager {
             }
         }
         var request = URLRequest(url: url, timeoutInterval: 30.0)
-        
         appendLoginToken(request: &request)
         request.httpBody = data
         
@@ -191,7 +190,6 @@ class NetworkManager {
         guard let data = data else {
             return
         }
-        var loginToken : String? = nil
         
         var request = makeRequestPOST(url: url, body: data)
         
@@ -205,11 +203,13 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ManagerErrors.invalidResponse)) 
                 }
                 //MARK: 보안상 문제 있다... 방법을 찾아보자
-                loginToken = self.extractLoginToken(from: urlResponse)
                 
+                if loginToken == nil {
+                    loginToken = self.extractLoginToken(from: urlResponse)
+                }
                 switch urlResponse.statusCode {
                 case 200..<300 :
                     let answer = try JSONDecoder().decode(T.self, from: data)
@@ -241,7 +241,6 @@ class NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = HttpMethod.post.method
         request.httpBody = body
-            
         return request
     }
     

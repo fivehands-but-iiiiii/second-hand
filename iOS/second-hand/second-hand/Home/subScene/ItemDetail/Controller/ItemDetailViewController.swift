@@ -310,6 +310,7 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
         bottomSectionView.setLikeButton(isLike: isLike)
         bottomSectionView.setPriceLabel(price: price)
         bottomSectionView.setChattingRoomButton(isMine: isMine)
+        bottomSectionView.delegate = self
     }
     
     private func setBottomSectionViewConstraints() {
@@ -325,6 +326,102 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
                 bottomSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ]
         )
+    }
+}
+
+
+extension ItemDetailViewController : ButtonActionDelegate {
+    func requestOpenChattingRoom() {
+        if !UserInfoManager.shared.isLogOn {
+            let alertController = UIAlertController(
+                title: "로그인이 필요합니다",
+                message: "당장하라",
+                preferredStyle: .alert
+            )
+            alertController.addAction(
+                UIAlertAction(title: "확인", style: .default, handler: nil)
+            )
+            present(alertController, animated: true, completion: nil)
+        } else {
+            guard let itemId = itemDetailModel.info?.id else {
+                return
+            }
+            
+            guard let url = URL(string: Server.shared.requestIsExistChattingRoom(itemId: itemId)) else {
+                return
+            }
+            
+            guard let requestBody = JSONCreater().createOpenChatroomRequestBody(itemId: itemId) else {
+                return
+            }
+            
+            NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+                switch result {
+                case .success(let reposonse) :
+                    guard let response = reposonse.last else {
+                        return
+                    }
+                    
+                    if let chatRoomId = response.data.chatroomId {
+                        print("채팅방입장")
+                        self.changeToChatroomViewController(fetchedData: response)
+                        
+                    } else {
+                        print("채팅방생성")
+                        self.createChattingRoom(body: requestBody)
+                    }
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
+    }
+    
+    private func enterChattingRoom(chatroomId: String) {
+        guard let url = URL(string: Server.baseURL + "/chats/" + chatroomId ) else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+            switch result {
+            case .success(let response) :
+                guard let response = response.last else {
+                    return
+                }
+
+                self.changeToChatroomViewController(fetchedData: response)
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    private func createChattingRoom(body: Data) {
+        guard let url = URL(string: Server.shared.requestToCreateChattingRoom()) else {
+            return
+        }
+
+        NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body, header: nil, fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
+            switch result {
+            case .success(let response) :
+                self.enterChattingRoom(chatroomId: response.data)
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
+        
+        let privateChatroom = ChattingRoomViewController()
+
+        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
+        
+        self.navigationController?.pushViewController(privateChatroom, animated: true)
     }
 }
 

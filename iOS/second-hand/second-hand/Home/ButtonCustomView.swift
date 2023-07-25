@@ -12,7 +12,6 @@ protocol ButtonCustomViewDelegate {
 }
 
 final class ButtonCustomView: UIButton {
-    var delegate: ButtonCustomViewDelegate?
     
     private var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)
@@ -62,7 +61,7 @@ final class ButtonCustomView: UIButton {
         [
 
             UIAction(title: "동네를 설정하세요", handler: { [weak self] _ in
-                self?.delegate?.tappedSetLocation()
+                
             })
 
         ]
