@@ -294,14 +294,14 @@ extension ItemDetailViewController : ButtonActionDelegate {
             
             NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
                 switch result {
-                case .success(let data) :
-                    guard let response = data.last else {
+                case .success(let reposonse) :
+                    guard let response = reposonse.last else {
                         return
                     }
                     
                     if let chatRoomId = response.data.chatroomId {
                         print("채팅방입장")
-                        self.enterChattingRoom(chatroomId: chatRoomId)
+                        self.changeToChatroomViewController(fetchedData: response)
                         
                     } else {
                         print("채팅방생성")
@@ -322,11 +322,12 @@ extension ItemDetailViewController : ButtonActionDelegate {
         
         NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
             switch result {
-            case .success(let data) :
-                guard let data = data.last else {
+            case .success(let response) :
+                guard let response = response.last else {
                     return
                 }
-                print(data)
+
+                self.changeToChatroomViewController(fetchedData: response)
                 
             case .failure(let error) :
                 print(error.localizedDescription)
@@ -339,17 +340,25 @@ extension ItemDetailViewController : ButtonActionDelegate {
         guard let url = URL(string: Server.shared.requestToCreateChattingRoom()) else {
             return
         }
-        
+
         NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body, header: nil, fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
             switch result {
-            case .success(let data) :
-                print(data)
+            case .success(let response) :
+                self.enterChattingRoom(chatroomId: response.data)
                 
             case .failure(let error) :
                 print(error.localizedDescription)
             }
         }
     }
-}
+    
+    private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
+        
+        let privateChatroom = ChattingRoomViewController()
 
+        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
+        
+        self.navigationController?.pushViewController(privateChatroom, animated: true)
+    }
+}
 
