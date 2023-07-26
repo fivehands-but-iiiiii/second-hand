@@ -36,7 +36,7 @@
 		E41076C22A49B5EC00F5204E /* IdInputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41076C12A49B5EC00F5204E /* IdInputSection.swift */; };
 		E41076C42A4AF67A00F5204E /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41076C32A4AF67A00F5204E /* ImageCacheManager.swift */; };
 		E4375C172A666843003F6F5B /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C162A666843003F6F5B /* SocketManager.swift */; };
-		E4375C192A67D82D003F6F5B /* ChattingRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C182A67D82D003F6F5B /* ChattingRoomViewController.swift */; };
+		E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */; };
 		E4375C1C2A67DBE4003F6F5B /* ButtonActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */; };
 		E4375C232A6A7D31003F6F5B /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4375C222A6A7D31003F6F5B /* Secrets.plist */; };
 		E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */; };
@@ -50,6 +50,7 @@
 		E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */; };
 		E46EFD0A2A63116100FFC3B8 /* ContentOfPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */; };
 		E46EFD0C2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */; };
+		E4923CDD2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */; };
 		E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4987E442A4D9F7600337543 /* Int,String+Extension.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
 		E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8352A2DC207001F2D56 /* TabBarItem.swift */; };
@@ -104,7 +105,7 @@
 		E41076C12A49B5EC00F5204E /* IdInputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdInputSection.swift; sourceTree = "<group>"; };
 		E41076C32A4AF67A00F5204E /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		E4375C162A666843003F6F5B /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
-		E4375C182A67D82D003F6F5B /* ChattingRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomViewController.swift; sourceTree = "<group>"; };
+		E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomViewController.swift; sourceTree = "<group>"; };
 		E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActionDelegate.swift; sourceTree = "<group>"; };
 		E4375C222A6A7D31003F6F5B /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomModel.swift; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusButton.swift; sourceTree = "<group>"; };
 		E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOfPost.swift; sourceTree = "<group>"; };
 		E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailBottomSectionView.swift; sourceTree = "<group>"; };
+		E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSummaryInChatroom.swift; sourceTree = "<group>"; };
 		E4987E442A4D9F7600337543 /* Int,String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int,String+Extension.swift"; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
 		E49EB8352A2DC207001F2D56 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
@@ -409,7 +411,7 @@
 		E4375C1A2A67D835003F6F5B /* subScene */ = {
 			isa = PBXGroup;
 			children = (
-				E4375C182A67D82D003F6F5B /* ChattingRoomViewController.swift */,
+				E4923CDB2A6F9FEE00D2BF19 /* PrivateChatroom */,
 			);
 			path = subScene;
 			sourceTree = "<group>";
@@ -428,6 +430,40 @@
 				E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E4923CD82A6F9F6800D2BF19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4923CD92A6F9F6F00D2BF19 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E4923CDA2A6F9F7600D2BF19 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E4923CDB2A6F9FEE00D2BF19 /* PrivateChatroom */ = {
+			isa = PBXGroup;
+			children = (
+				E4923CD82A6F9F6800D2BF19 /* View */,
+				E4923CD92A6F9F6F00D2BF19 /* Model */,
+				E4923CDA2A6F9F7600D2BF19 /* Controller */,
+			);
+			path = PrivateChatroom;
 			sourceTree = "<group>";
 		};
 		E49EB8432A30495C001F2D56 /* Application */ = {
@@ -555,7 +591,6 @@
 		E49EB8642A36F037001F2D56 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -785,12 +820,13 @@
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E4CAD8492A5B313500C69F7D /* ItemDetailImageSectionView.swift in Sources */,
 				E46738112A482DF1006A46D1 /* Updatable.swift in Sources */,
+				E4923CDD2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift in Sources */,
 				E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */,
 				E467380F2A453FBF006A46D1 /* Server.swift in Sources */,
 				E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */,
 				E4375C172A666843003F6F5B /* SocketManager.swift in Sources */,
 				DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */,
-				E4375C192A67D82D003F6F5B /* ChattingRoomViewController.swift in Sources */,
+				E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */,
 				DB55CB112A4407CB00578ED5 /* ProductPictureCount.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */,
