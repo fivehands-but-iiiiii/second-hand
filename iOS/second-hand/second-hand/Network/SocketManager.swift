@@ -9,15 +9,28 @@ import Foundation
 import StompClientLib
 
 class SocketManager {
-    var socketClient: StompClientLib
-    
+    var socketClient = StompClientLib()
+    private var roomId: String? = nil
+    private var message : Data? = nil
     init() {
-        socketClient = StompClientLib()
+        
     }
     
-    func connect() {
-        let socketURL = NSURL(string: "YOUR_SOCKET_URL")!
+    func connect(roomId: String, memberId: String, message: String) {
+        self.roomId = roomId
+        let socketURL = NSURL(string: "ws://3.37.51.148:81/chat")!
         socketClient.openSocketWithURLRequest(request: NSURLRequest(url: socketURL as URL), delegate: self)
+        
+        self.message = JSONCreater().createWSMessageRequestBody(roomId: roomId, memberId: memberId, message: message)
+        
+        if socketClient.isConnected() {
+            stompClientDidConnect(client: self.socketClient)
+        }
+        
+    }
+    
+    private func makeRequestForm(roomId: String, memberId: String, message: String) {
+        
     }
     
     func disconnect() {
@@ -25,12 +38,37 @@ class SocketManager {
         //unsubscribe는 disconnect 이전에 한번 해주자.
     }
     
+
+    
 }
 
 extension SocketManager : StompClientLibDelegate {
     func stompClientDidConnect(client: StompClientLib!) {
         print("Socket connected")
-        socketClient.subscribe(destination: "/your/destination/topic")
+        guard let roomId = self.roomId else {
+            return
+        }
+        
+        
+        
+        socketClient.subscribe(destination: "/sub/\(roomId)")
+
+        let destination = "/pub/message"
+        
+        guard let message = self.message else {
+            return
+        }
+        
+        guard let messageText = String(data:message,encoding: .utf8) else {
+            return
+        }
+        
+        guard let loginToken = UserInfoManager.shared.loginToken else {
+            return
+        }
+        
+        socketClient.sendMessage(message: messageText, toDestination: destination, withHeaders:nil , withReceipt: nil)
+
     }
     
     func stompClientDidDisconnect(client: StompClientLib!) {
@@ -54,5 +92,5 @@ extension SocketManager : StompClientLibDelegate {
     func serverDidSendPing() {
         print("Server sent ping")
     }
-
+    
 }
