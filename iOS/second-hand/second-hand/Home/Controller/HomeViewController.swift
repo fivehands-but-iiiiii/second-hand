@@ -16,8 +16,6 @@ final class HomeViewController: NavigationUnderLineViewController{
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
-    private let registerNewProductViewController = RegisterNewProductViewController()
-
     private var items: [SellingItem] = []
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
@@ -143,7 +141,8 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     @objc func registerProductButtonTapped() {
-        present(UINavigationController(rootViewController: registerNewProductViewController), animated: true)
+        //버튼을 누를때마다 기존에 작성되었던 글들도 초기화가 되야해서 RegisterNewProductViewController()를 매번 생성시키도록 하였음
+        present(UINavigationController(rootViewController: RegisterNewProductViewController()), animated: true)
     }
     
     private func setupDataSource() {
