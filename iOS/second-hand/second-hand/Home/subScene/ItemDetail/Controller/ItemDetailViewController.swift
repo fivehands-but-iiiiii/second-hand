@@ -7,7 +7,11 @@
 
 import UIKit
 
-class ItemDetailViewController: UIViewController {
+protocol BackButtonTouchedDelegate {
+    func backButtonTouched()
+}
+class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
+    var delegate: BackButtonTouchedDelegate? = nil
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
     private var itemDetailURL: URL? = nil
@@ -15,11 +19,13 @@ class ItemDetailViewController: UIViewController {
     private var imageSectionView: ItemDetailImageSectionView!
     private var textSectionView = ItemDetailTextSectionView(frame: .zero)
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
+    private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setItemDetailModel()
         initializeScene()
+        bottomSectionView.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -80,13 +86,70 @@ class ItemDetailViewController: UIViewController {
                 self.setTextSectionView()
                 self.setBottomSectionView()
                 
+                
             case .failure(let error) :
                 print(error.localizedDescription)
             }
         }
     }
-    // MARK: BUTTONS
     
+    func likeButtonTouched() {
+        let itemId = (itemDetailModel.info?.id)!
+        
+        let jsonData: [String: Int] = ["itemId" : itemId]
+        
+        if itemDetailModel.info?.isLike == false {
+            //찜하기 실행
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonData)
+                
+                guard let wishlistLikeURL = URL(string: Server.shared.url(for: .wishlistLike)) else {
+                    return
+                }
+                
+                networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<LikeResponseMessage, Error>) in
+                    switch result {
+                    case .success(let message) :
+                        print("찜 성공  \(message)")
+                        //다시 다시 그리기
+                        bottomSectionView.likeButton?.removeFromSuperview()
+                        bottomSectionView.setLikeButton(isLike: true)
+                        bottomSectionView.layoutIfNeeded()
+                    case .failure(let error) :
+                        print("찜 실패 \(error)")
+                    }
+                }
+            } catch {
+                print("Error encoding JSON data: \(error)")
+            }
+        }else {
+            //찜 해제
+            do {
+                guard let unwishlistLikeURL = URL(string: Server.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {return}
+                
+                NetworkManager.sendDelete(decodeType: UnlikeResponseMessage.self, what: nil, fromURL: unwishlistLikeURL) { [self] (result: Result<UnlikeResponseMessage?, Error>) in
+                    switch result {
+                    case .success(let message) :
+                        print("찜 해제 성공  \(message)")
+                        //다시 다시 그리기
+                        bottomSectionView.likeButton?.removeFromSuperview()
+                        bottomSectionView.setLikeButton(isLike: false)
+                        bottomSectionView.layoutIfNeeded()
+                    case .failure(let error) :
+                        print("찜 해제 실패 \(error)")
+                    }
+                }
+            } catch {
+                print("Error encoding JSON data: \(error)")
+            }
+        }
+    }
+    
+    private func InfoNotLogin() {
+        print("로그인을 하세요")
+    }
+    
+    // MARK: BUTTONS
     private func generateBackButton() {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
@@ -133,9 +196,10 @@ class ItemDetailViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    @objc private func backButtonTouched() {
+    @objc func backButtonTouched() {
         navigationController?.popViewController(animated: true)
         tabBarController?.tabBar.isHidden = false
+        delegate?.backButtonTouched()
     }
     
     @objc private func menuButtonTouched() {
@@ -265,7 +329,6 @@ class ItemDetailViewController: UIViewController {
     }
 }
 
-//MARK: DELEGATE
 
 extension ItemDetailViewController : ButtonActionDelegate {
     func requestOpenChattingRoom() {

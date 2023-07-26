@@ -7,21 +7,21 @@
 
 import UIKit
 
-final class HomeProductCollectionViewCell: UICollectionViewCell {
+final class ProductListCollectionViewCell: UICollectionViewCell {
     static let identifier = "productCell"
     private let thumbnailImage = UIImageView()
     
-    private var title = UILabel()
+    let title = UILabel()
     
-    private let location = UILabel()
+    let location = UILabel()
     private let dot = UILabel()
-    private let registerTime = UILabel()
+    let registerTime = UILabel()
     
-    private let statusLabel = UILabel()
-    private let price = UILabel()
+    let statusLabel = UILabel()
+    let price = UILabel()
     
-    private let chatCount = UILabel()
-    private let wishCount = UILabel()
+    let chatCount = UILabel()
+    let wishCount = UILabel()
     private let chatImage = UIImageView()
     private let wishImage = UIImageView()
     

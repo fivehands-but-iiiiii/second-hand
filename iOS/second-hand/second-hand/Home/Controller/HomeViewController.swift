@@ -12,7 +12,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     enum Section: CaseIterable {
         case main
     }
-
+    
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
@@ -44,25 +44,25 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setupInfiniteScroll() {
-            productListCollectionView.delegate = self
-        }
+        productListCollectionView.delegate = self
+    }
     
     private func loadNextPage() {
-            if !isLoadingItems {
-                return
-            }
+        if !isLoadingItems {
+            return
+        }
         self.isLoadingItems  = true
         currentPage += 1
         getItemList(page: currentPage)
-        }
+    }
     
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items, toSection: .main)
- 
+        
         dataSource?.apply(snapshot, animatingDifferences: true)
-
+        
     }
     
     private func setObserver() {
@@ -75,7 +75,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setCollectionView() {
-
+        
         let layout = UICollectionViewFlowLayout()
         let figmaCellHight = 152
         let figmaHeight = 852
@@ -110,7 +110,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         let buttonCustomView = leftBarButton.customView as? ButtonCustomView
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
-
+    
     
     func tappedSetLocation() {
         present(UINavigationController(rootViewController: setLocationViewController), animated: true)
@@ -146,7 +146,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setupDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<HomeProductCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
             cell.setUI(from: self.items[indexPath.item])
         }
         
@@ -188,7 +188,7 @@ final class HomeViewController: NavigationUnderLineViewController{
             }
         }
     }
-
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate {

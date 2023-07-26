@@ -20,5 +20,3 @@ struct SellingItem: Hashable {
     var status : Int
     
 }
-
-

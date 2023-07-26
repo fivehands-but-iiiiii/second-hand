@@ -35,4 +35,12 @@ final class CategoryButton: UIButton {
         self.setTitleColor(.black, for: .normal)
         self.titleLabel?.font = UIFont.fontA
     }
+    
+    func changeWhiteColor() {
+        self.backgroundColor = .white
+    }
+
+    func changeOrangeColor() {
+        self.backgroundColor = .orange
+    }
 }

@@ -56,7 +56,6 @@ struct ResponseHeader: Codable {
     }
 }
 
-
 //--------------------------------해당하는 지역의 상품을 볼 수 있다.--------------------------------
 struct ItemListSuccess: Codable {
     let message : String
@@ -119,12 +118,53 @@ struct ItemDetailImage: Codable {
     let url: String
 }
 
+
+struct LikeResponseMessage : Codable {
+    let message: String
+    let data: Int
+}
+
+struct UnlikeResponseMessage : Codable {
+    let message: String
+    let data: String
+}
+
 struct CommonAPIResponse: Codable {
     let message: String
     let data: String
 }
 
-//MARK: About Chatting
+
+struct WishItemList: Codable {
+    let message: String
+    let data: WishItemData
+}
+
+struct WishItemData: Codable {
+    let page: Int
+    let hasPrevious: Bool
+    let hasNext: Bool
+    let items: [WishItem]
+}
+
+struct WishItem: Codable {
+    let id: Int
+    let title: String
+    let thumbnailUrl: String
+    let region: String
+    let createdAt: String
+    let status: Int
+    let price, chatCount,likeCount: Int
+}
+
+struct GetCategories: Codable {
+    let message: String
+    let data: Categories
+}
+
+struct Categories: Codable {
+    let categories: [Int]
+}
 
 struct ItemOfChatroom: Codable {
     let itemId: Int

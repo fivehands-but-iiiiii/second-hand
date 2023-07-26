@@ -7,12 +7,16 @@
 
 import UIKit
 
+protocol LikeButtonTouchedDelegate: AnyObject {
+    func likeButtonTouched()
+}
+
 class ItemDetailBottomSectionView: UIView {
-    private var likeButton : UIButton? = nil
+    var likeButton : UIButton? = nil
     private var priceLabel : UILabel? = nil
     private var chattingRoomButton : UIButton? = nil
-    var delegate: ButtonActionDelegate?
-    
+
+    weak var delegate: LikeButtonTouchedDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,11 +39,11 @@ class ItemDetailBottomSectionView: UIView {
         setChattingRoomButtonConstraints()
         setchattingRoomButtonCornerRadius()
     }
-    
+   
     //MARK: LIKE BUTTON
     func setLikeButton(isLike: Bool) {
         self.likeButton = UIButton(type: .system)
-        
+       
         switch isLike {
         case true:
             self.likeButton?.tintColor = .red
@@ -53,7 +57,7 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     @objc private func likeButtonTouched() {
-        print("하트 터치시 구현")
+        delegate?.likeButtonTouched()
     }
     
     private func setsetLikeButtonConstraints() {
