@@ -265,14 +265,14 @@ class ItemDetailViewController: UIViewController {
     }
 }
 
-//MARK: DELEGATE
+//MARK: ButtonActionDelegate
 
 extension ItemDetailViewController : ButtonActionDelegate {
-    func requestOpenChattingRoom() {
+    func requestForChattingRoom() {
         if !UserInfoManager.shared.isLogOn {
             let alertController = UIAlertController(
                 title: "로그인이 필요합니다",
-                message: "당장하라",
+                message: nil,
                 preferredStyle: .alert
             )
             alertController.addAction(
@@ -354,7 +354,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
     
     private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
         
-        let privateChatroom = ChattingRoomViewController()
+        let privateChatroom = PrivateChatroomViewController()
 
         privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
         
