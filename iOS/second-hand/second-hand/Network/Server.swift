@@ -19,11 +19,18 @@ struct Server {
         case gitLogin = "/git/login"
         case login = "/login"
         case items = "/items"
+        case wishlist = "/wishlist"
+        case wishlistLike = "/wishlist/like"
+        case wishlistCategories = "/wishlist/categories"
         case chats = "/chats"
     }
 
     func url(for path: Path) -> String {
         return Server.baseURL + path.rawValue
+    }
+    
+    func url(path: Path, query: Query, queryValue: Int) -> String {
+        return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
     }
 
     func gitLoginURL(withCode code: String) -> String {
@@ -39,6 +46,16 @@ struct Server {
     func itemsListURL(page: Int, regionID: Int) -> String {
         let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.region.rawValue + "\(regionID)"
         return Server.baseURL + Path.items.rawValue + "?" + query
+    }
+    
+    func wishItemListURL(page: Int) -> String {
+        let query = Server.Query.page.rawValue + "\(page)" 
+        return Server.baseURL + Path.wishlist.rawValue + "?" + query
+    }
+    
+    func wishItemListCategoryURL(page: Int, categoryValue: Int) -> String {
+        let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.category.rawValue + "\(categoryValue)"
+        return Server.baseURL + Path.wishlist.rawValue + "?" + query
     }
     
     func itemDetailURL(itemId: Int) -> String {
@@ -57,7 +74,8 @@ struct Server {
         case code = "code="
         case page = "page="
         case region = "regionId="
-    
+        case itemId = "itemId="
+        case category = "category="
     }
 }
 

@@ -170,7 +170,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         }
         
         do {
-            networkManager.sendPOST(decodeType: JoinSuccess.self, what: jsonData, header: nil, fromURL: joinURL) { (result: Result<JoinSuccess, Error>) in
+            networkManager.sendPOST(decodeType: JoinSuccess.self, what: jsonData, fromURL: joinURL) { (result: Result<JoinSuccess, Error>) in
                 switch result {
                 case .success(let user) :
                     print("가입성공  \(user)")

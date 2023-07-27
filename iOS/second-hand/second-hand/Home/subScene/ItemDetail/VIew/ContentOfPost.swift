@@ -104,7 +104,7 @@ class ContentOfPost: UIView {
     
     private func setCategotyAndCreateAtLabel(category: Int, createAt:String) {
         
-        let convertedCategory = convertCategoryIntToString(category)
+        let convertedCategory = Category.convertCategoryIntToString(category)
         let convertedCreateAt = createAt.convertToRelativeTime()
         
         let text = convertedCategory + " • " + convertedCreateAt
@@ -237,8 +237,8 @@ class ContentOfPost: UIView {
     }
 }
 
-extension ContentOfPost {
-    private func convertCategoryIntToString(_ num: Int) -> String{
+struct Category {
+    static func convertCategoryIntToString(_ num: Int) -> String{
         switch num {
         case 1 :
             return "디지털기기"
@@ -278,6 +278,49 @@ extension ContentOfPost {
             return "기타 중고물품"
         default:
             return "unknown"
+        }
+    }
+    
+    static func convertCategoryStringToInt(_ string: String) -> Int {
+        switch string {
+        case "디지털기기" :
+            return 1
+        case "생활가전" :
+            return 2
+        case "가구/인테리어" :
+            return 3
+        case "생활/주방" :
+            return 4
+        case "유아동" :
+            return 5
+        case "유아도서" :
+            return 6
+        case "여성의류" :
+            return 7
+        case "여성잡화" :
+            return 8
+        case "남성패션/잡화" :
+            return 9
+        case "뷰티/미용" :
+            return 10
+        case "스포츠/레저" :
+            return 11
+        case "취미/게임/음반" :
+            return 12
+        case "중고차" :
+            return 13
+        case "티켓/교환권" :
+            return 14
+        case "가공식품" :
+            return 15
+        case "반려동물용품" :
+            return 16
+        case "식물" :
+            return 17
+        case "기타 중고물품" :
+            return 18
+        default:
+            return 19
         }
     }
 }
