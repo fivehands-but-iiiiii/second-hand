@@ -23,6 +23,7 @@ struct Server {
         case wishlistLike = "/wishlist/like"
         case wishlistCategories = "/wishlist/categories"
         case chats = "/chats"
+        case resourceCategories = "/resources/categories"
     }
 
     func url(for path: Path) -> String {
