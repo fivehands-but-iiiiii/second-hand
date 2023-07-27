@@ -17,7 +17,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
     private var items: [SellingItem] = []
-    
+    private let categoryViewController = CategoryViewController()
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     private var isLogin = false
     private let registerProductButton = UIButton()
@@ -101,9 +101,10 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setNavigationRightBarButton() {
-        let rightBarButton = HomeRightBarButton()
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
-    }
+           let rightBarButton = HomeRightBarButton()
+           rightBarButton.delegate = self
+           navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
+       }
     
     private func setNavigationLeftBarButton() {
         let leftBarButton = HomeLeftBarButton()
@@ -218,3 +219,8 @@ extension HomeViewController: UICollectionViewDelegate {
     }
 }
 
+extension HomeViewController: HomeRightBarButtonTapped {
+    func homeRightBarButtonTapped() {
+        self.navigationController?.pushViewController(categoryViewController, animated: true)
+    }
+}

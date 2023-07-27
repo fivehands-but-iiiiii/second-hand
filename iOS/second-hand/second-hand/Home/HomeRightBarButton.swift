@@ -7,7 +7,12 @@
 
 import UIKit
 
+protocol HomeRightBarButtonTapped {
+    func homeRightBarButtonTapped()
+}
+
 final class HomeRightBarButton: UIBarButtonItem {
+    var delegate: HomeRightBarButtonTapped?
 
     override init() {
         super.init()
@@ -28,5 +33,6 @@ final class HomeRightBarButton: UIBarButtonItem {
     }
     
     @objc private func buttonTouched() {
+        delegate?.homeRightBarButtonTapped()
     }
 }
