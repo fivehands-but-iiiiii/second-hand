@@ -25,8 +25,8 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
     private var categoryNumber = 0
     private var lastCategoryNumber : Int? = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         
         setCategory()
         getCategories()
@@ -36,6 +36,12 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
         fetchItemList(page: page)
         setupDataSource()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+           super.viewDidDisappear(true)
+           //self.categoryScrollView.categoriStackView.willRemoveSubview(<#T##subview: UIView##UIView#>)
+
+       }
     
     private func setCategory() {
         //네비게이션
@@ -275,17 +281,16 @@ extension WishListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let id = extractItemIdFromTouchedCell(indexPath: indexPath)
-        
-        let url = Server.shared.itemDetailURL(itemId: id)
-        let itemDetailViewController = ItemDetailViewController()
-        itemDetailViewController.delegate = self
-        
-        itemDetailViewController.setItemDetailURL(url)
-        hideTabBar()
-        self.navigationController?.pushViewController(itemDetailViewController, animated: true)
-    }
+           
+           let id = items[indexPath.item].id
+           
+           let url = Server.shared.itemDetailURL(itemId: id)
+           let itemDetailViewController = ItemDetailViewController()
+           
+           itemDetailViewController.setItemDetailURL(url)
+           hideTabBar()
+           self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+       }
     
     private func hideTabBar() {
         tabBarController?.tabBar.isHidden = true
