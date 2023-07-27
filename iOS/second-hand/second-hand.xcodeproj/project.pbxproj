@@ -22,6 +22,7 @@
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
 		DB6258582A7242C7005A8846 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6258572A7242C7005A8846 /* Secrets.plist */; };
 		DB62585D2A7253A9005A8846 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62585C2A7253A9005A8846 /* CategoryViewController.swift */; };
+		DB6258612A725441005A8846 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258602A725441005A8846 /* Category.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -90,6 +91,7 @@
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		DB6258572A7242C7005A8846 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		DB62585C2A7253A9005A8846 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = ../../../../../../../../../Documents/CategoryViewController.swift; sourceTree = "<group>"; };
+		DB6258602A725441005A8846 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = ../../../../../../../../../Documents/Category.swift; sourceTree = "<group>"; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 		DB6258592A72538C005A8846 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				DB62585E2A72542D005A8846 /* Model */,
 				DB62585A2A725392005A8846 /* Controller */,
 			);
 			path = Category;
@@ -348,6 +351,14 @@
 				DB62585C2A7253A9005A8846 /* CategoryViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB62585E2A72542D005A8846 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB6258602A725441005A8846 /* Category.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		DBAF839A2A32E30600194A02 /* View */ = {
@@ -821,6 +832,7 @@
 				DB51AD9A2A5A9B8C00EB939D /* AddPhotoScrollView.swift in Sources */,
 				DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */,
 				E41076C22A49B5EC00F5204E /* IdInputSection.swift in Sources */,
+				DB6258612A725441005A8846 /* Category.swift in Sources */,
 				DB62585D2A7253A9005A8846 /* CategoryViewController.swift in Sources */,
 				DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */,
 				E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */,
