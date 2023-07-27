@@ -115,6 +115,7 @@ class ItemDetailViewController: UIViewController {
                         bottomSectionView.likeButton?.removeFromSuperview()
                         bottomSectionView.setLikeButton(isLike: true)
                         bottomSectionView.layoutIfNeeded()
+                        itemDetailModel.info?.isLike = true
                     case .failure(let error) :
                         print("찜 실패 \(error)")
                     }
@@ -135,6 +136,7 @@ class ItemDetailViewController: UIViewController {
                         bottomSectionView.likeButton?.removeFromSuperview()
                         bottomSectionView.setLikeButton(isLike: false)
                         bottomSectionView.layoutIfNeeded()
+                        itemDetailModel.info?.isLike = false
                     case .failure(let error) :
                         print("찜 해제 실패 \(error)")
                     }

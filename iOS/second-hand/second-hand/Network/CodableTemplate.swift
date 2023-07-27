@@ -105,7 +105,7 @@ struct ItemDetailInfo: Codable {
     let hits: Int
     let chatCount: Int
     let likesCount: Int
-    let isLike: Bool
+    var isLike: Bool
     let createAt: String
 }
 
