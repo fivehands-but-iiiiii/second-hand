@@ -7,15 +7,17 @@
 
 import UIKit
 
-class ChattingRoomViewController: UIViewController {
+class PrivateChatroomViewController: UIViewController {
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
     private var chatroomTitle: UILabel? = nil
     var privateChatroomModel = PrivateChatroomModel()
+    private var itemSummary: ItemSummaryInChatroom? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
+        WSTest()
     }
 
     private func commonInit() {
@@ -25,10 +27,66 @@ class ChattingRoomViewController: UIViewController {
         setConstraintsBackButton()
         setConstraintsMenuButton()
         didUpdateModel()
+        
+    }
+    
+    private func WSTest() {
+        let socketManager = SocketManager()
+        
+        guard let roomId = privateChatroomModel.info?.chatroomId else {
+            return
+        }
+        
+        guard let memberId = UserInfoManager.shared.userInfo?.memberId else {
+            return
+        }
+ 
+        
+        socketManager.connect(roomId: roomId ,memberId: memberId, message: "안녕")
     }
     
     private func didUpdateModel() {
+        
         setChatroomTitle()
+        setItemSummary()
+    }
+    
+    private func setItemSummary() {
+        guard let itemImageURL = privateChatroomModel.info?.item.thumbnailImgUrl else {
+            return
+        }
+        
+        guard let itemTitle = privateChatroomModel.info?.item.title else {
+            return
+        }
+        
+        guard let itemPrice = privateChatroomModel.info?.item.price else {
+            return
+        }
+        
+        self.itemSummary = ItemSummaryInChatroom(url: itemImageURL, title: itemTitle, price: itemPrice)
+        
+        setConstraintsItemSummary()
+    }
+    
+    private func setConstraintsItemSummary() {
+        
+        guard let itemSummary = itemSummary else {
+            return
+        }
+        
+        self.view.addSubview(itemSummary)
+        
+        self.itemSummary?.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                itemSummary.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 40.0),
+                itemSummary.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                itemSummary.heightAnchor.constraint(equalToConstant: 100.0),
+                itemSummary.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
     }
     
     // MARK: NavigationBar (Buttons , title)
@@ -36,7 +94,7 @@ class ChattingRoomViewController: UIViewController {
         self.chatroomTitle = UILabel(frame: .zero)
         self.chatroomTitle?.text = privateChatroomModel.info?.opponentId
 
-        self.chatroomTitle?.font = .systemFont(ofSize: 17.0)
+        self.chatroomTitle?.font = .systemFont(ofSize: 17.0, weight: .bold)
         self.chatroomTitle?.textAlignment = .center
         setConstraintsChatroomTitle()
     }

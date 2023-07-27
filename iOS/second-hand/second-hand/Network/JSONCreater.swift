@@ -39,4 +39,16 @@ class JSONCreater {
             return nil
         }
     }
+    
+    func createWSMessageRequestBody(roomId: String, memberId: String, message: String) -> Data? {
+        let requestBody: [String : String] = ["roomId":roomId,"from":memberId,"message":message]
+        
+        do {
+            let jsonData = try JSONEncoder().encode(requestBody)
+            return jsonData
+        } catch {
+            print("JSON encoding error: \(error)")
+            return nil
+        }
+    }
 }
