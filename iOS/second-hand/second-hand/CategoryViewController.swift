@@ -8,6 +8,7 @@
 import UIKit
 
 class CategoryViewController: UIViewController {
+    private var categoryListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
