@@ -23,6 +23,7 @@
 		DB6258582A7242C7005A8846 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6258572A7242C7005A8846 /* Secrets.plist */; };
 		DB62586F2A7256C6005A8846 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62586E2A7256C6005A8846 /* CategoryViewController.swift */; };
 		DB6258732A72571D005A8846 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258722A72571D005A8846 /* Category.swift */; };
+		DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -92,6 +93,7 @@
 		DB6258572A7242C7005A8846 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		DB62586E2A7256C6005A8846 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = "second-hand/CategoryViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DB6258722A72571D005A8846 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = "second-hand/Category.swift"; sourceTree = SOURCE_ROOT; };
+		DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = "second-hand/CategoryCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 		DB6258662A72561D005A8846 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				DB6258742A7258FB005A8846 /* View */,
 				DB6258702A725709005A8846 /* Model */,
 				DB6258682A725631005A8846 /* Controller */,
 			);
@@ -359,6 +362,14 @@
 				DB6258722A72571D005A8846 /* Category.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DB6258742A7258FB005A8846 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DBAF839A2A32E30600194A02 /* View */ = {
@@ -869,6 +880,7 @@
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				DB51AD982A5A97E200EB939D /* RegisterNewProductViewController.swift in Sources */,
 				DB6258732A72571D005A8846 /* Category.swift in Sources */,
+				DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,

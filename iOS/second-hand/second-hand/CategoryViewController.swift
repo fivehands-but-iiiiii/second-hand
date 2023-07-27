@@ -40,7 +40,19 @@ class CategoryViewController: UIViewController {
     
     private func showTabBar() {
         tabBarController?.tabBar.isHidden = false
-        
     }
     
+    private func setCategoryCollectionView() {
+            categoryListCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+
+            let margin: CGFloat = 40
+            self.view.addSubview(categoryListCollectionView)
+            categoryListCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                categoryListCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: margin),
+                categoryListCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                categoryListCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
+                categoryListCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
+                    ])
+        }
 }
