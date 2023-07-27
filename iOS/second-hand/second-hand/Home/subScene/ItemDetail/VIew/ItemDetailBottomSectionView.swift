@@ -7,16 +7,12 @@
 
 import UIKit
 
-protocol LikeButtonTouchedDelegate: AnyObject {
-    func likeButtonTouched()
-}
-
 class ItemDetailBottomSectionView: UIView {
     var likeButton : UIButton? = nil
     private var priceLabel : UILabel? = nil
     private var chattingRoomButton : UIButton? = nil
 
-    weak var delegate: LikeButtonTouchedDelegate?
+    weak var delegate: ButtonActionDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +53,7 @@ class ItemDetailBottomSectionView: UIView {
     }
     
     @objc private func likeButtonTouched() {
-        delegate?.likeButtonTouched()
+        delegate?.likeButtonTouched?()
     }
     
     private func setsetLikeButtonConstraints() {

@@ -11,7 +11,7 @@ enum Section: CaseIterable {
     case main
 }
 
-final class WishListViewController: NavigationUnderLineViewController, BackButtonTouchedDelegate {
+final class WishListViewController: NavigationUnderLineViewController, ButtonActionDelegate {
     private var categoryScrollView = CategoryScrollView()
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private let setLocationViewController = SetLocationViewController()

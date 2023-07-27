@@ -9,4 +9,6 @@ import Foundation
 
 @objc protocol ButtonActionDelegate {
     @objc optional func requestForChattingRoom()
+    @objc optional func likeButtonTouched()
+    @objc optional func backButtonTouched()
 }

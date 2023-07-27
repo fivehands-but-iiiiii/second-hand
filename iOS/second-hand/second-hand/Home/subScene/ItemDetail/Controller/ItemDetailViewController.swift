@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol BackButtonTouchedDelegate {
-    func backButtonTouched()
-}
-class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
-    var delegate: BackButtonTouchedDelegate? = nil
+//protocol BackButtonTouchedDelegate {
+//    func backButtonTouched()
+//}
+class ItemDetailViewController: UIViewController {
+    var delegate: ButtonActionDelegate? = nil
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
     private var itemDetailURL: URL? = nil
@@ -199,7 +199,7 @@ class ItemDetailViewController: UIViewController, LikeButtonTouchedDelegate {
     @objc func backButtonTouched() {
         navigationController?.popViewController(animated: true)
         tabBarController?.tabBar.isHidden = false
-        delegate?.backButtonTouched()
+        delegate?.backButtonTouched?()
     }
     
     @objc private func menuButtonTouched() {
@@ -405,7 +405,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
             return
         }
 
-        NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body, header: nil, fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
+        NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body,  fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
             switch result {
             case .success(let response) :
                 self.enterChattingRoom(chatroomId: response.data)
