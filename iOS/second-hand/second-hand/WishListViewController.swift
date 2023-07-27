@@ -39,7 +39,7 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
     
     override func viewDidDisappear(_ animated: Bool) {
            super.viewDidDisappear(true)
-           //self.categoryScrollView.categoriStackView.willRemoveSubview(<#T##subview: UIView##UIView#>)
+        categoryScrollView.categoriStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
        }
     
