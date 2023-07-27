@@ -107,7 +107,7 @@ class ItemDetailViewController: UIViewController {
                     return
                 }
                 
-                networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, fromURL: wishlistLikeURL) { [self] (result: Result<LikeResponseMessage, Error>) in
+                networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, header: nil, fromURL: wishlistLikeURL) { [self] (result: Result<LikeResponseMessage, Error>) in
                     switch result {
                     case .success(let message) :
                         print("찜 성공  \(message)")
@@ -127,7 +127,7 @@ class ItemDetailViewController: UIViewController {
             do {
                 guard let unwishlistLikeURL = URL(string: Server.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {return}
                 
-                NetworkManager.sendDelete(decodeType: UnlikeResponseMessage.self, what: nil, fromURL: unwishlistLikeURL) { [self] (result: Result<UnlikeResponseMessage?, Error>) in
+                NetworkManager().sendDelete(decodeType: UnlikeResponseMessage.self, what: nil, fromURL: unwishlistLikeURL) { [self] (result: Result<UnlikeResponseMessage?, Error>) in
                     switch result {
                     case .success(let message) :
                         print("찜 해제 성공  \(message)")
@@ -405,7 +405,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
             return
         }
 
-        NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body,  fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
+        NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body, header: nil,  fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
             switch result {
             case .success(let response) :
                 self.enterChattingRoom(chatroomId: response.data)
