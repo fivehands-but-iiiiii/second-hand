@@ -17,6 +17,11 @@ class CategoryViewController: UIViewController {
         setCategoryCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hideTabBar()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
             showTabBar()
@@ -25,7 +30,6 @@ class CategoryViewController: UIViewController {
     private func setUI() {
         self.view.backgroundColor = .white
         setNavigationBar()
-        hideTabBar()
     }
     
     private func setNavigationBar() {
