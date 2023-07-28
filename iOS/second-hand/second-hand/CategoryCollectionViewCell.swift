@@ -2,7 +2,7 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     static let identifier = "categoryCell"
-    let imageView = UIImageView(image: UIImage(systemName: "heart"))
+    let imageView = UIImageView()
     let title = UILabel()
     var imageUrl: String? {
             didSet {
