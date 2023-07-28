@@ -5,10 +5,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView(image: UIImage(systemName: "heart"))
     let title = UILabel()
     var imageUrl: String? {
-        didSet {
-            loadImage()
+            didSet {
+                loadImage()
+            }
         }
-    }
     
     override init(frame: CGRect) {
         // Provide default values for id and imageUrl properties
@@ -52,14 +52,21 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func loadImage() {
-        guard let urlString = self.imageUrl, let url = URL(string: urlString)  else { return }
-        
-        DispatchQueue.global().async {
-        
-            guard let data = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: data)
+            guard let urlString = self.imageUrl, let url = URL(string: urlString) else {
+                imageView.image = nil
+                return
+            }
+            
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: url) else {
+                    DispatchQueue.main.async {
+                        self.imageView.image = nil
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: data)
+                }
             }
         }
-    }
 }
