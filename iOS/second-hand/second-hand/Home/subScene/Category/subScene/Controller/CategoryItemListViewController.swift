@@ -8,6 +8,7 @@
 import UIKit
 
 class CategoryItemListViewController: UIViewController {
+    private var category: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,11 +17,12 @@ class CategoryItemListViewController: UIViewController {
     
     private func setUI() {
         self.view.backgroundColor = .white
-        setNavigationBar()
+        setNavigationBar(category: category ?? 0)
     }
     
-    private func setNavigationBar() {
-        self.navigationItem.title = ""
+    private func setNavigationBar(category: Int) {
+        let stringCategory = Category.convertCategoryIntToString(category)
+        self.navigationItem.title = stringCategory
         
         navigationController?.navigationBar.tintColor = .black
     }
@@ -32,6 +34,10 @@ class CategoryItemListViewController: UIViewController {
     private func showTabBar() {
         tabBarController?.tabBar.isHidden = false
         
+    }
+    
+    func setItemList(category: Int) {
+        self.category = category
     }
 
 }

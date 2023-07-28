@@ -96,7 +96,17 @@ extension CategoryViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let categoryElement = categoryList[0].data.categories[indexPath.row]
+        
+        let id = categoryElement.id
+        
+        let url = Server.shared.itemDetailURL(itemId: id)
+        let categoryItemListViewController = CategoryItemListViewController()
+        
+        categoryItemListViewController.setItemList(category: Category.convertCategoryStringToInt(categoryElement.title))
 
+        self.navigationController?.pushViewController(categoryItemListViewController, animated: true)
     }
     
 }

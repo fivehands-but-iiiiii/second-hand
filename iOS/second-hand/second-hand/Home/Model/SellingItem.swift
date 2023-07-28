@@ -18,5 +18,5 @@ struct SellingItem: Hashable {
     var chatCount : Int
     var likeCount : Int
     var status : Int
-    
 }
+
