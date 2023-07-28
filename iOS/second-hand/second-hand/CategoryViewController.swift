@@ -95,6 +95,10 @@ extension CategoryViewController: UICollectionViewDataSource {
         return cell ?? UICollectionViewCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    }
+    
 }
 
 extension CategoryViewController: UICollectionViewDelegateFlowLayout {
