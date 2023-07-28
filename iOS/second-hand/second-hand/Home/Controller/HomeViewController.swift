@@ -1,10 +1,3 @@
-//
-//  HomeViewController.swift
-//  second-hand
-//
-//  Created by SONG on 2023/06/05.
-//
-
 import UIKit
 
 final class HomeViewController: NavigationUnderLineViewController{
@@ -164,7 +157,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     
     private func getItemList(page: Int) {
         // TODO: 리전 하드코딩 없애기
-        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 2729060200)) else {
+        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 2729060200, category: nil)) else {
             return
         }
         NetworkManager.sendGET(decodeType: ItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in

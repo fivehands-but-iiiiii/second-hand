@@ -44,13 +44,17 @@ struct Server {
         return Server.oAuthURL + "?" + query
     }
     
-    func itemsListURL(page: Int, regionID: Int) -> String {
-        let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.region.rawValue + "\(regionID)"
+    func itemsListURL(page: Int, regionID: Int, category: Int?) -> String {
+        var query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.region.rawValue + "\(regionID)"
+        
+        if let categoryData = category {
+            query = query + "&" + Server.Query.categoryId.rawValue + "\(categoryData)"
+        }
         return Server.baseURL + Path.items.rawValue + "?" + query
     }
-    
+
     func wishItemListURL(page: Int) -> String {
-        let query = Server.Query.page.rawValue + "\(page)" 
+        let query = Server.Query.page.rawValue + "\(page)"
         return Server.baseURL + Path.wishlist.rawValue + "?" + query
     }
     
@@ -77,6 +81,7 @@ struct Server {
         case region = "regionId="
         case itemId = "itemId="
         case category = "category="
+        case categoryId = "categoryId="
     }
 }
 

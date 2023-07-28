@@ -11,16 +11,12 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         }
     
     override init(frame: CGRect) {
-        // Provide default values for id and imageUrl properties
-        
         super.init(frame: frame)
         setUI()
         layout()
     }
     
     required init?(coder: NSCoder) {
-        // Provide default values for id and imageUrl properties
-        
         super.init(coder: coder)
         setUI()
         layout()
