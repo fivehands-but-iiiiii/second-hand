@@ -8,7 +8,7 @@
 import UIKit
 
 class CategoryViewController: UIViewController {
-    private let categoryList = Category.list
+    private var categoryList: [CategoryData] = []
     private var categoryListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
@@ -23,9 +23,9 @@ class CategoryViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            showTabBar()
-        }
+        super.viewWillDisappear(animated)
+        showTabBar()
+    }
     
     private func setUI() {
         self.view.backgroundColor = .white
@@ -47,12 +47,12 @@ class CategoryViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
         
     }
-
+    
     private func setCategoryCollectionView() {
         categoryListCollectionView.dataSource = self
         categoryListCollectionView.delegate = self
         categoryListCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
-
+        
         let margin: CGFloat = 40
         self.view.addSubview(categoryListCollectionView)
         categoryListCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,18 +61,37 @@ class CategoryViewController: UIViewController {
             categoryListCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             categoryListCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
             categoryListCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
-                ])
+        ])
+        
+        sendGet()
+    }
+    
+    private func sendGet() {
+        NetworkManager.sendGET(decodeType: CategoryData.self, what: nil, fromURL: URL(string: Server.shared.url(for: .resourceCategories))!) { (result: Result<[CategoryData], Error>) in
+            switch result {
+            case .success(let data) :
+                self.categoryList = data
+                DispatchQueue.main.async {
+                    self.categoryListCollectionView.reloadData()
+                }
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
     }
 }
-
 extension CategoryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        categoryList.count
+        categoryList.last?.data.categories.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell
+        
+        let categoryElement = categoryList[0].data.categories[indexPath.row]
+            cell?.title.text = categoryElement.title
 
+               
         return cell ?? UICollectionViewCell()
     }
     
@@ -80,13 +99,13 @@ extension CategoryViewController: UICollectionViewDataSource {
 
 extension CategoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let cellWidth: CGFloat = 80
-            let cellHeight: CGFloat = 68
-
-            return CGSize(width: cellWidth, height: cellHeight)
-        }
+        let cellWidth: CGFloat = 80
+        let cellHeight: CGFloat = 68
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 40
-        }
+        return 40
+    }
 }

@@ -1,43 +1,65 @@
-//
-//  CategoryCollectionViewCell.swift
-//  second-hand
-//
-//  Created by leehwajin on 2023/07/27.
-//
-
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     static let identifier = "categoryCell"
-        let image = UIImageView(image: UIImage(systemName: "heart"))
-        let title = UILabel()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            layout()
+    let imageView = UIImageView(image: UIImage(systemName: "heart"))
+    let title = UILabel()
+    var imageUrl: String? {
+        didSet {
+            loadImage()
         }
+    }
+    
+    override init(frame: CGRect) {
+        // Provide default values for id and imageUrl properties
         
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            layout()
-        }
+        super.init(frame: frame)
+        setUI()
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        // Provide default values for id and imageUrl properties
+        
+        super.init(coder: coder)
+        setUI()
+        layout()
+    }
+    
+    private func setUI() {
+        title.textAlignment = .center
+        title.font = .footNote
+        title.textColor = .neutralText
+    }
     
     private func layout() {
-            [image, title].forEach{
-                self.contentView.addSubview($0)
-                $0.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            NSLayoutConstraint.activate([
-                image.topAnchor.constraint(equalTo: self.topAnchor),
-                image.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                image.heightAnchor.constraint(equalToConstant: 44),
-                image.widthAnchor.constraint(equalToConstant: 44),
-                
-                title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 4),
-                title.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                title.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                title.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-                ])
+        [imageView, title].forEach{
+            self.contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 44),
+            imageView.widthAnchor.constraint(equalToConstant: 44),
+            
+            title.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4),
+            title.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            title.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+    }
+    
+    private func loadImage() {
+        guard let urlString = self.imageUrl, let url = URL(string: urlString)  else { return }
+        
+        DispatchQueue.global().async {
+        
+            guard let data = try? Data(contentsOf: url) else { return }
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: data)
+            }
+        }
+    }
 }
