@@ -89,9 +89,9 @@ extension CategoryViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell
         
         let categoryElement = categoryList[0].data.categories[indexPath.row]
-            cell?.title.text = categoryElement.title
-
-               
+        cell?.title.text = categoryElement.title
+        cell?.imageUrl = categoryElement.iconUrl
+        
         return cell ?? UICollectionViewCell()
     }
     
