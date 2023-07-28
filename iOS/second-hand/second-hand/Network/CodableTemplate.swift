@@ -186,3 +186,18 @@ struct ChatroomSuccess: Codable {
     let message: String
     let data: ChatroomData
 }
+
+struct CategoryData: Codable {
+    let message: String
+    let data: CategoryContainer
+}
+
+struct CategoryContainer: Codable {
+    let categories: [CategoryElement]
+}
+
+struct CategoryElement: Codable {
+    let id: Int
+    let title: String
+    let iconUrl: String
+}
