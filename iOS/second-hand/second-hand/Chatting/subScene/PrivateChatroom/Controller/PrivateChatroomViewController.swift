@@ -13,11 +13,12 @@ class PrivateChatroomViewController: UIViewController {
     private var chatroomTitle: UILabel? = nil
     var privateChatroomModel = PrivateChatroomModel()
     private var itemSummary: ItemSummaryInChatroom? = nil
+    private var socketManager : SocketManager? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
-        WSTest()
+        readyToChat()
     }
 
     private func commonInit() {
@@ -30,20 +31,21 @@ class PrivateChatroomViewController: UIViewController {
         
     }
     
-    private func WSTest() {
-        let socketManager = SocketManager()
+    private func readyToChat() {
         
         guard let roomId = privateChatroomModel.info?.chatroomId else {
             return
         }
         
-        guard let memberId = UserInfoManager.shared.userInfo?.memberId else {
+        guard let sender = UserInfoManager.shared.userInfo?.memberId else {
             return
         }
  
-        
-        socketManager.connect(roomId: roomId ,memberId: memberId, message: "안녕")
+        self.socketManager = SocketManager(roomId: roomId, sender: sender)
+        //socketManager.sendTest(message: "안녕")
     }
+    
+    
     
     private func didUpdateModel() {
         
