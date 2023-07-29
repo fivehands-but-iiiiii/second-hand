@@ -20,6 +20,10 @@
 		DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */; };
 		DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */; };
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
+		DB6258582A7242C7005A8846 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6258572A7242C7005A8846 /* Secrets.plist */; };
+		DB62586F2A7256C6005A8846 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62586E2A7256C6005A8846 /* CategoryViewController.swift */; };
+		DB6258732A72571D005A8846 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258722A72571D005A8846 /* Category.swift */; };
+		DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
@@ -38,7 +42,6 @@
 		E4375C172A666843003F6F5B /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C162A666843003F6F5B /* SocketManager.swift */; };
 		E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */; };
 		E4375C1C2A67DBE4003F6F5B /* ButtonActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */; };
-		E4375C232A6A7D31003F6F5B /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4375C222A6A7D31003F6F5B /* Secrets.plist */; };
 		E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */; };
 		E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042B2A5D56C300FDADE4 /* Utils.swift */; };
 		E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */; };
@@ -87,6 +90,10 @@
 		DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCount.swift; sourceTree = "<group>"; };
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		DB6258572A7242C7005A8846 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		DB62586E2A7256C6005A8846 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = "second-hand/CategoryViewController.swift"; sourceTree = SOURCE_ROOT; };
+		DB6258722A72571D005A8846 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = "second-hand/Category.swift"; sourceTree = SOURCE_ROOT; };
+		DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = "second-hand/CategoryCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -107,7 +114,6 @@
 		E4375C162A666843003F6F5B /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomViewController.swift; sourceTree = "<group>"; };
 		E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActionDelegate.swift; sourceTree = "<group>"; };
-		E4375C222A6A7D31003F6F5B /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomModel.swift; sourceTree = "<group>"; };
 		E448042B2A5D56C300FDADE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailModel.swift; sourceTree = "<group>"; };
@@ -182,6 +188,7 @@
 		DB51315B2A3EA48500FBFA49 /* subScene */ = {
 			isa = PBXGroup;
 			children = (
+				DB6258662A72561D005A8846 /* Category */,
 				E4CAD8412A5ACEC300C69F7D /* ItemDetail */,
 				DB55CB182A44470D00578ED5 /* RegisterNewProduct */,
 				DB55CB162A4446D800578ED5 /* SetLocation */,
@@ -322,6 +329,49 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		DB6258562A7242C7005A8846 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				DB6258572A7242C7005A8846 /* Secrets.plist */,
+			);
+			name = Secrets;
+			path = "second-hand/Secrets";
+			sourceTree = "<group>";
+		};
+		DB6258662A72561D005A8846 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				DB6258742A7258FB005A8846 /* View */,
+				DB6258702A725709005A8846 /* Model */,
+				DB6258682A725631005A8846 /* Controller */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		DB6258682A725631005A8846 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DB62586E2A7256C6005A8846 /* CategoryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		DB6258702A725709005A8846 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB6258722A72571D005A8846 /* Category.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DB6258742A7258FB005A8846 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		DBAF839A2A32E30600194A02 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,7 +423,7 @@
 		DBB04D1E2A2DA5BF001233CC = {
 			isa = PBXGroup;
 			children = (
-				E4375C212A6A7D21003F6F5B /* Secrets */,
+				DB6258562A7242C7005A8846 /* Secrets */,
 				DBB04D292A2DA5BF001233CC /* second-hand */,
 				DBB04D282A2DA5BF001233CC /* Products */,
 				94BA97CE86293EDB3FC68F03 /* Pods */,
@@ -414,14 +464,6 @@
 				E4923CDB2A6F9FEE00D2BF19 /* PrivateChatroom */,
 			);
 			path = subScene;
-			sourceTree = "<group>";
-		};
-		E4375C212A6A7D21003F6F5B /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-				E4375C222A6A7D31003F6F5B /* Secrets.plist */,
-			);
-			path = Secrets;
 			sourceTree = "<group>";
 		};
 		E448042D2A5EA21000FDADE4 /* Model */ = {
@@ -743,8 +785,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6258582A7242C7005A8846 /* Secrets.plist in Resources */,
 				DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */,
-				E4375C232A6A7D31003F6F5B /* Secrets.plist in Resources */,
 				DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -801,6 +843,7 @@
 				DB51AD9A2A5A9B8C00EB939D /* AddPhotoScrollView.swift in Sources */,
 				DB55CB0B2A43E59700578ED5 /* UIButton+Extension.swift in Sources */,
 				E41076C22A49B5EC00F5204E /* IdInputSection.swift in Sources */,
+				DB62586F2A7256C6005A8846 /* CategoryViewController.swift in Sources */,
 				DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */,
 				E4C951482A3AB4E80094AD66 /* NetworkManager.swift in Sources */,
 				E4C951452A3967D30094AD66 /* JoinViewController.swift in Sources */,
@@ -836,6 +879,8 @@
 				E46EFD042A61A73400FFC3B8 /* SellerInfoView.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
 				DB51AD982A5A97E200EB939D /* RegisterNewProductViewController.swift in Sources */,
+				DB6258732A72571D005A8846 /* Category.swift in Sources */,
+				DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */,
 				E49EB86B2A371A0B001F2D56 /* LoginMyAccountViewController.swift in Sources */,
 				DBB04D2B2A2DA5BF001233CC /* AppDelegate.swift in Sources */,
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,

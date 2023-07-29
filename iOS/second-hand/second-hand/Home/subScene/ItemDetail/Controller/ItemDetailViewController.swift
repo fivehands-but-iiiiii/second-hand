@@ -94,56 +94,58 @@ class ItemDetailViewController: UIViewController {
     }
     
     func likeButtonTouched() {
-        let itemId = (itemDetailModel.info?.id)!
+        guard let itemId = itemDetailModel.info?.id else {
+            return
+        }
         
-        let jsonData: [String: Int] = ["itemId" : itemId]
+        let jsonData: [String: Int] = ["itemId": itemId]
         
-        if itemDetailModel.info?.isLike == false {
-            //찜하기 실행
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: jsonData)
-                
-                guard let wishlistLikeURL = URL(string: Server.shared.url(for: .wishlistLike)) else {
+        if let isLike = itemDetailModel.info?.isLike {
+            if isLike {
+                guard let unwishlistLikeURL = URL(string: Server.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {
                     return
                 }
                 
-                networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, header: nil, fromURL: wishlistLikeURL) { [self] (result: Result<LikeResponseMessage, Error>) in
+                NetworkManager().sendDelete(decodeType: UnlikeResponseMessage.self, what: nil, fromURL: unwishlistLikeURL) { [weak self] (result: Result<UnlikeResponseMessage?, Error>) in
                     switch result {
-                    case .success(let message) :
-                        print("찜 성공  \(message)")
-                        //다시 다시 그리기
-                        bottomSectionView.likeButton?.removeFromSuperview()
-                        bottomSectionView.setLikeButton(isLike: true)
-                        bottomSectionView.layoutIfNeeded()
-                    case .failure(let error) :
-                        print("찜 실패 \(error)")
-                    }
-                }
-            } catch {
-                print("Error encoding JSON data: \(error)")
-            }
-        }else {
-            //찜 해제
-            do {
-                guard let unwishlistLikeURL = URL(string: Server.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {return}
-                
-                NetworkManager().sendDelete(decodeType: UnlikeResponseMessage.self, what: nil, fromURL: unwishlistLikeURL) { [self] (result: Result<UnlikeResponseMessage?, Error>) in
-                    switch result {
-                    case .success(let message) :
+                    case .success(let message):
                         print("찜 해제 성공  \(message)")
-                        //다시 다시 그리기
-                        bottomSectionView.likeButton?.removeFromSuperview()
-                        bottomSectionView.setLikeButton(isLike: false)
-                        bottomSectionView.layoutIfNeeded()
-                    case .failure(let error) :
+                        self?.updateLikeStatus(isLike: false)
+                    case .failure(let error):
                         print("찜 해제 실패 \(error)")
                     }
                 }
-            } catch {
-                print("Error encoding JSON data: \(error)")
+            } else {
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: jsonData)
+                    
+                    guard let wishlistLikeURL = URL(string: Server.shared.url(for: .wishlistLike)) else {
+                        return
+                    }
+                    
+                    networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, header: nil, fromURL: wishlistLikeURL) { [weak self] (result: Result<LikeResponseMessage, Error>) in
+                        switch result {
+                        case .success(let message):
+                            print("찜 성공  \(message)")
+                            self?.updateLikeStatus(isLike: true)
+                        case .failure(let error):
+                            print("찜 실패 \(error)")
+                        }
+                    }
+                } catch {
+                    print("Error encoding JSON data: \(error)")
+                }
             }
         }
     }
+
+    private func updateLikeStatus(isLike: Bool) {
+        itemDetailModel.info?.isLike = isLike
+        bottomSectionView.likeButton?.removeFromSuperview()
+        bottomSectionView.setLikeButton(isLike: isLike)
+        bottomSectionView.layoutIfNeeded()
+    }
+
     
     private func InfoNotLogin() {
         print("로그인을 하세요")
