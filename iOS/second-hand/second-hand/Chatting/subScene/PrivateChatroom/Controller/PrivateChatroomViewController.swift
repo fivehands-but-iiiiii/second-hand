@@ -14,7 +14,7 @@ class PrivateChatroomViewController: UIViewController {
     var privateChatroomModel = PrivateChatroomModel()
     private var itemSummary: ItemSummaryInChatroom? = nil
     private var socketManager : SocketManager? = nil
-    
+    private var bottomSectionView : BottomSectionInChatroom? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
@@ -25,10 +25,11 @@ class PrivateChatroomViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         generateBackButton()
         generateMenuButton()
+        generateBottomSectionView()
         setConstraintsBackButton()
         setConstraintsMenuButton()
+        setConstraintsBottomSectionView()
         didUpdateModel()
-        
     }
     
     private func readyToChat() {
@@ -44,8 +45,6 @@ class PrivateChatroomViewController: UIViewController {
         self.socketManager = SocketManager(roomId: roomId, sender: sender)
         //socketManager.sendTest(message: "안녕")
     }
-    
-    
     
     private func didUpdateModel() {
         
@@ -197,5 +196,32 @@ class PrivateChatroomViewController: UIViewController {
     
     @objc private func menuButtonTouched() {
         
+    }
+    
+    //MARK: BottomSection
+    private func generateBottomSectionView() {
+        self.bottomSectionView = BottomSectionInChatroom(frame: .zero)
+        setConstraintsBottomSectionView()
+    }
+    
+    private func setConstraintsBottomSectionView() {
+        guard let bottomSectionView = bottomSectionView else {
+            return
+        }
+        
+        if !self.view.subviews.contains(bottomSectionView) {
+            self.view.addSubview(bottomSectionView)
+        }
+        
+        bottomSectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                bottomSectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -50),
+                bottomSectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                bottomSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                bottomSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
     }
 }
