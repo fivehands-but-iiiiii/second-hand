@@ -18,7 +18,7 @@ class PrivateChatroomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
-        readyToChat()
+        readyToWS()
     }
 
     private func commonInit() {
@@ -32,7 +32,7 @@ class PrivateChatroomViewController: UIViewController {
         didUpdateModel()
     }
     
-    private func readyToChat() {
+    private func readyToWS() {
         
         guard let roomId = privateChatroomModel.info?.chatroomId else {
             return
@@ -47,7 +47,7 @@ class PrivateChatroomViewController: UIViewController {
     }
     
     private func didUpdateModel() {
-        
+    
         setChatroomTitle()
         setItemSummary()
     }
