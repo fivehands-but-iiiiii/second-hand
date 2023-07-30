@@ -25,7 +25,7 @@ struct Category {
         case 6 :
             return "유아도서"
         case 7 :
-            return "여상의류"
+            return "여성의류"
         case 8 :
             return "여성잡화"
         case 9 :
