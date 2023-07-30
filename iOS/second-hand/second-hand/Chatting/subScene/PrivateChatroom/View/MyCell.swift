@@ -7,6 +7,6 @@
 
 import UIKit
 
-class ChatBubble: UITableViewCell {
+class MyCell: UITableViewCell {
 
 }
