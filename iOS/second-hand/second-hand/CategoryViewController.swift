@@ -104,7 +104,7 @@ extension CategoryViewController: UICollectionViewDataSource {
         let url = Server.shared.itemDetailURL(itemId: id)
         let categoryItemListViewController = CategoryItemListViewController()
         
-        categoryItemListViewController.setItemList(category: Category.convertCategoryStringToInt(categoryElement.title))
+        categoryItemListViewController.getCategory(category: Category.convertCategoryStringToInt(categoryElement.title))
 
         self.navigationController?.pushViewController(categoryItemListViewController, animated: true)
     }
