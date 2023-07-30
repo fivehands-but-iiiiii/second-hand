@@ -10,11 +10,13 @@ import UIKit
 class CategoryItemListViewController: UIViewController {
     private var category: Int?
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
+    private var items: [SellingItem] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
         setCollectionView()
+        setupInfiniteScroll()
     }
     
     private func setUI() {
@@ -53,6 +55,10 @@ class CategoryItemListViewController: UIViewController {
         )
     }
     
+    private func setupInfiniteScroll() {
+        productListCollectionView.delegate = self
+    }
+    
     private func hideTabBar() {
         tabBarController?.tabBar.isHidden = true
     }
@@ -66,4 +72,24 @@ class CategoryItemListViewController: UIViewController {
         self.category = category
     }
 
+}
+
+extension CategoryItemListViewController: UICollectionViewDelegate {
+   
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           
+           let id = items[indexPath.item].id
+           
+           let url = Server.shared.itemDetailURL(itemId: id)
+           let itemDetailViewController = ItemDetailViewController()
+           
+           itemDetailViewController.setItemDetailURL(url)
+           hideTabBar()
+           self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+       }
+    
+    private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
+        let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
+        return itemId
+    }
 }
