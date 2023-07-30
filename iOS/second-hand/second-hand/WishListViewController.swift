@@ -217,18 +217,15 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
                     print("마지막 페이지에 대한 처리")
                 }
                 
-                // 새로운 페이지의 데이터를 새로운 배열에 저장합니다.
                 var newItems: [SellingItem] = []
                 itemList.data.items.forEach { item in
                     newItems.append((self?.convertToHashable(from: item))!)
                 }
                 
-                // 현재 페이지가 0인 경우에만 기존 items 배열을 비웁니다.
                 if page == 0 {
                     self?.items.removeAll()
                 }
                 
-                // 새로운 페이지의 데이터를 기존 items 배열에 추가합니다.
                 self?.items.append(contentsOf: newItems)
                 self?.applySnapshot()
                 

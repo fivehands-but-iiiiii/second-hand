@@ -21,6 +21,7 @@ class CategoryItemListViewController: UIViewController {
         setCollectionView()
         setupInfiniteScroll()
         fetchItemList(page: page)
+        setupDataSource()
     }
     
     private func setUI() {
@@ -76,46 +77,29 @@ class CategoryItemListViewController: UIViewController {
         self.category = category
     }
     
-    private func fetchItemList(page: Int, categoryNumber: Int? = nil) {
-        var urlString: String
-        if let category = self.category {
-            urlString = Server.shared.wishItemListCategoryURL(page: page, categoryValue: category)
-        } else {
-            urlString = Server.shared.wishItemListURL(page: page)
-        }
-        
-        guard let url = URL(string: urlString) else {
+    private func fetchItemList(page: Int) {
+        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 2729060200, category: self.category)) else {
             return
         }
         
-        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url) { [weak self] (result: Result<[WishItemList], Error>) in
+        NetworkManager.sendGET(decodeType: ItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
             switch result {
-            case .success(let data):
-                guard let itemList = data.last else {
+            case .success(let response) :
+                guard let itemList = response.last?.data else {
                     return
                 }
                 
-                if itemList.data.items.count == 0 {
-                    self?.isLoadingItems = false
+                if itemList.items.count == 0 {
+                    self.isLoadingItems = false
                     print("마지막 페이지에 대한 처리")
                 }
                 
-                // 새로운 페이지의 데이터를 새로운 배열에 저장합니다.
-                var newItems: [SellingItem] = []
-                itemList.data.items.forEach { item in
-                    newItems.append((self?.convertToHashable(from: item))!)
+                itemList.items.forEach { item in
+                    self.items.append(self.convertToHashable(from: item))
                 }
+                self.applySnapshot()
                 
-                // 현재 페이지가 0인 경우에만 기존 items 배열을 비웁니다.
-                if page == 0 {
-                    self?.items.removeAll()
-                }
-                
-                // 새로운 페이지의 데이터를 기존 items 배열에 추가합니다.
-                self?.items.append(contentsOf: newItems)
-                self?.applySnapshot()
-                
-            case .failure(let error):
+            case .failure(let error) :
                 print(error.localizedDescription)
             }
         }
@@ -129,10 +113,20 @@ class CategoryItemListViewController: UIViewController {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func convertToHashable(from item : WishItem) -> SellingItem {
+    private func convertToHashable(from item : Item) -> SellingItem {
         let result =
-        SellingItem(id: item.id,thumbnailImageUrl: item.thumbnailUrl, title: item.title, price: item.price, region: item.region, createdAt: item.createdAt, chatCount: item.chatCount ,likeCount: item.likeCount, status: item.status)
+        SellingItem(id: item.id,thumbnailImageUrl: item.thumbnailUrl!, title: item.title, price: item.price, region: item.region.district, createdAt: item.createdAt, chatCount: item.chatCount ,likeCount: item.likeCount, status: item.status)
         return result
+    }
+    
+    private func setupDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+            cell.setUI(from: self.items[indexPath.item])
+        }
+        
+        self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { (collectionView, indexPath, itemIdentifier: SellingItem) -> UICollectionViewCell? in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        }
     }
 
 }
