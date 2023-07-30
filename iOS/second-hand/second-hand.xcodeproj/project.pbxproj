@@ -20,7 +20,6 @@
 		DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */; };
 		DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */; };
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
-		DB6258582A7242C7005A8846 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6258572A7242C7005A8846 /* Secrets.plist */; };
 		DB62586F2A7256C6005A8846 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62586E2A7256C6005A8846 /* CategoryViewController.swift */; };
 		DB6258732A72571D005A8846 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258722A72571D005A8846 /* Category.swift */; };
 		DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */; };
@@ -46,6 +45,8 @@
 		E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */; };
 		E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042B2A5D56C300FDADE4 /* Utils.swift */; };
 		E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */; };
+		E45BF6732A763F710026AD03 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45BF6722A763F710026AD03 /* Secrets.plist */; };
+		E45BF6762A7642670026AD03 /* BottomSectionInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6752A7642670026AD03 /* BottomSectionInChatroom.swift */; };
 		E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380C2A440D0E006A46D1 /* UserInfoManager.swift */; };
 		E467380F2A453FBF006A46D1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380E2A453FBF006A46D1 /* Server.swift */; };
 		E46738112A482DF1006A46D1 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46738102A482DF1006A46D1 /* Updatable.swift */; };
@@ -91,7 +92,6 @@
 		DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCount.swift; sourceTree = "<group>"; };
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
-		DB6258572A7242C7005A8846 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		DB62586E2A7256C6005A8846 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = "second-hand/CategoryViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DB6258722A72571D005A8846 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = "second-hand/Category.swift"; sourceTree = SOURCE_ROOT; };
 		DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = "second-hand/CategoryCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -119,6 +119,8 @@
 		E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomModel.swift; sourceTree = "<group>"; };
 		E448042B2A5D56C300FDADE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailModel.swift; sourceTree = "<group>"; };
+		E45BF6722A763F710026AD03 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		E45BF6752A7642670026AD03 /* BottomSectionInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSectionInChatroom.swift; sourceTree = "<group>"; };
 		E467380C2A440D0E006A46D1 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		E467380E2A453FBF006A46D1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		E46738102A482DF1006A46D1 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
@@ -334,7 +336,7 @@
 		DB6258562A7242C7005A8846 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
-				DB6258572A7242C7005A8846 /* Secrets.plist */,
+				E45BF6722A763F710026AD03 /* Secrets.plist */,
 			);
 			name = Secrets;
 			path = "second-hand/Secrets";
@@ -497,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */,
+				E45BF6752A7642670026AD03 /* BottomSectionInChatroom.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -804,7 +807,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB6258582A7242C7005A8846 /* Secrets.plist in Resources */,
+				E45BF6732A763F710026AD03 /* Secrets.plist in Resources */,
 				DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */,
 				DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */,
 			);
@@ -906,6 +909,7 @@
 				E49EB8522A3068A8001F2D56 /* HomeLeftBarButton.swift in Sources */,
 				E46EFD0C2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift in Sources */,
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
+				E45BF6762A7642670026AD03 /* BottomSectionInChatroom.swift in Sources */,
 				DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */,
 				E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
