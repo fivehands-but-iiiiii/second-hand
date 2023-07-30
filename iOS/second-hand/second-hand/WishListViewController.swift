@@ -33,6 +33,7 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
         setCollectionView()
         setObserver()
         setupInfiniteScroll()
+        page = 0
         fetchItemList(page: page)
         setupDataSource()
     }

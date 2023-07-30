@@ -420,11 +420,11 @@ extension ItemDetailViewController : ButtonActionDelegate {
     
     private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
         
-        let privateChatroom = PrivateChatroomViewController()
-
-        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
-        
-        self.navigationController?.pushViewController(privateChatroom, animated: true)
+//        let privateChatroom = PrivateChatroomViewController()
+//
+//        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
+//
+//        self.navigationController?.pushViewController(privateChatroom, animated: true)
     }
 }
 
