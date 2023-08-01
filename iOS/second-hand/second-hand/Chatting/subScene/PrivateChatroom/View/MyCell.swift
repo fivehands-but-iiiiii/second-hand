@@ -62,10 +62,8 @@ extension MyCell : MyBubbleDelegate {
     func textBoxSizeDidChange(in bubble: MyBubble) {
         if let textBox = bubble.textBox {
             let bubbleWidth = textBox.contentSize.width
-            
+
             bubble.widthAnchor.constraint(equalToConstant: bubbleWidth).isActive = true
         }
     }
-    
-    
 }
