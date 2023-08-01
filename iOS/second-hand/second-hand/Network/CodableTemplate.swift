@@ -166,6 +166,7 @@ struct Categories: Codable {
     let categories: [Int]
 }
 
+//MARK: Chat
 struct ItemOfChatroom: Codable {
     let itemId: Int
     let title: String
@@ -200,4 +201,23 @@ struct CategoryElement: Codable {
     let id: Int
     let title: String
     let iconUrl: String
+}
+
+struct ChattingLog: Codable {
+    let message : String
+    let data : ChattingLogPage
+}
+
+struct ChattingLogPage: Codable {
+    let hasPre: Bool
+    let hasNext: Bool
+    let chatBubbles : ChatBubbles
+}
+
+struct ChatBubbles: Codable {
+    let id : String
+    let senderId: String
+    let message: String
+    let isMine: Bool
+    let createdAt: String
 }
