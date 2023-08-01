@@ -12,6 +12,7 @@ final class SaleLogViewController: UIViewController {
     private let titleLabel = UILabel()
     private let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
+    private var items: [SellingItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,7 @@ final class SaleLogViewController: UIViewController {
         setNavigationBar()
         setSegmentControl()
         setCollectionView()
+        setupInfiniteScroll()
     }
     
     private func setSegmentControl() {
@@ -85,6 +87,39 @@ final class SaleLogViewController: UIViewController {
             ]
         )
     }
+    
+    private func setupInfiniteScroll() {
+        productListCollectionView.delegate = self
+    }
+    
+    private func hideTabBar() {
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    private func showTabBar() {
+        tabBarController?.tabBar.isHidden = false
+        
+    }
 
+}
+
+extension SaleLogViewController: UICollectionViewDelegate {
+   
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           
+           let id = items[indexPath.item].id
+           
+           let url = Server.shared.itemDetailURL(itemId: id)
+           let itemDetailViewController = ItemDetailViewController()
+           
+           itemDetailViewController.setItemDetailURL(url)
+           hideTabBar()
+           self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+       }
+    
+    private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
+        let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
+        return itemId
+    }
 }
 
