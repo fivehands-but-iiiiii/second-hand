@@ -42,7 +42,7 @@
 		E4375C172A666843003F6F5B /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C162A666843003F6F5B /* SocketManager.swift */; };
 		E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */; };
 		E4375C1C2A67DBE4003F6F5B /* ButtonActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */; };
-		E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */; };
+		E4375C252A6D9004003F6F5B /* PrivateChatroomUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomUIModel.swift */; };
 		E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042B2A5D56C300FDADE4 /* Utils.swift */; };
 		E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */; };
 		E45BF6732A763F710026AD03 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45BF6722A763F710026AD03 /* Secrets.plist */; };
@@ -119,7 +119,7 @@
 		E4375C162A666843003F6F5B /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomViewController.swift; sourceTree = "<group>"; };
 		E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActionDelegate.swift; sourceTree = "<group>"; };
-		E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomModel.swift; sourceTree = "<group>"; };
+		E4375C242A6D9004003F6F5B /* PrivateChatroomUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomUIModel.swift; sourceTree = "<group>"; };
 		E448042B2A5D56C300FDADE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailModel.swift; sourceTree = "<group>"; };
 		E45BF6722A763F710026AD03 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
@@ -516,7 +516,7 @@
 		E4923CD92A6F9F6F00D2BF19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */,
+				E4375C242A6D9004003F6F5B /* PrivateChatroomUIModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -923,7 +923,7 @@
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
 				E45BF6762A7642670026AD03 /* BottomSectionInChatroom.swift in Sources */,
 				DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */,
-				E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */,
+				E4375C252A6D9004003F6F5B /* PrivateChatroomUIModel.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,

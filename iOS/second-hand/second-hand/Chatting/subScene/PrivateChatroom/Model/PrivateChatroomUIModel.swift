@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PrivateChatroomModel: Updatable {
+class PrivateChatroomUIModel: Updatable {
     var info : ChatroomData? = nil
     
     func updateData<T>(from fetchedData: T) where T : Decodable, T : Encodable {
