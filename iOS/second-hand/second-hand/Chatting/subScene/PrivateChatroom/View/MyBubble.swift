@@ -10,7 +10,7 @@ import UIKit
 class MyBubble: UIImageView {
     private let bubbleImage = UIImage(systemName: "bubble.right.fill")?.resizableImage(withCapInsets: UIEdgeInsets(top: 4, left: 6, bottom: 6, right: 10.0), resizingMode: .stretch)
     
-    private var textBox = UITextView(frame: .zero)
+    var textBox : UITextView? = nil
     
     init(text:String){
         super.init(frame: .zero)
@@ -37,7 +37,9 @@ class MyBubble: UIImageView {
     }
     
     private func setConsraintsTextBox() {
-        self.textBox.sizeToFit()
+        guard let textBox = textBox else {
+            return
+        }
         
         if !self.subviews.contains(textBox) {
             self.addSubview(textBox)
