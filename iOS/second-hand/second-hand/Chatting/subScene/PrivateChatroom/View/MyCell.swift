@@ -34,13 +34,14 @@ class MyCell: UITableViewCell {
         if !self.contentView.subviews.contains(bubble) {
             self.contentView.addSubview(bubble)
         }
-        
-        bubble.sizeToFit()
         bubble.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate(
             [
                 bubble.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -5.0),
-                bubble.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+                bubble.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+                bubble.topAnchor.constraint(equalTo: self.topAnchor, constant: 5.0),
+                bubble.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0)
             ]
         )
     }
