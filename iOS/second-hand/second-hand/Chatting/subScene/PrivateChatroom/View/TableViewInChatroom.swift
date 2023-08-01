@@ -8,12 +8,34 @@
 import UIKit
 
 class TableViewInChatroom: UITableView {
-
-
+    private let chat = ["하이하이하이하이하이하이하이하이하이하이하이"]
+    
+    override init(frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: .plain)
+        self.delegate = self
+        self.dataSource = self
+        registerCell()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.delegate = self
+        self.dataSource = self
+        registerCell()
+    }
+    
+    private func registerCell() {
+        self.register(MyCell.self, forCellReuseIdentifier: MyCell.identifier)
+        
+    }
 }
 
 extension TableViewInChatroom : UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let rowHeight: CGFloat = 45 + 23.0 * CGFloat((chat[indexPath.row].count / 18))
+        return rowHeight
+    }
 }
 
 extension TableViewInChatroom : UITableViewDataSource {
@@ -22,8 +44,11 @@ extension TableViewInChatroom : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell(frame: .zero)
+        return MyCell(text:chat[indexPath.row])
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
     
 }
