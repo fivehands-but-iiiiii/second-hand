@@ -15,6 +15,7 @@ class MyBubble: UIImageView {
     init(text:String){
         super.init(frame: .zero)
         self.image = bubbleImage
+        self.tintColor = .accentBackgroundPrimary
         setTextBox(text: text)
     }
     
@@ -28,12 +29,15 @@ class MyBubble: UIImageView {
     }
     
     private func setTextBox(text:String) {
-        self.textBox.isScrollEnabled = false
-        self.textBox.isEditable = false
-        self.textBox.text = text
-        self.textBox.font = .systemFont(ofSize: 17.0)
-        self.textBox.textColor = .systemBackground
-        self.textBox.textAlignment = .right
+        self.textBox = UITextView(frame: .zero)
+        
+        self.textBox?.isScrollEnabled = false
+        self.textBox?.isEditable = false
+        self.textBox?.text = text
+        self.textBox?.font = .systemFont(ofSize: 17.0)
+        self.textBox?.textColor = .systemBackground
+        self.textBox?.textAlignment = .center
+        self.textBox?.backgroundColor = .clear
     }
     
     private func setConsraintsTextBox() {
