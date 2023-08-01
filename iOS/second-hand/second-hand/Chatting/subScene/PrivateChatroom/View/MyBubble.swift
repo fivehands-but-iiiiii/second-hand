@@ -8,7 +8,7 @@
 import UIKit
 
 class MyBubble: UIImageView {
-    private let bubbleImage = UIImage(named: "bubbleOragne.png")?.resizableImage(withCapInsets: UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0), resizingMode: .stretch)
+    private let bubbleImage = UIImage(systemName: "bubble.right.fill")?.resizableImage(withCapInsets: UIEdgeInsets(top: 4, left: 6, bottom: 6, right: 10.0), resizingMode: .stretch)
     
     private var textBox = UITextView(frame: .zero)
     
