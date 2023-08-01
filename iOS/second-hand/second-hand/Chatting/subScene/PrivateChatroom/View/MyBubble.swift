@@ -49,5 +49,15 @@ class MyBubble: UIImageView {
             self.addSubview(textBox)
         }
         
+        textBox.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                textBox.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+                textBox.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+                textBox.widthAnchor.constraint(lessThanOrEqualToConstant: Utils.screenWidth() * 0.7)
+            ]
+        )
+        
     }
 }
