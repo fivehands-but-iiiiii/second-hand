@@ -15,7 +15,6 @@ class TableViewInChatroom: UITableView {
         self.delegate = self
         self.dataSource = self
         registerCell()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -27,7 +26,21 @@ class TableViewInChatroom: UITableView {
     
     private func registerCell() {
         self.register(MyCell.self, forCellReuseIdentifier: MyCell.identifier)
+    }
+    
+    private func scrollToLastCell(animated: Bool = true) {
+        let lastSection = self.numberOfSections - 1
+        guard lastSection >= 0 else {
+            return
+        }
         
+        let lastRow = self.numberOfRows(inSection: lastSection) - 1
+        guard lastRow >= 0 else {
+            return
+        }
+        
+        let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
+        self.scrollToRow(at: lastIndexPath, at: .bottom, animated: animated)
     }
 }
 
@@ -48,7 +61,7 @@ extension TableViewInChatroom : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+        scrollToLastCell(animated: true)
     }
     
 }
