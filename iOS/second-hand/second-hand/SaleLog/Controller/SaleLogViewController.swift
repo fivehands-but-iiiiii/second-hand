@@ -11,6 +11,7 @@ import UIKit
 final class SaleLogViewController: UIViewController {
     private let titleLabel = UILabel()
     private let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
+    private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ final class SaleLogViewController: UIViewController {
         self.navigationItem.title = "판매 내역"
         setNavigationBar()
         setSegmentControl()
+        setCollectionView()
     }
     
     private func setSegmentControl() {
@@ -58,6 +60,30 @@ final class SaleLogViewController: UIViewController {
             segmentControl.widthAnchor.constraint(equalToConstant: 240*widthRatio),
             segmentControl.heightAnchor.constraint(equalToConstant: 32*heightRatio)
         ])
+    }
+    
+    private func setCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        let figmaCellHight = 152
+        let figmaHeight = 852
+        
+        layout.minimumLineSpacing = 1.1
+        layout.itemSize = .init(width: self.view.frame.width, height: CGFloat(figmaCellHight*figmaHeight)/self.view.frame.height)
+        productListCollectionView.setCollectionViewLayout(layout, animated: true)
+        self.view.addSubview(productListCollectionView)
+        setCollectionViewConstraints()
+    }
+    
+    private func setCollectionViewConstraints() {
+        productListCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                productListCollectionView.topAnchor.constraint(equalTo: self.segmentControl.bottomAnchor, constant: 10),
+                productListCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                productListCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                productListCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            ]
+        )
     }
 
 }

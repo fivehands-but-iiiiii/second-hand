@@ -554,7 +554,6 @@
 			children = (
 				E49EB8572A31C877001F2D56 /* Controller */,
 				E49EB8592A31C889001F2D56 /* View */,
-				E49EB8582A31C882001F2D56 /* Model */,
 			);
 			path = SaleLog;
 			sourceTree = "<group>";
@@ -626,13 +625,6 @@
 				E49EB8392A2DD353001F2D56 /* SaleLogViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		E49EB8582A31C882001F2D56 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		E49EB8592A31C889001F2D56 /* View */ = {
