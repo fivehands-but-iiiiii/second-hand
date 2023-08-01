@@ -25,7 +25,9 @@ final class SaleLogViewController: UIViewController {
         setSegmentControl()
         setCollectionView()
         setupInfiniteScroll()
-        fetchItemList(page: page)
+        page = 0
+        fetchItemList(page: page, isSales: true)
+        setupDataSource()
     }
     
     private func setSegmentControl() {
@@ -46,8 +48,17 @@ final class SaleLogViewController: UIViewController {
     
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
         
-        //let selectedIndex = sender.selectedSegmentIndex
-        // 선택된 인덱스에 따라 원하는 동작 수행
+        let selectedIndex = sender.selectedSegmentIndex
+
+        if selectedIndex == 0 {
+            page = 0
+            fetchItemList(page: page, isSales: true)
+            setupDataSource()
+        }else {
+            page = 0
+            fetchItemList(page: page, isSales: false)
+            setupDataSource()
+        }
     }
     
     private func segmentControlLayout() {
@@ -105,12 +116,12 @@ final class SaleLogViewController: UIViewController {
         
     }
     
-    private func fetchItemList(page: Int) {
-        guard let url = URL(string: Server.shared.url(for: .itemsMine)) else {
+    private func fetchItemList(page: Int, isSales: Bool) {
+        guard let url = URL(string: Server.shared.urlBoolType(path: .itemsMine, query: .isSales, queryValue: isSales, page: page)) else {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let itemList = response.last?.data else {
@@ -141,10 +152,20 @@ final class SaleLogViewController: UIViewController {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    private func convertToHashable(from item : Item) -> SellingItem {
+    private func convertToHashable(from item : MyItem) -> SellingItem {
         let result =
         SellingItem(id: item.id,thumbnailImageUrl: item.thumbnailUrl!, title: item.title, price: item.price, region: item.region.district, createdAt: item.createdAt, chatCount: item.chatCount ,likeCount: item.likeCount, status: item.status)
         return result
+    }
+    
+    private func setupDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
+            cell.setUI(from: self.items[indexPath.item])
+        }
+        
+        self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { (collectionView, indexPath, itemIdentifier: SellingItem) -> UICollectionViewCell? in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        }
     }
 
 }
@@ -168,4 +189,3 @@ extension SaleLogViewController: UICollectionViewDelegate {
         return itemId
     }
 }
-

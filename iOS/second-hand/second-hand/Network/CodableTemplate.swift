@@ -78,6 +78,25 @@ struct Item: Codable {
     let price, status, hits, chatCount,likeCount: Int
     let isLike: Bool
 }
+struct MyItemListSuccess: Codable {
+    let message : String
+    let data : MyItemList
+}
+
+struct MyItemList: Codable {
+    let number: Int
+    let hasPrevious, hasNext: Bool
+    let items: [MyItem]
+}
+
+struct MyItem: Codable {
+    let id: Int
+    let title: String
+    let thumbnailUrl: String?
+    let region: ProductRegion
+    let createdAt: String
+    let price, status, hits, chatCount,likeCount: Int
+}
 
 // MARK: - Region
 struct ProductRegion: Codable {

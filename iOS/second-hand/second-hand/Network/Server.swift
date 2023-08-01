@@ -34,6 +34,10 @@ struct Server {
     func url(path: Path, query: Query, queryValue: Int) -> String {
         return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
     }
+    
+    func urlBoolType(path: Path, query: Query, queryValue: Bool, page: Int) -> String {
+        return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue) + "&" + Query.page.rawValue + "\(page)"
+    }
 
     func gitLoginURL(withCode code: String) -> String {
         let query = Server.Query.code.rawValue + code
@@ -83,6 +87,7 @@ struct Server {
         case itemId = "itemId="
         case category = "category="
         case categoryId = "categoryId="
+        case isSales = "isSales="
     }
 }
 
