@@ -15,12 +15,14 @@ class PrivateChatroomViewController: UIViewController {
     private var itemSummary: ItemSummaryInChatroom? = nil
     private var socketManager : SocketManager? = nil
     private var bottomSectionView : BottomSectionInChatroom? = nil
+    private var chatLogTableView : TableViewInChatroom? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
         readyToWS()
     }
-
+    
     private func commonInit() {
         self.view.backgroundColor = .systemBackground
         generateBackButton()
@@ -41,15 +43,15 @@ class PrivateChatroomViewController: UIViewController {
         guard let sender = UserInfoManager.shared.userInfo?.memberId else {
             return
         }
- 
+        
         self.socketManager = SocketManager(roomId: roomId, sender: sender)
         //socketManager.sendTest(message: "안녕")
     }
     
     private func didUpdateModel() {
-    
         setChatroomTitle()
         setItemSummary()
+        setChatLogTableView()
     }
     
     private func setItemSummary() {
@@ -94,7 +96,7 @@ class PrivateChatroomViewController: UIViewController {
     private func setChatroomTitle() {
         self.chatroomTitle = UILabel(frame: .zero)
         self.chatroomTitle?.text = privateChatroomModel.info?.opponentId
-
+        
         self.chatroomTitle?.font = .systemFont(ofSize: 17.0, weight: .bold)
         self.chatroomTitle?.textAlignment = .center
         setConstraintsChatroomTitle()
@@ -221,6 +223,47 @@ class PrivateChatroomViewController: UIViewController {
                 bottomSectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
                 bottomSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
                 bottomSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
+    }
+    
+    //MARK: TableView
+    
+    private func setChatLogTableView() {
+        generateChatLogTableView()
+        setConstraintsChatLogTableView()
+    }
+    
+    private func generateChatLogTableView() {
+        self.chatLogTableView = TableViewInChatroom(frame: .zero, style: .plain)
+    }
+    
+    private func setConstraintsChatLogTableView() {
+        guard let chatLogTableView = chatLogTableView else {
+            return
+        }
+        
+        guard let itemSummary = itemSummary else {
+            return
+        }
+        
+        guard let bottomSectionView = bottomSectionView else {
+            return
+        }
+        
+        if !self.view.subviews.contains(chatLogTableView) {
+            self.view.addSubview(chatLogTableView)
+        }
+        
+        chatLogTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                chatLogTableView.topAnchor.constraint(equalTo: itemSummary.bottomAnchor),
+                chatLogTableView.bottomAnchor.constraint(equalTo: bottomSectionView.topAnchor),
+                chatLogTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                chatLogTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+                
             ]
         )
     }
