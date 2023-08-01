@@ -11,12 +11,14 @@ class MyBubble: UIImageView {
     private let bubbleImage = UIImage(systemName: "bubble.right.fill")?.resizableImage(withCapInsets: UIEdgeInsets(top: 4, left: 6, bottom: 6, right: 10.0), resizingMode: .stretch)
     
     var textBox : UITextView? = nil
+    weak var delegate: MyBubbleDelegate?
     
     init(text:String){
         super.init(frame: .zero)
         self.image = bubbleImage
         self.tintColor = .accentBackgroundPrimary
         setTextBox(text: text)
+        setConsraintsTextBox()
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +28,8 @@ class MyBubble: UIImageView {
     
     override func layoutSubviews() {
         setConsraintsTextBox()
+        self.textBox?.sizeToFit()
+        delegate?.textBoxSizeDidChange(in: self)
     }
     
     private func setTextBox(text:String) {
@@ -60,4 +64,8 @@ class MyBubble: UIImageView {
         )
         
     }
+}
+
+protocol MyBubbleDelegate: AnyObject {
+    func textBoxSizeDidChange(in bubble: MyBubble)
 }

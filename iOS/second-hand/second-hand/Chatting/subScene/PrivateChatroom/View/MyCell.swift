@@ -15,6 +15,7 @@ class MyCell: UITableViewCell {
     init(text:String) {
         super.init(style: .default, reuseIdentifier: MyCell.identifier)
         self.bubble = MyBubble(text: text)
+        bubble?.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -43,4 +44,27 @@ class MyCell: UITableViewCell {
             ]
         )
     }
+    
+    private func adjustBubbleLayoutToFitTextBox() {
+        guard let bubble = bubble, let textBox = bubble.textBox else {
+            return
+        }
+        
+        let bubbleWidth = textBox.frame.width + 16
+        
+        bubble.widthAnchor.constraint(equalToConstant: bubbleWidth).isActive = true
+    }
+}
+
+
+extension MyCell : MyBubbleDelegate {
+    func textBoxSizeDidChange(in bubble: MyBubble) {
+        if let textBox = bubble.textBox {
+            let bubbleWidth = textBox.contentSize.width
+            
+            bubble.widthAnchor.constraint(equalToConstant: bubbleWidth).isActive = true
+        }
+    }
+    
+    
 }
