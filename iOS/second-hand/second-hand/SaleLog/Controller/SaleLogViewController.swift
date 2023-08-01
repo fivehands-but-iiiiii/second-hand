@@ -13,6 +13,9 @@ final class SaleLogViewController: UIViewController {
     private let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private var items: [SellingItem] = []
+    private var page: Int = 0
+    private var isLoadingItems = true
+    private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,7 @@ final class SaleLogViewController: UIViewController {
         setSegmentControl()
         setCollectionView()
         setupInfiniteScroll()
+        fetchItemList(page: page)
     }
     
     private func setSegmentControl() {
@@ -99,6 +103,48 @@ final class SaleLogViewController: UIViewController {
     private func showTabBar() {
         tabBarController?.tabBar.isHidden = false
         
+    }
+    
+    private func fetchItemList(page: Int) {
+        guard let url = URL(string: Server.shared.url(for: .itemsMine)) else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: ItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
+            switch result {
+            case .success(let response) :
+                guard let itemList = response.last?.data else {
+                    return
+                }
+                
+                if itemList.items.count == 0 {
+                    self.isLoadingItems = false
+                    print("마지막 페이지에 대한 처리")
+                }
+                
+                itemList.items.forEach { item in
+                    self.items.append(self.convertToHashable(from: item))
+                }
+                self.applySnapshot()
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(self.items, toSection: .main)
+        
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func convertToHashable(from item : Item) -> SellingItem {
+        let result =
+        SellingItem(id: item.id,thumbnailImageUrl: item.thumbnailUrl!, title: item.title, price: item.price, region: item.region.district, createdAt: item.createdAt, chatCount: item.chatCount ,likeCount: item.likeCount, status: item.status)
+        return result
     }
 
 }
