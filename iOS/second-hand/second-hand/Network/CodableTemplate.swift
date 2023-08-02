@@ -212,7 +212,7 @@ struct ChattingLog: Codable {
 struct ChattingLogPage: Codable {
     let hasPre: Bool
     let hasNext: Bool
-    let chatBubbles : ChatBubbles
+    let chatBubbles : [ChatBubbles]
 }
 
 struct ChatBubbles: Codable {
