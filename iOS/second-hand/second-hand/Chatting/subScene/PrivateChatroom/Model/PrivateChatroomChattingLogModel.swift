@@ -8,13 +8,13 @@
 import Foundation
 
 class PrivateChatroomChattingLogModel: Updatable {
-    var info : ChattingLog? = nil
+    var info : [ChattingLogPage] = []
     
     func updateData<T>(from fetchedData: T) where T : Decodable, T : Encodable {
-        guard let data = fetchedData as? ChattingLog else{
+        guard let response = fetchedData as? ChattingLogPage else{
             print("캐스팅실패")
             return
         }
-        self.info = data
+        self.info.append(response)
     }
 }
