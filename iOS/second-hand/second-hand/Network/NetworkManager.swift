@@ -197,13 +197,13 @@ class NetworkManager {
         }
 
         
-        var loginToken = UserInfoManager.shared.loginToken
+        let loginToken = UserInfoManager.shared.loginToken
         
-        var request = makeRequest(methodType: .delete, cookie: nil, url: url, body: nil, loginToken: loginToken)
+        let request = makeRequest(methodType: .delete, cookie: nil, url: url, body: nil, loginToken: loginToken)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
-                guard let data = data else {
+                guard data != nil else {
                     return
                 }
                 
