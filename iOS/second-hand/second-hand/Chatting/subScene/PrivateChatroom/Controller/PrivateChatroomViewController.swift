@@ -204,6 +204,8 @@ class PrivateChatroomViewController: UIViewController {
     private func generateBottomSectionView() {
         self.bottomSectionView = BottomSectionInChatroom(frame: .zero)
         setConstraintsBottomSectionView()
+
+        self.bottomSectionView?.delegate = self
     }
     
     private func setConstraintsBottomSectionView() {

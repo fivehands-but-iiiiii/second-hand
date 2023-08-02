@@ -103,6 +103,11 @@ class BottomSectionInChatroom: UIView {
     }
     
     @objc private func sendButtonTouched() {
-        print("send버튼 눌렀을 때 구현")
+        guard let text = textField?.text else {
+            return
+        }
+
+        delegate?.sendButtonTouched?(message:text)
+        textField?.text = ""
     }
 }
