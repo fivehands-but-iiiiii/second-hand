@@ -8,13 +8,17 @@
 import UIKit
 
 class TableViewInChatroom: UITableView {
-    private let chat = ["하이하이하이하이하이하이하이하이하이하이하이"]
+//    private var bubbleCount = 0
+//    private var sectionCount = 0
+    private var havingBubbles : [MyCell] = []
     
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: .plain)
+    init(chattingLogData: PrivateChatroomChattingLogModel) {
+        super.init(frame: .zero, style: .plain)
         self.delegate = self
         self.dataSource = self
         registerCell()
+        self.havingBubbles = makeHavingBubbles(from: chattingLogData)
+        // data로 cell만들어
     }
     
     required init?(coder: NSCoder) {
@@ -24,8 +28,30 @@ class TableViewInChatroom: UITableView {
         registerCell()
     }
     
+//    private func calculateNumberOfRows(from data : PrivateChatroomChattingLogModel) {
+//        var sum = 0
+//        for page in data.info {
+//            sum += page.chatBubbles.count
+//        }
+//        self.bubbleCount = sum
+//    }
+//
+//    private func calculateNumberOfSections(from data : PrivateChatroomChattingLogModel) {
+//        self.sectionCount = data.info.count
+//    }
+    
     private func registerCell() {
         self.register(MyCell.self, forCellReuseIdentifier: MyCell.identifier)
+    }
+    
+    private func makeHavingBubbles(from data : PrivateChatroomChattingLogModel) -> [MyCell] {
+        var cells : [MyCell] = []
+        for page in data.info {
+            for item in page.chatBubbles {
+                cells.append(MyCell(text: item.message))
+            }
+        }
+        return cells
     }
     
     private func scrollToLastCell(animated: Bool = true) {
@@ -46,18 +72,19 @@ class TableViewInChatroom: UITableView {
 
 extension TableViewInChatroom : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let rowHeight: CGFloat = 45 + 23.0 * CGFloat((chat[indexPath.row].count / 18))
+        let rowHeight: CGFloat = 45 + 23.0 * CGFloat((havingBubbles[indexPath.row].textCount / 18))
         return rowHeight
     }
 }
 
 extension TableViewInChatroom : UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return havingBubbles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return MyCell(text:chat[indexPath.row])
+        return havingBubbles[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

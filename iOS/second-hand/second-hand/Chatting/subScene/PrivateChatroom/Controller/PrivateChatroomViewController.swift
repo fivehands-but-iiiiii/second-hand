@@ -16,7 +16,7 @@ class PrivateChatroomViewController: UIViewController {
     private var socketManager : SocketManager? = nil
     private var bottomSectionView : BottomSectionInChatroom? = nil
     private var chatLogTableView : TableViewInChatroom? = nil
-    private var chatLogModel : ChattingLog? = nil
+    private var chatLogModel = PrivateChatroomChattingLogModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -233,12 +233,15 @@ class PrivateChatroomViewController: UIViewController {
     
     private func setChatLogTableView() {
         fetchChatLog()
+    }
+    
+    private func afterFetchingChatLog() {
         generateChatLogTableView()
         setConstraintsChatLogTableView()
     }
     
     private func generateChatLogTableView() {
-        self.chatLogTableView = TableViewInChatroom(frame: .zero, style: .plain)
+        self.chatLogTableView = TableViewInChatroom(chattingLogData: self.chatLogModel)
     }
     
     private func setConstraintsChatLogTableView() {
@@ -266,7 +269,6 @@ class PrivateChatroomViewController: UIViewController {
                 chatLogTableView.bottomAnchor.constraint(equalTo: bottomSectionView.topAnchor),
                 chatLogTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
                 chatLogTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
-                
             ]
         )
     }
@@ -288,11 +290,25 @@ class PrivateChatroomViewController: UIViewController {
                 guard let response = response.last else {
                     return
                 }
-                print(response)
-                
+                self.chatLogModel.updateData(from: response.data)
+                self.afterFetchingChatLog()
             case .failure(let error) :
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func updateTableView() {
+        
+    }
+    
+}
+
+extension PrivateChatroomViewController: ButtonActionDelegate {
+    func sendButtonTouched(message: String) {
+        guard let socketManager = socketManager else {
+            return
+        }
+        socketManager.send(message)
     }
 }

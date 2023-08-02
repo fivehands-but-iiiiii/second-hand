@@ -11,9 +11,11 @@ class MyCell: UITableViewCell {
     static let identifier = "MYCELL"
     
     private var bubble : MyBubble? = nil
+    var textCount : Int = 0
     
     init(text:String) {
         super.init(style: .default, reuseIdentifier: MyCell.identifier)
+        self.textCount = text.count
         self.bubble = MyBubble(text: text)
         bubble?.delegate = self
     }
