@@ -17,16 +17,18 @@ final class SaleLogViewController: UIViewController {
     private var isLoadingItems = true
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
-        setNavigationBar()
         setSegmentControl()
         setCollectionView()
         setupInfiniteScroll()
         page = 0
-        fetchItemList(page: page, isSales: true)
+        fetchItemList(page: page, isSales: false)
         setupDataSource()
     }
     
@@ -48,6 +50,9 @@ final class SaleLogViewController: UIViewController {
     
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
         
+        items.removeAll()
+        isLoadingItems = true
+
         let selectedIndex = sender.selectedSegmentIndex
 
         if selectedIndex == 0 {
@@ -121,7 +126,7 @@ final class SaleLogViewController: UIViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let itemList = response.last?.data else {
