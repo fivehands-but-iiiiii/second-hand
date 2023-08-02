@@ -46,7 +46,6 @@ class PrivateChatroomViewController: UIViewController {
         }
         
         self.socketManager = SocketManager(roomId: roomId, sender: sender)
-        //socketManager.sendTest(message: "안녕")
     }
     
     private func didUpdateModel() {
@@ -94,6 +93,7 @@ class PrivateChatroomViewController: UIViewController {
     }
     
     // MARK: NavigationBar (Buttons , title)
+    
     private func setChatroomTitle() {
         self.chatroomTitle = UILabel(frame: .zero)
         self.chatroomTitle?.text = privateChatroomModel.info?.opponentId
@@ -132,7 +132,6 @@ class PrivateChatroomViewController: UIViewController {
         button.tintColor = .black
         button.addTarget(self, action:#selector(menuButtonTouched), for: .touchUpInside)
         self.menuButton = button
-        
     }
     
     private func setConstraintsBackButton() {
@@ -193,7 +192,7 @@ class PrivateChatroomViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    @objc private func backButtonTouched() {
+    @objc func backButtonTouched() {
         navigationController?.popViewController(animated: true)
     }
     

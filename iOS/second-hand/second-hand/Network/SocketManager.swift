@@ -29,7 +29,7 @@ class SocketManager {
         self.socketClient?.connect()
     }
     
-    func send(message: String) {
+    func send(_ message: String) {
         guard let body = JSONCreater().createWSMessageRequestBody(roomId: self.roomId, sender: self.sender, message: message) else {
             return
         }

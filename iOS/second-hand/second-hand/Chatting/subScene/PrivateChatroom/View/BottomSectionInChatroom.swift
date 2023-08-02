@@ -8,7 +8,6 @@
 import UIKit
 
 class BottomSectionInChatroom: UIView {
-    
     private var textField : UITextField? = nil
     private var sendButton : UIButton? = nil
     
@@ -74,7 +73,6 @@ class BottomSectionInChatroom: UIView {
         self.sendButton = UIButton(type: .system)
 
         self.sendButton?.tintColor = .accentBackgroundPrimary
-        
         self.sendButton?.setBackgroundImage(UIImage(systemName: "arrow.up.circle.fill"), for: .normal)
         self.sendButton?.addTarget(self, action: #selector(sendButtonTouched), for: .touchUpInside)
     }
@@ -83,6 +81,7 @@ class BottomSectionInChatroom: UIView {
         guard let sendButton = sendButton else {
             return
         }
+        
         guard let textField = textField else {
             return
         }
