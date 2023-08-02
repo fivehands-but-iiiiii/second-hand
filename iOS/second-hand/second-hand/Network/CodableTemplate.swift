@@ -166,7 +166,23 @@ struct Categories: Codable {
     let categories: [Int]
 }
 
-//MARK: Chat
+
+struct CategoryData: Codable {
+    let message: String
+    let data: CategoryContainer
+}
+
+struct CategoryContainer: Codable {
+    let categories: [CategoryElement]
+}
+
+struct CategoryElement: Codable {
+    let id: Int
+    let title: String
+    let iconUrl: String
+}
+
+//MARK: ChatRoom
 struct ItemOfChatroom: Codable {
     let itemId: Int
     let title: String
@@ -187,22 +203,7 @@ struct ChatroomSuccess: Codable {
     let message: String
     let data: ChatroomData
 }
-
-struct CategoryData: Codable {
-    let message: String
-    let data: CategoryContainer
-}
-
-struct CategoryContainer: Codable {
-    let categories: [CategoryElement]
-}
-
-struct CategoryElement: Codable {
-    let id: Int
-    let title: String
-    let iconUrl: String
-}
-
+//MARK: ChattingLog
 struct ChattingLog: Codable {
     let message : String
     let data : ChattingLogPage
