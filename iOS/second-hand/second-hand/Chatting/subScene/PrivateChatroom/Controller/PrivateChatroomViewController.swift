@@ -11,7 +11,7 @@ class PrivateChatroomViewController: UIViewController {
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
     private var chatroomTitle: UILabel? = nil
-    var privateChatroomModel = PrivateChatroomUIModel()
+    var privateChatroomModel = PrivateChatroomModel()
     private var itemSummary: ItemSummaryInChatroom? = nil
     private var socketManager : SocketManager? = nil
     private var bottomSectionView : BottomSectionInChatroom? = nil

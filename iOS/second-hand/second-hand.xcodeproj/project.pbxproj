@@ -42,7 +42,7 @@
 		E4375C172A666843003F6F5B /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C162A666843003F6F5B /* SocketManager.swift */; };
 		E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */; };
 		E4375C1C2A67DBE4003F6F5B /* ButtonActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */; };
-		E4375C252A6D9004003F6F5B /* PrivateChatroomUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomUIModel.swift */; };
+		E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */; };
 		E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042B2A5D56C300FDADE4 /* Utils.swift */; };
 		E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */; };
 		E45BF6732A763F710026AD03 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45BF6722A763F710026AD03 /* Secrets.plist */; };
@@ -50,6 +50,7 @@
 		E45BF6782A7647590026AD03 /* TableViewInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6772A7647590026AD03 /* TableViewInChatroom.swift */; };
 		E45BF67A2A7649FD0026AD03 /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6792A7649FD0026AD03 /* MyCell.swift */; };
 		E45BF67C2A765BF20026AD03 /* MyBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF67B2A765BF20026AD03 /* MyBubble.swift */; };
+		E45BF67E2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF67D2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift */; };
 		E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380C2A440D0E006A46D1 /* UserInfoManager.swift */; };
 		E467380F2A453FBF006A46D1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380E2A453FBF006A46D1 /* Server.swift */; };
 		E46738112A482DF1006A46D1 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46738102A482DF1006A46D1 /* Updatable.swift */; };
@@ -119,7 +120,7 @@
 		E4375C162A666843003F6F5B /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		E4375C182A67D82D003F6F5B /* PrivateChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomViewController.swift; sourceTree = "<group>"; };
 		E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActionDelegate.swift; sourceTree = "<group>"; };
-		E4375C242A6D9004003F6F5B /* PrivateChatroomUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomUIModel.swift; sourceTree = "<group>"; };
+		E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomModel.swift; sourceTree = "<group>"; };
 		E448042B2A5D56C300FDADE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailModel.swift; sourceTree = "<group>"; };
 		E45BF6722A763F710026AD03 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
@@ -127,6 +128,7 @@
 		E45BF6772A7647590026AD03 /* TableViewInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInChatroom.swift; sourceTree = "<group>"; };
 		E45BF6792A7649FD0026AD03 /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		E45BF67B2A765BF20026AD03 /* MyBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBubble.swift; sourceTree = "<group>"; };
+		E45BF67D2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomChattingLogModel.swift; sourceTree = "<group>"; };
 		E467380C2A440D0E006A46D1 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		E467380E2A453FBF006A46D1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		E46738102A482DF1006A46D1 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
@@ -516,7 +518,8 @@
 		E4923CD92A6F9F6F00D2BF19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E4375C242A6D9004003F6F5B /* PrivateChatroomUIModel.swift */,
+				E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */,
+				E45BF67D2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -904,6 +907,7 @@
 				E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */,
 				E4375C172A666843003F6F5B /* SocketManager.swift in Sources */,
 				DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */,
+				E45BF67E2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift in Sources */,
 				E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */,
 				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
 				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
@@ -923,7 +927,7 @@
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
 				E45BF6762A7642670026AD03 /* BottomSectionInChatroom.swift in Sources */,
 				DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */,
-				E4375C252A6D9004003F6F5B /* PrivateChatroomUIModel.swift in Sources */,
+				E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
