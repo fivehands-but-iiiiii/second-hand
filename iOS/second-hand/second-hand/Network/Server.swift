@@ -13,7 +13,7 @@ struct Server {
     static let oAuthURL = "https://github.com/login/oauth/authorize"
     static let clientID = "5c4b10099c0ae232e5a1"
     static let redirectURL = "http://localhost:5173/login/oauth2/code/github"
-
+    
     enum Path: String {
         case join = "/join"
         case gitLogin = "/git/login"
@@ -24,8 +24,9 @@ struct Server {
         case wishlistCategories = "/wishlist/categories"
         case chats = "/chats"
         case resourceCategories = "/resources/categories"
+        case logs = "/logs"
     }
-
+    
     func url(for path: Path) -> String {
         return Server.baseURL + path.rawValue
     }
@@ -33,12 +34,12 @@ struct Server {
     func url(path: Path, query: Query, queryValue: Int) -> String {
         return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
     }
-
+    
     func gitLoginURL(withCode code: String) -> String {
         let query = Server.Query.code.rawValue + code
         return Server.baseURL + Path.gitLogin.rawValue + "?" + query
     }
-
+    
     func oAuthAuthorizeURL() -> String {
         let query = "client_id=\(Server.clientID)&redirect_url=\(Server.redirectURL)"
         return Server.oAuthURL + "?" + query
@@ -52,7 +53,7 @@ struct Server {
         }
         return Server.baseURL + Path.items.rawValue + "?" + query
     }
-
+    
     func wishItemListURL(page: Int) -> String {
         let query = Server.Query.page.rawValue + "\(page)"
         return Server.baseURL + Path.wishlist.rawValue + "?" + query
@@ -73,6 +74,17 @@ struct Server {
     
     func requestToCreateChattingRoom() -> String {
         return Server.baseURL + Path.chats.rawValue
+    }
+    
+    func requestToChattingLog(roomId: String, page: Int) -> String {
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let logsPath = Path.logs.rawValue
+        let pageQuery = Query.page.rawValue + String(page)
+        
+        let url = baseURL + chatsPath + "/" + roomId + logsPath + "?" + pageQuery
+        
+        return url
     }
     
     enum Query: String {
