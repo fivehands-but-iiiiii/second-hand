@@ -79,7 +79,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             let category: Int = 1
             let region: Int = 1
             let price: Int = Int(priceTextField.text!) ?? 0
-            guard CheckPriceRange(price, limit: 10000000) else { return }
+            guard checkPriceRange(price, limit: 10000000) else { return }
             
             
             let boundary = generateBoundaryString()
@@ -131,12 +131,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
                 
                 if let data = data, let responseString = String(data: data, encoding: .utf8) {
                     print("Response: \(responseString)")
+                    DispatchQueue.main.async { self.dismiss(animated: true) }
                 }
             }.resume()
         }
     }
     
-    private func CheckPriceRange(_ price : Int, limit: Int) -> Bool {
+    private func checkPriceRange(_ price : Int, limit: Int) -> Bool {
         if price > limit {
             //TODO: 여기서 프린트가 아닌, 얼럿을 띄울 예정
             print("금액은 \(limit)까지 가능합니다.")
