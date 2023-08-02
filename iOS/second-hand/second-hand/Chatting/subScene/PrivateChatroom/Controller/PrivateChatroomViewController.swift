@@ -16,6 +16,7 @@ class PrivateChatroomViewController: UIViewController {
     private var socketManager : SocketManager? = nil
     private var bottomSectionView : BottomSectionInChatroom? = nil
     private var chatLogTableView : TableViewInChatroom? = nil
+    private var chatLogModel : ChattingLog? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,6 +231,7 @@ class PrivateChatroomViewController: UIViewController {
     //MARK: TableView
     
     private func setChatLogTableView() {
+        fetchChatLog()
         generateChatLogTableView()
         setConstraintsChatLogTableView()
     }
@@ -266,5 +268,30 @@ class PrivateChatroomViewController: UIViewController {
                 
             ]
         )
+    }
+    
+    //MARK: ChattingLog
+    private func fetchChatLog() {
+        
+        guard let roomId = privateChatroomModel.info?.chatroomId else {
+            return
+        }
+        
+        guard let url = URL(string:Server.shared.requestToChattingLog(roomId: roomId, page: 0)) else {
+            return
+        }
+
+        NetworkManager.sendGET(decodeType: ChattingLog.self, what: nil, fromURL: url) { (result: Result<[ChattingLog], Error>) in
+            switch result {
+            case .success(let response) :
+                guard let response = response.last else {
+                    return
+                }
+                print(response)
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
     }
 }
