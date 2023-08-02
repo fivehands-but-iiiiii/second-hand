@@ -61,7 +61,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
         // 이미지 데이터를 가져오는 비동기 작업을 관리하는 DispatchGroup 생성
         let group = DispatchGroup()
         var imagesData: [Data] = []
-
+        
         for result in photoArray {
             group.enter()
             getImageData(from: result) { imageData in
@@ -71,19 +71,21 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
                 group.leave()
             }
         }
-       
+        
         group.notify(queue: .main) { [self] in
             
             let title = titleTextField.text
             let contents = descriptionTextField.text
             let category: Int = 1
             let region: Int = 1
-            let price: Int = Int(priceTextField.text!)!
-           
+            let price: Int = Int(priceTextField.text!) ?? 0
+            guard CheckPriceRange(price, limit: 10000000) else { return }
+            
+            
             let boundary = generateBoundaryString()
             JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
             var body = Data()
-
+            
             let parameters: [String: Any] = ["title": title ?? "",
                                              "contents": contents ?? "",
                                              "category": category,
@@ -107,9 +109,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
                 body.append(imageData)
                 body.append(Data("\r\n".utf8))
             }
-
+            
             body.append(Data(boundarySuffix.utf8))
-
+            
             // POST 요청 보내기
             let url = URL(string: Server.shared.url(for: .items))
             var request = URLRequest(url: url!)
@@ -120,21 +122,29 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
                 print("로그인 해라 !")
             }
             request.httpBody = body
-
+            
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Error: \(error)")
                     return
                 }
-
+                
                 if let data = data, let responseString = String(data: data, encoding: .utf8) {
                     print("Response: \(responseString)")
                 }
             }.resume()
         }
     }
-
-
+    
+    private func CheckPriceRange(_ price : Int, limit: Int) -> Bool {
+        if price > limit {
+            //TODO: 여기서 프린트가 아닌, 얼럿을 띄울 예정
+            print("금액은 \(limit)까지 가능합니다.")
+            return false
+        }else{
+            return true
+        }
+    }
     
     // 이미지 데이터를 가져오는 함수
     func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {

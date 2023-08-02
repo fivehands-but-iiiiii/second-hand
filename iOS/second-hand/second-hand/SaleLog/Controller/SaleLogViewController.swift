@@ -24,11 +24,12 @@ final class SaleLogViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
+        
         setSegmentControl()
         setCollectionView()
         setupInfiniteScroll()
         page = 0
-        fetchItemList(page: page, isSales: false)
+        fetchItemList(page: page, isSales: true)
         setupDataSource()
     }
     
