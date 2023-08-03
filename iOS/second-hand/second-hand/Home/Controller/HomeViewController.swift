@@ -23,12 +23,16 @@ final class HomeViewController: NavigationUnderLineViewController{
         setCollectionView()
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
-        setRegisterProductButton()
         setObserver()
         setupInfiniteScroll()
         getItemList(page: currentPage)
         setupDataSource()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         
+        setRegisterProductButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +115,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setRegisterProductButton() {
+        guard UserInfoManager.shared.loginToken != nil else{ return }
         registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
         registerProductButton.tintColor = .neutralBackground
         registerProductButton.backgroundColor = .accentBackgroundPrimary

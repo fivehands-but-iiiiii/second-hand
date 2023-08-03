@@ -35,6 +35,7 @@ final class AddPhotoImageView: UIImageView {
         titlePhotoLabel.font = .systemFont(ofSize: 11)
         titlePhotoLabel.text = "대표 사진"
         titlePhotoLabel.textAlignment = .center
+        self.isUserInteractionEnabled = true
     }
     
     private func setUI() {
@@ -48,8 +49,7 @@ final class AddPhotoImageView: UIImageView {
         cancelButton.backgroundColor = .black
         cancelButton.layer.cornerRadius = cancelButtonSize/2
         cancelButton.layer.masksToBounds = true
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .allEvents)
-        
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
     private func layout() {

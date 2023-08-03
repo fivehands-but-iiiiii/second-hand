@@ -24,12 +24,17 @@ final class SaleLogViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
-        
+        items.removeAll()
+        isLoadingItems = true
         setSegmentControl()
         setCollectionView()
         setupInfiniteScroll()
         page = 0
         fetchItemList(page: page, isSales: true)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setupDataSource()
     }
     
@@ -53,17 +58,15 @@ final class SaleLogViewController: UIViewController {
         
         items.removeAll()
         isLoadingItems = true
-
+        
         let selectedIndex = sender.selectedSegmentIndex
-
+        
         if selectedIndex == 0 {
             page = 0
             fetchItemList(page: page, isSales: true)
-            setupDataSource()
         }else {
             page = 0
             fetchItemList(page: page, isSales: false)
-            setupDataSource()
         }
     }
     
@@ -127,7 +130,7 @@ final class SaleLogViewController: UIViewController {
             return
         }
         
-            NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let itemList = response.last?.data else {
@@ -166,29 +169,32 @@ final class SaleLogViewController: UIViewController {
     
     private func setupDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
-            cell.setUI(from: self.items[indexPath.item])
+
+            if indexPath.item >= 0, indexPath.item < self.items.count {
+                cell.setUI(from: self.items[indexPath.item])
+            }
         }
         
         self.dataSource = UICollectionViewDiffableDataSource<Section, SellingItem>(collectionView: productListCollectionView) { (collectionView, indexPath, itemIdentifier: SellingItem) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
     }
-
+    
 }
 
 extension SaleLogViewController: UICollectionViewDelegate {
-   
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           
-           let id = items[indexPath.item].id
-           
-           let url = Server.shared.itemDetailURL(itemId: id)
-           let itemDetailViewController = ItemDetailViewController()
-           
-           itemDetailViewController.setItemDetailURL(url)
-           hideTabBar()
-           self.navigationController?.pushViewController(itemDetailViewController, animated: true)
-       }
+        
+        let id = items[indexPath.item].id
+        
+        let url = Server.shared.itemDetailURL(itemId: id)
+        let itemDetailViewController = ItemDetailViewController()
+        
+        itemDetailViewController.setItemDetailURL(url)
+        hideTabBar()
+        self.navigationController?.pushViewController(itemDetailViewController, animated: true)
+    }
     
     private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
         let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item

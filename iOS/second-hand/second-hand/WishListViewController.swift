@@ -27,7 +27,6 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
         setCategory()
         getCategories()
         setCollectionView()
