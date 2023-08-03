@@ -26,11 +26,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        priceTextField.delegate = self
         AddPhotoImageView.cancelButtonTappedDelegate = self
         setUI()
         layout()
         setPHPPicker()
-        
     }
     
     private func setUI() {
@@ -172,7 +172,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
 
     private func setTextField() {
         titleTextField.placeholder = "글제목"
-        priceTextField.placeholder = "가격(선택사항)"
+        priceTextField.placeholder = "가격(선택사항)(천만원 미만으로 설정해주세요.)"
         priceTextField.delegate = self
         descriptionTextField.delegate = self // txtvReview가 유저가 선언한 outlet
         descriptionTextField.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
@@ -323,6 +323,16 @@ extension RegisterNewProductViewController: UITextViewDelegate {
 extension RegisterNewProductViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //백스페이스 허용
+        if string.isEmpty {
+            return true
+        }
+        
+        //천만원 이하까지만 받도록 설정
+        if Int(textField.text!) ?? 0 > 1000000 {
+            return false
+        }
+        
         return string.isEmpty || isNumber(string)
     }
     
@@ -337,6 +347,10 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         //화면 터치시 키보드 내려감
         priceTextField.resignFirstResponder()
+    }
+    
+    private func priceFix() {
+        priceTextField.text = "10000000"
     }
     
 }
