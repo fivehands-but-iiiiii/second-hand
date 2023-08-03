@@ -8,13 +8,13 @@
 import Foundation
 
 struct ProductImageCount {
-    var number = 0
+    static var number = 0
     
-    mutating func addImage() {
-        number += 1
+    static func addImage() {
+        self.number += 1
     }
     
-    mutating func removeImage() {
-        number -= 1
+    static func removeImage() {
+        self.number -= 1
     }
 }

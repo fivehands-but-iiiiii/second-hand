@@ -15,7 +15,6 @@ final class AddPhotoScrollView: UIScrollView {
      let countPictureLabel = UILabel()
 
     private let imageRequest = ImageRequest()
-    private let productPicture = ProductImageCount()
     private let buttonComponentStackView = UIStackView()
     
     override init(frame: CGRect) {
@@ -64,7 +63,6 @@ final class AddPhotoScrollView: UIScrollView {
             newImageView.heightAnchor.constraint(equalToConstant: 80),
             newImageView.widthAnchor.constraint(equalToConstant: 80)
         ])
-        
     }
     
     private func setCameraView() {
@@ -81,7 +79,7 @@ final class AddPhotoScrollView: UIScrollView {
     }
     
     private func setCountPictureLabel() {
-        countPictureLabel.text = "\(productPicture.number)/10"
+        countPictureLabel.text = "\(ProductImageCount.number)/10"
         countPictureLabel.font = .systemFont(ofSize: 13)
         countPictureLabel.textColor = .neutralTextStrong
         countPictureLabel.textAlignment = .center

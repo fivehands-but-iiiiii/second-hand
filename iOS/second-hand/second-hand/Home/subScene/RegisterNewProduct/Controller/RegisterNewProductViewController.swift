@@ -8,8 +8,7 @@
 import UIKit
 import PhotosUI
 
-final class RegisterNewProductViewController: NavigationUnderLineViewController {
-    
+final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate {
     private let sectionLine1 = UIView.makeLine()
     private let sectionLine2 = UIView.makeLine()
     private let sectionLine3 = UIView.makeLine()
@@ -23,11 +22,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
     private let location = "역삼1동"
     private let wonIcon = UILabel()
     private var photoArray = [PHPickerResult]()
-    var countImage = ProductImageCount()
     private let maximumPhotoNumber = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AddPhotoImageView.cancelButtonTappedDelegate = self
         setUI()
         layout()
         setPHPPicker()
@@ -170,9 +169,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             completion(nil)
         }
     }
-    
-    
-    
+
     private func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)"
@@ -241,6 +238,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
+    
+    func cancelButtonTapped() {
+        ProductImageCount.number -= 1
+        self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
+    }
 }
 
 
@@ -261,8 +263,8 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                             //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜주며 진행
                             //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
-                            countImage.addImage()
-                            self.photoScrollView.countPictureLabel.text = "\(countImage.number)/\(maximumPhotoNumber)"
+                            ProductImageCount.addImage()
+                            self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
                         }
                     }
                 }

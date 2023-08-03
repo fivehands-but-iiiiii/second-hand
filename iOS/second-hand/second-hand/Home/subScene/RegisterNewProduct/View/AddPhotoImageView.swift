@@ -6,13 +6,16 @@
 //
 
 import UIKit
+protocol CancelButtonTappedDelegate {
+    func cancelButtonTapped()
+}
 
 final class AddPhotoImageView: UIImageView {
 
     lazy var cancelButton = UIButton()
     private let titlePhotoLabel = UILabel()
     private let cancelButtonSize: CGFloat = 28
-    
+    static var cancelButtonTappedDelegate: CancelButtonTappedDelegate?
     
     override init(image: UIImage?) {
         super.init(image: image)
@@ -29,7 +32,7 @@ final class AddPhotoImageView: UIImageView {
         
     }
     
-    private func setTitlePhotoLabel() {
+    func setTitlePhotoLabel() {
         titlePhotoLabel.backgroundColor = .neutralOveray
         titlePhotoLabel.textColor = .neutralBackground
         titlePhotoLabel.font = .systemFont(ofSize: 11)
@@ -78,6 +81,7 @@ final class AddPhotoImageView: UIImageView {
     @objc private func cancelButtonTapped() {
         removeFromSuperview()
         removeImageFromScrollView()
+        AddPhotoImageView.cancelButtonTappedDelegate?.cancelButtonTapped()
     }
     
     private func removeImageFromScrollView() {
