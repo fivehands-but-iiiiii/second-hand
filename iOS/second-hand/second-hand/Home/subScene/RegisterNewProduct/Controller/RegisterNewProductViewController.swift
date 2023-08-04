@@ -269,6 +269,11 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                             //여기서 스크롤뷰에 이미지뷰가 하나씩 생기고 append를 시켜주며 진행
                             //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
+                            //사진이 아무것도 없는 상황에 추가를 한다면, 첫번째 사진에 대표사진 레이블을 세팅
+                            if ProductImageCount.number == 0  {
+                                let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
+                                secondView?.setTitlePhotoLabel()
+                            }
                             ProductImageCount.addImage()
                             self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
                         }

@@ -19,14 +19,12 @@ final class AddPhotoImageView: UIImageView {
     
     override init(image: UIImage?) {
         super.init(image: image)
-        setTitlePhotoLabel()
         setUI()
         layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setTitlePhotoLabel()
         setUI()
         layout()
         
@@ -38,12 +36,12 @@ final class AddPhotoImageView: UIImageView {
         titlePhotoLabel.font = .systemFont(ofSize: 11)
         titlePhotoLabel.text = "대표 사진"
         titlePhotoLabel.textAlignment = .center
-        self.isUserInteractionEnabled = true
     }
     
     private func setUI() {
         self.layer.cornerRadius = 12
         self.layer.masksToBounds = true
+        self.isUserInteractionEnabled = true
         
         // cancelButton 설정
         cancelButton.setTitle("X", for: .normal)
@@ -53,6 +51,7 @@ final class AddPhotoImageView: UIImageView {
         cancelButton.layer.cornerRadius = cancelButtonSize/2
         cancelButton.layer.masksToBounds = true
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        cancelButton.isUserInteractionEnabled = true
     }
     
     private func layout() {
