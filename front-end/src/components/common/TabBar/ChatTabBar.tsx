@@ -4,6 +4,7 @@ import Icon from '@assets/Icon';
 import Button from '@common/Button';
 import TabBar from '@common/TabBar';
 import Textarea from '@common/Textarea';
+import useEnterKeyPress from '@hooks/useEnterKeyPress';
 
 import { styled } from 'styled-components';
 
@@ -21,6 +22,10 @@ const ChatTabBar = ({
   // TODO: 더 나은 함수명으로 ...
   const _handleChatSubmit = () => handleChatSubmit(chatInput);
 
+  const { handleKeyDown } = useEnterKeyPress({
+    onEnterPress: _handleChatSubmit,
+  });
+
   return (
     <TabBar>
       <Textarea
@@ -29,7 +34,7 @@ const ChatTabBar = ({
         value={chatInput}
         autoFocus
         onChange={handleInputChange}
-        onKeyDown={_handleChatSubmit}
+        onKeyDown={handleKeyDown}
       ></Textarea>
       <MyChatTabBarButton icon active circle="md" onClick={_handleChatSubmit}>
         <Icon name="arrowUp" size="xs" fill="#fff" />
