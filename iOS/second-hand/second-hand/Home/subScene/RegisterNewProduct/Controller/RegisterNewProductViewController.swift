@@ -57,7 +57,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     @objc func finishButtonTapped() {
-        // 이미지 데이터를 가져오는 비동기 작업을 관리하는 DispatchGroup 생성
         let group = DispatchGroup()
         var imagesData: [Data] = []
         
@@ -72,84 +71,91 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         }
         
         group.notify(queue: .main) { [self] in
-            
             let title = titleTextField.text
             let contents = descriptionTextField.text
             let category: Int = 1
             let region: Int = 1
             let price: Int = Int(priceTextField.text!) ?? 0
-            guard checkPriceRange(price, limit: 10000000) else { return }
-            
-            
-            let boundary = generateBoundaryString()
-            JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
-            var body = Data()
-            
-            let parameters: [String: Any] = ["title": title ?? "",
-                                             "contents": contents ?? "",
-                                             "category": category,
-                                             "region": region,
-                                             "price": price]
-            
-            let boundaryPrefix = "--\(boundary)\r\n"
-            let boundarySuffix = "--\(boundary)--\r\n"
-            for (key, value) in parameters {
-                body.append(Data(boundaryPrefix.utf8))
-                body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
-                body.append(Data("\(value)\r\n".utf8))
-            }
-            
-            let imgDataKey = "images"
-            for (index, imageData) in imagesData.enumerated() {
-                let imageName = "image\(index)"
-                body.append(Data(boundaryPrefix.utf8))
-                body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpeg\"\r\n".utf8))
-                body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
-                body.append(imageData)
-                body.append(Data("\r\n".utf8))
-            }
-            
-            body.append(Data(boundarySuffix.utf8))
-            
-            // POST 요청 보내기
-            let url = URL(string: Server.shared.url(for: .items))
-            var request = URLRequest(url: url!)
-            request.httpMethod = "POST"
-            if let loginToken = UserInfoManager.shared.loginToken {
-                request.allHTTPHeaderFields = [JSONCreater.headerKeyAuthorization: loginToken, JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart!]
-            } else {
-                print("로그인 해라 !")
-            }
-            request.httpBody = body
-            
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
-                
-                if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                    print("Response: \(responseString)")
-                    DispatchQueue.main.async { self.dismiss(animated: true) }
-                }
-            }.resume()
+
+            sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
         }
     }
     
-    private func checkPriceRange(_ price : Int, limit: Int) -> Bool {
-        if price > limit {
-            //TODO: 여기서 프린트가 아닌, 얼럿을 띄울 예정
-            print("금액은 \(limit)까지 가능합니다.")
-            return false
-        }else{
-            return true
+    private func sendRequest(title: String?, contents: String?, category: Int, region: Int, price: Int, imagesData: [Data]) {
+        let boundary = generateBoundaryString()
+        JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
+        var body = Data()
+        
+        let parameters: [String: Any] = ["title": title ?? "",
+                                         "contents": contents ?? "",
+                                         "category": category,
+                                         "region": region,
+                                         "price": price]
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        let boundarySuffix = "--\(boundary)--\r\n"
+        for (key, value) in parameters {
+            body.append(Data(boundaryPrefix.utf8))
+            body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+            body.append(Data("\(value)\r\n".utf8))
         }
+        
+        let imgDataKey = "images"
+        for (index, imageData) in imagesData.enumerated() {
+            let imageName = "image\(index)"
+            body.append(Data(boundaryPrefix.utf8))
+            body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpeg\"\r\n".utf8))
+            body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
+            body.append(imageData)
+            body.append(Data("\r\n".utf8))
+        }
+        
+        body.append(Data(boundarySuffix.utf8))
+        
+        let url = URL(string: Server.shared.url(for: .items))
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        if let loginToken = UserInfoManager.shared.loginToken {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyAuthorization: loginToken, JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart!]
+        } else {
+            print("로그인 해라 !")
+        }
+        request.httpBody = body
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            let alert = UIAlertController(title: "오류가 발생하였습니다.", message: "다시 시도해주세요.", preferredStyle: .alert)
+            let confirm = UIAlertAction(title: "확인", style: .default)
+            alert.addAction(confirm)
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
+                print("Error: \(error)")
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if (200..<300).contains(httpResponse.statusCode) {
+                    if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                        print("Response: \(responseString)")
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true)
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }.resume()
     }
     
     // 이미지 데이터를 가져오는 함수
     func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
         let itemProvider = result.itemProvider
-
+        
         if itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                 if let error = error {
@@ -157,7 +163,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                     completion(nil)
                     return
                 }
-
+                
                 if let image = image as? UIImage, let data = image.jpegData(compressionQuality: 0.8) {
                     // 이미지 데이터 반환
                     completion(data)
@@ -169,7 +175,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             completion(nil)
         }
     }
-
+    
     private func setTextField() {
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)(천만원 미만으로 설정해주세요.)"
