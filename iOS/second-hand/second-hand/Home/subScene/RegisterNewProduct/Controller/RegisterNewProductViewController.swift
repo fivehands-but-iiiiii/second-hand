@@ -8,7 +8,8 @@
 import UIKit
 import PhotosUI
 
-final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate {
+final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate, TitleLabelChange {
+    
     private let sectionLine1 = UIView.makeLine()
     private let sectionLine2 = UIView.makeLine()
     private let sectionLine3 = UIView.makeLine()
@@ -24,10 +25,12 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var photoArray = [PHPickerResult]()
     private let maximumPhotoNumber = 10
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        ProductImageCount.number = 0
         priceTextField.delegate = self
         AddPhotoImageView.cancelButtonTappedDelegate = self
+        AddPhotoImageView.titleLabelChangeDelegate = self
         setUI()
         layout()
         setPHPPicker()
@@ -192,7 +195,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             $0.font = .systemFont(ofSize: 15)
             $0.setPlaceholder(color: .neutralTextWeak)
         }
-        
+        self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
     }
     
     private func setToolbar() {
@@ -249,6 +252,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         ProductImageCount.number -= 1
         self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
     }
+    
+    func titleLabelChange() {
+        let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
+        secondView?.setTitlePhotoLabel()
+    }
 }
 
 
@@ -295,7 +303,8 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = maximumPhotoNumber-photoArray.count
+        configuration.selectionLimit = maximumPhotoNumber-ProductImageCount.number
+        
         
         if photoArray.count == 10 {
             print("더이상 사진을 추가할 수 없습니다.")
@@ -364,4 +373,10 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
         priceTextField.text = "10000000"
     }
     
+}
+
+extension Array {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }

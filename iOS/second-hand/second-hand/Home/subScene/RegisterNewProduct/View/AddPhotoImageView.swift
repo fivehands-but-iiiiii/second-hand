@@ -9,6 +9,9 @@ import UIKit
 protocol CancelButtonTappedDelegate {
     func cancelButtonTapped()
 }
+protocol TitleLabelChange {
+    func titleLabelChange()
+}
 
 final class AddPhotoImageView: UIImageView {
 
@@ -16,6 +19,7 @@ final class AddPhotoImageView: UIImageView {
     private let titlePhotoLabel = UILabel()
     private let cancelButtonSize: CGFloat = 28
     static var cancelButtonTappedDelegate: CancelButtonTappedDelegate?
+    static var titleLabelChangeDelegate: TitleLabelChange?
     
     override init(image: UIImage?) {
         super.init(image: image)
@@ -81,6 +85,9 @@ final class AddPhotoImageView: UIImageView {
         removeFromSuperview()
         removeImageFromScrollView()
         AddPhotoImageView.cancelButtonTappedDelegate?.cancelButtonTapped()
+        if let titlePhotoLabelSuperview = cancelButton.superview, titlePhotoLabelSuperview.subviews.contains(titlePhotoLabel) {
+            AddPhotoImageView.titleLabelChangeDelegate?.titleLabelChange()
+        }
     }
     
     private func removeImageFromScrollView() {
