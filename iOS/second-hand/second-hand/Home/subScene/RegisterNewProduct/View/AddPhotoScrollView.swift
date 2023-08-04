@@ -69,6 +69,7 @@ final class AddPhotoScrollView: UIScrollView {
         //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
         cameraView.image = UIImage(systemName: imageRequest.image)
         cameraView.tintColor = .black
+        cameraView.isUserInteractionEnabled = true
         
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(cameraView)
@@ -83,6 +84,7 @@ final class AddPhotoScrollView: UIScrollView {
         countPictureLabel.font = .systemFont(ofSize: 13)
         countPictureLabel.textColor = .neutralTextStrong
         countPictureLabel.textAlignment = .center
+        countPictureLabel.isUserInteractionEnabled = true
     }
     
     private func setButtonComponentStackView() {
@@ -103,5 +105,10 @@ final class AddPhotoScrollView: UIScrollView {
         ])
     }
     
-    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if buttonComponentStackView.frame.contains(point) {
+                return addPhotoButton
+            }
+            return super.hitTest(point, with: event)
+        }
 }

@@ -79,7 +79,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             let category: Int = 1
             let region: Int = 1
             let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
-
+            
             sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
         }
     }
@@ -347,12 +347,12 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
         if string.isEmpty {
             //백스페이스 작동시 컴마 업데이트
             if let currentText = textField.text,
-                       let textRange = Range(range, in: currentText) {
-                        let updatedText = currentText.replacingCharacters(in: textRange, with: string)
-                        textField.text = addCommas(to: updatedText)
-                        return false
-                    }
-                    return true
+               let textRange = Range(range, in: currentText) {
+                let updatedText = currentText.replacingCharacters(in: textRange, with: string)
+                textField.text = addCommas(to: updatedText)
+                return false
+            }
+            return true
         }
         
         // 숫자만 허용
@@ -367,11 +367,11 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
         }
         
         if let currentText = textField.text,
-                   let range = Range(range, in: currentText) {
-                    let updatedText = currentText.replacingCharacters(in: range, with: string)
-                    textField.text = addCommas(to: updatedText)
-                    return false
-                }
+           let range = Range(range, in: currentText) {
+            let updatedText = currentText.replacingCharacters(in: range, with: string)
+            textField.text = addCommas(to: updatedText)
+            return false
+        }
         
         return string.isEmpty || isNumber(string)
     }
@@ -388,7 +388,7 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
             return text
         }
     }
-
+    
     
     private func isNumber(_ string: String) -> Bool {
         let number = CharacterSet(charactersIn: "1234567890")
