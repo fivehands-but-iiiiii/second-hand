@@ -78,7 +78,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             let contents = descriptionTextField.text
             let category: Int = 1
             let region: Int = 1
-            let price: Int = Int(priceTextField.text!) ?? 0
+            let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
 
             sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
         }
@@ -345,16 +345,50 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //백스페이스 허용
         if string.isEmpty {
-            return true
+            //백스페이스 작동시 컴마 업데이트
+            if let currentText = textField.text,
+                       let textRange = Range(range, in: currentText) {
+                        let updatedText = currentText.replacingCharacters(in: textRange, with: string)
+                        textField.text = addCommas(to: updatedText)
+                        return false
+                    }
+                    return true
         }
         
-        //천만원 이하까지만 받도록 설정
-        if Int(textField.text!) ?? 0 > 1000000 {
+        // 숫자만 허용
+        if !isNumber(string) {
             return false
         }
         
+        print(textField.text)
+        //천만원 이하까지만 받도록 설정(백의단위만 받도록받도록)
+        if Int((textField.text?.replacingOccurrences(of: ",", with: ""))!) ?? 0 > 1000000 {
+            return false
+        }
+        
+        if let currentText = textField.text,
+                   let range = Range(range, in: currentText) {
+                    let updatedText = currentText.replacingCharacters(in: range, with: string)
+                    textField.text = addCommas(to: updatedText)
+                    return false
+                }
+        
         return string.isEmpty || isNumber(string)
     }
+    
+    private func addCommas(to text: String) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.usesGroupingSeparator = true
+        
+        if let number = formatter.number(from: text.replacingOccurrences(of: ",", with: "")) {
+            return formatter.string(from: number) ?? ""
+        } else {
+            return text
+        }
+    }
+
     
     private func isNumber(_ string: String) -> Bool {
         let number = CharacterSet(charactersIn: "1234567890")
