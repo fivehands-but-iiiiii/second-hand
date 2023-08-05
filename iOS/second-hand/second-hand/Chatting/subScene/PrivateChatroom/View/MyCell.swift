@@ -7,15 +7,12 @@
 
 import UIKit
 
-class MyCell: UITableViewCell {
+class MyCell: BubbleCell {
     static let identifier = "MYCELL"
+    private var bubble: Bubble?
     
-    private var bubble : MyBubble? = nil
-    var textCount : Int = 0
-    
-    init(text:String) {
-        super.init(style: .default, reuseIdentifier: MyCell.identifier)
-        self.textCount = text.count
+    override init(text: String) {
+        super.init(text:text)
         self.bubble = MyBubble(text: text)
         bubble?.delegate = self
     }
@@ -24,11 +21,7 @@ class MyCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    override func layoutSubviews() {
-        setConstraintsBubble()
-    }
-    
-    private func setConstraintsBubble() {
+    override func setConstraintsBubble() {
         guard let bubble = bubble else {
             return
         }
@@ -46,26 +39,5 @@ class MyCell: UITableViewCell {
                 bubble.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0)
             ]
         )
-    }
-    
-    private func adjustBubbleLayoutToFitTextBox() {
-        guard let bubble = bubble, let textBox = bubble.textBox else {
-            return
-        }
-        
-        let bubbleWidth = textBox.frame.width + 16
-        
-        bubble.widthAnchor.constraint(equalToConstant: bubbleWidth).isActive = true
-    }
-}
-
-
-extension MyCell : MyBubbleDelegate {
-    func textBoxSizeDidChange(in bubble: MyBubble) {
-        if let textBox = bubble.textBox {
-            let bubbleWidth = textBox.contentSize.width
-
-            bubble.widthAnchor.constraint(equalToConstant: bubbleWidth).isActive = true
-        }
     }
 }
