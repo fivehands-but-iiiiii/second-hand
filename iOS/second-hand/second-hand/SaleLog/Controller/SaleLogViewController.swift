@@ -16,7 +16,8 @@ final class SaleLogViewController: UIViewController {
     private var page: Int = 0
     private var isLoadingItems = true
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
-    
+    private let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setNavigationBar()
@@ -36,6 +37,7 @@ final class SaleLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
+        setActionSheet()
     }
     
     private func setSegmentControl() {
@@ -182,6 +184,28 @@ final class SaleLogViewController: UIViewController {
         }
     }
     
+    private func setActionSheet() {
+        actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { (ACTION:UIAlertAction) in
+            print("게시글 수정을 눌렀음")
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
+            print("판매중 상태로 전환을 눌렀음")
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
+            print("판매완료 상태를 눌렀음")
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
+            print("삭제를 눌렀음")
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        
+    }
+    
 }
 
 extension SaleLogViewController: UICollectionViewDelegate {
@@ -202,10 +226,14 @@ extension SaleLogViewController: UICollectionViewDelegate {
         let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
         return itemId
     }
+    
+    
 }
 
 extension SaleLogViewController: MoreButtonTappedDelegate {
     func moreButtonTapped() {
-        print("didi")
+        self.present(actionSheet, animated: true, completion: nil)
     }
+    
+    
 }
