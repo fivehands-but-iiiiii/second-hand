@@ -8,16 +8,39 @@
 import UIKit
 
 class BubbleCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var textCount : Int = 0
+    
+    init(text: String) {
+        super.init(style: .default, reuseIdentifier: nil)
+        
+        self.textCount = text.count
+        setupUI()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setConstraintsBubble()
+    }
+    
+    private func setupUI() {
 
+    }
+    
+    func setConstraintsBubble() {
+
+    }
+    
+}
+
+extension BubbleCell: BubbleDelegate {
+    func textBoxSizeDidChange(in bubble: Bubble) {
+        if let textBox = bubble.textBox {
+            let bubbleWidth = textBox.contentSize.width
+            bubble.widthAnchor.constraint(equalToConstant: bubbleWidth).isActive = true
+        }
+    }
 }
