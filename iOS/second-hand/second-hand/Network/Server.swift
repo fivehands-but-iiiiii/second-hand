@@ -25,6 +25,7 @@ struct Server {
         case chats = "/chats"
         case resourceCategories = "/resources/categories"
         case itemsMine = "/items/mine"
+        case status = "/status"
     }
 
     func url(for path: Path) -> String {
@@ -78,6 +79,10 @@ struct Server {
     
     func requestToCreateChattingRoom() -> String {
         return Server.baseURL + Path.chats.rawValue
+    }
+    
+    func changeItemStatusUrl(for path: Path, id: Int, status: Path) -> String {
+        return Server.baseURL + path.rawValue + "/\(id)" + status.rawValue
     }
     
     enum Query: String {

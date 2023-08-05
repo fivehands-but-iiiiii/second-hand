@@ -16,8 +16,7 @@ final class SaleLogViewController: UIViewController {
     private var page: Int = 0
     private var isLoadingItems = true
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
-    private let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setNavigationBar()
@@ -37,7 +36,6 @@ final class SaleLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
-        setActionSheet()
     }
     
     private func setSegmentControl() {
@@ -171,7 +169,7 @@ final class SaleLogViewController: UIViewController {
     
     private func setupDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionViewCell,SellingItem> { (cell, indexPath, item) in
-
+            
             if indexPath.item >= 0, indexPath.item < self.items.count {
                 cell.setUI(from: self.items[indexPath.item])
                 cell.setMoreButton()
@@ -183,32 +181,6 @@ final class SaleLogViewController: UIViewController {
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
     }
-    
-    private func setActionSheet() {
-        actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { (ACTION:UIAlertAction) in
-            print("게시글 수정을 눌렀음")
-            //TODO: 상품등록화면으로 넘어간 다음 해당하는 데이터를 등록화면에 입력시킨 뒤, 완료를 누르면 put작업........
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
-            print("판매중 상태로 전환을 눌렀음")
-            //TODO: 패치작업 (status: 0)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
-            print("판매완료 상태를 눌렀음")
-            //TODO: 패치작업 (status: 2)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
-            print("삭제를 눌렀음")
-            //TODO: 딜리트작업
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
-    }
-    
 }
 
 extension SaleLogViewController: UICollectionViewDelegate {
@@ -233,7 +205,42 @@ extension SaleLogViewController: UICollectionViewDelegate {
 
 extension SaleLogViewController: MoreButtonTappedDelegate {
     func moreButtonTapped(forIndexPath indexPath: IndexPath) {
-            let id = items[indexPath.item].id
-            print("More 버튼이 눌린 아이템의 id:", id)
-        }
+        let id = items[indexPath.item].id
+        print("More 버튼이 눌린 아이템의 id:", id)
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { (ACTION:UIAlertAction) in
+            print("게시글 수정을 눌렀음")
+            //TODO: 상품등록화면으로 넘어간 다음 해당하는 데이터를 등록화면에 입력시킨 뒤, 완료를 누르면 put작업........
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
+            print("판매중 상태로 전환을 눌렀음")
+            //TODO: 패치작업 (status: 0)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
+            
+            print("판매완료 상태를 눌렀음")
+            
+            guard let url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status)) else {
+                return
+            }
+           
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
+            print("삭제를 눌렀음")
+            //TODO: 딜리트작업
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+    }
+}
+
+//moreButtonTapped의 네트워킹 메서드들
+extension SaleLogViewController {
+    
 }
