@@ -173,6 +173,7 @@ final class SaleLogViewController: UIViewController {
             if indexPath.item >= 0, indexPath.item < self.items.count {
                 cell.setUI(from: self.items[indexPath.item])
                 cell.setMoreButton()
+                cell.moreButtonTappedDelegate = self
             }
         }
         
@@ -200,5 +201,11 @@ extension SaleLogViewController: UICollectionViewDelegate {
     private func extractItemIdFromTouchedCell(indexPath: IndexPath) -> Int{
         let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
         return itemId
+    }
+}
+
+extension SaleLogViewController: MoreButtonTappedDelegate {
+    func moreButtonTapped() {
+        print("didi")
     }
 }

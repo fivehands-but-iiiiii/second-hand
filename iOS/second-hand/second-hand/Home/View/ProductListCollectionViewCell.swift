@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol MoreButtonTappedDelegate {
+    func moreButtonTapped()
+}
 
 final class ProductListCollectionViewCell: UICollectionViewCell {
     static let identifier = "productCell"
@@ -24,10 +27,9 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     let wishCount = UILabel()
     private let chatImage = UIImageView()
     private let wishImage = UIImageView()
-    
-    let moreButton = UIButton()
-    
     private let line = UILabel()
+    let moreButton = UIButton()
+    var moreButtonTappedDelegate: MoreButtonTappedDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -143,7 +145,7 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func moreButtonTapped() {
-        
+        moreButtonTappedDelegate?.moreButtonTapped()
     }
     
     private func layout() {
