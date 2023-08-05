@@ -22,11 +22,16 @@ class SocketManager {
             return
         }
         
+        guard let loginToken = UserInfoManager.shared.loginToken else {
+            return
+        }
+        
         self.socketClient = SwiftStomp(host: socketURL)
         self.socketClient?.delegate = self
         self.socketClient?.autoReconnect = true
         self.socketClient?.enableLogging = true
-        self.socketClient?.connect()
+        self.socketClient?.connect(loginToken: loginToken)
+
     }
     
     func send(_ message: String) {
@@ -52,6 +57,7 @@ class SocketManager {
 }
 
 extension SocketManager : SwiftStompDelegate {
+    
     func onConnect(swiftStomp: SwiftStomp, connectType: StompConnectType) {
         print("소켓열림")
         socketClient?.subscribe(to: "/sub/\(self.roomId)")
