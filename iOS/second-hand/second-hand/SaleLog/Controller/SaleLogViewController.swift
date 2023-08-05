@@ -172,6 +172,7 @@ final class SaleLogViewController: UIViewController {
 
             if indexPath.item >= 0, indexPath.item < self.items.count {
                 cell.setUI(from: self.items[indexPath.item])
+                cell.setMoreButton()
             }
         }
         

@@ -25,12 +25,13 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     private let chatImage = UIImageView()
     private let wishImage = UIImageView()
     
+    let moreButton = UIButton()
+    
     private let line = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -124,6 +125,25 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         self.price.text = price
         self.location.text = location
         self.registerTime.text = registerTime
+    }
+    
+    func setMoreButton() {
+        moreButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        moreButton.tintColor = .neutralTextWeak
+        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        
+        self.contentView.addSubview(moreButton)
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            moreButton.topAnchor.constraint(equalTo: title.topAnchor),
+            moreButton.bottomAnchor.constraint(equalTo: title.bottomAnchor),
+            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            moreButton.widthAnchor.constraint(equalToConstant: 17)
+        ])
+    }
+    
+    @objc func moreButtonTapped() {
+        
     }
     
     private func layout() {
