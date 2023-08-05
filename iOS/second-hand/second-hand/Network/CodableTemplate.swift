@@ -220,3 +220,8 @@ struct CategoryElement: Codable {
     let title: String
     let iconUrl: String
 }
+
+struct ChangeStatusItem: Codable {
+    let message: String
+    let data: Bool
+}

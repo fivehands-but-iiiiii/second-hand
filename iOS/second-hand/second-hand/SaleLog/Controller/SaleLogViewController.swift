@@ -13,7 +13,7 @@ final class SaleLogViewController: UIViewController {
     private let segmentControl = UISegmentedControl(items: ["판매중", "판매완료"])
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private var items: [SellingItem] = []
-    private var page: Int = 0
+    private var currentPage: Int = 0
     private var isLoadingItems = true
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     
@@ -29,8 +29,8 @@ final class SaleLogViewController: UIViewController {
         setSegmentControl()
         setCollectionView()
         setupInfiniteScroll()
-        page = 0
-        fetchItemList(page: page, isSales: true)
+        currentPage = 0
+        fetchItemList(page: currentPage, isSales: true)
     }
     
     override func viewDidLoad() {
@@ -62,11 +62,11 @@ final class SaleLogViewController: UIViewController {
         let selectedIndex = sender.selectedSegmentIndex
         
         if selectedIndex == 0 {
-            page = 0
-            fetchItemList(page: page, isSales: true)
+            currentPage = 0
+            fetchItemList(page: currentPage, isSales: true)
         }else {
-            page = 0
-            fetchItemList(page: page, isSales: false)
+            currentPage = 0
+            fetchItemList(page: currentPage, isSales: false)
         }
     }
     
@@ -132,17 +132,17 @@ final class SaleLogViewController: UIViewController {
         
         NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
             switch result {
-            case .success(let response) :
-                guard let itemList = response.last?.data else {
+            case .success(let data):
+                guard let itemList = data.last else {
                     return
                 }
                 
-                if itemList.items.count == 0 {
+                if itemList.data.items.count == 0 {
                     self.isLoadingItems = false
                     print("마지막 페이지에 대한 처리")
                 }
                 
-                itemList.items.forEach { item in
+                itemList.data.items.forEach { item in
                     self.items.append(self.convertToHashable(from: item))
                 }
                 self.applySnapshot()
@@ -151,6 +151,15 @@ final class SaleLogViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func loadNextPage(isSales: Bool) {
+        if !isLoadingItems {
+            return
+        }
+        self.isLoadingItems  = true
+        currentPage += 1
+        fetchItemList(page: currentPage, isSales: isSales)
     }
     
     private func applySnapshot() {
@@ -184,6 +193,19 @@ final class SaleLogViewController: UIViewController {
 }
 
 extension SaleLogViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let lastSection = collectionView.numberOfSections - 1
+        let lastItem = collectionView.numberOfItems(inSection: lastSection) - 1
+        
+        if indexPath.section == lastSection && indexPath.item == lastItem {
+            if segmentControl.selectedSegmentIndex == 0 {
+                loadNextPage(isSales: true)
+            }else {
+                loadNextPage(isSales: false)
+            }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -224,10 +246,29 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
             
             print("판매완료 상태를 눌렀음")
             
-            guard let url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status)) else {
-                return
-            }
-           
+//            do {
+//                guard let url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status)) else {
+//                    return
+//                }
+//                
+//                let data: [String: Int] = ["status": 2]
+//                let jsonData = try JSONSerialization.data(withJSONObject: data)
+//                
+//                try NetworkManager.sendPatch(decodeType: ChangeStatusItem.self, what: jsonData, fromURL: url) { (result: Result<[ChangeStatusItem], Error>) in
+//                    switch result {
+//                    case .success(let response):
+////                        guard (response.last?.status) != nil else {
+////                            return
+////                        }
+////
+//                    case .failure(let error):
+//                        print(error.localizedDescription)
+//                    }
+//                }
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//            
         }))
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
@@ -237,6 +278,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
+        self.present(actionSheet, animated: true, completion: nil)
     }
 }
 
