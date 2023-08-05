@@ -187,22 +187,25 @@ final class SaleLogViewController: UIViewController {
     private func setActionSheet() {
         actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { (ACTION:UIAlertAction) in
             print("게시글 수정을 눌렀음")
+            //TODO: 상품등록화면으로 넘어간 다음 해당하는 데이터를 등록화면에 입력시킨 뒤, 완료를 누르면 put작업........
         }))
         
         actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
             print("판매중 상태로 전환을 눌렀음")
+            //TODO: 패치작업 (status: 0)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
             print("판매완료 상태를 눌렀음")
+            //TODO: 패치작업 (status: 2)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
             print("삭제를 눌렀음")
+            //TODO: 딜리트작업
         }))
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
         
     }
     
