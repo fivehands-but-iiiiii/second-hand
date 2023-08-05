@@ -79,6 +79,10 @@
 		E4C951502A3AFF9B0094AD66 /* CodableTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */; };
 		E4CAD8432A5ACF5500C69F7D /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */; };
 		E4CAD8492A5B313500C69F7D /* ItemDetailImageSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CAD8482A5B313500C69F7D /* ItemDetailImageSectionView.swift */; };
+		E4E694792A7B82820033B4DB /* YourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E694782A7B82820033B4DB /* YourCell.swift */; };
+		E4E6947B2A7B828B0033B4DB /* YourBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947A2A7B828B0033B4DB /* YourBubble.swift */; };
+		E4E6947D2A7B86780033B4DB /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947C2A7B86780033B4DB /* Bubble.swift */; };
+		E4E6947F2A7B8BDA0033B4DB /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +161,10 @@
 		E4C9514F2A3AFF9B0094AD66 /* CodableTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTemplate.swift; sourceTree = "<group>"; };
 		E4CAD8422A5ACF5500C69F7D /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		E4CAD8482A5B313500C69F7D /* ItemDetailImageSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailImageSectionView.swift; sourceTree = "<group>"; };
+		E4E694782A7B82820033B4DB /* YourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCell.swift; sourceTree = "<group>"; };
+		E4E6947A2A7B828B0033B4DB /* YourBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBubble.swift; sourceTree = "<group>"; };
+		E4E6947C2A7B86780033B4DB /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
+		E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -509,6 +517,10 @@
 				E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */,
 				E45BF6752A7642670026AD03 /* BottomSectionInChatroom.swift */,
 				E45BF6772A7647590026AD03 /* TableViewInChatroom.swift */,
+				E4E6947C2A7B86780033B4DB /* Bubble.swift */,
+				E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */,
+				E4E694782A7B82820033B4DB /* YourCell.swift */,
+				E4E6947A2A7B828B0033B4DB /* YourBubble.swift */,
 				E45BF6792A7649FD0026AD03 /* MyCell.swift */,
 				E45BF67B2A765BF20026AD03 /* MyBubble.swift */,
 			);
@@ -893,6 +905,7 @@
 				E4C9514E2A3AFC0D0094AD66 /* HTTPErrors.swift in Sources */,
 				E4CAD8432A5ACF5500C69F7D /* ItemDetailViewController.swift in Sources */,
 				E45BF6782A7647590026AD03 /* TableViewInChatroom.swift in Sources */,
+				E4E6947D2A7B86780033B4DB /* Bubble.swift in Sources */,
 				E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */,
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
 				E46EFD0A2A63116100FFC3B8 /* ContentOfPost.swift in Sources */,
@@ -902,6 +915,8 @@
 				E46738112A482DF1006A46D1 /* Updatable.swift in Sources */,
 				DBF4EED32A7402E7006FB3F2 /* CategoryItemListViewController.swift in Sources */,
 				E4923CDD2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift in Sources */,
+				E4E6947B2A7B828B0033B4DB /* YourBubble.swift in Sources */,
+				E4E6947F2A7B8BDA0033B4DB /* BubbleCell.swift in Sources */,
 				E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */,
 				E467380F2A453FBF006A46D1 /* Server.swift in Sources */,
 				E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */,
@@ -914,6 +929,7 @@
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */,
 				E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */,
+				E4E694792A7B82820033B4DB /* YourCell.swift in Sources */,
 				E4C9514C2A3AFBDC0094AD66 /* HTTPMethod.swift in Sources */,
 				E46EFD042A61A73400FFC3B8 /* SellerInfoView.swift in Sources */,
 				E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */,
