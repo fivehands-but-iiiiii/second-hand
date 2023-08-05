@@ -138,7 +138,7 @@ class NetworkManager {
             request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
         }
         
-        request.httpMethod = "GET"
+        request.httpMethod = HttpMethod.get.rawValue
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -303,5 +303,48 @@ class NetworkManager {
             
             return request
         }
+    }
+    
+    static func sendPatch<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
+        
+        let asyncCompletion: (Result<[T], Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        var request = URLRequest(url: url, timeoutInterval: 30.0)
+        
+        
+        if let loginToken = UserInfoManager.shared.loginToken {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
+        } else {
+            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+        }
+        
+        request.httpMethod = HttpMethod.patch.rawValue
+        request.httpBody = data
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            do {
+                guard let data = data else {
+                    return
+                }
+                
+                guard let urlResponse = response as? HTTPURLResponse else {
+                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                }
+                
+                switch urlResponse.statusCode {
+                case 200..<300 :
+                    let answer = try JSONDecoder().decode(decodeType, from: data)
+                    asyncCompletion(.success([answer]))
+                default :
+                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                }
+            } catch {
+                asyncCompletion(.failure(error))
+            }
+        }
+        task.resume()
     }
 }

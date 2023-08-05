@@ -7,7 +7,7 @@
 
 import UIKit
 protocol MoreButtonTappedDelegate {
-    func moreButtonTapped()
+    func moreButtonTapped(forIndexPath indexPath: IndexPath)
 }
 
 final class ProductListCollectionViewCell: UICollectionViewCell {
@@ -145,7 +145,12 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func moreButtonTapped() {
-        moreButtonTappedDelegate?.moreButtonTapped()
+        guard let collectionView = self.superview as? UICollectionView,
+              let indexPath = collectionView.indexPath(for: self),
+              let delegate = moreButtonTappedDelegate else {
+            return
+        }
+        delegate.moreButtonTapped(forIndexPath: indexPath)
     }
     
     private func layout() {

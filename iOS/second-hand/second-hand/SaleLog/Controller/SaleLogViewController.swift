@@ -226,14 +226,11 @@ extension SaleLogViewController: UICollectionViewDelegate {
         let itemId = items[IndexPath(item: .zero, section: .zero).item].id - indexPath.item
         return itemId
     }
-    
-    
 }
 
 extension SaleLogViewController: MoreButtonTappedDelegate {
-    func moreButtonTapped() {
-        self.present(actionSheet, animated: true, completion: nil)
-    }
-    
-    
+    func moreButtonTapped(forIndexPath indexPath: IndexPath) {
+            let id = items[indexPath.item].id
+            print("More 버튼이 눌린 아이템의 id:", id)
+        }
 }
