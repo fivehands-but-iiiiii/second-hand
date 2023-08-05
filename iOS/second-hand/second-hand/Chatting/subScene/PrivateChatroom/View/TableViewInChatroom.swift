@@ -10,7 +10,7 @@ import UIKit
 class TableViewInChatroom: UITableView {
 //    private var bubbleCount = 0
 //    private var sectionCount = 0
-    private var havingBubbles : [MyCell] = []
+    private var havingBubbles : [BubbleCell] = []
     
     init(chattingLogData: PrivateChatroomChattingLogModel) {
         super.init(frame: .zero, style: .plain)
@@ -18,7 +18,7 @@ class TableViewInChatroom: UITableView {
         self.dataSource = self
         registerCell()
         self.havingBubbles = makeHavingBubbles(from: chattingLogData)
-        // data로 cell만들어
+        self.separatorStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -42,13 +42,18 @@ class TableViewInChatroom: UITableView {
     
     private func registerCell() {
         self.register(MyCell.self, forCellReuseIdentifier: MyCell.identifier)
+        self.register(YourCell.self, forCellReuseIdentifier: YourCell.identifier)
     }
     
-    private func makeHavingBubbles(from data : PrivateChatroomChattingLogModel) -> [MyCell] {
-        var cells : [MyCell] = []
+    private func makeHavingBubbles(from data : PrivateChatroomChattingLogModel) -> [BubbleCell] {
+        var cells : [BubbleCell] = []
         for page in data.info {
             for item in page.chatBubbles {
-                cells.append(MyCell(text: item.message))
+                if item.isMine {
+                    cells.append(MyCell(text: item.message))
+                } else {
+                    cells.append(YourCell(text: item.message))
+                }
             }
         }
         return cells
