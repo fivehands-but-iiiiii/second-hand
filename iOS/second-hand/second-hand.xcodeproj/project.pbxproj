@@ -83,6 +83,7 @@
 		E4E6947B2A7B828B0033B4DB /* YourBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947A2A7B828B0033B4DB /* YourBubble.swift */; };
 		E4E6947D2A7B86780033B4DB /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947C2A7B86780033B4DB /* Bubble.swift */; };
 		E4E6947F2A7B8BDA0033B4DB /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */; };
+		E4E694812A7F6E580033B4DB /* SocketActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E694802A7F6E580033B4DB /* SocketActionDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,6 +166,7 @@
 		E4E6947A2A7B828B0033B4DB /* YourBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBubble.swift; sourceTree = "<group>"; };
 		E4E6947C2A7B86780033B4DB /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
+		E4E694802A7F6E580033B4DB /* SocketActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketActionDelegate.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -561,6 +563,7 @@
 				DBB04D2A2A2DA5BF001233CC /* AppDelegate.swift */,
 				E448042B2A5D56C300FDADE4 /* Utils.swift */,
 				E4375C1B2A67DBE4003F6F5B /* ButtonActionDelegate.swift */,
+				E4E694802A7F6E580033B4DB /* SocketActionDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				E45BF67E2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift in Sources */,
 				E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */,
 				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
+				E4E694812A7F6E580033B4DB /* SocketActionDelegate.swift in Sources */,
 				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */,
