@@ -1,12 +1,16 @@
 import { ReactNode } from 'react';
 
+import useBackDismiss from '@hooks/useBackDismiss';
+
 import { styled } from 'styled-components';
 
 interface PortalLayoutProps {
   children: ReactNode;
+  onClose: () => void;
 }
 
-const PortalLayout = ({ children }: PortalLayoutProps) => {
+const PortalLayout = ({ children, onClose }: PortalLayoutProps) => {
+  useBackDismiss({ onClose });
   return <MyPortalLayout>{children}</MyPortalLayout>;
 };
 
