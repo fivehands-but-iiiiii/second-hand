@@ -1,31 +1,37 @@
 import { useEffect, useCallback } from 'react';
 
 interface UseBackDismissProps {
-  isOpen: boolean,
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const useBackDismiss = ({isOpen, onClose}:UseBackDismissProps ) => {
+const useBackDismiss = ({ isOpen, onClose }: UseBackDismissProps) => {
+  console.log('onpopstate:', window.onpopstate);
+
   const handlePopState = useCallback(
     (event: PopStateEvent) => {
+      console.log('pop State : /home');
       if (isOpen) {
         event.preventDefault();
         onClose();
       }
     },
-    [isOpen, onClose]
+    [isOpen, onClose],
   );
 
   useEffect(() => {
-    window.addEventListener('popstate', handlePopState);
+    window.onpopstate = handlePopState;
+    console.log('add event listener : pop state');
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      console.log('clean up');
+      window.onpopstate = null;
     };
-  }, [handlePopState]);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
+      console.log('push State : /home + null');
       window.history.pushState(null, document.title, window.location.href);
     }
   }, [isOpen]);
