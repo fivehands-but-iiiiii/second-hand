@@ -13,6 +13,7 @@ class SocketManager {
     var socketClient : SwiftStomp?
     private var roomId: String
     private var sender: String
+    weak var delegate : SocketActionDelegate?
     
     init(roomId: String, sender: String) {
         self.roomId = roomId
@@ -31,7 +32,7 @@ class SocketManager {
         self.socketClient?.autoReconnect = true
         self.socketClient?.enableLogging = true
         self.socketClient?.connect(loginToken: loginToken)
-
+        
     }
     
     func send(_ message: String) {
@@ -40,7 +41,7 @@ class SocketManager {
         }
         
         let header = ["content-type":"application/json;charset=UTF-8"]
-
+        
         let bodyToSend = removeBackslashes(from: String(data: body, encoding: .utf8)!)
         socketClient?.send(body:bodyToSend, to: "/pub/message",headers: header)
         
@@ -68,7 +69,15 @@ extension SocketManager : SwiftStompDelegate {
     }
     
     func onMessageReceived(swiftStomp: SwiftStomp, message: Any?, messageId: String, destination: String, headers: [String : String]) {
-        print("뭐 왔다")
+        guard let delegate = delegate else {
+            return
+        }
+        
+        guard let message = message as? String else {
+            return
+        }
+        
+        delegate.didSendMessage?(message)
     }
     
     func onReceipt(swiftStomp: SwiftStomp, receiptId: String) {
@@ -93,3 +102,6 @@ extension SocketManager : SwiftStompDelegate {
     }
     
 }
+
+
+
