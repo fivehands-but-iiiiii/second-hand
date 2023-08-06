@@ -59,6 +59,17 @@ class TableViewInChatroom: UITableView {
         return cells
     }
     
+    func addMyBubbleAfterSending(_ message: ChatSendingSuccess) {
+            let newBubble = MyCell(text: message.message)
+            
+            havingBubbles.append(newBubble)
+            
+            let indexPath = IndexPath(row: havingBubbles.count - 1, section: 0)
+            self.insertRows(at: [indexPath], with: .automatic)
+
+            scrollToLastCell(animated: true)
+    }
+    
     private func scrollToLastCell(animated: Bool = true) {
         let lastSection = self.numberOfSections - 1
         guard lastSection >= 0 else {
