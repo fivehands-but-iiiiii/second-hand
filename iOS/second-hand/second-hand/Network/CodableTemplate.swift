@@ -222,3 +222,11 @@ struct ChatBubbles: Codable {
     let isMine: Bool
     let createdAt: String
 }
+
+struct ChatSendingSuccess: Codable {
+    let id : String
+    let roomId: String
+    let sender: String
+    let message: String
+    let createdAt: String
+}
