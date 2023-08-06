@@ -2,6 +2,7 @@ import Icon from '@assets/Icon';
 import Button from '@common/Button';
 import ImgBox from '@common/ImgBox';
 import NavBar from '@common/NavBar/NavBar';
+import useBackDismiss from '@hooks/useBackDismiss';
 
 import { styled } from 'styled-components';
 
@@ -26,6 +27,8 @@ const Category = ({
     handleCategoryModal();
     onCategoryClick && onCategoryClick(categoryId);
   };
+
+  useBackDismiss({ isOpen: true, onClose: handleCategoryModal });
 
   return (
     <MyCategoryModal>
