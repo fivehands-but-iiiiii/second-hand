@@ -14,6 +14,7 @@ import SubTabBar from '@common/TabBar/SubTabBar';
 import Textarea from '@common/Textarea';
 import { InputFile, RegionInfo } from '@components/login/Join';
 import useAPI from '@hooks/useAPI';
+import useBackDismiss from '@hooks/useBackDismiss';
 import { getPreviewURL } from '@utils/convertFile';
 import { getFormattedPrice, getFormattedNumber } from '@utils/formatText';
 import { getStoredValue } from '@utils/sessionStorage';
@@ -22,6 +23,7 @@ import { styled } from 'styled-components';
 
 import ImageEditor from '../itemEditor/ImageEditor';
 import TitleEditor from '../itemEditor/TitleEditor';
+
 export interface Category {
   id: number;
   title: string;
@@ -321,6 +323,8 @@ const ItemEditor = ({
       })),
     );
   };
+
+  useBackDismiss({ isOpen: true, onClose: handleClose });
 
   useEffect(() => {
     setFormValid(validateForm());
