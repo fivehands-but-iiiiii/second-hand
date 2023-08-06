@@ -5,6 +5,7 @@ import NavBar from '@common/NavBar/NavBar';
 import Textarea from '@common/Textarea/Textarea';
 import PortalLayout from '@components/layout/PortalLayout';
 import useAPI from '@hooks/useAPI';
+import useBackDismiss from '@hooks/useBackDismiss';
 import useGeoLocation from '@hooks/useGeoLocation';
 import { debounce } from '@utils/debounce';
 
@@ -51,6 +52,8 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
     },
     [debounce],
   );
+
+  useBackDismiss({ isOpen: true, onClose: onPortal });
 
   useEffect(() => {
     getRegionList(address);
