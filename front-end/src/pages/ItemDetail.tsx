@@ -23,6 +23,7 @@ import { ItemStatus } from '@components/ItemStatus';
 import { useCategories } from '@components/layout/MobileLayout';
 import PortalLayout from '@components/layout/PortalLayout';
 import New from '@components/new/New';
+import useBackDismiss from '@hooks/useBackDismiss';
 import { formatNumberToSI } from '@utils/formatNumberToSI';
 import getElapsedTime from '@utils/getElapsedTime';
 import { getStoredValue } from '@utils/sessionStorage';
@@ -303,6 +304,8 @@ const ItemDetail = ({
     }
   };
 
+  useBackDismiss({ isOpen: true, onClose: () => handleBackBtnClick(0) });
+
   useEffect(() => {
     if (onRefresh) {
       getItemDetail();
@@ -400,7 +403,6 @@ const ItemDetail = ({
     </PortalLayout>
   );
 };
-
 
 const MyItemDetail = styled.div`
   height: calc(100vh - 83px);
