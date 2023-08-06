@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+@objc protocol SocketActionDelegate {
+    @objc optional func didReceiveMessage(_ message: String)
+    @objc optional func didSendMessage(_ message:String)
+}
