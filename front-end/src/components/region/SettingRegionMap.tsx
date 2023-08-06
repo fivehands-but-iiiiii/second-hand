@@ -4,6 +4,7 @@ import NavBar from '@common/NavBar/NavBar';
 import PortalLayout from '@components/layout/PortalLayout';
 import { RegionInfo } from '@components/login/Join';
 import useAPI from '@hooks/useAPI';
+import useBackDismiss from '@hooks/useBackDismiss';
 import useGeoLocation, { coordsType } from '@hooks/useGeoLocation';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { getStoredValue, setStorageValue } from '@utils/sessionStorage';
@@ -117,6 +118,9 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const handleUpdateRegions = (regions: RegionInfo[]) => {
     setUpdatedRegions(regions);
   };
+
+  // TODO: 브라우저 뒤로가기 동작 시 동네 설정을 저장하고 닫을 건지 상의하기
+  useBackDismiss({ isOpen: true, onClose: handleSettingRegions });
 
   useEffect(() => {
     const getCenter = async () => {
