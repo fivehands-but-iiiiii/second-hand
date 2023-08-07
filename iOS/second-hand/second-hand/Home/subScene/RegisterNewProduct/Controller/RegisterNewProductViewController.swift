@@ -8,7 +8,14 @@
 import UIKit
 import PhotosUI
 
+
+
 final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate, TitleLabelChange {
+    
+    enum Purpose {
+        case register
+        case modify
+    }
     
     private let sectionLine1 = UIView.makeLine()
     private let sectionLine2 = UIView.makeLine()
@@ -24,6 +31,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private let wonIcon = UILabel()
     private var photoArray = [PHPickerResult]()
     private let maximumPhotoNumber = 10
+    private var purpose: Purpose = .register
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -336,11 +344,14 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 let url = URL(string: image.url)
                 let data = try Data(contentsOf: url!)
                 self.photoScrollView.addImage(image: UIImage(data: data)!)
+                ProductImageCount.addImage()
             }
             catch {
                 print("url > data 과정에서 오류발생")
             }
         }
+        purpose = .modify
+        //TODO: countLabel이 초기화되지 않는 문제 (사진추가나 삭제를 하면 값에 맞게 보여지긴 함)
     }
     
 }

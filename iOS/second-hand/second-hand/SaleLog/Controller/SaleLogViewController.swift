@@ -17,6 +17,7 @@ final class SaleLogViewController: UIViewController {
     private var isLoadingItems = true
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     private let networkManager = NetworkManager()
+    private let modifyItem = RegisterNewProductViewController()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -233,15 +234,13 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let modifyItem = RegisterNewProductViewController()
-        
         actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
             print("게시글 수정을 눌렀음")
             
             guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
                 return
             }
-            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemDetailInfoSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
                 switch result {
                 case .success(let data) :
                     guard let detailInfo = data.last?.data else {
