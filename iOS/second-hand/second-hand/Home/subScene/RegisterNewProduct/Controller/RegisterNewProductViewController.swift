@@ -326,11 +326,21 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         dismiss(animated: true, completion: nil)
     }
     
-    func getItemInfo(title: String, price: String, contents: String) {
+    func getItemInfo(title: String, price: String, contents: String, images: [ItemDetailImage]) {
         self.titleTextField.text = title
         self.priceTextField.text = price
         self.descriptionTextView.text = contents
         self.descriptionTextView.textColor = .neutralText
+        for image in images {
+            do {
+                let url = URL(string: image.url)
+                let data = try Data(contentsOf: url!)
+                self.photoScrollView.addImage(image: UIImage(data: data)!)
+            }
+            catch {
+                print("url > data 과정에서 오류발생")
+            }
+        }
     }
     
 }
