@@ -305,24 +305,20 @@ class NetworkManager {
         }
     }
     
-    static func sendPatch<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
+    func sendPatch<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         
-        let asyncCompletion: (Result<[T], Error>) -> Void = { result in
+        let asyncCompletion: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 completion(result)
             }
         }
-        var request = URLRequest(url: url, timeoutInterval: 30.0)
-        
-        
-        if let loginToken = UserInfoManager.shared.loginToken {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
-        } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+        guard let data = data else {
+            return
         }
         
-        request.httpMethod = HttpMethod.patch.rawValue
-        request.httpBody = data
+        var loginToken = UserInfoManager.shared.loginToken
+        
+        let request = self.makeRequest(methodType: .patch, cookie: nil, url: url, body: data, loginToken: loginToken)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
@@ -333,14 +329,22 @@ class NetworkManager {
                 guard let urlResponse = response as? HTTPURLResponse else {
                     return asyncCompletion(.failure(ManagerErrors.invalidResponse))
                 }
+                //MARK: 보안상 문제 있다... 방법을 찾아보자
                 
+                if loginToken == nil {
+                    loginToken = self.extractLoginToken(from: urlResponse)
+                }
                 switch urlResponse.statusCode {
                 case 200..<300 :
-                    let answer = try JSONDecoder().decode(decodeType, from: data)
-                    asyncCompletion(.success([answer]))
+                    let answer = try JSONDecoder().decode(T.self, from: data)
+                    
+                    UserInfoManager.shared.loginToken = loginToken
+                    
+                    return asyncCompletion(.success(answer))
                 default :
                     return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
                 }
+                
             } catch {
                 asyncCompletion(.failure(error))
             }

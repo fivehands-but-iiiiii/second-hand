@@ -16,6 +16,7 @@ final class SaleLogViewController: UIViewController {
     private var currentPage: Int = 0
     private var isLoadingItems = true
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
+    private let networkManager = NetworkManager()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -242,34 +243,27 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
             //TODO: 패치작업 (status: 0)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
-            
+        actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { [self] (Action: UIAlertAction) in
             print("판매완료 상태를 눌렀음")
-            
-//            do {
-//                guard let url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status)) else {
-//                    return
-//                }
-//                
-//                let data: [String: Int] = ["status": 2]
-//                let jsonData = try JSONSerialization.data(withJSONObject: data)
-//                
-//                try NetworkManager.sendPatch(decodeType: ChangeStatusItem.self, what: jsonData, fromURL: url) { (result: Result<[ChangeStatusItem], Error>) in
-//                    switch result {
-//                    case .success(let response):
-////                        guard (response.last?.status) != nil else {
-////                            return
-////                        }
-////
-//                    case .failure(let error):
-//                        print(error.localizedDescription)
-//                    }
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//            
+
+            guard let url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status)) else { return }
+
+            let data: [String: Int] = ["status": 2]
+            let jsonData = try? JSONSerialization.data(withJSONObject: data)
+
+            networkManager.sendPatch(decodeType: ChangeStatusItem.self, what: jsonData, fromURL: url) { (result: Result<ChangeStatusItem, Error>) in
+                switch result {
+                case .success(let data):
+                    if !data.message.isEmpty {
+                        print(data.message)
+                    }
+
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
         }))
+
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
             print("삭제를 눌렀음")
