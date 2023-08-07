@@ -326,9 +326,9 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         dismiss(animated: true, completion: nil)
     }
     
-    func getItemInfo(title: String, price: Int, contents: String) {
+    func getItemInfo(title: String, price: String, contents: String) {
         self.titleTextField.text = title
-        self.priceTextField.text = String(price)
+        self.priceTextField.text = price
         self.descriptionTextView.text = contents
         self.descriptionTextView.textColor = .neutralText
     }
