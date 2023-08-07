@@ -16,7 +16,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private let photoScrollView = AddPhotoScrollView()
     private let titleTextField = UITextField()
     private let priceTextField = UITextField()
-    private let descriptionTextField = UITextView()
+    private let descriptionTextView = UITextView()
     private let textViewPlaceHolder = ""
     //let textViewPlaceHolder = "\(location)"
     //TODO: 장소가 결정된다면 하드코딩 지우고 받아와야함
@@ -25,8 +25,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var photoArray = [PHPickerResult]()
     private let maximumPhotoNumber = 10
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         ProductImageCount.number = 0
         priceTextField.delegate = self
         AddPhotoImageView.cancelButtonTappedDelegate = self
@@ -75,7 +75,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         
         group.notify(queue: .main) { [self] in
             let title = titleTextField.text
-            let contents = descriptionTextField.text
+            let contents = descriptionTextView.text
             let category: Int = 1
             let region: Int = 1
             let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
@@ -183,10 +183,14 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         titleTextField.placeholder = "글제목"
         priceTextField.placeholder = "가격(선택사항)(천만원 미만으로 설정해주세요.)"
         priceTextField.delegate = self
-        descriptionTextField.delegate = self // txtvReview가 유저가 선언한 outlet
-        descriptionTextField.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
-        descriptionTextField.textColor = .neutralTextWeak
-        descriptionTextField.font = .systemFont(ofSize: 15)
+        descriptionTextView.delegate = self // txtvReview가 유저가 선언한 outlet
+        if descriptionTextView.text == "" {
+            descriptionTextView.textColor = .neutralTextWeak
+            descriptionTextView.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
+        }else {
+            descriptionTextView.textColor = .neutralText
+        }
+        descriptionTextView.font = .systemFont(ofSize: 15)
         wonIcon.text = "₩"
         wonIcon.font = .systemFont(ofSize: 15)
         wonIcon.textColor = .neutralTextWeak
@@ -208,7 +212,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     
     
     private func layout() {
-        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextField, wonIcon, photoScrollView]
+        let sectionArr = [sectionLine1, sectionLine2, sectionLine3, titleTextField, priceTextField, descriptionTextView, wonIcon, photoScrollView]
         sectionArr.forEach{
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -241,10 +245,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             priceTextField.topAnchor.constraint(equalTo: sectionLine2.bottomAnchor, constant: 15),
             priceTextField.bottomAnchor.constraint(equalTo: sectionLine3.topAnchor, constant: -15),
             
-            descriptionTextField.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor),
-            descriptionTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
-            descriptionTextField.topAnchor.constraint(equalTo: sectionLine3.bottomAnchor, constant: 15),
-            descriptionTextField.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
+            descriptionTextView.leadingAnchor.constraint(equalTo: titleTextField.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
+            descriptionTextView.topAnchor.constraint(equalTo: sectionLine3.bottomAnchor, constant: 15),
+            descriptionTextView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
     
@@ -322,6 +326,13 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         dismiss(animated: true, completion: nil)
     }
     
+    func getItemInfo(title: String, price: Int, contents: String) {
+        self.titleTextField.text = title
+        self.priceTextField.text = String(price)
+        self.descriptionTextView.text = contents
+        self.descriptionTextView.textColor = .neutralText
+    }
+    
 }
 
 extension RegisterNewProductViewController: UITextViewDelegate {
@@ -329,13 +340,6 @@ extension RegisterNewProductViewController: UITextViewDelegate {
         if textView.textColor == .neutralTextWeak {
             textView.text = nil
             textView.textColor = UIColor.neutralText
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "\(location)에 올릴 게시물 내용을 작성해주세요. (판매금지 물품은 게시가 제한될 수 있어요.)"
-            textView.textColor = .neutralTextWeak
         }
     }
 }
@@ -407,10 +411,4 @@ extension RegisterNewProductViewController: UITextFieldDelegate {
         priceTextField.text = "10000000"
     }
     
-}
-
-extension Array {
-    subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
 }

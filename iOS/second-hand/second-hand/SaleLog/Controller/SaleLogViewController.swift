@@ -233,9 +233,27 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { (ACTION:UIAlertAction) in
+        let modifyItem = RegisterNewProductViewController()
+        
+        actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
             print("게시글 수정을 눌렀음")
-            //TODO: 상품등록화면으로 넘어간 다음 해당하는 데이터를 등록화면에 입력시킨 뒤, 완료를 누르면 put작업........
+            
+            guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
+                return
+            }
+            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemDetailInfoSuccess], Error>) in
+                switch result {
+                case .success(let data) :
+                    guard let detailInfo = data.last?.data else {
+                        return
+                    }
+                    modifyItem.getItemInfo(title: detailInfo.title, price: detailInfo.price, contents: detailInfo.contents)
+                    
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+            present(UINavigationController(rootViewController: modifyItem), animated: true)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { [self] (ACTION:UIAlertAction) in

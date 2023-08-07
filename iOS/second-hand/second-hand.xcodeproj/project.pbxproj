@@ -34,6 +34,7 @@
 		DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB04D2C2A2DA5BF001233CC /* SceneDelegate.swift */; };
 		DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D332A2DA5C0001233CC /* Assets.xcassets */; };
 		DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB04D352A2DA5C0001233CC /* LaunchScreen.storyboard */; };
+		DBCD321A2A80E3EB00F58AC0 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD32192A80E3EB00F58AC0 /* Array+Extension.swift */; };
 		DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */; };
 		DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */; };
 		DBEA32812A4101B400C04E0A /* ProductListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEA32802A4101B400C04E0A /* ProductListCollectionViewCell.swift */; };
@@ -107,6 +108,7 @@
 		DBB04D332A2DA5C0001233CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBB04D362A2DA5C0001233CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBB04D382A2DA5C0001233CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBCD32192A80E3EB00F58AC0 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		DBDF80032A39BC6E007B3E01 /* GithubWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubWebViewController.swift; sourceTree = "<group>"; };
 		DBE3C03C2A30791F00E6EF35 /* CategoryScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScrollView.swift; sourceTree = "<group>"; };
 		DBEA32802A4101B400C04E0A /* ProductListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				DB08D4472A4BFC6F00D45E32 /* UIStackView+extension.swift */,
 				DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */,
 				E4987E442A4D9F7600337543 /* Int,String+Extension.swift */,
+				DBCD32192A80E3EB00F58AC0 /* Array+Extension.swift */,
 			);
 			path = UIExtensions;
 			sourceTree = "<group>";
@@ -862,6 +865,7 @@
 				DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */,
 				DBE3C03D2A30791F00E6EF35 /* CategoryScrollView.swift in Sources */,
 				E49EB83A2A2DD353001F2D56 /* SaleLogViewController.swift in Sources */,
+				DBCD321A2A80E3EB00F58AC0 /* Array+Extension.swift in Sources */,
 				E46EFD062A61AFDF00FFC3B8 /* ItemDetailTextSectionView.swift in Sources */,
 				E4375C1C2A67DBE4003F6F5B /* ButtonActionDelegate.swift in Sources */,
 				E41076C42A4AF67A00F5204E /* ImageCacheManager.swift in Sources */,
