@@ -238,41 +238,88 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
             //TODO: 상품등록화면으로 넘어간 다음 해당하는 데이터를 등록화면에 입력시킨 뒤, 완료를 누르면 put작업........
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { (ACTION:UIAlertAction) in
-            print("판매중 상태로 전환을 눌렀음")
-            //TODO: 패치작업 (status: 0)
+        actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { [self] (ACTION:UIAlertAction) in
+            changeStatus(status: .onSale, id: id)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "판매완료 상태로 전환", style: .default, handler: { [self] (Action: UIAlertAction) in
-            print("판매완료 상태를 눌렀음")
-
-            guard let url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status)) else { return }
-
-            let data: [String: Int] = ["status": 2]
-            let jsonData = try? JSONSerialization.data(withJSONObject: data)
-
-            networkManager.sendPatch(decodeType: ChangeStatusItem.self, what: jsonData, fromURL: url) { (result: Result<ChangeStatusItem, Error>) in
-                switch result {
-                case .success(let data):
-                    if !data.message.isEmpty {
-                        print(data.message)
-                    }
-
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+            changeStatus(status: .salesCompleted, id: id)
         }))
-
         
-        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { (ACTION:UIAlertAction) in
-            print("삭제를 눌렀음")
-            //TODO: 딜리트작업
+        
+        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] (ACTION:UIAlertAction) in
+            changeStatus(status: .delete, id: id)
+            productListCollectionView.reloadData()
         }))
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    private func changeStatus(status: ItemStatus, id:Int) {
+        var url: URL
+        var data = [String:Int]()
+        switch status {
+        case .onSale:
+            url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
+            petchItem(url: url, data: ["status": 0])
+        case .salesCompleted:
+            url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
+            petchItem(url: url, data: ["status": 2])
+        case .delete:
+            url = URL(string: Server.shared.itemDetailURL(itemId: id))!
+            deleteItem(url: url)
+        }
+        productListCollectionView.reloadData()
+    }
+    
+    enum ItemStatus {
+        case onSale
+        case salesCompleted
+        case delete
+    }
+    
+    func toggleSegmentValue() {
+        if segmentControl.selectedSegmentIndex == 0 {
+            segmentControl.selectedSegmentIndex = 1
+        }else {
+            segmentControl.selectedSegmentIndex = 0
+        }
+        segmentValueChanged(segmentControl)
+    }
+    
+    func petchItem(url: URL, data: [String:Int]) {
+        let jsonData = try? JSONSerialization.data(withJSONObject: data)
+        
+        networkManager.sendPatch(decodeType: ChangeStatusItem.self, what: jsonData, fromURL: url) { (result: Result<ChangeStatusItem, Error>) in
+            switch result {
+            case .success(let data):
+                if !data.message.isEmpty {
+                    print(data.message)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        //상품판매완료/판매중일때만
+        toggleSegmentValue()
+    }
+    
+    func deleteItem(url: URL) {
+        networkManager.sendDelete(decodeType: ChangeStatusItem.self, what: nil, fromURL: url) { (result: Result<ChangeStatusItem?, Error>) in
+            switch result {
+            case .success(let data):
+                print("성공적으로 삭제되었습니다.")
+                if data?.message != nil {
+                    print(data!.message)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
