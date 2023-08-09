@@ -20,9 +20,13 @@ class MyCell: BubbleCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override func setConstraintsBubble() {
         guard let bubble = bubble else {
+            return
+        }
+        
+        guard let textBox = bubble.textBox else {
             return
         }
         
@@ -35,9 +39,10 @@ class MyCell: BubbleCell {
             [
                 bubble.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -5.0),
                 bubble.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-                bubble.topAnchor.constraint(equalTo: self.topAnchor, constant: 5.0),
-                bubble.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0)
+                bubble.topAnchor.constraint(equalTo: textBox.topAnchor, constant: -5.0),
+                bubble.bottomAnchor.constraint(equalTo: textBox.bottomAnchor, constant: 5.0)
             ]
         )
     }
 }
+

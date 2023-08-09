@@ -25,6 +25,9 @@ class YourCell: BubbleCell {
         guard let bubble = bubble else {
             return
         }
+        guard let textBox = bubble.textBox else {
+            return
+        }
         
         if !self.contentView.subviews.contains(bubble) {
             self.contentView.addSubview(bubble)
@@ -35,8 +38,8 @@ class YourCell: BubbleCell {
             [
                 bubble.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 5.0),
                 bubble.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-                bubble.topAnchor.constraint(equalTo: self.topAnchor, constant: 5.0),
-                bubble.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0)
+                bubble.topAnchor.constraint(equalTo: textBox.topAnchor, constant: -5.0),
+                bubble.bottomAnchor.constraint(equalTo: textBox.bottomAnchor, constant: 5.0)
             ]
         )
     }
