@@ -8,13 +8,10 @@
 import UIKit
 
 class BubbleCell: UITableViewCell {
-    var textCount : Int = 0
-    
+
     init(text: String) {
         super.init(style: .default, reuseIdentifier: nil)
-        
-        self.textCount = text.count
-        setupUI()
+
     }
     
     required init?(coder: NSCoder) {
@@ -25,15 +22,10 @@ class BubbleCell: UITableViewCell {
         super.layoutSubviews()
         setConstraintsBubble()
     }
-    
-    private func setupUI() {
 
-    }
-    
     func setConstraintsBubble() {
 
     }
-    
 }
 
 extension BubbleCell: BubbleDelegate {

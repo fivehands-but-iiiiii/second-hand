@@ -8,8 +8,6 @@
 import UIKit
 
 class TableViewInChatroom: UITableView {
-//    private var bubbleCount = 0
-//    private var sectionCount = 0
     private var havingBubbles : [BubbleCell] = []
     
     init(chattingLogData: PrivateChatroomChattingLogModel) {
@@ -19,6 +17,7 @@ class TableViewInChatroom: UITableView {
         registerCell()
         self.havingBubbles = makeHavingBubbles(from: chattingLogData)
         self.separatorStyle = .none
+
     }
     
     required init?(coder: NSCoder) {
@@ -28,17 +27,6 @@ class TableViewInChatroom: UITableView {
         registerCell()
     }
     
-//    private func calculateNumberOfRows(from data : PrivateChatroomChattingLogModel) {
-//        var sum = 0
-//        for page in data.info {
-//            sum += page.chatBubbles.count
-//        }
-//        self.bubbleCount = sum
-//    }
-//
-//    private func calculateNumberOfSections(from data : PrivateChatroomChattingLogModel) {
-//        self.sectionCount = data.info.count
-//    }
     
     private func registerCell() {
         self.register(MyCell.self, forCellReuseIdentifier: MyCell.identifier)
