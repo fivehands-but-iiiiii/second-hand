@@ -9,8 +9,8 @@ import UIKit
 
 class MyCell: BubbleCell {
     static let identifier = "MYCELL"
-    private var bubble: Bubble?
-    
+    var bubble : MyBubble?
+
     override init(text: String) {
         super.init(text:text)
         self.bubble = MyBubble(text: text)

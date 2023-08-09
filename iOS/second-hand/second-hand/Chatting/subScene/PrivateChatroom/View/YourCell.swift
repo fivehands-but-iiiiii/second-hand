@@ -9,7 +9,7 @@ import UIKit
 
 class YourCell: BubbleCell {
     static let identifier = "YOURCELL"
-    private var bubble: Bubble?
+    private var bubble : YourBubble?
     
     override init(text: String) {
         super.init(text: text)
