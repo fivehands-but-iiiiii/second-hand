@@ -9,6 +9,7 @@ import UIKit
 
 class TableViewInChatroom: UITableView {
     private var havingBubbles : [BubbleCell] = []
+    private var cellHeight : [CGFloat] = []
     
     init(chattingLogData: PrivateChatroomChattingLogModel) {
         super.init(frame: .zero, style: .plain)
@@ -39,23 +40,37 @@ class TableViewInChatroom: UITableView {
             for item in page.chatBubbles {
                 if item.isMine {
                     cells.append(MyCell(text: item.message))
+                    
                 } else {
                     cells.append(YourCell(text: item.message))
                 }
+                calculateTextBoxHeight(for: .systemFont(ofSize: 17.0), text: item.message, maxWidth: Utils.screenWidth() * 0.7)
             }
         }
         return cells
     }
     
+    private func calculateTextBoxHeight(for font: UIFont, text: String, maxWidth: CGFloat){
+        let boundingSize = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
+        let boundingRect = text.boundingRect(with: boundingSize, options: options, attributes: attributes, context: nil)
+        
+        cellHeight.append(ceil(boundingRect.height))
+    }
+    
     func addMyBubbleAfterSending(_ message: ChatSendingSuccess) {
-            let newBubble = MyCell(text: message.message)
-            
-            havingBubbles.append(newBubble)
-            
-            let indexPath = IndexPath(row: havingBubbles.count - 1, section: 0)
-            self.insertRows(at: [indexPath], with: .automatic)
-
-            scrollToLastCell(animated: true)
+        let newBubble = MyCell(text: message.message)
+        
+        havingBubbles.append(newBubble)
+        
+        calculateTextBoxHeight(for: .systemFont(ofSize: 17.0), text: message.message, maxWidth: Utils.screenWidth() * 0.7)
+        
+        let indexPath = IndexPath(row: havingBubbles.count - 1, section: 0)
+        self.insertRows(at: [indexPath], with: .automatic)
+        
+        scrollToLastCell(animated: true)
     }
     
     private func scrollToLastCell(animated: Bool = true) {
@@ -76,8 +91,7 @@ class TableViewInChatroom: UITableView {
 
 extension TableViewInChatroom : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let rowHeight: CGFloat = 45 + 23.0 * CGFloat((havingBubbles[indexPath.row].textCount / 18))
-        return rowHeight
+        return cellHeight[indexPath.item] + 40.0
     }
 }
 
