@@ -20,7 +20,6 @@
 		DB55CB0F2A44077D00578ED5 /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */; };
 		DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */; };
 		DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */; };
-		DB6258582A7242C7005A8846 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6258572A7242C7005A8846 /* Secrets.plist */; };
 		DB62586F2A7256C6005A8846 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB62586E2A7256C6005A8846 /* CategoryViewController.swift */; };
 		DB6258732A72571D005A8846 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258722A72571D005A8846 /* Category.swift */; };
 		DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */; };
@@ -92,7 +91,6 @@
 		DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		DB55CB102A4407CB00578ED5 /* ProductImageCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCount.swift; sourceTree = "<group>"; };
 		DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
-		DB6258572A7242C7005A8846 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		DB62586E2A7256C6005A8846 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = "second-hand/CategoryViewController.swift"; sourceTree = SOURCE_ROOT; };
 		DB6258722A72571D005A8846 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = "second-hand/Category.swift"; sourceTree = SOURCE_ROOT; };
 		DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = "second-hand/CategoryCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -333,15 +331,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		DB6258562A7242C7005A8846 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-				DB6258572A7242C7005A8846 /* Secrets.plist */,
-			);
-			name = Secrets;
-			path = "second-hand/Secrets";
-			sourceTree = "<group>";
-		};
 		DB6258662A72561D005A8846 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,7 +418,6 @@
 		DBB04D1E2A2DA5BF001233CC = {
 			isa = PBXGroup;
 			children = (
-				DB6258562A7242C7005A8846 /* Secrets */,
 				DBB04D292A2DA5BF001233CC /* second-hand */,
 				DBB04D282A2DA5BF001233CC /* Products */,
 				94BA97CE86293EDB3FC68F03 /* Pods */,
@@ -799,7 +787,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB6258582A7242C7005A8846 /* Secrets.plist in Resources */,
 				DBB04D372A2DA5C0001233CC /* LaunchScreen.storyboard in Resources */,
 				DBB04D342A2DA5C0001233CC /* Assets.xcassets in Resources */,
 			);

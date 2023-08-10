@@ -32,10 +32,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var photoArray = [PHPickerResult]()
     private let maximumPhotoNumber = 10
     private var purpose: Purpose = .register
-    private var itemId: Int?
-    private var titlePhotoURL: URL?
-    private var photoURLs = [URL]()
-    private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,106 +68,50 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     @objc func finishButtonTapped() {
-        switch purpose {
-        case .register:
-            let group = DispatchGroup()
-            var imagesData: [Data] = []
-            
-            for result in photoArray {
-                group.enter()
-                getImageData(from: result) { imageData in
-                    if let imageData = imageData {
-                        imagesData.append(imageData)
-                    }
-                    group.leave()
+        let group = DispatchGroup()
+        var imagesData: [Data] = []
+        
+        for result in photoArray {
+            group.enter()
+            getImageData(from: result) { imageData in
+                if let imageData = imageData {
+                    imagesData.append(imageData)
                 }
-            }
-            
-            group.notify(queue: .main) { [self] in
-                let title = titleTextField.text
-                let contents = descriptionTextView.text
-                let category: Int = 1
-                let region: Int = 1
-                let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
-                
-                let body = makeMultipart(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
-                postItem(body: body)
-            }
-            
-        case .modify:
-            guard let url = URL(string: Server.shared.itemDetailURL(itemId: itemId ?? 0)) else { return }
-            makeBody { [self] jsonData in
-                networkManager.sendPut(decodeType: IntData.self, what: jsonData, header: nil, fromURL: url) { (result: Result<IntData, Error>) in
-                    switch result {
-                    case .success(let data) :
-                        print("와 성공 짝짞짞 \(data.message)")
-                    case .failure(let error) :
-                        print("이거에러다\(error.localizedDescription)")
-                    }
-                }
+                group.leave()
             }
         }
         
-    }
-    
-    private func makeBody(completion: @escaping (Data) -> Void) {
-        let dispatchGroup = DispatchGroup()
-        var json: [String: Any] = [:]
-        
-        //        convertImageViewToURLs(results: photoArray) { [self] imageURLs in
-        //            for imageURL in imageURLs {
-        //                dispatchGroup.enter()
-        //                if imageURL == imageURLs.first {
-        //                    titlePhotoURL = imageURL
-        //                } else {
-        //                    photoURLs.append(imageURL)
-        //                }
-        //                dispatchGroup.leave()
-        //            }
-        //        }
-        
-        dispatchGroup.notify(queue: .main) { [self] in
-            json = [
-                "title": self.titleTextField.text ?? "",
-                "contents": self.descriptionTextView.text ?? "",
-                "category": 1,
-                "region": 1,
-                "price": Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0,
-                "images": photoURLs,
-                "firstImageUrl": [
-                    "url": titlePhotoURL?.absoluteString ?? ""
-                ]
-            ]
-            if let jsonData = try? JSONSerialization.data(withJSONObject: json) {
-                completion(jsonData)
-            }
+        group.notify(queue: .main) { [self] in
+            let title = titleTextField.text
+            let contents = descriptionTextView.text
+            let category: Int = 1
+            let region: Int = 1
+            let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
+            
+            sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
         }
     }
     
-    
-    private func makeMultipart(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
+    private func sendRequest(title: String?, contents: String?, category: Int, region: Int, price: Int, imagesData: [Data]) {
         let boundary = generateBoundaryString()
         JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
         var body = Data()
+        
         let parameters: [String: Any] = ["title": title ?? "",
                                          "contents": contents ?? "",
-                                         "category": category ?? -1,
-                                         "region": region ?? -1,
-                                         "price": price ?? -1]
+                                         "category": category,
+                                         "region": region,
+                                         "price": price]
         
         let boundaryPrefix = "--\(boundary)\r\n"
         let boundarySuffix = "--\(boundary)--\r\n"
-        var imgDataKey = ""
-        if title!.isEmpty && contents!.isEmpty && category == -1 && region == -1 && price! == -1 {
-            for (key, value) in parameters {
-                body.append(Data(boundaryPrefix.utf8))
-                body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
-                body.append(Data("\(value)\r\n".utf8))
-            }
-            imgDataKey = "images"
-        }else {
-            imgDataKey = "itemImages"
+        for (key, value) in parameters {
+            body.append(Data(boundaryPrefix.utf8))
+            body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+            body.append(Data("\(value)\r\n".utf8))
         }
+        
+        let imgDataKey = "images"
         for (index, imageData) in imagesData.enumerated() {
             let imageName = "image\(index)"
             body.append(Data(boundaryPrefix.utf8))
@@ -180,11 +120,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             body.append(imageData)
             body.append(Data("\r\n".utf8))
         }
+        
         body.append(Data(boundarySuffix.utf8))
-        return body
-    }
-    
-    private func postItem(body: Data) {
+        
         let url = URL(string: Server.shared.url(for: .items))
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
@@ -224,7 +162,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             }
         }.resume()
     }
-
     
     // 이미지 데이터를 가져오는 함수
     func getImageData(from result: PHPickerResult, completion: @escaping (Data?) -> Void) {
@@ -249,7 +186,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             completion(nil)
         }
     }
-
     
     private func setTextField() {
         titleTextField.placeholder = "글제목"
@@ -332,10 +268,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     func titleLabelChange() {
         let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
         secondView?.setTitlePhotoLabel()
-    }
-    
-    func updateItemID(id: Int) {
-        self.itemId = id
     }
 }
 
@@ -421,6 +353,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         purpose = .modify
         //TODO: countLabel이 초기화되지 않는 문제 (사진추가나 삭제를 하면 값에 맞게 보여지긴 함)
     }
+    
 }
 
 extension RegisterNewProductViewController: UITextViewDelegate {

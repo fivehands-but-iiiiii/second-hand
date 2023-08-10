@@ -253,7 +253,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
                 }
             }
             present(UINavigationController(rootViewController: modifyItem), animated: true)
-            modifyItem.updateItemID(id: id)
+            //modifyItem.updateItemID(id: id)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "판매중 상태로 전환", style: .default, handler: { [self] (ACTION:UIAlertAction) in
