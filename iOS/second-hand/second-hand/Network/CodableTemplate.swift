@@ -138,7 +138,7 @@ struct ItemDetailImage: Codable {
 }
 
 
-struct LikeResponseMessage : Codable {
+struct IntData : Codable {
     let message: String
     let data: Int
 }

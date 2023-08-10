@@ -123,7 +123,7 @@ class ItemDetailViewController: UIViewController {
                         return
                     }
                     
-                    networkManager.sendPOST(decodeType: LikeResponseMessage.self, what: jsonData, header: nil, fromURL: wishlistLikeURL) { [weak self] (result: Result<LikeResponseMessage, Error>) in
+                    networkManager.sendPOST(decodeType: IntData.self, what: jsonData, header: nil, fromURL: wishlistLikeURL) { [weak self] (result: Result<IntData, Error>) in
                         switch result {
                         case .success(let message):
                             print("찜 성공  \(message)")
