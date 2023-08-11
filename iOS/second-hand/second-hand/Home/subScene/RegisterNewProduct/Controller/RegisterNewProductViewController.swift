@@ -32,6 +32,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var photoArray = [PHPickerResult]()
     private let maximumPhotoNumber = 10
     private var purpose: Purpose = .register
+    private var imageNameIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,11 +86,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             }
         case .modify:
             //TODO: 상품 수정 후 put날려야함
+            //일단 이미지를 먼저 post해서 url을 받아와야함
             let imagesData = convertImageToData()
-            let body = makeBody(title: nil, contents: nil, category: nil, region: nil, price: nil, imagesData: imagesData)
-            sendRequest(body: body, purpos: .modify)
+            for imageData in imagesData {
+                let body = makeBody(imageData: imageData)
+                sendRequest(body: body, purpos: .modify)
+            }
         }
-       
     }
     
     private func convertImageToData() -> [Data]{
@@ -109,30 +112,42 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         return imagesData
     }
     
+    private func makeBody(imageData: Data) -> Data {
+        let boundary = generateBoundaryString()
+        JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
+        var body = Data()
+        let imgDataKey = "itemImages"
+        let boundaryPrefix = "--\(boundary)\r\n"
+        let boundarySuffix = "--\(boundary)--\r\n"
+        
+        let imageName = "image\(imageNameIndex)"
+        imageNameIndex -= 1
+        body.append(Data(boundaryPrefix.utf8))
+        body.append(Data("Content-Disposition: form-data; name=\"\(imgDataKey)\"; filename=\"\(imageName).jpeg\"\r\n".utf8))
+        body.append(Data("Content-Type: image/jpeg\r\n\r\n".utf8))
+        body.append(imageData)
+        body.append(Data("\r\n".utf8))
+        body.append(Data(boundarySuffix.utf8))
+        return body
+    }
+
     private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
         let boundary = generateBoundaryString()
         JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
         var body = Data()
-        
         let parameters: [String: Any] = ["title": title ?? "",
                                          "contents": contents ?? "",
                                          "category": category ?? -1,
                                          "region": region ?? -1,
                                          "price": price ?? -1]
-        var imgDataKey = ""
+        let imgDataKey = "images"
         let boundaryPrefix = "--\(boundary)\r\n"
         let boundarySuffix = "--\(boundary)--\r\n"
-        if title?.isEmpty ?? false && contents?.isEmpty ?? false && category == -1 && region == -1 && price == -1 {
-            imgDataKey = "itemImages"
-        } else {
-            let boundaryPrefix = "--\(boundary)\r\n"
-            let boundarySuffix = "--\(boundary)--\r\n"
-            for (key, value) in parameters {
-                body.append(Data(boundaryPrefix.utf8))
-                body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
-                body.append(Data("\(value)\r\n".utf8))
-            }
-            imgDataKey = "images"
+        
+        for (key, value) in parameters {
+            body.append(Data(boundaryPrefix.utf8))
+            body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+            body.append(Data("\(value)\r\n".utf8))
         }
         
         for (index, imageData) in imagesData.enumerated() {
@@ -177,6 +192,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 print("Error: \(error)")
                 return
             }
+            
+            print("데이터는 \(data)")
             
             if let httpResponse = response as? HTTPURLResponse {
                 if (200..<300).contains(httpResponse.statusCode) {
