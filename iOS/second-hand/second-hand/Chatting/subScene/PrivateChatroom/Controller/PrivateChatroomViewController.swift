@@ -316,20 +316,10 @@ extension PrivateChatroomViewController: ButtonActionDelegate {
 
 extension PrivateChatroomViewController: SocketActionDelegate {
     func didSendMessage(_ message: String) {
-        
-        let jsonData = message.data(using: .utf8)!
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-
-        do {
-            let bubbleData = try decoder.decode(ChatSendingSuccess.self, from: jsonData)
-            chatLogTableView?.addMyBubbleAfterSending(bubbleData)
-            
-        } catch {
-            print("디코딩 에러: \(error)")
-        }
-        
-        
+        chatLogTableView?.addMyBubbleAfterSending(message)
+    }
+    
+    func didReceiveMessage(_ message: String) {
+        chatLogTableView?.addYourBubbleAfterReceiving(message)
     }
 }

@@ -59,12 +59,25 @@ class TableViewInChatroom: UITableView {
         cellHeight.append(ceil(boundingRect.height))
     }
     
-    func addMyBubbleAfterSending(_ message: ChatSendingSuccess) {
-        let newBubble = MyCell(text: message.message)
+    func addMyBubbleAfterSending(_ message: String) {
+        let newBubble = MyCell(text: message)
         
         havingBubbles.append(newBubble)
         
-        calculateTextBoxHeight(for: .systemFont(ofSize: 17.0), text: message.message, maxWidth: Utils.screenWidth() * 0.7)
+        calculateTextBoxHeight(for: .systemFont(ofSize: 17.0), text: message, maxWidth: Utils.screenWidth() * 0.7)
+        
+        let indexPath = IndexPath(row: havingBubbles.count - 1, section: 0)
+        self.insertRows(at: [indexPath], with: .automatic)
+        
+        scrollToLastCell(animated: true)
+    }
+    
+    func addYourBubbleAfterReceiving(_ message: String) {
+        let newBubble = YourCell(text: message)
+        
+        havingBubbles.append(newBubble)
+        
+        calculateTextBoxHeight(for: .systemFont(ofSize: 17.0), text: message, maxWidth: Utils.screenWidth() * 0.7)
         
         let indexPath = IndexPath(row: havingBubbles.count - 1, section: 0)
         self.insertRows(at: [indexPath], with: .automatic)

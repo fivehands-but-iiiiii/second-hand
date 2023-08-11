@@ -77,7 +77,25 @@ extension SocketManager : SwiftStompDelegate {
             return
         }
         
-        delegate.didSendMessage?(message)
+        let jsonData = message.data(using: .utf8)!
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        do {
+            let myBubbleData = try decoder.decode(ChatSendingSuccess.self, from: jsonData)
+            delegate.didSendMessage?(myBubbleData.message)
+            
+        } catch {
+            
+            do {
+                let yourBubbleData = try decoder.decode(ChatBubbles.self, from: jsonData)
+                delegate.didReceiveMessage?(yourBubbleData.message)
+            } catch {
+                print("디코딩 에러: \(error)")
+            }
+        }
+        
     }
     
     func onReceipt(swiftStomp: SwiftStomp, receiptId: String) {
@@ -102,6 +120,5 @@ extension SocketManager : SwiftStompDelegate {
     }
     
 }
-
 
 
