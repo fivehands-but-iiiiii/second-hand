@@ -70,19 +70,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     @objc func finishButtonTapped() {
         switch purpose {
         case .register:
+            
+            let imagesData = convertImageToData()
             let group = DispatchGroup()
-            var imagesData: [Data] = []
-            
-            for result in photoArray {
-                group.enter()
-                getImageData(from: result) { imageData in
-                    if let imageData = imageData {
-                        imagesData.append(imageData)
-                    }
-                    group.leave()
-                }
-            }
-            
             group.notify(queue: .main) { [self] in
                 let title = titleTextField.text
                 let contents = descriptionTextView.text
@@ -98,6 +88,23 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             print("수정")
         }
        
+    }
+    
+    private func convertImageToData() -> [Data]{
+        let group = DispatchGroup()
+        var imagesData: [Data] = []
+        
+        for result in photoArray {
+            group.enter()
+            getImageData(from: result) { imageData in
+                if let imageData = imageData {
+                    imagesData.append(imageData)
+                }
+                group.leave()
+            }
+        }
+        group.wait()
+        return imagesData
     }
     
     private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
