@@ -81,6 +81,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             let price: Int = Int(priceTextField.text!)!
            
             let boundary = generateBoundaryString()
+            JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
             var body = Data()
 
             let parameters: [String: Any] = ["title": title ?? "",
@@ -114,9 +115,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController 
             var request = URLRequest(url: url!)
             request.httpMethod = "POST"
             if let loginToken = UserInfoManager.shared.loginToken {
-                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart,JSONCreater.headerKeyAuthorization: loginToken]
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyAuthorization: loginToken, JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart!]
             } else {
-                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart]
+                print("로그인 해라 !")
             }
             request.httpBody = body
 

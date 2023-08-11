@@ -1,4 +1,3 @@
-//
 //  StompClient.swift
 //  second-hand
 //
@@ -6,7 +5,6 @@
 //
 
 import Foundation
-import StompClientLib
 import SwiftStomp
 
 class SocketManager {
@@ -120,5 +118,4 @@ extension SocketManager : SwiftStompDelegate {
     }
     
 }
-
 

@@ -11,7 +11,8 @@ class JSONCreater {
     static let headerKeyContentType = "Content-Type"
     static let headerValueContentType = "application/json"
     static let headerKeyAuthorization = "Authorization"
-    static let headerValueContentTypeMultipart = "multipart/form-data"
+    static var headerValueContentTypeMultipart: String?
+    static let blank = ""
     
     func createGithubLoginRequestBody(user: GitUserNeedsJoin, region: Region) -> Data? {
         
