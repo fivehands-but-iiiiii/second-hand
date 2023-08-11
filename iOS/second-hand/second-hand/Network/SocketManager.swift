@@ -95,7 +95,6 @@ extension SocketManager : SwiftStompDelegate {
                 print("디코딩 에러: \(error)")
             }
         }
-        
     }
     
     func onReceipt(swiftStomp: SwiftStomp, receiptId: String) {
@@ -103,7 +102,8 @@ extension SocketManager : SwiftStompDelegate {
     }
     
     func onError(swiftStomp: SwiftStomp, briefDescription: String, fullDescription: String?, receiptId: String?, type: StompErrorType) {
-        print("에러")
+        print(briefDescription)
+        print(fullDescription ?? "")
     }
     
     func onSocketEvent(eventName: String, description: String) {
