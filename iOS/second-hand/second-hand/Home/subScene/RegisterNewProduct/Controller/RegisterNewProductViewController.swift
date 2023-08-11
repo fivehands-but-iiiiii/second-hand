@@ -99,26 +99,39 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
        
     }
     
-    private func sendRequest(title: String?, contents: String?, category: Int, region: Int, price: Int, imagesData: [Data]) {
+    private func sendRequest(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) {
         let boundary = generateBoundaryString()
         JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
         var body = Data()
         
         let parameters: [String: Any] = ["title": title ?? "",
                                          "contents": contents ?? "",
-                                         "category": category,
-                                         "region": region,
-                                         "price": price]
+                                         "category": category ?? -1,
+                                         "region": region ?? -1,
+                                         "price": price ?? -1]
+        var imgDataKey = ""
+        if title!.isEmpty && contents!.isEmpty && category == -1 && region == -1 && price == -1 {
+            imgDataKey = "itemImages"
+        } else {
+            let boundaryPrefix = "--\(boundary)\r\n"
+            let boundarySuffix = "--\(boundary)--\r\n"
+            for (key, value) in parameters {
+                body.append(Data(boundaryPrefix.utf8))
+                body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
+                body.append(Data("\(value)\r\n".utf8))
+            }
+            imgDataKey = "images"
+        }
         
         let boundaryPrefix = "--\(boundary)\r\n"
         let boundarySuffix = "--\(boundary)--\r\n"
+        
         for (key, value) in parameters {
             body.append(Data(boundaryPrefix.utf8))
             body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
             body.append(Data("\(value)\r\n".utf8))
         }
         
-        let imgDataKey = "images"
         for (index, imageData) in imagesData.enumerated() {
             let imageName = "image\(index)"
             body.append(Data(boundaryPrefix.utf8))
