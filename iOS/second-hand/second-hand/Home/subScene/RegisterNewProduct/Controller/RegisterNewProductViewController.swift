@@ -68,28 +68,35 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     @objc func finishButtonTapped() {
-        let group = DispatchGroup()
-        var imagesData: [Data] = []
-        
-        for result in photoArray {
-            group.enter()
-            getImageData(from: result) { imageData in
-                if let imageData = imageData {
-                    imagesData.append(imageData)
-                }
-                group.leave()
-            }
-        }
-        
-        group.notify(queue: .main) { [self] in
-            let title = titleTextField.text
-            let contents = descriptionTextView.text
-            let category: Int = 1
-            let region: Int = 1
-            let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
+        switch purpose {
+        case .register:
+            let group = DispatchGroup()
+            var imagesData: [Data] = []
             
-            sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
+            for result in photoArray {
+                group.enter()
+                getImageData(from: result) { imageData in
+                    if let imageData = imageData {
+                        imagesData.append(imageData)
+                    }
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) { [self] in
+                let title = titleTextField.text
+                let contents = descriptionTextView.text
+                let category: Int = 1
+                let region: Int = 1
+                let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
+                
+                sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
+            }
+        case .modify:
+            //TODO: 상품 수정 후 put날려야함
+            print("수정")
         }
+       
     }
     
     private func sendRequest(title: String?, contents: String?, category: Int, region: Int, price: Int, imagesData: [Data]) {
