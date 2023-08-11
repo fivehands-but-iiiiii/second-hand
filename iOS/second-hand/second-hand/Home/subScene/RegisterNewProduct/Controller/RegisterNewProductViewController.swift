@@ -90,7 +90,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let region: Int = 1
                 let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
                 
-                sendRequest(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
+                let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
+                sendRequest(body: body)
             }
         case .modify:
             //TODO: 상품 수정 후 put날려야함
@@ -99,7 +100,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
        
     }
     
-    private func sendRequest(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) {
+    private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
         let boundary = generateBoundaryString()
         JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
         var body = Data()
@@ -140,9 +141,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             body.append(imageData)
             body.append(Data("\r\n".utf8))
         }
-        
         body.append(Data(boundarySuffix.utf8))
-        
+        return body
+    }
+    
+    private func sendRequest(body: Data) {
         let url = URL(string: Server.shared.url(for: .items))
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
