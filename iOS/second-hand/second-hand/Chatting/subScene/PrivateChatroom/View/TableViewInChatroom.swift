@@ -10,6 +10,7 @@ import UIKit
 class TableViewInChatroom: UITableView {
     private var havingBubbles : [BubbleCell] = []
     private var cellHeight : [CGFloat] = []
+    private var didScrollToLastCell = false
     
     init(chattingLogData: PrivateChatroomChattingLogModel) {
         super.init(frame: .zero, style: .plain)
@@ -18,7 +19,6 @@ class TableViewInChatroom: UITableView {
         registerCell()
         self.havingBubbles = makeHavingBubbles(from: chattingLogData)
         self.separatorStyle = .none
-
     }
     
     required init?(coder: NSCoder) {
@@ -27,7 +27,6 @@ class TableViewInChatroom: UITableView {
         self.dataSource = self
         registerCell()
     }
-    
     
     private func registerCell() {
         self.register(MyCell.self, forCellReuseIdentifier: MyCell.identifier)
@@ -87,12 +86,20 @@ class TableViewInChatroom: UITableView {
         let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
         self.scrollToRow(at: lastIndexPath, at: .bottom, animated: animated)
     }
+    
+    private func scrollToLastCellIfNeeded() {
+        if !didScrollToLastCell {
+            scrollToLastCell(animated: true)
+            didScrollToLastCell = true
+        }
+    }
 }
 
 extension TableViewInChatroom : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight[indexPath.item] + 40.0
     }
+
 }
 
 extension TableViewInChatroom : UITableViewDataSource {
@@ -106,7 +113,6 @@ extension TableViewInChatroom : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        scrollToLastCell(animated: true)
+        scrollToLastCellIfNeeded()
     }
-    
 }
