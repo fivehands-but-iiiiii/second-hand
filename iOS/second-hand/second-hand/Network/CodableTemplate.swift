@@ -225,3 +225,12 @@ struct ChangeStatusItem: Codable {
     let message: String
     let data: Bool
 }
+
+struct ModifyItem: Codable {
+    let message: String
+    let data: ImageData
+}
+
+struct ImageData: Codable {
+    let imageUrl: String
+}

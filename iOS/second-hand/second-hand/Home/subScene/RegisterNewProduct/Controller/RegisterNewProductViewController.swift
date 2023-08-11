@@ -33,6 +33,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private let maximumPhotoNumber = 10
     private var purpose: Purpose = .register
     private var imageNameIndex = -1
+    private var imageURL = [URL]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +88,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         case .modify:
             //TODO: 상품 수정 후 put날려야함
             //일단 이미지를 먼저 post해서 url을 받아와야함
+            imageURL = []
             let imagesData = convertImageToData()
             for imageData in imagesData {
                 let body = makeBody(imageData: imageData)
@@ -192,24 +194,42 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 print("Error: \(error)")
                 return
             }
-            
-            print("데이터는 \(data)")
-            
+         
             if let httpResponse = response as? HTTPURLResponse {
                 if (200..<300).contains(httpResponse.statusCode) {
-                    if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                        print("Response: \(responseString)")
-                        DispatchQueue.main.async {
-                            self.dismiss(animated: true)
+                    switch purpos {
+                    case .register:
+                        do {
+                            let responseData = try JSONDecoder().decode(IntData.self, from: data ?? Data())
+                            let message = responseData.message
+                            print(message)
+                        } catch {
+                            print("Error decoding JSON: \(error)")
+                        }
+                    case .modify:
+                        if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                            print("Response: \(responseString)")
+                        }
+                        do {
+                            let responseData = try JSONDecoder().decode(ModifyItem.self, from: data ?? Data())
+                            let imageUrl = responseData.data.imageUrl
+                            self.imageURL.append(URL(string: imageUrl) ?? URL(string:"")!)
+                            print(responseData.message)
+                        } catch {
+                            print("Error decoding JSON: \(error)")
                         }
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        self.present(alert, animated: true, completion: nil)
-                    }
                 }
             }
+            self.dismissFromSelf()
         }.resume()
+    }
+    
+    private func dismissFromSelf() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
     
     // 이미지 데이터를 가져오는 함수
