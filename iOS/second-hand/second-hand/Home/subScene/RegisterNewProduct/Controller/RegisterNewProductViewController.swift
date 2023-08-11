@@ -33,7 +33,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private let maximumPhotoNumber = 10
     private var purpose: Purpose = .register
     private var imageNameIndex = -1
-    private var imageURL = [URL]()
+    private var firstImageURL = ""
+    private var imageURL = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +95,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let body = makeBody(imageData: imageData)
                 sendRequest(body: body, purpos: .modify)
             }
+            
+            //이제 받아온 Url로 (imageURL에 다 담겨있음)
         }
     }
     
@@ -213,7 +216,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                         do {
                             let responseData = try JSONDecoder().decode(ModifyItem.self, from: data ?? Data())
                             let imageUrl = responseData.data.imageUrl
-                            self.imageURL.append(URL(string: imageUrl) ?? URL(string:"")!)
+                            self.imageURL.append(imageUrl)
                             print(responseData.message)
                         } catch {
                             print("Error decoding JSON: \(error)")
