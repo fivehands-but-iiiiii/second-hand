@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum ManagerErrors: Error {
+enum ErrorManager: Error {
     case invalidResponse
     case invalidStatusCode(Int)
 }
 
-extension ManagerErrors {
+extension ErrorManager {
     @frozen
     enum statuscode: Int {
         case internalServerError = 500

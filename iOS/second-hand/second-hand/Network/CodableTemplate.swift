@@ -166,6 +166,23 @@ struct Categories: Codable {
     let categories: [Int]
 }
 
+
+struct CategoryData: Codable {
+    let message: String
+    let data: CategoryContainer
+}
+
+struct CategoryContainer: Codable {
+    let categories: [CategoryElement]
+}
+
+struct CategoryElement: Codable {
+    let id: Int
+    let title: String
+    let iconUrl: String
+}
+
+//MARK: ChatRoom
 struct ItemOfChatroom: Codable {
     let itemId: Int
     let title: String
@@ -186,18 +203,30 @@ struct ChatroomSuccess: Codable {
     let message: String
     let data: ChatroomData
 }
+//MARK: ChattingLog
+struct ChattingLog: Codable {
+    let message : String
+    let data : ChattingLogPage
+}
 
-struct CategoryData: Codable {
+struct ChattingLogPage: Codable {
+    let hasPre: Bool
+    let hasNext: Bool
+    let chatBubbles : [ChatBubbles]
+}
+
+struct ChatBubbles: Codable {
+    let id : String
+    let senderId: String
     let message: String
-    let data: CategoryContainer
+    let isMine: Bool
+    let createdAt: String
 }
 
-struct CategoryContainer: Codable {
-    let categories: [CategoryElement]
-}
-
-struct CategoryElement: Codable {
-    let id: Int
-    let title: String
-    let iconUrl: String
+struct ChatSendingSuccess: Codable {
+    let id : String
+    let roomId: String
+    let sender: String
+    let message: String
+    let createdAt: String
 }

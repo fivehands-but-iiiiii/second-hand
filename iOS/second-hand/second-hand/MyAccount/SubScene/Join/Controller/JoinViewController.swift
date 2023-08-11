@@ -155,6 +155,7 @@ final class JoinViewController: NavigationUnderLineViewController {
         ])
     }
     //MARK: 일반회원가입 테스트
+    //TODO: 테스트 완료후 하드코딩 제거 
     func joinTest() {
         let networkManager = NetworkManager()
         
