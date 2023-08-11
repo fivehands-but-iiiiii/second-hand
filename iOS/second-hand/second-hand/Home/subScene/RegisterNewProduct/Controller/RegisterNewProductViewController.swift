@@ -81,11 +81,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
                 
                 let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
-                sendRequest(body: body)
+                sendRequest(body: body, purpos: .register)
             }
         case .modify:
             //TODO: 상품 수정 후 put날려야함
-            print("수정")
+            let imagesData = convertImageToData()
+            let body = makeBody(title: nil, contents: nil, category: nil, region: nil, price: nil, imagesData: imagesData)
+            sendRequest(body: body, purpos: .modify)
         }
        
     }
@@ -118,7 +120,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                                          "region": region ?? -1,
                                          "price": price ?? -1]
         var imgDataKey = ""
-        if title!.isEmpty && contents!.isEmpty && category == -1 && region == -1 && price == -1 {
+        let boundaryPrefix = "--\(boundary)\r\n"
+        let boundarySuffix = "--\(boundary)--\r\n"
+        if title?.isEmpty ?? false && contents?.isEmpty ?? false && category == -1 && region == -1 && price == -1 {
             imgDataKey = "itemImages"
         } else {
             let boundaryPrefix = "--\(boundary)\r\n"
@@ -129,15 +133,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 body.append(Data("\(value)\r\n".utf8))
             }
             imgDataKey = "images"
-        }
-        
-        let boundaryPrefix = "--\(boundary)\r\n"
-        let boundarySuffix = "--\(boundary)--\r\n"
-        
-        for (key, value) in parameters {
-            body.append(Data(boundaryPrefix.utf8))
-            body.append(Data("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".utf8))
-            body.append(Data("\(value)\r\n".utf8))
         }
         
         for (index, imageData) in imagesData.enumerated() {
@@ -152,14 +147,21 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         return body
     }
     
-    private func sendRequest(body: Data) {
-        let url = URL(string: Server.shared.url(for: .items))
+    private func sendRequest(body: Data, purpos: Purpose) {
+        var url = URL(string: "")
+        switch purpos {
+        case .register:
+            url = URL(string: Server.shared.url(for: .items))
+        case .modify:
+            url = URL(string: Server.shared.url(for: .itemsImage))
+        }
+        
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
         if let loginToken = UserInfoManager.shared.loginToken {
             request.allHTTPHeaderFields = [JSONCreater.headerKeyAuthorization: loginToken, JSONCreater.headerKeyContentType: JSONCreater.headerValueContentTypeMultipart!]
         } else {
-            print("로그인 해라 !")
+            print("로그인이 안되어있음.")
         }
         request.httpBody = body
         

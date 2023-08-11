@@ -26,6 +26,7 @@ struct Server {
         case resourceCategories = "/resources/categories"
         case itemsMine = "/items/mine"
         case status = "/status"
+        case itemsImage = "/items/image"
     }
 
     func url(for path: Path) -> String {
