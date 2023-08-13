@@ -89,6 +89,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         case .modify:
             //TODO: 상품 수정 후 put날려야함
             //일단 이미지를 먼저 post해서 url을 받아와야함
+            var count = 1
             imageURL = []
             let imagesData = convertImageToData()
             for imageData in imagesData {
