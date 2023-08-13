@@ -59,6 +59,9 @@
 		E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */; };
 		E46EFD0A2A63116100FFC3B8 /* ContentOfPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */; };
 		E46EFD0C2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */; };
+		E473CD182A88AAFD00981BAF /* TableViewInChatroomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD172A88AAFD00981BAF /* TableViewInChatroomList.swift */; };
+		E473CD1A2A88AB4700981BAF /* CellOfChatroomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD192A88AB4700981BAF /* CellOfChatroomList.swift */; };
+		E473CD1C2A88BAD600981BAF /* ChatroomListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD1B2A88BAD600981BAF /* ChatroomListModel.swift */; };
 		E4923CDD2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */; };
 		E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4987E442A4D9F7600337543 /* Int,String+Extension.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
@@ -142,6 +145,9 @@
 		E46EFD072A62F1F400FFC3B8 /* StatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusButton.swift; sourceTree = "<group>"; };
 		E46EFD092A63116100FFC3B8 /* ContentOfPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOfPost.swift; sourceTree = "<group>"; };
 		E46EFD0B2A64511300FFC3B8 /* ItemDetailBottomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailBottomSectionView.swift; sourceTree = "<group>"; };
+		E473CD172A88AAFD00981BAF /* TableViewInChatroomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInChatroomList.swift; sourceTree = "<group>"; };
+		E473CD192A88AB4700981BAF /* CellOfChatroomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellOfChatroomList.swift; sourceTree = "<group>"; };
+		E473CD1B2A88BAD600981BAF /* ChatroomListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatroomListModel.swift; path = "second-hand/Chatting/Model/ChatroomListModel.swift"; sourceTree = SOURCE_ROOT; };
 		E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSummaryInChatroom.swift; sourceTree = "<group>"; };
 		E4987E442A4D9F7600337543 /* Int,String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int,String+Extension.swift"; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
@@ -513,6 +519,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E473CD1D2A88BAE800981BAF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E473CD1B2A88BAD600981BAF /* ChatroomListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E4923CD82A6F9F6800D2BF19 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,8 +617,8 @@
 			isa = PBXGroup;
 			children = (
 				E4375C1A2A67D835003F6F5B /* subScene */,
+				E473CD1D2A88BAE800981BAF /* Model */,
 				E49EB8652A36F03F001F2D56 /* Controller */,
-				E49EB8642A36F037001F2D56 /* Model */,
 				E49EB8632A36F02B001F2D56 /* View */,
 			);
 			path = Chatting;
@@ -675,15 +689,10 @@
 		E49EB8632A36F02B001F2D56 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E473CD172A88AAFD00981BAF /* TableViewInChatroomList.swift */,
+				E473CD192A88AB4700981BAF /* CellOfChatroomList.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		E49EB8642A36F037001F2D56 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		E49EB8652A36F03F001F2D56 /* Controller */ = {
@@ -911,9 +920,11 @@
 				E4E6947D2A7B86780033B4DB /* Bubble.swift in Sources */,
 				E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */,
 				E4BD90742A3DF44F00ADCE89 /* JSONCreater.swift in Sources */,
+				E473CD1C2A88BAD600981BAF /* ChatroomListModel.swift in Sources */,
 				E46EFD0A2A63116100FFC3B8 /* ContentOfPost.swift in Sources */,
 				E49EB8382A2DCA45001F2D56 /* HomeViewController.swift in Sources */,
 				E45BF67C2A765BF20026AD03 /* MyBubble.swift in Sources */,
+				E473CD1A2A88AB4700981BAF /* CellOfChatroomList.swift in Sources */,
 				E4CAD8492A5B313500C69F7D /* ItemDetailImageSectionView.swift in Sources */,
 				E46738112A482DF1006A46D1 /* Updatable.swift in Sources */,
 				DBF4EED32A7402E7006FB3F2 /* CategoryItemListViewController.swift in Sources */,
@@ -947,6 +958,7 @@
 				E49EB8542A30690F001F2D56 /* HomeRightBarButton.swift in Sources */,
 				E45BF6762A7642670026AD03 /* BottomSectionInChatroom.swift in Sources */,
 				DB55CB092A43E58800578ED5 /* UIView+Extension.swift in Sources */,
+				E473CD182A88AAFD00981BAF /* TableViewInChatroomList.swift in Sources */,
 				E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
