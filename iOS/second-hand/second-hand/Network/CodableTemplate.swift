@@ -230,3 +230,36 @@ struct ChatSendingSuccess: Codable {
     let message: String
     let createdAt: String
 }
+
+// MARK: ChatroomList
+
+struct ChatroomListSuccess: Codable {
+    let page : Int
+    let hasPrevious : Bool
+    let hasNext : Bool
+    let chatRooms : [ChatroomList]
+}
+
+struct ChatroomList: Codable {
+    let chatroomId : String
+    let opponent : ChatroomListOpponent
+    let item : ChatroomListItem
+    let chatLogs : ChatroomListChatLog
+}
+
+struct ChatroomListOpponent: Codable {
+    let memberId : String
+    let profileImgUrl : String
+}
+
+struct ChatroomListItem: Codable {
+    let itemId : Int
+    let title : String
+    let thumbnailImgUrl: String
+}
+
+struct ChatroomListChatLog: Codable {
+    let lastMessage: String
+    let updatedAt : String
+    let unReadCount: Int
+}
