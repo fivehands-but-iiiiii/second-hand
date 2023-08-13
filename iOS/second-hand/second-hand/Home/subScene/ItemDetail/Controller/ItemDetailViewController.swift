@@ -86,7 +86,6 @@ class ItemDetailViewController: UIViewController {
                 self.setTextSectionView()
                 self.setBottomSectionView()
                 
-                
             case .failure(let error) :
                 print(error.localizedDescription)
             }
