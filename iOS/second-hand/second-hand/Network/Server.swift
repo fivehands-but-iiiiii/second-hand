@@ -87,6 +87,20 @@ struct Server {
         return url
     }
     
+    func createRequestURLToChatroomList(page:Int, itemId:Int) -> String {
+        
+        //MARK: itemId...를 어떻게 특정하지?
+        
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let pageQuery = Query.page.rawValue
+        let itemIdQuery = Query.itemId.rawValue
+        
+        let url = baseURL + "/" + chatsPath + "?" + pageQuery + String(page) + "&" + itemIdQuery + String(itemId)
+        
+        return url
+    }
+    
     enum Query: String {
         case code = "code="
         case page = "page="
