@@ -35,6 +35,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var imageNameIndex = -1
     private var firstImageURL = ""
     private var imageURL = [String]()
+    private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,23 +85,26 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
                 
                 let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
-                sendRequest(body: body, purpos: .register)
+                sendRequest(body: body, purpos: .register) { $0 }
             }
         case .modify:
-            //TODO: 상품 수정 후 put날려야함
-            //일단 이미지를 먼저 post해서 url을 받아와야함
             var count = 1
             imageURL = []
             let imagesData = convertImageToData()
+            
+            let group = DispatchGroup() // Create a DispatchGroup
+            
             for imageData in imagesData {
                 let body = makeBody(imageData: imageData)
-                sendRequest(body: body, purpos: .modify)
+                group.enter() // Enter the DispatchGroup before starting a task
+                sendRequest(body: body, purpos: .modify) { url in
+                    if let url = url {
+                    self.imageURL.append(url)
+                    }
+                    group.leave() // Leave the DispatchGroup when the task is completed
+                }
             }
             
-            //이제 받아온 Url로 (imageURL에 다 담겨있음)
-            //판매자는 상품 정보를 수정할 수 있다. api 시작
-            
-            let group = DispatchGroup()
             group.notify(queue: .main) { [self] in
                 let title = titleTextField.text
                 let contents = descriptionTextView.text
@@ -118,11 +122,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                     images.append(imageInfo)
                 }
                 
-                
-                let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, thumbnailUrl: thumbnailUrl, images: images)
-                modifySendRequest(body: body)
+                let body = self.makeBody(title: title, contents: contents, category: category, region: region, price: price, thumbnailUrl: thumbnailUrl, images: images)
+                self.modifySendRequest(body: body)
             }
         }
+
     }
     
     private func convertImageToData() -> [Data]{
@@ -216,10 +220,18 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         return body
     }
     private func modifySendRequest(body: Data) {
-    
+        guard let url = URL(string: Server.shared.url(for: .items)) else { return }
+        networkManager.sendPut(decodeType: ModifyItemSuccess.self, what: body, header: nil, fromURL: url) { (result: Result<ModifyItemSuccess, Error>) in
+            switch result {
+            case .success(let data) :
+                print("수정 성공 id:  \(data.id)")
+            case .failure(let error) :
+                print("가입실패 \(error)")
+            }
+        }
     }
     
-    private func sendRequest(body: Data, purpos: Purpose) {
+    private func sendRequest(body: Data, purpos: Purpose, completion: @escaping (String?) -> Void) {
         var url = URL(string: "")
         switch purpos {
         case .register:
@@ -247,6 +259,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                     self.present(alert, animated: true, completion: nil)
                 }
                 print("Error: \(error)")
+                completion(nil)
                 return
             }
          
@@ -270,8 +283,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                             let imageUrl = responseData.data.imageUrl
                             self.imageURL.append(imageUrl)
                             print(responseData.message)
+                            completion(imageUrl)
                         } catch {
                             print("Error decoding JSON: \(error)")
+                            completion(nil)
                         }
                     }
                 } else {

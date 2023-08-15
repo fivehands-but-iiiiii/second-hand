@@ -234,3 +234,7 @@ struct ModifyItem: Codable {
 struct ImageData: Codable {
     let imageUrl: String
 }
+
+struct ModifyItemSuccess: Codable {
+    let id: Int
+}
