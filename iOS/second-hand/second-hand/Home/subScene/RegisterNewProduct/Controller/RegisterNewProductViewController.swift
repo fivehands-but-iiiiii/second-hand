@@ -98,6 +98,30 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             }
             
             //이제 받아온 Url로 (imageURL에 다 담겨있음)
+            //판매자는 상품 정보를 수정할 수 있다. api 시작
+            
+            let group = DispatchGroup()
+            group.notify(queue: .main) { [self] in
+                let title = titleTextField.text
+                let contents = descriptionTextView.text
+                let category: Int = 1
+                let region: Int = 1
+                let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
+                let thumbnailUrl = firstImageURL
+                
+                var images = [[String: Any]]()
+                for (index, url) in imageURL.enumerated() {
+                    let imageInfo: [String: Any] = [
+                        "order": index + 1,
+                        "url": url
+                    ]
+                    images.append(imageInfo)
+                }
+                
+                
+                let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, thumbnailUrl: thumbnailUrl, images: images)
+                modifySendRequest(body: body)
+            }
         }
     }
     
@@ -136,6 +160,30 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         body.append(Data(boundarySuffix.utf8))
         return body
     }
+    
+    private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, thumbnailUrl: String, images: [[String: Any]]) -> Data{
+        
+        let boundary = generateBoundaryString()
+        JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
+        let jsonString: [String: Any] = ["title": title ?? "",
+                                         "contents": contents ?? "",
+                                         "category": category ?? -1,
+                                         "region": region ?? -1,
+                                         "price": price ?? -1,
+                                         "thumbnailUrl": thumbnailUrl,
+                                         "images": images
+                                         ]
+        
+        do {
+                let body = try JSONSerialization.data(withJSONObject: jsonString, options: [])
+                return body
+            } catch {
+                // Handle error here
+                print("Error creating JSON data: \(error)")
+                return Data()
+            }
+        
+    }
 
     private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
         let boundary = generateBoundaryString()
@@ -166,6 +214,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         }
         body.append(Data(boundarySuffix.utf8))
         return body
+    }
+    private func modifySendRequest(body: Data) {
+    
     }
     
     private func sendRequest(body: Data, purpos: Purpose) {
