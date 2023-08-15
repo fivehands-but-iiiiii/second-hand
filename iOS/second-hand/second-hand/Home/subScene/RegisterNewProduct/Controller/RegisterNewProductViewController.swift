@@ -36,6 +36,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var firstImageURL = ""
     private var imageURL = [String]()
     private let networkManager = NetworkManager()
+    private var currentId = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         setNavigation()
         setTextField()
         setToolbar()
+    }
+    
+    func updateId(id: Int){
+        currentId = id
     }
     
     private func setNavigation() {
@@ -88,7 +93,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 sendRequest(body: body, purpos: .register) { $0 }
             }
         case .modify:
-            var count = 1
             imageURL = []
             let imagesData = convertImageToData()
             
@@ -111,18 +115,16 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let category: Int = 1
                 let region: Int = 1
                 let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
-                let thumbnailUrl = firstImageURL
                 
-                var images = [[String: Any]]()
-                for (index, url) in imageURL.enumerated() {
-                    let imageInfo: [String: Any] = [
-                        "order": index + 1,
+                var images = [[String: String]]()
+                for url in imageURL {
+                    let imageInfo: [String: String] = [
                         "url": url
                     ]
                     images.append(imageInfo)
                 }
-                
-                let body = self.makeBody(title: title, contents: contents, category: category, region: region, price: price, thumbnailUrl: thumbnailUrl, images: images)
+                print(images)
+                guard let body = self.makeBody(title: title, contents: contents, category: category, region: region, price: price, images: images) else {return}
                 self.modifySendRequest(body: body)
             }
         }
@@ -165,29 +167,28 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         return body
     }
     
-    private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, thumbnailUrl: String, images: [[String: Any]]) -> Data{
+    private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, images: [[String: String]]) -> Data? {
+        let jsonString: [String: Any] = [
+            "title": title ?? "",
+            "contents": contents ?? "",
+            "category": category ?? -1,
+            "region": region ?? -1,
+            "price": price ?? -1,
+            "images": images
+        ]
         
-        let boundary = generateBoundaryString()
-        JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
-        let jsonString: [String: Any] = ["title": title ?? "",
-                                         "contents": contents ?? "",
-                                         "category": category ?? -1,
-                                         "region": region ?? -1,
-                                         "price": price ?? -1,
-                                         "thumbnailUrl": thumbnailUrl,
-                                         "images": images
-                                         ]
-        
+        print(jsonString)
         do {
-                let body = try JSONSerialization.data(withJSONObject: jsonString, options: [])
-                return body
-            } catch {
-                // Handle error here
-                print("Error creating JSON data: \(error)")
-                return Data()
-            }
-        
+            let jsonData = try? JSONSerialization.data(withJSONObject: jsonString, options: [])
+            print(jsonData ?? "")
+            return jsonData
+        } catch {
+            // Handle error here
+            print("Error creating JSON data: \(error)")
+            return nil
+        }
     }
+
 
     private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
         let boundary = generateBoundaryString()
@@ -220,13 +221,15 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         return body
     }
     private func modifySendRequest(body: Data) {
-        guard let url = URL(string: Server.shared.url(for: .items)) else { return }
+        print(body)
+        guard let url = URL(string: Server.shared.itemDetailURL(itemId: currentId)) else { return }
         networkManager.sendPut(decodeType: ModifyItemSuccess.self, what: body, header: nil, fromURL: url) { (result: Result<ModifyItemSuccess, Error>) in
+            print(result)
             switch result {
             case .success(let data) :
-                print("수정 성공 id:  \(data.id)")
+                print("수정 성공 id222222222222222222222222222222222222222222222222222:  \(data.id)")
             case .failure(let error) :
-                print("가입실패 \(error)")
+                print("가입실패 \(error.localizedDescription)")
             }
         }
     }

@@ -31,6 +31,16 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     let moreButton = UIButton()
     var moreButtonTappedDelegate: MoreButtonTappedDelegate?
     
+    override func prepareForReuse() {
+            super.prepareForReuse()
+            
+            // 이미지 뷰에 이전 이미지를 초기화하거나 취소하는 로직 추가
+        self.thumbnailImage.image = nil
+            // 혹은 이미지 로딩 작업을 취소하는 코드를 추가할 수도 있습니다.
+            // 예: 이미지 로딩 작업을 관리하는 객체에게 취소 요청을 보내는 등
+        }
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
