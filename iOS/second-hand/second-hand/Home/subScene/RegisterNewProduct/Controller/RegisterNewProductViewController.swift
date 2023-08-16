@@ -37,10 +37,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var imageURL = [String]()
     private let networkManager = NetworkManager()
     private var currentId = 0
+    private var hadImageUrl = [String]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ProductImageCount.number = 0
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         priceTextField.delegate = self
         AddPhotoImageView.cancelButtonTappedDelegate = self
         AddPhotoImageView.titleLabelChangeDelegate = self
@@ -48,6 +48,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         layout()
         setPHPPicker()
     }
+
     
     private func setUI() {
         setNavigation()
@@ -96,16 +97,16 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             imageURL = []
             let imagesData = convertImageToData()
             
-            let group = DispatchGroup() // Create a DispatchGroup
+            let group = DispatchGroup()
             
             for imageData in imagesData {
+                group.enter()
                 let body = makeBody(imageData: imageData)
-                group.enter() // Enter the DispatchGroup before starting a task
                 sendRequest(body: body, purpos: .modify) { url in
                     if let url = url {
                     self.imageURL.append(url)
                     }
-                    group.leave() // Leave the DispatchGroup when the task is completed
+                    group.leave()
                 }
             }
             
@@ -117,7 +118,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
                 
                 var images = [[String: String]]()
-                for url in imageURL {
+                let allImageURL = hadImageUrl+imageURL
+                for url in allImageURL {
                     let imageInfo: [String: String] = [
                         "url": url
                     ]
@@ -227,7 +229,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             print(result)
             switch result {
             case .success(let data) :
-                print("수정 성공 id222222222222222222222222222222222222222222222222222:  \(data.id)")
+                print("수정 성공 :  \(data.id)")
             case .failure(let error) :
                 print("가입실패 \(error.localizedDescription)")
             }
@@ -349,7 +351,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             $0.font = .systemFont(ofSize: 15)
             $0.setPlaceholder(color: .neutralTextWeak)
         }
-        self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
+        self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
     }
     
     private func setToolbar() {
@@ -404,7 +406,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     
     func cancelButtonTapped() {
         ProductImageCount.number -= 1
-        self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
+        self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
     }
     
     func titleLabelChange() {
@@ -437,7 +439,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                                 secondView?.setTitlePhotoLabel()
                             }
                             ProductImageCount.addImage()
-                            self.photoScrollView.countPictureLabel.text = "\(ProductImageCount.number)/\(maximumPhotoNumber)"
+                            self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
                         }
                     }
                 }
@@ -481,10 +483,13 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         self.priceTextField.text = price
         self.descriptionTextView.text = contents
         self.descriptionTextView.textColor = .neutralText
+        ProductImageCount.number = images.count
+        self.photoScrollView.emtyStackView()
         for image in images {
             do {
-                let url = URL(string: image.url)
-                let data = try Data(contentsOf: url!)
+                hadImageUrl.append(image.url)
+                guard let url = URL(string: image.url) else {return}
+                let data = try Data(contentsOf: url)
                 self.photoScrollView.addImage(image: UIImage(data: data)!)
                 ProductImageCount.addImage()
             }
@@ -492,6 +497,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 print("url > data 과정에서 오류발생")
             }
         }
+        self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
         purpose = .modify
         //TODO: countLabel이 초기화되지 않는 문제 (사진추가나 삭제를 하면 값에 맞게 보여지긴 함)
     }

@@ -65,6 +65,16 @@ final class AddPhotoScrollView: UIScrollView {
         ])
     }
     
+    func emtyStackView() {
+        for subview in addPhotoStackView.arrangedSubviews {
+            if subview == addPhotoStackView.arrangedSubviews.first {
+                continue
+            }
+            addPhotoStackView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+    }
+    
     private func setCameraView() {
         //TODO: 여기 URL으로 이미지를 받아서 네트워킹처리해서 이미지를 가져와야함. 지금은 system이미지 불러오는걸로..
         cameraView.image = UIImage(systemName: imageRequest.image)
