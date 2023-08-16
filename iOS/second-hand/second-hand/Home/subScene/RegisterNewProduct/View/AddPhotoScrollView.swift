@@ -90,7 +90,7 @@ final class AddPhotoScrollView: UIScrollView {
     }
     
     private func setCountPictureLabel() {
-        countPictureLabel.text = "\(ProductImageCount.number)/10"
+        countPictureLabel.text = "\(self.addPhotoStackView.arrangedSubviews.count)/10"
         countPictureLabel.font = .systemFont(ofSize: 13)
         countPictureLabel.textColor = .neutralTextStrong
         countPictureLabel.textAlignment = .center

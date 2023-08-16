@@ -405,7 +405,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     func cancelButtonTapped() {
-        ProductImageCount.number -= 1
         self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
     }
     
@@ -434,11 +433,10 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                             //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
                             //사진이 아무것도 없는 상황에 추가를 한다면, 첫번째 사진에 대표사진 레이블을 세팅
-                            if ProductImageCount.number == 0  {
+                            if photoScrollView.addPhotoStackView.arrangedSubviews.count == 0 {
                                 let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
                                 secondView?.setTitlePhotoLabel()
                             }
-                            ProductImageCount.addImage()
                             self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
                         }
                     }
@@ -459,7 +457,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
-        configuration.selectionLimit = maximumPhotoNumber-ProductImageCount.number
+        configuration.selectionLimit = maximumPhotoNumber-photoScrollView.addPhotoStackView.arrangedSubviews.count
         
         
         if photoArray.count == 10 {
@@ -483,7 +481,6 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         self.priceTextField.text = price
         self.descriptionTextView.text = contents
         self.descriptionTextView.textColor = .neutralText
-        ProductImageCount.number = images.count
         self.photoScrollView.emtyStackView()
         for image in images {
             do {
@@ -491,7 +488,6 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 guard let url = URL(string: image.url) else {return}
                 let data = try Data(contentsOf: url)
                 self.photoScrollView.addImage(image: UIImage(data: data)!)
-                ProductImageCount.addImage()
             }
             catch {
                 print("url > data 과정에서 오류발생")
