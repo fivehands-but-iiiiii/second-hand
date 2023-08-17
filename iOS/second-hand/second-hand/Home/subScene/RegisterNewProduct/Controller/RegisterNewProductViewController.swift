@@ -38,6 +38,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private let networkManager = NetworkManager()
     private var currentId = 0
     private var hadImageUrl = [String]()
+    private var processing = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -48,7 +49,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         layout()
         setPHPPicker()
     }
-
+    
     
     private func setUI() {
         setNavigation()
@@ -78,9 +79,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     @objc func finishButtonTapped() {
+        guard !processing else {return}
         switch purpose {
         case .register:
-            
+            processing = true
             let imagesData = convertImageToData()
             let group = DispatchGroup()
             group.notify(queue: .main) { [self] in
@@ -91,9 +93,12 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let price: Int = Int(priceTextField.text!.replacingOccurrences(of: ",", with: "")) ?? 0
                 
                 let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
-                sendRequest(body: body, purpos: .register) { $0 }
+                sendRequest(body: body, purpos: .register) { _ in
+                    processing = false
+                }
             }
         case .modify:
+            processing = true
             imageURL = []
             let imagesData = convertImageToData()
             
@@ -104,7 +109,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 let body = makeBody(imageData: imageData)
                 sendRequest(body: body, purpos: .modify) { url in
                     if let url = url {
-                    self.imageURL.append(url)
+                        self.imageURL.append(url)
                     }
                     group.leave()
                 }
@@ -128,15 +133,15 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 print(images)
                 guard let body = self.makeBody(title: title, contents: contents, category: category, region: region, price: price, images: images) else {return}
                 self.modifySendRequest(body: body)
+                processing = false
             }
         }
-
     }
     
     private func convertImageToData() -> [Data]{
         let group = DispatchGroup()
         var imagesData: [Data] = []
-     
+        
         for result in photoArray {
             group.enter()
             getImageData(from: result) { imageData in
@@ -190,8 +195,8 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             return nil
         }
     }
-
-
+    
+    
     private func makeBody(title: String?, contents: String?, category: Int?, region: Int?, price: Int?, imagesData: [Data]) -> Data{
         let boundary = generateBoundaryString()
         JSONCreater.headerValueContentTypeMultipart = "multipart/form-data; boundary=\(boundary)"
@@ -267,7 +272,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 completion(nil)
                 return
             }
-         
+            
             if let httpResponse = response as? HTTPURLResponse {
                 if (200..<300).contains(httpResponse.statusCode) {
                     switch purpos {
