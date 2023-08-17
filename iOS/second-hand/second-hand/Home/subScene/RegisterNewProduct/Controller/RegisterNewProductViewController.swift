@@ -136,7 +136,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private func convertImageToData() -> [Data]{
         let group = DispatchGroup()
         var imagesData: [Data] = []
-        
+     
         for result in photoArray {
             group.enter()
             getImageData(from: result) { imageData in
@@ -286,7 +286,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                         do {
                             let responseData = try JSONDecoder().decode(ModifyItem.self, from: data ?? Data())
                             let imageUrl = responseData.data.imageUrl
-                            self.imageURL.append(imageUrl)
                             print(responseData.message)
                             completion(imageUrl)
                         } catch {
@@ -444,7 +443,6 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
             }
         }
         photoArray.append(contentsOf: results)
-        print("포토어레이 \(photoArray)")
         print(photoArray.count)
     }
     
