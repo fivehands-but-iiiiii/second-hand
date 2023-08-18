@@ -87,7 +87,7 @@ struct Server {
         return url
     }
     
-    func createRequestURLToChatroomList(page:Int, itemId:Int) -> String {
+    func createRequestURLToChatroomList(page:Int, itemId:Int?) -> String {
         
         //MARK: itemId...를 어떻게 특정하지?
         
@@ -96,8 +96,13 @@ struct Server {
         let pageQuery = Query.page.rawValue
         let itemIdQuery = Query.itemId.rawValue
         
-        let url = baseURL + "/" + chatsPath + "?" + pageQuery + String(page) + "&" + itemIdQuery + String(itemId)
+        guard let itemId = itemId else {
+            let url = baseURL + chatsPath + "?" + pageQuery + String(page)
+            
+            return url
+        }
         
+        let url = baseURL + chatsPath + "?" + pageQuery + String(page) + "&" + itemIdQuery + String(itemId)
         return url
     }
     
