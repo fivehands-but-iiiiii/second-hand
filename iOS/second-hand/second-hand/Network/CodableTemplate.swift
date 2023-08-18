@@ -232,8 +232,12 @@ struct ChatSendingSuccess: Codable {
 }
 
 // MARK: ChatroomList
-
 struct ChatroomListSuccess: Codable {
+    let message : String
+    let data : ChatroomListPage
+}
+
+struct ChatroomListPage: Codable {
     let page : Int
     let hasPrevious : Bool
     let hasNext : Bool
@@ -241,10 +245,11 @@ struct ChatroomListSuccess: Codable {
 }
 
 struct ChatroomList: Codable {
+    
     let chatroomId : String
     let opponent : ChatroomListOpponent
     let item : ChatroomListItem
-    let chatLogs : ChatroomListChatLog
+    let chatLogs : ChatroomListChatLog?
 }
 
 struct ChatroomListOpponent: Codable {
