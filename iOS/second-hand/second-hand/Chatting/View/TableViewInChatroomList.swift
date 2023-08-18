@@ -26,13 +26,17 @@ class TableViewInChatroomList: UITableView {
     
     private func registerCell() {
         self.register(CellOfChatroomList.self, forCellReuseIdentifier: CellOfChatroomList.identifier)
-    
-    init(chatroomList:ChatroomListModel) {
-        super.init(frame: .zero, style: .plain)
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    private func makeHavingCell(from data: ChatroomListModel) -> [CellOfChatroomList] {
+        var cells: [CellOfChatroomList] = []
+        for chatroom in data.info {
+            cells.append(CellOfChatroomList(chatroomList: chatroom))
+        }
+        
+        //TODO: 채팅로그 구현되면 시간에 따라 sorting 필요
+        
+        return cells
     }
 }
 
