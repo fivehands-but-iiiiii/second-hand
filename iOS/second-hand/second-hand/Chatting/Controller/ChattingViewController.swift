@@ -36,26 +36,54 @@ final class ChattingViewController: NavigationUnderLineViewController {
         }
     }
     
+    private func setupList(isInitialize: Bool) {
         if !UserInfoManager.shared.isLogOn {
             
         } else {
-            fetchChatroomListData()
+            fetchChatroomListData(isInitialize:isInitialize) {
+                self.setupTableView()
+            }
         }
     }
     
-    private func fetchChatroomListData() {
-        guard let url = URL(string: Server.shared.createRequestURLToChatroomList(page: 0, itemId: 199)) else {
+//    private func fetchChatroomListDataAndMakeTableView(completion: @escaping () -> Void) {
+//        fetchChatroomListData {
+//            completion()
+//        }
+//    }
+    
+    private func fetchChatroomListData(isInitialize: Bool, completion: @escaping () -> Void) {
+        if isInitialize {
+            self.isLastPage = false
+            self.currentPage = 0
+        }
+        
+        guard let url = URL(string: Server.shared.createRequestURLToChatroomList(page: currentPage, itemId: nil)) else {
+            completion()
             return
         }
         
         NetworkManager.sendGET(decodeType: ChatroomListSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomListSuccess], Error>) in
             switch result {
             case .success(let response) :
-                guard let chatroomListPage = response.last?.chatRooms else {
+                guard let chatroomListPage = response.last?.data.chatRooms else {
                     return
                 }
-                self.chatroomListModel.updateData(from: chatroomListPage)
-                //chatroomListModel.info[index] index가 page 넘버
+                
+                if chatroomListPage.count == 0 {
+                    self.isLastPage = true
+                    return
+                }
+                
+                self.chatroomListModel.updateData(from: chatroomListPage, initialize: isInitialize) {
+                    completion()
+                }
+                
+            case .failure(let error) :
+                print(error.localizedDescription)
+            }
+        }
+    }
                 
             case .failure(let error) :
                 print(error.localizedDescription)
