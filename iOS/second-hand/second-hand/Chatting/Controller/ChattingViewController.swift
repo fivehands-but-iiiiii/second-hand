@@ -84,7 +84,16 @@ final class ChattingViewController: NavigationUnderLineViewController {
             }
         }
     }
-                
+    
+    private func setupTableView() {
+        if self.chatroomListTableView != nil {
+            self.chatroomListTableView?.removeFromSuperview()
+        }
+        self.chatroomListTableView = TableViewInChatroomList(chatroomList: chatroomListModel)
+        setConstraintChatroomListTableView()
+        chatroomListTableView?.delegateForChatroomSelection = self
+        chatroomListTableView?.delegateForScrollAction = self
+    }
             case .failure(let error) :
                 print(error.localizedDescription)
             }
