@@ -28,11 +28,29 @@ class TextSectionViewInChatroomListCell: UIView {
         setConstraintsTimeLabel()
         setConstraintsLastMessage()
     }
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    //MARK: commonInit
+    
+    private func setOpponentIdLabel(_ Id: String) {
+        self.opponentIdLabel = UILabel(frame: .zero)
+        self.opponentIdLabel?.text = Id
+        self.opponentIdLabel?.font = .systemFont(ofSize: 20.0, weight: .bold)
+    }
+    
+    private func setTimeLabel(_ time: String) {
+        self.timeLabel = UILabel(frame: .zero)
+        self.timeLabel?.text = time.convertToRelativeTime()
+        self.timeLabel?.font = .systemFont(ofSize: 17.0)
+        self.timeLabel?.textColor = .neutralOveray
+    }
+    
+    private func setLastMessage(_ text: String) {
+        self.lastMessage = UILabel(frame: .zero)
+        self.lastMessage?.text = text
+        self.lastMessage?.font = .systemFont(ofSize: 17.0)
+        self.lastMessage?.numberOfLines = 1
+    }
+    
     }
     */
 
