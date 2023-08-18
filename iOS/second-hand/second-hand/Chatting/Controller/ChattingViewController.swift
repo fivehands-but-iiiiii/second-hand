@@ -94,6 +94,29 @@ final class ChattingViewController: NavigationUnderLineViewController {
         chatroomListTableView?.delegateForChatroomSelection = self
         chatroomListTableView?.delegateForScrollAction = self
     }
+    
+    
+    private func setConstraintChatroomListTableView() {
+        guard let chatroomListTableView = self.chatroomListTableView else {
+            return
+        }
+        
+        if !self.view.contains(chatroomListTableView) {
+            self.view.addSubview(chatroomListTableView)
+        }
+        
+        chatroomListTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                chatroomListTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                chatroomListTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                chatroomListTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                chatroomListTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ]
+        )
+    }
+}
             case .failure(let error) :
                 print(error.localizedDescription)
             }
