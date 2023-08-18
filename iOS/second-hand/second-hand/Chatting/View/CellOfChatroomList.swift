@@ -39,8 +39,31 @@ class CellOfChatroomList: UITableViewCell {
         setConstraintsItemImage()
         setCornerRadius()
     }
-
-
+    
+    private func setOpponentPhoto(img:String) {
+        self.opponentImage = UIImageView(frame: .zero)
+        opponentImage?.setImage(from: img)
+    }
+    
+    private func setTextSection(opponeneId: String, time: String, lastMessage: String) {
+        self.textSection = TextSectionViewInChatroomListCell(opponeneId: opponeneId, time: time, lastMessage: lastMessage)
+    }
+    
+    private func setNumberBadge(number: Int) {
+        self.numberBadge = UILabel(frame: .zero)
+        self.numberBadge?.text = String(number)
+        self.numberBadge?.backgroundColor = .accentBackgroundPrimary
+        self.numberBadge?.textColor = .white
+        self.numberBadge?.textAlignment = .center
+    }
+    
+    private func setItemPhoto(img: String) {
+        self.itemImage = UIImageView(frame: .zero)
+        self.itemImage?.setImage(from: img)
+        self.itemImage?.layer.borderColor = UIColor.neutralOveray.cgColor
+        self.itemImage?.layer.borderWidth = 0.8
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
