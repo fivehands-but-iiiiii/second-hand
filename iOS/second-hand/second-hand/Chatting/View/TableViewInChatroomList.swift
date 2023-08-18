@@ -9,6 +9,23 @@ import UIKit
 
 class TableViewInChatroomList: UITableView {
     private var havingCell : [CellOfChatroomList] = []
+    weak var delegateForChatroomSelection: ButtonActionDelegate?
+    weak var delegateForScrollAction: ScrollActionDelegate?
+    
+    init(chatroomList: ChatroomListModel) {
+        super.init(frame: .zero, style: .plain)
+        self.delegate = self
+        self.dataSource = self
+        self.havingCell = makeHavingCell(from: chatroomList)
+        registerCell()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    private func registerCell() {
+        self.register(CellOfChatroomList.self, forCellReuseIdentifier: CellOfChatroomList.identifier)
     
     init(chatroomList:ChatroomListModel) {
         super.init(frame: .zero, style: .plain)
