@@ -181,5 +181,15 @@ extension ChattingViewController: ButtonActionDelegate {
     }
     
 }
+
+extension ChattingViewController : ScrollActionDelegate {
+    func loadNextPage() {
+        if isLastPage {
+            self.currentPage -= 1
+            return
+        }
+        
+        self.currentPage += 1
+        setupList(isInitialize: false)
     }
 }
