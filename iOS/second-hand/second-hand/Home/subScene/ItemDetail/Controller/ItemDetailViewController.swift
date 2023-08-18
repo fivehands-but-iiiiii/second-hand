@@ -398,7 +398,6 @@ extension ItemDetailViewController : ButtonActionDelegate {
                 print(error.localizedDescription)
             }
         }
-        
     }
     
     private func createChattingRoom(body: Data) {
