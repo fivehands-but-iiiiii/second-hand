@@ -10,6 +10,14 @@ import UIKit
 final class ChattingViewController: NavigationUnderLineViewController {
     private var chatroomListTableView : TableViewInChatroomList? = nil
     private var chatroomListModel = ChatroomListModel()
+    private var currentPage = 0
+    private var isLastPage = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        showNavigationBar()
+        showTabBar()
+        setupList(isInitialize: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
