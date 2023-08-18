@@ -41,17 +41,33 @@ class TableViewInChatroomList: UITableView {
 }
 
 extension TableViewInChatroomList : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellHeight = round(self.frame.height / 7.0)
+        return cellHeight
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegateForChatroomSelection?.chatroomCellTouched?(index: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastSection = tableView.numberOfSections - 1
+        let lastItem = tableView.numberOfRows(inSection: lastSection) - 1
+        
+        if indexPath.section == lastSection && indexPath.item == lastItem {
+            delegateForScrollAction?.loadNextPage()
+        }
+    }
 }
 
 extension TableViewInChatroomList : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.havingCell.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return CellOfChatroomList.init(style: .default, reuseIdentifier: CellOfChatroomList.identifier)
+        
+        let cell = havingCell[indexPath.row]
+        return cell
     }
-    
-    
 }
