@@ -8,6 +8,9 @@
 import Foundation
 
 class ChatroomListModel: Updatable {
+    func updateData<T>(from fetchedData: T) where T : Decodable, T : Encodable {
+    }
+    
     var info : [ChatroomList] = []
     
     func updateData<T>(from fetchedData: T) where T : Decodable, T : Encodable {
