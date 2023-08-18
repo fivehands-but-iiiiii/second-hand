@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol ScrollActionDelegate: AnyObject {
+    func loadNextPage()
+}
