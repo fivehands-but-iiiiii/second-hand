@@ -51,7 +51,71 @@ class TextSectionViewInChatroomListCell: UIView {
         self.lastMessage?.numberOfLines = 1
     }
     
+    //MARK: layout
+    
+    private func setConstraintsOpponentIdLabel() {
+        guard let opponentIdLabel = opponentIdLabel else {
+            return
+        }
+        
+        if !self.contains(opponentIdLabel) {
+            self.addSubview(opponentIdLabel)
+        }
+        
+        opponentIdLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                opponentIdLabel.topAnchor.constraint(equalTo: self.topAnchor),
+                opponentIdLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                opponentIdLabel.widthAnchor.constraint(equalToConstant: opponentIdLabel.intrinsicContentSize.width),
+                opponentIdLabel.heightAnchor.constraint(equalToConstant: opponentIdLabel.intrinsicContentSize.height)
+            ]
+        )
     }
-    */
-
+    
+    private func setConstraintsTimeLabel() {
+        guard let timeLabel = timeLabel else {
+            return
+        }
+        guard let opponentIdLabel = opponentIdLabel else {
+            return
+        }
+        
+        if !self.contains(timeLabel) {
+            self.addSubview(timeLabel)
+        }
+        
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                timeLabel.topAnchor.constraint(equalTo: self.topAnchor),
+                timeLabel.leadingAnchor.constraint(equalTo: opponentIdLabel.trailingAnchor,constant: 5.0),
+                timeLabel.widthAnchor.constraint(equalToConstant: timeLabel.intrinsicContentSize.width),
+                timeLabel.heightAnchor.constraint(equalToConstant: timeLabel.intrinsicContentSize.height)
+            ]
+        )
+    }
+    
+    private func setConstraintsLastMessage(){
+        guard let lastMessage = lastMessage else {
+            return
+        }
+        
+        if !self.contains(lastMessage) {
+            self.addSubview(lastMessage)
+        }
+        
+        lastMessage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [
+                lastMessage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                lastMessage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                lastMessage.widthAnchor.constraint(equalTo: self.widthAnchor),
+                lastMessage.heightAnchor.constraint(equalToConstant: lastMessage.intrinsicContentSize.height)
+            ]
+        )
+    }
 }
