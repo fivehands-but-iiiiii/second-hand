@@ -23,8 +23,19 @@ final class ChattingViewController: NavigationUnderLineViewController {
         super.viewDidLoad()
         self.navigationItem.title = "채팅"
     }
-
-    private func setupList() {
+    
+    private func showNavigationBar() {
+        if self.navigationController?.navigationBar.isHidden == true {
+            self.navigationController?.navigationBar.isHidden = false
+        }
+    }
+    
+    private func showTabBar() {
+        if self.tabBarController?.tabBar.isHidden == true {
+            self.tabBarController?.tabBar.isHidden = false
+        }
+    }
+    
         if !UserInfoManager.shared.isLogOn {
             
         } else {
