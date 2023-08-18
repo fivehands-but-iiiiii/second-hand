@@ -129,7 +129,7 @@ class NetworkManager {
                 completion(result)
             }
         }
-        var request = URLRequest(url: url, timeoutInterval: 30.0)
+        var request = URLRequest(url: url, timeoutInterval: 60.0)
         
         
         if let loginToken = UserInfoManager.shared.loginToken {
