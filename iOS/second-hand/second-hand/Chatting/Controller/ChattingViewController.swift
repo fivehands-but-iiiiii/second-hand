@@ -117,14 +117,69 @@ final class ChattingViewController: NavigationUnderLineViewController {
         )
     }
 }
+
+extension ChattingViewController: ButtonActionDelegate {
+    func chatroomCellTouched(index: Int) {
+        let chatroomId = chatroomListModel.info[index].chatroomId
+        enterChattingRoom(chatroomId: chatroomId)
+    }
+    
+    private func enterChattingRoom(chatroomId: String) {
+        guard let url = URL(string: Server.baseURL + "/chats/" + chatroomId ) else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+            switch result {
+            case .success(let response) :
+                guard let response = response.last else {
+                    return
+                }
+
+                self.changeToChatroomViewController(fetchedData: response)
+                
             case .failure(let error) :
                 print(error.localizedDescription)
             }
         }
     }
     
-    private func makeTableView() {
-        self.chatroomListTableView = TableViewInChatroomList(frame: .zero)
-        print
+    //    private func enterChatroom(index: Int) {
+    //        let itemId = chatroomListModel.info[index].item.itemId
+    //
+    //        guard let url = URL(string: Server.shared.requestIsExistChattingRoom(itemId: itemId)) else {
+    //            return
+    //        }
+    //
+    //        guard let requestBody = JSONCreater().createOpenChatroomRequestBody(itemId: itemId) else {
+    //            return
+    //        }
+    //
+    //        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+    //            switch result {
+    //            case .success(let reposonse) :
+    //                guard let response = reposonse.last else {
+    //                    return
+    //                }
+    //                self.changeToChatroomViewController(fetchedData: response)
+    //
+    //            case .failure(let error) :
+    //                print(error.localizedDescription)
+    //            }
+    //        }
+    //    }
+    
+    private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
+        
+        let privateChatroom = PrivateChatroomViewController()
+        
+        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(privateChatroom, animated: true)
+    }
+    
+}
     }
 }
