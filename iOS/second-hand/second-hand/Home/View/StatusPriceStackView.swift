@@ -18,7 +18,7 @@ class StatusPriceStackView: UIStackView {
         
         setStatusLabel(status)
         setPriceLabel(price)
-        setLayout()
+        setSubViews()
     }
     
     required init(coder: NSCoder) {
@@ -62,5 +62,18 @@ class StatusPriceStackView: UIStackView {
     func updateStatusAndPrice(status:Int,price:Int) {
         setStatusLabel(status)
         setPriceLabel(price)
+    }
+    
+    private func setSubviews() {
+        if !self.contains(statusLabel) {
+            self.addArrangedSubview(statusLabel)
+        }
+        
+        if !self.contains(priceLabel) {
+            self.addArrangedSubview(priceLabel)
+            self.addArrangedSubview(UIView())
+        }
+
+
     }
 }
