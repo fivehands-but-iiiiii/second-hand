@@ -28,12 +28,14 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layout()
         
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override func layoutSubviews() {
         layout()
     }
     
@@ -99,9 +101,18 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     }
     
     private func layout() {
-        [thumbnailImage, title, location, dot, registerTime, statusLabel, price, line].forEach{
+        guard let statusAndPriceStackView = statusAndPriceStackView else {
+            return
+        }
+        
+        [thumbnailImage, title, location, dot, registerTime, line].forEach{
             self.contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        if !self.contentView.contains(statusAndPriceStackView) {
+            self.contentView.addSubview(statusAndPriceStackView)
+            statusAndPriceStackView.translatesAutoresizingMaskIntoConstraints = false
         }
         
         let height: CGFloat = self.frame.height
@@ -129,13 +140,9 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
             registerTime.leadingAnchor.constraint(equalTo: dot.trailingAnchor),
             registerTime.topAnchor.constraint(equalTo: dot.topAnchor),
             
-            statusLabel.leadingAnchor.constraint(equalTo: location.leadingAnchor),
-            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
-            statusLabel.heightAnchor.constraint(equalToConstant: 22),
-            statusLabel.widthAnchor.constraint(equalToConstant: round(50*widthRatio)),
-            
-            price.topAnchor.constraint(equalTo: statusLabel.topAnchor),
-            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: round(4*widthRatio)),
+            statusAndPriceStackView.leadingAnchor.constraint(equalTo: location.leadingAnchor),
+            statusAndPriceStackView.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
+            statusAndPriceStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             
             line.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
