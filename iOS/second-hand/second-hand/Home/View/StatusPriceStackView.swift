@@ -50,4 +50,17 @@ class StatusPriceStackView: UIStackView {
         statusLabel.sizeToFit()
     }
     
+    private func setPriceLabel(_ price: Int) {
+        let monetary = price.convertToMonetary()
+        priceLabel.text = "\(monetary)원"
+        priceLabel.font = .headLine
+        priceLabel.textColor = .neutralTextStrong
+        
+        priceLabel.sizeToFit()
+    }
+    
+    func updateStatusAndPrice(status:Int,price:Int) {
+        setStatusLabel(status)
+        setPriceLabel(price)
+    }
 }
