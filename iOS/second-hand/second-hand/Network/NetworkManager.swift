@@ -33,7 +33,7 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 
                 switch urlResponse.statusCode {
@@ -49,7 +49,7 @@ class NetworkManager {
                     let responseData = try JSONDecoder().decode(LoginSuccess.self, from: data)
                     asyncCompletion(.success([responseData.data]))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
             } catch {
                 asyncCompletion(.failure(error))
@@ -79,7 +79,7 @@ class NetworkManager {
             
             do {
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 
                 guard let data = data else {
@@ -91,7 +91,7 @@ class NetworkManager {
                     let responseHeader = try JSONDecoder().decode(JoinSuccess.self, from: data)
                     return asyncCompletion(.success(responseHeader ))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
             } catch {
                 
@@ -129,7 +129,7 @@ class NetworkManager {
                 completion(result)
             }
         }
-        var request = URLRequest(url: url, timeoutInterval: 30.0)
+        var request = URLRequest(url: url, timeoutInterval: 60.0)
         
         
         if let loginToken = UserInfoManager.shared.loginToken {
@@ -148,7 +148,7 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 
                 switch urlResponse.statusCode {
@@ -156,7 +156,7 @@ class NetworkManager {
                     let answer = try JSONDecoder().decode(decodeType, from: data)
                     asyncCompletion(.success([answer]))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
             } catch {
                 asyncCompletion(.failure(error))
@@ -179,7 +179,7 @@ class NetworkManager {
             }
             
             guard let data = data, let image = UIImage(data: data) else {
-                asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                asyncCompletion(.failure(ErrorManager.invalidResponse))
                 return
             }
             
@@ -197,25 +197,25 @@ class NetworkManager {
         }
 
         
-        var loginToken = UserInfoManager.shared.loginToken
+        let loginToken = UserInfoManager.shared.loginToken
         
-        var request = makeRequest(methodType: .delete, cookie: nil, url: url, body: nil, loginToken: loginToken)
+        let request = makeRequest(methodType: .delete, cookie: nil, url: url, body: nil, loginToken: loginToken)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
-                guard let data = data else {
+                guard data != nil else {
                     return
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 
                 switch urlResponse.statusCode {
                 case 200..<300 :
                     asyncCompletion(.success(nil))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
             } catch {
                 asyncCompletion(.failure(error))
@@ -247,7 +247,7 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 //MARK: 보안상 문제 있다... 방법을 찾아보자
                 
@@ -262,7 +262,7 @@ class NetworkManager {
                     
                     return asyncCompletion(.success(answer))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
                 
             } catch {

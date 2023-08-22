@@ -20,8 +20,7 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     private let dot = UILabel()
     let registerTime = UILabel()
     
-    let statusLabel = UILabel()
-    let price = UILabel()
+    private var statusAndPriceStackView : StatusPriceStackView? = nil
     
     let chatCount = UILabel()
     let wishCount = UILabel()
@@ -48,6 +47,9 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override func layoutSubviews() {
         layout()
     }
     
@@ -57,9 +59,16 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         setLocation(item.region)
         setDot()
         setRegisterTime(item.createdAt)
-        setStatusLabel(item.status)
-        setPrice(item.price)
+        if let stackView = statusAndPriceStackView {
+            stackView.updateStatusAndPrice(status: item.status, price: item.price)
+        } else {
+            setStackView(item.status, item.price)
+        }
         setLine()
+    }
+    
+    private func setStackView(_ status : Int, _ price : Int ) {
+        self.statusAndPriceStackView = StatusPriceStackView(status: status, price: price)
     }
     
     private func setImageView(url: String) {
@@ -95,46 +104,12 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         registerTime.text = time.convertToRelativeTime()
     }
     
-    private func setStatusLabel(_ status: Int) {
-        switch status {
-        case 1:
-            statusLabel.text = "예약중"
-            statusLabel.backgroundColor = .accentBackgroundSecondary
-        case 2:
-            statusLabel.text = "판매완료"
-            statusLabel.backgroundColor = .gray
-        default :
-            statusLabel.widthAnchor.constraint(equalToConstant: round(0)).isActive = true
-            
-            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor).isActive = true
-            
-            statusLabel.text = ""
-            
-        }
-        statusLabel.textAlignment = .center
-        statusLabel.font = .fontA
-        statusLabel.textColor = .accentText
-        
-        statusLabel.layer.masksToBounds = true
-        statusLabel.layer.cornerRadius = 8
-    }
-    
-    private func setPrice(_ num : Int) {
-        let monetary = num.convertToMonetary()
-        price.text = "\(monetary)원"
-        price.font = .headLine
-        price.textColor = .neutralTextStrong
-    }
-    
-    
-    
     private func setLine() {
         line.backgroundColor = .neutralBorder
     }
     
     func configure(title: String, price: String, location: String, registerTime: String) {
         self.title.text = title
-        self.price.text = price
         self.location.text = location
         self.registerTime.text = registerTime
     }
@@ -164,9 +139,18 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     }
     
     private func layout() {
-        [thumbnailImage, title, location, dot, registerTime, statusLabel, price, line].forEach{
+        guard let statusAndPriceStackView = statusAndPriceStackView else {
+            return
+        }
+        
+        [thumbnailImage, title, location, dot, registerTime, line].forEach{
             self.contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        if !self.contentView.contains(statusAndPriceStackView) {
+            self.contentView.addSubview(statusAndPriceStackView)
+            statusAndPriceStackView.translatesAutoresizingMaskIntoConstraints = false
         }
         
         let height: CGFloat = self.frame.height
@@ -194,13 +178,9 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
             registerTime.leadingAnchor.constraint(equalTo: dot.trailingAnchor),
             registerTime.topAnchor.constraint(equalTo: dot.topAnchor),
             
-            statusLabel.leadingAnchor.constraint(equalTo: location.leadingAnchor),
-            statusLabel.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
-            statusLabel.heightAnchor.constraint(equalToConstant: 22),
-            statusLabel.widthAnchor.constraint(equalToConstant: round(50*widthRatio)),
-            
-            price.topAnchor.constraint(equalTo: statusLabel.topAnchor),
-            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: round(4*widthRatio)),
+            statusAndPriceStackView.leadingAnchor.constraint(equalTo: location.leadingAnchor),
+            statusAndPriceStackView.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 4*heightRatio),
+            statusAndPriceStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             
             line.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),

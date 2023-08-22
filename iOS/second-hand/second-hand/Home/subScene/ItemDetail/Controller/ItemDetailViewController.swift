@@ -99,7 +99,6 @@ class ItemDetailViewController: UIViewController {
                 self.setTextSectionView()
                 self.setBottomSectionView()
                 
-                
             case .failure(let error) :
                 print(error.localizedDescription)
             }
@@ -415,7 +414,6 @@ extension ItemDetailViewController : ButtonActionDelegate {
                 print(error.localizedDescription)
             }
         }
-        
     }
     
     private func createChattingRoom(body: Data) {
@@ -435,12 +433,11 @@ extension ItemDetailViewController : ButtonActionDelegate {
     }
     
     private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
-        
-        //        let privateChatroom = PrivateChatroomViewController()
-        //
-        //        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
-        //
-        //        self.navigationController?.pushViewController(privateChatroom, animated: true)
+        let privateChatroom = PrivateChatroomViewController()
+
+        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
+
+        self.navigationController?.pushViewController(privateChatroom, animated: true)
     }
 }
 

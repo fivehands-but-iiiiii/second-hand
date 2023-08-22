@@ -13,7 +13,7 @@ struct Server {
     static let oAuthURL = "https://github.com/login/oauth/authorize"
     static let clientID = "5c4b10099c0ae232e5a1"
     static let redirectURL = "http://localhost:5173/login/oauth2/code/github"
-
+    
     enum Path: String {
         case join = "/join"
         case gitLogin = "/git/login"
@@ -27,8 +27,10 @@ struct Server {
         case itemsMine = "/items/mine"
         case status = "/status"
         case itemsImage = "/items/image"
-    }
+        case logs = "/logs"
 
+    }
+    
     func url(for path: Path) -> String {
         return Server.baseURL + path.rawValue
     }
@@ -45,7 +47,7 @@ struct Server {
         let query = Server.Query.code.rawValue + code
         return Server.baseURL + Path.gitLogin.rawValue + "?" + query
     }
-
+    
     func oAuthAuthorizeURL() -> String {
         let query = "client_id=\(Server.clientID)&redirect_url=\(Server.redirectURL)"
         return Server.oAuthURL + "?" + query
@@ -59,7 +61,7 @@ struct Server {
         }
         return Server.baseURL + Path.items.rawValue + "?" + query
     }
-
+    
     func wishItemListURL(page: Int) -> String {
         let query = Server.Query.page.rawValue + "\(page)"
         return Server.baseURL + Path.wishlist.rawValue + "?" + query
@@ -81,9 +83,38 @@ struct Server {
     func requestToCreateChattingRoom() -> String {
         return Server.baseURL + Path.chats.rawValue
     }
-    
+
     func changeItemStatusUrl(for path: Path, id: Int, status: Path) -> String {
         return Server.baseURL + path.rawValue + "/\(id)" + status.rawValue
+
+    func requestToChattingLog(roomId: String, page: Int) -> String {
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let logsPath = Path.logs.rawValue
+        let pageQuery = Query.page.rawValue + String(page)
+        
+        let url = baseURL + chatsPath + "/" + roomId + logsPath + "?" + pageQuery
+        
+        return url
+    }
+    
+    func createRequestURLToChatroomList(page:Int, itemId:Int?) -> String {
+        
+        //MARK: itemId...를 어떻게 특정하지?
+        
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let pageQuery = Query.page.rawValue
+        let itemIdQuery = Query.itemId.rawValue
+        
+        guard let itemId = itemId else {
+            let url = baseURL + chatsPath + "?" + pageQuery + String(page)
+            
+            return url
+        }
+        
+        let url = baseURL + chatsPath + "?" + pageQuery + String(page) + "&" + itemIdQuery + String(itemId)
+        return url
     }
     
     enum Query: String {

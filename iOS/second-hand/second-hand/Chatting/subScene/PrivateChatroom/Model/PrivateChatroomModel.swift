@@ -15,6 +15,7 @@ class PrivateChatroomModel: Updatable {
             print("캐스팅실패")
             return
         }
+        
         self.info = data
     }
 }

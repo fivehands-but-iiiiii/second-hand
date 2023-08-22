@@ -11,4 +11,6 @@ import Foundation
     @objc optional func requestForChattingRoom()
     @objc optional func likeButtonTouched()
     @objc optional func backButtonTouched()
+    @objc optional func sendButtonTouched(message: String)
+    @objc optional func chatroomCellTouched(index: Int)
 }

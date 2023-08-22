@@ -185,6 +185,23 @@ struct Categories: Codable {
     let categories: [Int]
 }
 
+
+struct CategoryData: Codable {
+    let message: String
+    let data: CategoryContainer
+}
+
+struct CategoryContainer: Codable {
+    let categories: [CategoryElement]
+}
+
+struct CategoryElement: Codable {
+    let id: Int
+    let title: String
+    let iconUrl: String
+}
+
+//MARK: ChatRoom
 struct ItemOfChatroom: Codable {
     let itemId: Int
     let title: String
@@ -205,20 +222,70 @@ struct ChatroomSuccess: Codable {
     let message: String
     let data: ChatroomData
 }
+//MARK: ChattingLog
+struct ChattingLog: Codable {
+    let message : String
+    let data : ChattingLogPage
+}
 
-struct CategoryData: Codable {
+struct ChattingLogPage: Codable {
+    let hasPre: Bool
+    let hasNext: Bool
+    let chatBubbles : [ChatBubbles]
+}
+
+struct ChatBubbles: Codable {
+    let id : String
+    let senderId: String
     let message: String
-    let data: CategoryContainer
+    let isMine: Bool
+    let createdAt: String
 }
 
-struct CategoryContainer: Codable {
-    let categories: [CategoryElement]
+struct ChatSendingSuccess: Codable {
+    let id : String
+    let roomId: String
+    let sender: String
+    let message: String
+    let createdAt: String
 }
 
-struct CategoryElement: Codable {
-    let id: Int
-    let title: String
-    let iconUrl: String
+// MARK: ChatroomList
+struct ChatroomListSuccess: Codable {
+    let message : String
+    let data : ChatroomListPage
+}
+
+struct ChatroomListPage: Codable {
+    let page : Int
+    let hasPrevious : Bool
+    let hasNext : Bool
+    let chatRooms : [ChatroomList]
+}
+
+struct ChatroomList: Codable {
+    
+    let chatroomId : String
+    let opponent : ChatroomListOpponent
+    let item : ChatroomListItem
+    let chatLogs : ChatroomListChatLog?
+}
+
+struct ChatroomListOpponent: Codable {
+    let memberId : String
+    let profileImgUrl : String
+}
+
+struct ChatroomListItem: Codable {
+    let itemId : Int
+    let title : String
+    let thumbnailImgUrl: String
+}
+
+struct ChatroomListChatLog: Codable {
+    let lastMessage: String
+    let updatedAt : String
+    let unReadCount: Int
 }
 
 struct ChangeStatusItem: Codable {
