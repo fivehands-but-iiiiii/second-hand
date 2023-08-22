@@ -294,7 +294,7 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 //MARK: 보안상 문제 있다... 방법을 찾아보자
                 
@@ -309,7 +309,7 @@ class NetworkManager {
                     
                     return asyncCompletion(.success(answer))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
                 
             } catch {
@@ -374,7 +374,7 @@ class NetworkManager {
                 }
                 
                 guard let urlResponse = response as? HTTPURLResponse else {
-                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                    return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
                 //MARK: 보안상 문제 있다... 방법을 찾아보자
                 
@@ -389,7 +389,7 @@ class NetworkManager {
                     
                     return asyncCompletion(.success(answer))
                 default :
-                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                    return asyncCompletion(.failure(ErrorManager.invalidStatusCode(urlResponse.statusCode)))
                 }
                 
             } catch {
