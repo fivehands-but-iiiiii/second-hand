@@ -118,15 +118,6 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         moreButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         moreButton.tintColor = .neutralTextWeak
         moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
-        
-        self.contentView.addSubview(moreButton)
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            moreButton.topAnchor.constraint(equalTo: title.topAnchor),
-            moreButton.bottomAnchor.constraint(equalTo: title.bottomAnchor),
-            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            moreButton.widthAnchor.constraint(equalToConstant: 17)
-        ])
     }
     
     @objc func moreButtonTapped() {
@@ -143,7 +134,7 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        [thumbnailImage, title, location, dot, registerTime, line].forEach{
+        [thumbnailImage, title, location, dot, registerTime, line, moreButton].forEach{
             self.contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -185,7 +176,12 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
             line.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
             line.leadingAnchor.constraint(equalTo: thumbnailImage.leadingAnchor),
-            line.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+            line.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            
+            moreButton.topAnchor.constraint(equalTo: title.topAnchor),
+            moreButton.bottomAnchor.constraint(equalTo: title.bottomAnchor),
+            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            moreButton.widthAnchor.constraint(equalToConstant: 17)
         ])
     }
 }
