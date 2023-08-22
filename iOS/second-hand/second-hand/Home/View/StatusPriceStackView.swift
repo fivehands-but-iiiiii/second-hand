@@ -18,7 +18,7 @@ class StatusPriceStackView: UIStackView {
         
         setStatusLabel(status)
         setPriceLabel(price)
-        setSubViews()
+        setSubviews()
     }
     
     required init(coder: NSCoder) {
