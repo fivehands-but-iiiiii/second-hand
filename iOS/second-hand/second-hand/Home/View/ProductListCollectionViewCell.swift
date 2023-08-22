@@ -17,8 +17,7 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     private let dot = UILabel()
     let registerTime = UILabel()
     
-    let statusLabel = UILabel()
-    let price = UILabel()
+    private var statusAndPriceStackView : StatusPriceStackView? = nil
     
     let chatCount = UILabel()
     let wishCount = UILabel()
@@ -44,9 +43,16 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         setLocation(item.region)
         setDot()
         setRegisterTime(item.createdAt)
-        setStatusLabel(item.status)
-        setPrice(item.price)
+        if let stackView = statusAndPriceStackView {
+            stackView.updateStatusAndPrice(status: item.status, price: item.price)
+        } else {
+            setStackView(item.status, item.price)
+        }
         setLine()
+    }
+    
+    private func setStackView(_ status : Int, _ price : Int ) {
+        self.statusAndPriceStackView = StatusPriceStackView(status: status, price: price)
     }
     
     private func setImageView(url: String) {
@@ -82,46 +88,12 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         registerTime.text = time.convertToRelativeTime()
     }
     
-    private func setStatusLabel(_ status: Int) {
-        switch status {
-        case 1:
-            statusLabel.text = "예약중"
-            statusLabel.backgroundColor = .accentBackgroundSecondary
-        case 2:
-            statusLabel.text = "판매완료"
-            statusLabel.backgroundColor = .gray
-        default :
-            statusLabel.widthAnchor.constraint(equalToConstant: round(0)).isActive = true
-            
-            price.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor).isActive = true
-            
-            statusLabel.text = ""
-            
-        }
-        statusLabel.textAlignment = .center
-        statusLabel.font = .fontA
-        statusLabel.textColor = .accentText
-        
-        statusLabel.layer.masksToBounds = true
-        statusLabel.layer.cornerRadius = 8
-    }
-    
-    private func setPrice(_ num : Int) {
-        let monetary = num.convertToMonetary()
-        price.text = "\(monetary)원"
-        price.font = .headLine
-        price.textColor = .neutralTextStrong
-    }
-    
-    
-    
     private func setLine() {
         line.backgroundColor = .neutralBorder
     }
     
     func configure(title: String, price: String, location: String, registerTime: String) {
         self.title.text = title
-        self.price.text = price
         self.location.text = location
         self.registerTime.text = registerTime
     }
