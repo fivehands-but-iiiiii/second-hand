@@ -138,7 +138,7 @@ class NetworkManager {
             request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
         }
         
-        request.httpMethod = "GET"
+        request.httpMethod = HttpMethod.get.rawValue
         request.httpBody = data
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -272,6 +272,53 @@ class NetworkManager {
         task.resume()
     }
     
+    func sendPut<T:Codable>(decodeType:T.Type ,what data: Data?, header: ResponseHeader?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        let asyncCompletion: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        guard let data = data else {
+            return
+        }
+        
+        var loginToken = UserInfoManager.shared.loginToken
+        
+        let request = makeRequest(methodType: .put, cookie: header, url: url, body: data, loginToken: loginToken)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            do {
+                guard let data = data else {
+                    return
+                }
+                
+                guard let urlResponse = response as? HTTPURLResponse else {
+                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                }
+                //MARK: 보안상 문제 있다... 방법을 찾아보자
+                
+                if loginToken == nil {
+                    loginToken = self.extractLoginToken(from: urlResponse)
+                }
+                switch urlResponse.statusCode {
+                case 200..<300 :
+                    let answer = try JSONDecoder().decode(T.self, from: data)
+                    
+                    UserInfoManager.shared.loginToken = loginToken
+                    
+                    return asyncCompletion(.success(answer))
+                default :
+                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                }
+                
+            } catch {
+                asyncCompletion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
     private func extractLoginToken(from response: HTTPURLResponse) -> String? {
         if let responseHeaders = response.allHeaderFields as? [String:String] {
             if let authorization = responseHeaders["Authorization"] {
@@ -303,5 +350,52 @@ class NetworkManager {
             
             return request
         }
+    }
+    
+    func sendPatch<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        
+        let asyncCompletion: (Result<T, Error>) -> Void = { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+        guard let data = data else {
+            return
+        }
+        
+        var loginToken = UserInfoManager.shared.loginToken
+        
+        let request = self.makeRequest(methodType: .patch, cookie: nil, url: url, body: data, loginToken: loginToken)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            do {
+                guard let data = data else {
+                    return
+                }
+                
+                guard let urlResponse = response as? HTTPURLResponse else {
+                    return asyncCompletion(.failure(ManagerErrors.invalidResponse))
+                }
+                //MARK: 보안상 문제 있다... 방법을 찾아보자
+                
+                if loginToken == nil {
+                    loginToken = self.extractLoginToken(from: urlResponse)
+                }
+                switch urlResponse.statusCode {
+                case 200..<300 :
+                    let answer = try JSONDecoder().decode(T.self, from: data)
+                    
+                    UserInfoManager.shared.loginToken = loginToken
+                    
+                    return asyncCompletion(.success(answer))
+                default :
+                    return asyncCompletion(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
+                }
+                
+            } catch {
+                asyncCompletion(.failure(error))
+            }
+        }
+        task.resume()
     }
 }

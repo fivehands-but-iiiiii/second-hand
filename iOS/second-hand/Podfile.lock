@@ -7,6 +7,7 @@ PODS:
     - Starscream (~> 4.0.4)
 
 DEPENDENCIES:
+  - ReachabilitySwift
   - SwiftLint
   - SwiftStomp
 
@@ -23,6 +24,6 @@ SPEC CHECKSUMS:
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
   SwiftStomp: d473421ceac1d47a4466a77e12277280aa03d4d7
 
-PODFILE CHECKSUM: f4fa228ff750acc7e48f3928f46a27e03460d600
+PODFILE CHECKSUM: 87dac5b89c419c168f6002ad3e32bfebb173802f
 
 COCOAPODS: 1.12.1

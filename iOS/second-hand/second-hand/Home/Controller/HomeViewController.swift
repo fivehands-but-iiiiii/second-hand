@@ -23,12 +23,16 @@ final class HomeViewController: NavigationUnderLineViewController{
         setCollectionView()
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
-        setRegisterProductButton()
         setObserver()
         setupInfiniteScroll()
         getItemList(page: currentPage)
         setupDataSource()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         
+        setRegisterProductButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +115,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setRegisterProductButton() {
+        guard UserInfoManager.shared.loginToken != nil else{ return }
         registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
         registerProductButton.tintColor = .neutralBackground
         registerProductButton.backgroundColor = .accentBackgroundPrimary
@@ -135,7 +140,6 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     @objc func registerProductButtonTapped() {
-        //버튼을 누를때마다 기존에 작성되었던 글들도 초기화가 되야해서 RegisterNewProductViewController()를 매번 생성시키도록 하였음
         present(UINavigationController(rootViewController: RegisterNewProductViewController()), animated: true)
     }
     

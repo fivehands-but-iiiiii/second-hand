@@ -24,7 +24,11 @@ struct Server {
         case wishlistCategories = "/wishlist/categories"
         case chats = "/chats"
         case resourceCategories = "/resources/categories"
+        case itemsMine = "/items/mine"
+        case status = "/status"
+        case itemsImage = "/items/image"
         case logs = "/logs"
+
     }
     
     func url(for path: Path) -> String {
@@ -35,6 +39,10 @@ struct Server {
         return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
     }
     
+    func urlBoolType(path: Path, query: Query, queryValue: Bool, page: Int) -> String {
+        return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue) + "&" + Query.page.rawValue + "\(page)"
+    }
+
     func gitLoginURL(withCode code: String) -> String {
         let query = Server.Query.code.rawValue + code
         return Server.baseURL + Path.gitLogin.rawValue + "?" + query
@@ -75,7 +83,10 @@ struct Server {
     func requestToCreateChattingRoom() -> String {
         return Server.baseURL + Path.chats.rawValue
     }
-    
+
+    func changeItemStatusUrl(for path: Path, id: Int, status: Path) -> String {
+        return Server.baseURL + path.rawValue + "/\(id)" + status.rawValue
+
     func requestToChattingLog(roomId: String, page: Int) -> String {
         let baseURL = Server.baseURL
         let chatsPath = Path.chats.rawValue
@@ -113,6 +124,7 @@ struct Server {
         case itemId = "itemId="
         case category = "category="
         case categoryId = "categoryId="
+        case isSales = "isSales="
     }
 }
 

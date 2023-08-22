@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol MoreButtonTappedDelegate {
+    func moreButtonTapped(forIndexPath indexPath: IndexPath)
+}
 
 final class ProductListCollectionViewCell: UICollectionViewCell {
     static let identifier = "productCell"
@@ -23,12 +26,23 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
     let wishCount = UILabel()
     private let chatImage = UIImageView()
     private let wishImage = UIImageView()
-    
     private let line = UILabel()
+    let moreButton = UIButton()
+    var moreButtonTappedDelegate: MoreButtonTappedDelegate?
+    
+    override func prepareForReuse() {
+            super.prepareForReuse()
+            
+            // 이미지 뷰에 이전 이미지를 초기화하거나 취소하는 로직 추가
+        self.thumbnailImage.image = nil
+            // 혹은 이미지 로딩 작업을 취소하는 코드를 추가할 수도 있습니다.
+            // 예: 이미지 로딩 작업을 관리하는 객체에게 취소 요청을 보내는 등
+        }
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -98,6 +112,30 @@ final class ProductListCollectionViewCell: UICollectionViewCell {
         self.title.text = title
         self.location.text = location
         self.registerTime.text = registerTime
+    }
+    
+    func setMoreButton() {
+        moreButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        moreButton.tintColor = .neutralTextWeak
+        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        
+        self.contentView.addSubview(moreButton)
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            moreButton.topAnchor.constraint(equalTo: title.topAnchor),
+            moreButton.bottomAnchor.constraint(equalTo: title.bottomAnchor),
+            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            moreButton.widthAnchor.constraint(equalToConstant: 17)
+        ])
+    }
+    
+    @objc func moreButtonTapped() {
+        guard let collectionView = self.superview as? UICollectionView,
+              let indexPath = collectionView.indexPath(for: self),
+              let delegate = moreButtonTappedDelegate else {
+            return
+        }
+        delegate.moreButtonTapped(forIndexPath: indexPath)
     }
     
     private func layout() {

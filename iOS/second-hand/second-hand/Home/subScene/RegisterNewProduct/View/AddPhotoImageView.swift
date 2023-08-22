@@ -6,30 +6,35 @@
 //
 
 import UIKit
+protocol CancelButtonTappedDelegate {
+    func cancelButtonTapped()
+}
+protocol TitleLabelChange {
+    func titleLabelChange()
+}
 
 final class AddPhotoImageView: UIImageView {
 
     lazy var cancelButton = UIButton()
     private let titlePhotoLabel = UILabel()
     private let cancelButtonSize: CGFloat = 28
-    
+    static var cancelButtonTappedDelegate: CancelButtonTappedDelegate?
+    static var titleLabelChangeDelegate: TitleLabelChange?
     
     override init(image: UIImage?) {
         super.init(image: image)
-        setTitlePhotoLabel()
         setUI()
         layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setTitlePhotoLabel()
         setUI()
         layout()
         
     }
     
-    private func setTitlePhotoLabel() {
+    func setTitlePhotoLabel() {
         titlePhotoLabel.backgroundColor = .neutralOveray
         titlePhotoLabel.textColor = .neutralBackground
         titlePhotoLabel.font = .systemFont(ofSize: 11)
@@ -40,6 +45,7 @@ final class AddPhotoImageView: UIImageView {
     private func setUI() {
         self.layer.cornerRadius = 12
         self.layer.masksToBounds = true
+        self.isUserInteractionEnabled = true
         
         // cancelButton 설정
         cancelButton.setTitle("X", for: .normal)
@@ -48,8 +54,8 @@ final class AddPhotoImageView: UIImageView {
         cancelButton.backgroundColor = .black
         cancelButton.layer.cornerRadius = cancelButtonSize/2
         cancelButton.layer.masksToBounds = true
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .allEvents)
-        
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        cancelButton.isUserInteractionEnabled = true
     }
     
     private func layout() {
@@ -78,6 +84,10 @@ final class AddPhotoImageView: UIImageView {
     @objc private func cancelButtonTapped() {
         removeFromSuperview()
         removeImageFromScrollView()
+        AddPhotoImageView.cancelButtonTappedDelegate?.cancelButtonTapped()
+        if let titlePhotoLabelSuperview = cancelButton.superview, titlePhotoLabelSuperview.subviews.contains(titlePhotoLabel) {
+            AddPhotoImageView.titleLabelChangeDelegate?.titleLabelChange()
+        }
     }
     
     private func removeImageFromScrollView() {

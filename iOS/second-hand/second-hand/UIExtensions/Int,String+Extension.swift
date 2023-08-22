@@ -20,6 +20,12 @@ extension Int {
             return String(self)
         }
     }
+    
+    func comma() -> String {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            return numberFormatter.string(from: NSNumber(value: self)) ?? "\(self)"
+        }
 }
 
 extension String {
