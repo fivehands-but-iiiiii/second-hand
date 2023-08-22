@@ -24,6 +24,30 @@ class StatusPriceStackView: UIStackView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
-
-
+    
+    private func setStatusLabel(_ status: Int) {
+        switch status {
+        case 1:
+            statusLabel.text = " 예약중 "
+            statusLabel.backgroundColor = .accentBackgroundSecondary
+            statusLabel.isHidden = false
+        case 2:
+            statusLabel.text = " 판매완료 "
+            statusLabel.backgroundColor = .gray
+            statusLabel.isHidden = false
+            
+        default :
+            statusLabel.isHidden = true
+            
+        }
+        statusLabel.textAlignment = .justified
+        statusLabel.font = .fontA
+        statusLabel.textColor = .accentText
+        
+        statusLabel.layer.masksToBounds = true
+        statusLabel.layer.cornerRadius = 8
+        
+        statusLabel.sizeToFit()
+    }
+    
 }
