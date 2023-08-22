@@ -7,10 +7,8 @@
 
 import UIKit
 
-protocol StatusButtonChange {
-    func onsale()
-    func reservation()
-    func soldOut()
+protocol StatusChanged {
+    func updateStatusButton(status: String)
 }
 
 class StatusButton: UIButton {
@@ -18,7 +16,7 @@ class StatusButton: UIButton {
     private var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)
     var isMine: Bool? = nil
-    var delegate: StatusButtonChange?
+    var delegate: StatusChanged?
     
     init(status: Int,isMine: Bool) {
         super.init(frame: .zero)
@@ -83,15 +81,15 @@ class StatusButton: UIButton {
         [
             UIAction(title: "판매중", handler: { [weak self] _ in
                 self?.label.text = "판매중"
-                self?.delegate?.onsale()
+                self?.delegate?.updateStatusButton(status: self?.label.text ?? "")
             }),
             UIAction(title: "예약중", handler: { [weak self] _ in
                 self?.label.text = "예약중"
-                self?.delegate?.reservation()
+                self?.delegate?.updateStatusButton(status: self?.label.text ?? "")
             }),
             UIAction(title: "판매완료", handler: { [weak self] _ in
                 self?.label.text = "판매완료"
-                self?.delegate?.soldOut()
+                self?.delegate?.updateStatusButton(status: self?.label.text ?? "")
             })
         ]
         

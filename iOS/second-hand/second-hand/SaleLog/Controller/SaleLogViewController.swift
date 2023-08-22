@@ -44,7 +44,6 @@ final class SaleLogViewController: UIViewController {
     
     private func setdelegate() {
         modifyItem.delegate = self
-        itemDetailViewController.textSectionView.statusButton.delegate = self
     }
     
     private func setSegmentControl() {
@@ -289,6 +288,9 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         case .onSale:
             url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
             petchItem(url: url, data: ["status": 0])
+        case .reservation:
+            url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
+            petchItem(url: url, data: ["status": 1])
         case .salesCompleted:
             url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
             petchItem(url: url, data: ["status": 2])
@@ -303,6 +305,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         case onSale
         case salesCompleted
         case delete
+        case reservation
     }
     
     func toggleSegmentValue() {
@@ -356,15 +359,16 @@ extension SaleLogViewController: CompleteModify {
 }
 
 extension SaleLogViewController: StatusButtonChange {
-    func onsale() {
-        
+    //여기가 왜 안걸림?
+    func onsale(id: Int) {
+        changeStatus(status: .onSale, id: id)
     }
     
-    func reservation() {
-        <#code#>
+    func reservation(id: Int) {
+        changeStatus(status: .reservation, id: id)
     }
     
-    func soldOut() {
-        
+    func soldOut(id: Int) {
+        changeStatus(status: .salesCompleted, id: id)
     }
 }

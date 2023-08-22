@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol StatusButtonChange {
+    func onsale(id: Int)
+    func reservation(id: Int)
+    func soldOut(id: Int)
+}
+
 //protocol BackButtonTouchedDelegate {
 //    func backButtonTouched()
 //}
@@ -20,6 +26,7 @@ class ItemDetailViewController: UIViewController {
     var textSectionView = ItemDetailTextSectionView(frame: .zero)
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
     private let networkManager = NetworkManager()
+    var statusDelegate: StatusButtonChange?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +38,12 @@ class ItemDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bringButtonsToFront()
+    }
+    
+    func updateStatusDelegateIfNeeded() {
+        if statusDelegate == nil {
+            statusDelegate = SaleLogViewController()
+        }
     }
     
     private func bringButtonsToFront() {
@@ -138,14 +151,16 @@ class ItemDetailViewController: UIViewController {
             }
         }
     }
-
+    
+    
+    
     private func updateLikeStatus(isLike: Bool) {
         itemDetailModel.info?.isLike = isLike
         bottomSectionView.likeButton?.removeFromSuperview()
         bottomSectionView.setLikeButton(isLike: isLike)
         bottomSectionView.layoutIfNeeded()
     }
-
+    
     
     private func InfoNotLogin() {
         print("로그인을 하세요")
@@ -276,6 +291,7 @@ class ItemDetailViewController: UIViewController {
             return
         }
         textSectionView.setContenetOfPost(title: title, category: category, createAt: createAt, content: content, chatCount: chatCount, likeCount: likeCount, hits: hits)
+        self.textSectionView.statusButton.delegate = self
     }
     
     private func setTextSectionViewConstraints() {
@@ -392,7 +408,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
                 guard let response = response.last else {
                     return
                 }
-
+                
                 self.changeToChatroomViewController(fetchedData: response)
                 
             case .failure(let error) :
@@ -406,7 +422,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
         guard let url = URL(string: Server.shared.requestToCreateChattingRoom()) else {
             return
         }
-
+        
         NetworkManager().sendPOST(decodeType: CommonAPIResponse.self, what: body, header: nil,  fromURL: url ){ (result: Result<CommonAPIResponse, Error>) in
             switch result {
             case .success(let response) :
@@ -420,11 +436,29 @@ extension ItemDetailViewController : ButtonActionDelegate {
     
     private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
         
-//        let privateChatroom = PrivateChatroomViewController()
-//
-//        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
-//
-//        self.navigationController?.pushViewController(privateChatroom, animated: true)
+        //        let privateChatroom = PrivateChatroomViewController()
+        //
+        //        privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
+        //
+        //        self.navigationController?.pushViewController(privateChatroom, animated: true)
     }
 }
 
+extension ItemDetailViewController: StatusChanged {
+    func updateStatusButton(status: String) {
+        guard let itemId = itemDetailModel.info?.id else {
+            return
+        }
+        updateStatusDelegateIfNeeded()
+        switch status {
+        case "판매중":
+            statusDelegate?.onsale(id: itemId)
+        case "예약중":
+            statusDelegate?.reservation(id: itemId)
+        case "판매완료":
+            statusDelegate?.soldOut(id: itemId)
+        default:
+            break
+        }
+    }
+}
