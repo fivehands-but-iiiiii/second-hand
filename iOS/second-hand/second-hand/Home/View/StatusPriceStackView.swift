@@ -7,7 +7,7 @@
 
 import UIKit
 
-class statusPriceStackView: UIStackView {
+class StatusPriceStackView: UIStackView {
 
 
 }
