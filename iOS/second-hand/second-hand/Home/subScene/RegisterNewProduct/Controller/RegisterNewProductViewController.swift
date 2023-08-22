@@ -8,7 +8,9 @@
 import UIKit
 import PhotosUI
 
-
+protocol CompleteModify {
+    func didCompleteModifyItem()
+}
 
 final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate, TitleLabelChange {
     
@@ -39,6 +41,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var currentId = 0
     private var hadImageUrl = [String]()
     private var processing = false
+    var delegate: CompleteModify?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -135,6 +138,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 self.modifySendRequest(body: body)
                 processing = false
             }
+            delegate?.didCompleteModifyItem()
         }
     }
     

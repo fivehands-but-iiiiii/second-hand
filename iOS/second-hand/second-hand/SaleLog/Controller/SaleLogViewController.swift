@@ -18,6 +18,7 @@ final class SaleLogViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
     private let networkManager = NetworkManager()
     private let modifyItem = RegisterNewProductViewController()
+    private let itemDetailViewController = ItemDetailViewController()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -38,6 +39,12 @@ final class SaleLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
+        setdelegate()
+    }
+    
+    private func setdelegate() {
+        modifyItem.delegate = self
+        itemDetailViewController.textSectionView.statusButton.delegate = self
     }
     
     private func setSegmentControl() {
@@ -341,7 +348,23 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
     }
 }
 
-//moreButtonTapped의 네트워킹 메서드들
-extension SaleLogViewController {
+//TODO: 상품 수정시 dismiss되면서 컬렉션뷰가 바로 업데이트가 되길 바랬지만 실패. 나중에 다시 ㄱ ㄱ
+extension SaleLogViewController: CompleteModify {
+    func didCompleteModifyItem() {
+        productListCollectionView.reloadData()
+    }
+}
+
+extension SaleLogViewController: StatusButtonChange {
+    func onsale() {
+        
+    }
     
+    func reservation() {
+        <#code#>
+    }
+    
+    func soldOut() {
+        
+    }
 }

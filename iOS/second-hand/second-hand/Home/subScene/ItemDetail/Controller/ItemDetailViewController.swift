@@ -17,7 +17,7 @@ class ItemDetailViewController: UIViewController {
     private var itemDetailURL: URL? = nil
     private var itemDetailModel = ItemDetailModel()
     private var imageSectionView: ItemDetailImageSectionView!
-    private var textSectionView = ItemDetailTextSectionView(frame: .zero)
+    var textSectionView = ItemDetailTextSectionView(frame: .zero)
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
     private let networkManager = NetworkManager()
     
