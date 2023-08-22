@@ -64,6 +64,7 @@
 		E473CD1C2A88BAD600981BAF /* ChatroomListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD1B2A88BAD600981BAF /* ChatroomListModel.swift */; };
 		E473CD1F2A8A1DCE00981BAF /* TextSectionViewInChatroomListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD1E2A8A1DCE00981BAF /* TextSectionViewInChatroomListCell.swift */; };
 		E473CD222A8F463000981BAF /* ScrollActionDelagate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD212A8F463000981BAF /* ScrollActionDelagate.swift */; };
+		E473CD242A9484E600981BAF /* statusPriceStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473CD232A9484E600981BAF /* statusPriceStackView.swift */; };
 		E4923CDD2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */; };
 		E4987E452A4D9F7600337543 /* Int,String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4987E442A4D9F7600337543 /* Int,String+Extension.swift */; };
 		E49EB8342A2DB498001F2D56 /* SecondHandTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */; };
@@ -152,6 +153,7 @@
 		E473CD1B2A88BAD600981BAF /* ChatroomListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatroomListModel.swift; path = "second-hand/Chatting/Model/ChatroomListModel.swift"; sourceTree = SOURCE_ROOT; };
 		E473CD1E2A8A1DCE00981BAF /* TextSectionViewInChatroomListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSectionViewInChatroomListCell.swift; sourceTree = "<group>"; };
 		E473CD212A8F463000981BAF /* ScrollActionDelagate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollActionDelagate.swift; sourceTree = "<group>"; };
+		E473CD232A9484E600981BAF /* statusPriceStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = statusPriceStackView.swift; sourceTree = "<group>"; };
 		E4923CDC2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSummaryInChatroom.swift; sourceTree = "<group>"; };
 		E4987E442A4D9F7600337543 /* Int,String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int,String+Extension.swift"; sourceTree = "<group>"; };
 		E49EB8332A2DB498001F2D56 /* SecondHandTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHandTabBarController.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				E49EB8552A306E68001F2D56 /* ButtonCustomView.swift */,
 				E49EB8532A30690F001F2D56 /* HomeRightBarButton.swift */,
 				DBEA32802A4101B400C04E0A /* ProductListCollectionViewCell.swift */,
+				E473CD232A9484E600981BAF /* statusPriceStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 				DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */,
 				DBEA32812A4101B400C04E0A /* ProductListCollectionViewCell.swift in Sources */,
 				E4C951502A3AFF9B0094AD66 /* CodableTemplate.swift in Sources */,
+				E473CD242A9484E600981BAF /* statusPriceStackView.swift in Sources */,
 				DBDF80042A39BC6E007B3E01 /* GithubWebViewController.swift in Sources */,
 				DBAF83B22A32E3E900194A02 /* NotLoginMyAccountViewController.swift in Sources */,
 			);
