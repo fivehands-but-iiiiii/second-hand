@@ -368,16 +368,14 @@ const ItemDetail = ({
       )}
       {isStatusPopupOpen && (
         <PopupSheet
-          type={'slideUp'}
           menu={statusPopupSheetMenu}
-          onSheetClose={handleStatusPopup}
+          onClick={handleStatusPopup}
         ></PopupSheet>
       )}
       {isMoreViewPopupOpen && (
         <PopupSheet
-          type={'slideUp'}
           menu={viewMorePopupSheetMenu}
-          onSheetClose={handleViewMorePopup}
+          onClick={handleViewMorePopup}
         ></PopupSheet>
       )}
       {isNewModalOpen && (

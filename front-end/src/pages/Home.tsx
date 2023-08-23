@@ -306,9 +306,9 @@ const Home = () => {
             </MyNavBarBtn>
             {isRegionPopupSheetOpen && (
               <PopupSheet
-                type={'slideDown'}
+                isSlideDown
                 menu={regionPopupSheetMenu}
-                onSheetClose={handleRegionPopupSheetModal}
+                onClick={handleRegionPopupSheetModal}
               />
             )}
           </>
