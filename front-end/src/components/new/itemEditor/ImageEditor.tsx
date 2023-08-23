@@ -19,7 +19,7 @@ const ImageEditor = ({ files, onChange, onClick }: ImageEditorProps) => {
   return (
     <MyImagesList>
       <MyFileBox>
-        <FileInput fileCount={`${files.length}/10`} onChange={onChange} />
+        <FileInput fileDescription={`${files.length}/10`} onChange={onChange} />
       </MyFileBox>
       {files.map((img, index) => (
         <MyImageBox key={index}>

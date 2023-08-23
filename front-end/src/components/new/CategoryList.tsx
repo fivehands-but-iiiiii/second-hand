@@ -30,12 +30,10 @@ const CategoryList = ({
       <MyCategoryList>
         <ul>
           {categories?.map(({ id, title }) => (
-            <MyCategory
-              active={id === selectedId}
-              key={id}
-              onClick={() => onClickCategory({ id, title })}
-            >
-              {title}
+            <MyCategory active={id === selectedId} key={id}>
+              <button onClick={() => onClickCategory({ id, title })}>
+                {title}
+              </button>
             </MyCategory>
           ))}
         </ul>
@@ -62,10 +60,15 @@ const MyCategory = styled.li<CategoryStyleProps>`
   color: ${({ theme, active }) =>
     active ? theme.colors.accent.backgroundPrimary : theme.colors.neutral.text};
   height: 6vh;
-  line-height: 6vh;
+  min-height: 40px;
   margin: 0 1rem;
   text-align: start;
   cursor: pointer;
+  > button {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+  }
 `;
 
 export default CategoryList;

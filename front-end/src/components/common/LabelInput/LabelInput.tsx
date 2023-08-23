@@ -13,11 +13,8 @@ interface LabelInputStyleProps {
 
 const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
   ({ label, subText, placeholder, ...rest }, ref) => {
-    // TODO: isSubText는 string으로 타입 명시가 되어 있는데 타입 체크를 해야 하는지 검토하기
-    const isSubText = typeof subText === 'string';
-
     return (
-      <MyLabelInput subText={isSubText}>
+      <MyLabelInput subText={subText !== undefined}>
         <label htmlFor="labelInput">{label}</label>
         <input
           name="labelInput"

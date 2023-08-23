@@ -51,7 +51,7 @@ const PopupSheet = ({ type, menu, onSheetClose }: PopupSheetProps) => {
           <MyMenuPopUp onClick={(e) => e.stopPropagation()}>
             {menuOptions(menu)}
           </MyMenuPopUp>
-          <div onClick={onSheetClose}>취소</div>
+          <button onClick={onSheetClose}>취소</button>
         </MyPopupSheet>
       )}
     </>
@@ -100,13 +100,17 @@ const MyPopupSheet = styled.div`
   > div {
     margin: 8px 0;
     border-radius: 12px;
-    &:last-child {
-      height: 60px;
-      line-height: 60px;
-      background-color: ${({ theme }) => theme.colors.neutral.background};
-      text-align: center;
-      cursor: pointer;
-    }
+  }
+  > button {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 0 8px;
+    border-radius: 12px;
+    background-color: ${({ theme }) => theme.colors.neutral.background};
+    color: ${({ theme }) => theme.colors.system.default};
+    text-align: center;
+    cursor: pointer;
   }
 `;
 
