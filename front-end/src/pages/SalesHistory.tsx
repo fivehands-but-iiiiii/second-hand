@@ -260,9 +260,8 @@ const SalesHistory = () => {
           )}
           {isViewMorePopupOpen && (
             <PopupSheet
-              type={'slideUp'}
               menu={viewMorePopupSheetMenu}
-              onSheetClose={handleViewMorePopup}
+              onClick={handleViewMorePopup}
             />
           )}
           {isNewModalOpen && (
