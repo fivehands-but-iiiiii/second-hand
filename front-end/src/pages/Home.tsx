@@ -49,6 +49,7 @@ const Home = () => {
   const navigator = useNavigate();
   const userInfo = getStoredValue({ key: 'userInfo' });
   const userRegion = userInfo?.regions;
+  const [onRefresh, setOnRefresh] = useState(false);
   const [userRegions, setUserRegions] = useState<RegionInfo[]>(
     userRegion || [
       {
@@ -160,10 +161,12 @@ const Home = () => {
     setIsRegionMapModalOpen((prev) => !prev);
     setIsRegionPopupSheetOpen(false);
     if (!isRegionMapModalOpen) return;
+
     const userInfo = getStoredValue({ key: 'userInfo' });
     const userRegion: RegionInfo[] = userInfo?.regions;
     const currentRegion = userRegion.find(({ onFocus }) => onFocus);
     if (!currentRegion) return;
+
     initData();
     setUserRegions(userRegion);
     setFilterInfo((prevFilterInfo) => ({
@@ -201,8 +204,6 @@ const Home = () => {
         }),
       ];
   }, [userRegions]);
-
-  const [onRefresh, setOnRefresh] = useState(false);
 
   const handleNewButtonClick = () => {
     if (!userInfo) {
@@ -259,12 +260,12 @@ const Home = () => {
     if (!homePageInfo.hasNext) return;
 
     const filterQuery = createFilterQuery();
-
     try {
+      // TODO: useAPI 사용하기
       setIsLoading(true);
-
       const { data } = await api.get(`items${filterQuery}`);
       setSaleItems((prevItems) => {
+        // TODO: Set 자료구조 사용하지 않기
         const newSet = new Set(prevItems);
         data.data.items.forEach((item: SaleItem) => newSet.add(item));
         return [...newSet];

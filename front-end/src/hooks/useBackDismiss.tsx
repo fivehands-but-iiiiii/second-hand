@@ -1,11 +1,12 @@
 import { useEffect, useCallback } from 'react';
 
 interface UseBackDismissProps {
-  isOpen: boolean,
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const useBackDismiss = ({isOpen, onClose}:UseBackDismissProps ) => {
+// TODO: 적용 시도해보고 삭제 여부 결정하기
+const useBackDismiss = ({ isOpen, onClose }: UseBackDismissProps) => {
   const handlePopState = useCallback(
     (event: PopStateEvent) => {
       if (isOpen) {
@@ -13,7 +14,7 @@ const useBackDismiss = ({isOpen, onClose}:UseBackDismissProps ) => {
         onClose();
       }
     },
-    [isOpen, onClose]
+    [isOpen, onClose],
   );
 
   useEffect(() => {

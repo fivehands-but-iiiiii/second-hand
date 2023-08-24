@@ -356,7 +356,7 @@ const ItemEditor = ({ categoryInfo, origin, handleClose }: ItemEditorProps) => {
         <TitleEditor
           title={title}
           category={category}
-          onChageTitle={handleTitle}
+          onChangeTitle={handleTitle}
           onClickTitle={handleRecommendation}
           onClickCategory={handleCategory}
         />

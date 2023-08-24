@@ -11,6 +11,7 @@ const useJoin = () => {
   const { request } = useAPI();
 
   const join = async ({ files, account }: UseJoinProps) => {
+    // TODO: 프로필 이미지 업로드를 담당, 계정 등록을 담당 함수 분리하기
     try {
       if (files?.file) {
         const formData = new FormData();
