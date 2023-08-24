@@ -495,6 +495,10 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 guard let url = URL(string: image.url) else {return}
                 let data = try Data(contentsOf: url)
                 self.photoScrollView.addImage(image: UIImage(data: data)!)
+                if photoScrollView.addPhotoStackView.arrangedSubviews.count == 2 {
+                    let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
+                    secondView?.setTitlePhotoLabel()
+                }
             }
             catch {
                 print("url > data 과정에서 오류발생")
