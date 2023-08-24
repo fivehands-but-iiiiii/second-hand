@@ -144,31 +144,6 @@ extension ChattingViewController: ButtonActionDelegate {
         }
     }
     
-    //    private func enterChatroom(index: Int) {
-    //        let itemId = chatroomListModel.info[index].item.itemId
-    //
-    //        guard let url = URL(string: Server.shared.requestIsExistChattingRoom(itemId: itemId)) else {
-    //            return
-    //        }
-    //
-    //        guard let requestBody = JSONCreater().createOpenChatroomRequestBody(itemId: itemId) else {
-    //            return
-    //        }
-    //
-    //        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
-    //            switch result {
-    //            case .success(let reposonse) :
-    //                guard let response = reposonse.last else {
-    //                    return
-    //                }
-    //                self.changeToChatroomViewController(fetchedData: response)
-    //
-    //            case .failure(let error) :
-    //                print(error.localizedDescription)
-    //            }
-    //        }
-    //    }
-    
     private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
         
         let privateChatroom = PrivateChatroomViewController()
