@@ -82,12 +82,16 @@ final class AddPhotoImageView: UIImageView {
     }
     
     @objc private func cancelButtonTapped() {
+        //이미지뷰가 사라지게 만드는 코드
         removeFromSuperview()
         removeImageFromScrollView()
         AddPhotoImageView.cancelButtonTappedDelegate?.cancelButtonTapped()
         if let titlePhotoLabelSuperview = cancelButton.superview, titlePhotoLabelSuperview.subviews.contains(titlePhotoLabel) {
             AddPhotoImageView.titleLabelChangeDelegate?.titleLabelChange()
         }
+        
+        //이미지 뷰 데이터가 사라지게 만드는 코드
+        
     }
     
     private func removeImageFromScrollView() {
