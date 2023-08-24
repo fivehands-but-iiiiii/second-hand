@@ -139,6 +139,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 processing = false
             }
             delegate?.didCompleteModifyItem()
+            dismissFromSelf()
         }
     }
     
@@ -305,7 +306,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 } else {
                 }
             }
-            self.dismissFromSelf()
         }.resume()
     }
     
