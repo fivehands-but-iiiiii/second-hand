@@ -6,6 +6,7 @@ interface UseBackDismissProps {
 }
 
 // TODO: 적용 시도해보고 삭제 여부 결정하기
+// TODO: 뒤로가기 동작이 아닌 닫기 버튼으로 포탈 닫았을 시 push한 null 값 pop해야 함
 const useBackDismiss = ({ isOpen, onClose }: UseBackDismissProps) => {
   const handlePopState = useCallback(
     (event: PopStateEvent) => {

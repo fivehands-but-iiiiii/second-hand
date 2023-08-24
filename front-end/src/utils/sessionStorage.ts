@@ -30,4 +30,5 @@ const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
   }
 };
 
+// TODO: formatText.ts 처럼 함수 앞에 export를 각자 붙일 건지 현 파일처럼 할 건지 정하기
 export { getStoredValue, setStorageValue, removeStorageValue };
