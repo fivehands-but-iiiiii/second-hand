@@ -34,7 +34,9 @@ class ItemDetailViewController: UIViewController {
     private let networkManager = NetworkManager()
     var statusDelegate: StatusButtonChange?
     private let modifyItem = RegisterNewProductViewController()
-    var lastViewController: LastViewController?
+    private var lastViewController: LastViewController?
+    var saleLogDelegate: SaleLogDelegate?
+    var homeDelegate: HomeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -260,7 +262,15 @@ class ItemDetailViewController: UIViewController {
             deleteItem(url: url)
             self.navigationController?.popViewController(animated: true)
             //업데이트가 되어야 함 >> 홈화면 or 세일로그화면
-            //탭바가 보여야함
+            guard let lastViewController = lastViewController else {return}
+            
+            switch lastViewController {
+            case .home:
+                break
+            case .saleLog:
+                saleLogDelegate?.updateScreen()
+            }
+            tabBarController?.tabBar.isHidden = false
         }))
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
