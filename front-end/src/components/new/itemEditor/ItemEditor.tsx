@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent, MouseEvent, useRef } from 'react';
+import { useEffect, useState, ChangeEvent, MouseEvent } from 'react';
 
 import Icon from '@assets/Icon';
 import LabelInput from '@common/LabelInput';

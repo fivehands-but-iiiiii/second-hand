@@ -49,6 +49,40 @@ const Join = () => {
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const { join } = useJoin();
 
+  const isReadyToSubmit =
+    userInputId.length > 5 && !idExists && userAccount.regions.length > 0;
+
+  const handlePostUserAccount = async () => {
+    const response = await join({ files, account: userAccount });
+    if (!response.success) return;
+
+    navigate('/login', {
+      state: {
+        memberId: userInputId,
+        validationMessage: '회원가입이 완료되었어요! 로그인을 진행하세요',
+      },
+    });
+  };
+
+  const handleProfile = (file: InputFile) => {
+    setFiles({
+      preview: file.preview,
+      file: file.file,
+    });
+  };
+
+  const getValidationMessage = () => {
+    const isInvalid = /[^0-9a-z]/.test(userInputId);
+    const isShort = userInputId.length < 4;
+    const isValidLength = /^.{6,12}$/.test(userInputId);
+
+    if (isInvalid) return '영문 소문자와 숫자만 입력하세요';
+    if (isShort) return '';
+    if (!isValidLength) return '6~12자리로 입력하세요';
+    if (idExists) return '이미 사용중인 아이디예요';
+    return '사용 가능한 아이디예요';
+  };
+
   const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     const formattedId = getFormattedId(value);
@@ -75,13 +109,6 @@ const Join = () => {
     }
   };
 
-  const handleProfile = (file: InputFile) => {
-    setFiles({
-      preview: file.preview,
-      file: file.file,
-    });
-  };
-
   const handleUserRegions = (regions: RegionInfo[]) => {
     setUserAccount({
       ...userAccount,
@@ -89,34 +116,6 @@ const Join = () => {
       regions: regions,
     });
   };
-
-  const handlePostUserAccount = async () => {
-    const response = await join({ files, account: userAccount });
-    if (!response.success) return;
-    navigate('/login', {
-      state: {
-        memberId: userInputId,
-        validationMessage: '회원가입이 완료되었어요! 로그인을 진행하세요',
-      },
-    });
-  };
-
-  const isReadyToSubmit =
-    userInputId.length > 5 && !idExists && userAccount.regions.length > 0;
-
-  const getValidationMessage = () => {
-    const isInvalid = /[^0-9a-z]/.test(userInputId);
-    const isShort = userInputId.length < 4;
-    const isValidLength = /^.{6,12}$/.test(userInputId);
-
-    if (isInvalid) return '영문 소문자와 숫자만 입력하세요';
-    if (isShort) return '';
-    if (!isValidLength) return '6~12자리로 입력하세요';
-    if (idExists) return '이미 사용중인 아이디예요';
-    return '사용 가능한 아이디예요';
-  };
-
-  const validationMessage = getValidationMessage();
 
   return (
     <MyJoin>
@@ -143,7 +142,7 @@ const Join = () => {
           {!!gitHubUserInfo || (
             <LabelInput
               label={'아이디'}
-              subText={validationMessage}
+              subText={getValidationMessage()}
               maxLength={12}
               value={userInputId}
               onChange={handleInputChange}

@@ -20,17 +20,18 @@ const UserProfile = ({
   memberId,
   onChange,
 }: UserProfileProps) => {
-  const [previewURL, setPreviewURL] = useState<string>('');
+  const [preview, setPreview] = useState<string>('');
 
   const handleFileChange = async ({
     target,
   }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
     if (!file) return;
-    const newPreviewURL = await getPreviewFile(file);
-    newPreviewURL && setPreviewURL(newPreviewURL);
+
+    const newPreview = await getPreviewFile(file);
+    setPreview(newPreview);
     const newFormData: InputFile = {
-      preview: newPreviewURL,
+      preview: newPreview,
       file: file,
     };
     onChange && onChange(newFormData);
@@ -43,7 +44,7 @@ const UserProfile = ({
       ) : (
         <>
           <MyDefaultImgBox>
-            {previewURL && <MyPreviewFile src={previewURL} alt="미리 보기" />}
+            {preview && <MyPreviewFile src={preview} alt="미리 보기" />}
             <FileInput onChange={handleFileChange} />
           </MyDefaultImgBox>
         </>
