@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 
 import FileInput from '@common/FileInput';
-import { getPreviewURL } from '@utils/getConvertedFile';
+import { getPreviewFile } from '@utils/getPreviewFile';
 
 import { css, styled } from 'styled-components';
 
@@ -27,7 +27,7 @@ const UserProfile = ({
   }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
     if (!file) return;
-    const newPreviewURL = await getPreviewURL(file);
+    const newPreviewURL = await getPreviewFile(file);
     newPreviewURL && setPreviewURL(newPreviewURL);
     const newFormData: InputFile = {
       preview: newPreviewURL,

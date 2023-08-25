@@ -15,8 +15,8 @@ import SubTabBar from '@common/TabBar/SubTabBar';
 import Textarea from '@common/Textarea';
 import { InputFile, RegionInfo } from '@components/login/Join';
 import useAPI from '@hooks/useAPI';
-import { getPreviewURL } from '@utils/convertFile';
 import { getFormattedPrice } from '@utils/formatText';
+import { getPreviewFile } from '@utils/getPreviewFile';
 import { getStoredValue } from '@utils/sessionStorage';
 
 import { styled } from 'styled-components';
@@ -87,7 +87,7 @@ const ItemEditor = ({ categoryInfo, origin, handleClose }: ItemEditorProps) => {
     const file = target.files?.[0];
     if (!file) return;
     if (files.length >= 10) return;
-    const newPreviewURL = await getPreviewURL(file);
+    const newPreviewURL = await getPreviewFile(file);
     setFiles((prev) => [
       ...prev,
       {
