@@ -60,8 +60,7 @@ const Home = () => {
     ],
   );
   const currentRegion = userRegions.find(({ onFocus }) => onFocus);
-  if (!currentRegion) return;
-  const currentRegionId = currentRegion?.id;
+  const currentRegionId = currentRegion?.id || 1168064000;
   const categories = useCategories();
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);

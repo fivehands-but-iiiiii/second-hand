@@ -101,6 +101,7 @@ const SettingRegionSelector = ({
 
   const handleRegionModal = () => setIsSettingRegionsModalOpen((prev) => !prev);
 
+  // TODO : 리렌더링 최적화하기
   useEffect(() => {
     onSetRegions(selectedRegions);
   }, [selectedRegions]);

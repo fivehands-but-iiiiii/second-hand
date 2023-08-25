@@ -21,6 +21,7 @@ interface SearchRegionsProps {
   onSelectRegion: (id: number, district: string) => void;
 }
 
+// TODO : 리렌더링 최적화하기
 const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [address, setAddress] = useState('역삼1동');
@@ -56,7 +57,7 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
 
   useEffect(() => {
     getRegionList(address);
-  }, [address]);
+  }, []);
 
   return (
     <PortalLayout>
@@ -80,8 +81,10 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
         {regionList.length > 0 ? (
           <ul>
             {regionList.map(({ id, city, county, district }: Region) => (
-              <MyRegion key={id} onClick={() => onSelectRegion(id, district)}>
-                {city} {county} {district}
+              <MyRegion key={id}>
+                <button onClick={() => onSelectRegion(id, district)}>
+                  {city} {county} {district}
+                </button>
               </MyRegion>
             ))}
           </ul>
@@ -122,7 +125,9 @@ const MyRegion = styled.li`
   min-height: 35px;
   min-width: 200px;
   padding-left: 5px;
-  color: ${({ theme }) => theme.colors.neutral.text};
+  > button {
+    height: 100%;
+  }
 `;
 
 export default SearchRegions;
