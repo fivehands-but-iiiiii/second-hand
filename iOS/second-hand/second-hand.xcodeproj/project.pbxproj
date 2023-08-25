@@ -23,7 +23,6 @@
 		DB6258732A72571D005A8846 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258722A72571D005A8846 /* Category.swift */; };
 		DB6258762A725913005A8846 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */; };
 		DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */; };
-		DB97F1322A973CED00DC2F82 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97F1312A973CED00DC2F82 /* Tag.swift */; };
 		DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */; };
 		DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */; };
 		DBAF83A62A32E38B00194A02 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */; };
@@ -110,7 +109,6 @@
 		DB6258722A72571D005A8846 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = "second-hand/Category.swift"; sourceTree = SOURCE_ROOT; };
 		DB6258752A725913005A8846 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = "second-hand/CategoryCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		DB7E5EEB2A31682D00ECCBC2 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
-		DB97F1312A973CED00DC2F82 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		DBAF83892A32B7CA00194A02 /* NavigationUnderLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationUnderLineViewController.swift; path = ../NavigationUnderLineViewController.swift; sourceTree = "<group>"; };
 		DBAF83A32A32E38B00194A02 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		DBAF83A42A32E38B00194A02 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				DB55CB0E2A44077D00578ED5 /* ImageRequest.swift */,
-				DB97F1312A973CED00DC2F82 /* Tag.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -929,7 +926,6 @@
 				E473CD1A2A88AB4700981BAF /* CellOfChatroomList.swift in Sources */,
 				E4CAD8492A5B313500C69F7D /* ItemDetailImageSectionView.swift in Sources */,
 				E46738112A482DF1006A46D1 /* Updatable.swift in Sources */,
-				DB97F1322A973CED00DC2F82 /* Tag.swift in Sources */,
 				DBF4EED32A7402E7006FB3F2 /* CategoryItemListViewController.swift in Sources */,
 				E4923CDD2A6FA02600D2BF19 /* ItemSummaryInChatroom.swift in Sources */,
 				E4E6947B2A7B828B0033B4DB /* YourBubble.swift in Sources */,
