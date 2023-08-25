@@ -413,8 +413,13 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     func cancelButtonTapped() {
-   
-        hadImageUrl.remove(at:(AddPhotoImageView.index-1))
+        if AddPhotoImageView.index-1 <= hadImageUrl.count {
+            //기존 이미지라면
+            hadImageUrl.remove(at:(AddPhotoImageView.index-1))
+        }else {
+            //가존 이미지가 아니라면
+            photoArray.remove(at: AddPhotoImageView.index-hadImageUrl.count-1)
+        }
         
         self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-2)/\(maximumPhotoNumber)"
         
