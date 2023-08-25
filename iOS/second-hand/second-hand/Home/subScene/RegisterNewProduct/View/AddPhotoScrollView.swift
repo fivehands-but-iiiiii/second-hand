@@ -52,12 +52,12 @@ final class AddPhotoScrollView: UIScrollView {
         setCountPictureLabel()
         setAddPhotoButton()
         setButtonComponentStackView()
-        addPhotoStackView.addArrangedSubview(addPhotoButton) // 추가됨
+        addPhotoStackView.addArrangedSubview(addPhotoButton)
     }
     
     func addImage(image: UIImage) {
-        let newImageView = AddPhotoImageView(image: image) // 새로운 이미지 뷰 생성
-        addPhotoStackView.addArrangedSubview(newImageView) // squareimageView가 있는 스택 뷰에 추가
+        let newImageView = AddPhotoImageView(image: image)
+        addPhotoStackView.addArrangedSubview(newImageView)
         
         NSLayoutConstraint.activate([
             newImageView.heightAnchor.constraint(equalToConstant: 80),

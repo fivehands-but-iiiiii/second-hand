@@ -252,8 +252,8 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
                     guard let detailInfo = data.last?.data else {
                         return
                     }
-                    modifyItem.getItemInfo(title: detailInfo.title, price: detailInfo.price.comma(), contents: detailInfo.contents, images: detailInfo.images)
                     
+                    modifyItem.getItemInfo(title: detailInfo.title, price: detailInfo.price.comma(), contents: detailInfo.contents, images: detailInfo.images)
                 case .failure(let error) :
                     print(error.localizedDescription)
                 }
