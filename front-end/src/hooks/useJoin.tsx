@@ -10,25 +10,30 @@ interface UseJoinProps {
 const useJoin = () => {
   const { request } = useAPI();
 
+  const getUploadUrl = async (file: File) => {
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('profileImage', file, file.name);
+    const { data } = await request({
+      url: '/profile/image',
+      method: 'post',
+      config: {
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    });
+    return data.uploadUrl;
+  };
+
   const join = async ({ files, account }: UseJoinProps) => {
-    // TODO: 프로필 이미지 업로드를 담당, 계정 등록을 담당 함수 분리하기
     try {
       if (files?.file) {
-        const formData = new FormData();
-        formData.append('profileImage', files?.file, files?.file.name);
-        const { data: image } = await request({
-          url: '/profile/image',
-          method: 'post',
-          config: {
-            data: formData,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          },
-        });
+        const image = await getUploadUrl(files.file);
         const updatedAccount: UserInfo = {
           ...account,
-          profileImgUrl: image.uploadUrl,
+          profileImgUrl: image,
         };
         await request({
           url: '/join',
