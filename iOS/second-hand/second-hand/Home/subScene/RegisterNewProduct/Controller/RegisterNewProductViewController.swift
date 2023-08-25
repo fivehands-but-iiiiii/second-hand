@@ -104,6 +104,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 sendRequest(body: body, purpos: .register) { _ in
                     processing = false
                 }
+                dismissFromSelf()
             }
         case .modify:
             processing = true
@@ -144,7 +145,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                     processing = false
                     delegate?.didCompleteModifyItem()
                     self.dismiss(animated: true) {
-                    self.saleLogDelegate?.updateScreen()
+                        self.saleLogDelegate?.updateScreen()
                     }
                 }
                 
