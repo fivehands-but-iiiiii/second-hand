@@ -20,6 +20,7 @@ final class AddPhotoImageView: UIImageView {
     private let cancelButtonSize: CGFloat = 28
     static var cancelButtonTappedDelegate: CancelButtonTappedDelegate?
     static var titleLabelChangeDelegate: TitleLabelChange?
+    static var index = 0
     
     override init(image: UIImage?) {
         super.init(image: image)
@@ -82,16 +83,15 @@ final class AddPhotoImageView: UIImageView {
     }
     
     @objc private func cancelButtonTapped() {
-        //이미지뷰가 사라지게 만드는 코드
-        removeFromSuperview()
-        removeImageFromScrollView()
-        AddPhotoImageView.cancelButtonTappedDelegate?.cancelButtonTapped()
-        if let titlePhotoLabelSuperview = cancelButton.superview, titlePhotoLabelSuperview.subviews.contains(titlePhotoLabel) {
-            AddPhotoImageView.titleLabelChangeDelegate?.titleLabelChange()
-        }
-        
-        //이미지 뷰 데이터가 사라지게 만드는 코드
-        
+           if let stackView = superview as? UIStackView {
+               if let indexToRemove = stackView.arrangedSubviews.firstIndex(of: self) {
+                   Self.index = indexToRemove
+                   Self.cancelButtonTappedDelegate?.cancelButtonTapped()
+                   stackView.removeArrangedSubview(self)
+                   removeFromSuperview()
+                   stackView.layoutIfNeeded()
+               }
+           }
     }
     
     private func removeImageFromScrollView() {

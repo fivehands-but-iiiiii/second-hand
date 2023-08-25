@@ -8,8 +8,8 @@
 import Foundation
 
 struct Tag {
-    var number = 0
-    mutating func nextNumberSetting() {
+    static var number = 0
+    static func nextNumberSetting() {
         number += 1
     }
 }
