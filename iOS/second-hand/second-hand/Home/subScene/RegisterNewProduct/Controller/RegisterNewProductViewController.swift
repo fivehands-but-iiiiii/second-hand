@@ -12,6 +12,10 @@ protocol CompleteModify {
     func didCompleteModifyItem()
 }
 
+protocol SaleLogDelegate {
+    func updateScreen()
+}
+
 final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate, TitleLabelChange {
     
     enum Purpose {
@@ -42,6 +46,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var hadImageUrl = [String]()
     private var processing = false
     var delegate: CompleteModify?
+    var saleLogDelegate: SaleLogDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -135,11 +140,16 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 }
                 print(images)
                 guard let body = self.makeBody(title: title, contents: contents, category: category, region: region, price: price, images: images) else {return}
-                self.modifySendRequest(body: body)
-                processing = false
+                self.modifySendRequest(body: body) { [self] in
+                    processing = false
+                    delegate?.didCompleteModifyItem()
+                    self.dismiss(animated: true) {
+                    self.saleLogDelegate?.updateScreen()
+                    }
+                }
+                
             }
-            delegate?.didCompleteModifyItem()
-            dismissFromSelf()
+            
         }
     }
     
@@ -232,7 +242,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         body.append(Data(boundarySuffix.utf8))
         return body
     }
-    private func modifySendRequest(body: Data) {
+    private func modifySendRequest(body: Data, completion: @escaping () -> Void) {
         print(body)
         guard let url = URL(string: Server.shared.itemDetailURL(itemId: currentId)) else { return }
         networkManager.sendPut(decodeType: ModifyItemSuccess.self, what: body, header: nil, fromURL: url) { (result: Result<ModifyItemSuccess, Error>) in
@@ -240,8 +250,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             switch result {
             case .success(let data) :
                 print("수정 성공 :  \(data.id)")
+                completion()
             case .failure(let error) :
                 print("가입실패 \(error.localizedDescription)")
+                completion()
             }
         }
     }

@@ -44,6 +44,7 @@ final class SaleLogViewController: UIViewController {
     
     private func setdelegate() {
         modifyItem.delegate = self
+        modifyItem.saleLogDelegate = self
     }
     
     private func setSegmentControl() {
@@ -370,5 +371,15 @@ extension SaleLogViewController: StatusButtonChange {
     
     func soldOut(id: Int) {
         changeStatus(status: .salesCompleted, id: id)
+    }
+}
+
+extension SaleLogViewController: SaleLogDelegate {
+    func updateScreen() {
+        items.removeAll()
+        setupDataSource()
+        currentPage = 0
+        fetchItemList(page: currentPage, isSales: segmentControl.selectedSegmentIndex == 0)
+        
     }
 }
