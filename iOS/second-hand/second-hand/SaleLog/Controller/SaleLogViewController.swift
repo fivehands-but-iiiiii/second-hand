@@ -275,6 +275,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] (ACTION:UIAlertAction) in
             changeStatus(status: .delete, id: id)
             productListCollectionView.reloadData()
+            updateScreen()
         }))
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
