@@ -68,8 +68,10 @@ const SalesHistory = () => {
 
   const getSalesHistory = async () => {
     if (!pageInfo.hasNext) return;
+
     const userInfo = getStoredValue({ key: 'userInfo' });
     if (!userInfo) return;
+
     try {
       setIsLoading(true);
       const { data } = await request({

@@ -9,7 +9,6 @@ import api from '../api';
 
 const ChatPage = () => {
   const { itemId } = useParams();
-
   const title = '채팅';
   const [page, setPage] = useState(0);
   const [chatList, setChatList] = useState([]);
@@ -24,7 +23,6 @@ const ChatPage = () => {
 
     try {
       const { data: chatList } = await api.get(apiUrl);
-
       setPage(chatList.page);
       setChatList(chatList);
     } catch (error) {

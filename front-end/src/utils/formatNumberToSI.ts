@@ -8,7 +8,6 @@ export const formatNumberToSI = (num: number, digits = 1): string => {
     { value: 1e15, symbol: 'P' },
     { value: 1e18, symbol: 'E' },
   ];
-
   const index = si.findIndex((si) => num < si.value) - 1;
 
   return Number((num / si[index].value).toFixed(digits)) + si[index].symbol;

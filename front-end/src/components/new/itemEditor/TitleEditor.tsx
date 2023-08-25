@@ -12,7 +12,7 @@ import { CategoryInfo, Category } from '../itemEditor/ItemEditor';
 interface TitleEditorProps {
   title: string;
   category: CategoryInfo;
-  onChageTitle: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeTitle: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickTitle: () => void;
   onClickCategory: (category: Category) => void;
 }
@@ -20,7 +20,7 @@ interface TitleEditorProps {
 const TitleEditor = ({
   title,
   category,
-  onChageTitle,
+  onChangeTitle,
   onClickTitle,
   onClickCategory,
 }: TitleEditorProps) => {
@@ -41,7 +41,7 @@ const TitleEditor = ({
         placeholder="글 제목"
         rows={title.length > 30 ? 2 : 1}
         maxLength={64}
-        onChange={onChageTitle}
+        onChange={onChangeTitle}
         onClick={onClickTitle}
       />
       {!!category.recommendedCategory.length && (
