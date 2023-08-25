@@ -242,8 +242,6 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
-            print("게시글 수정을 눌렀음")
-            
             guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
                 return
             }

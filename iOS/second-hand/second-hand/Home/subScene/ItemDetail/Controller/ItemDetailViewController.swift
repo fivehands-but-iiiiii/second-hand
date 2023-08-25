@@ -16,7 +16,13 @@ protocol StatusButtonChange {
 //protocol BackButtonTouchedDelegate {
 //    func backButtonTouched()
 //}
+enum LastViewController {
+    case home
+    case saleLog
+}
+
 class ItemDetailViewController: UIViewController {
+    
     var delegate: ButtonActionDelegate? = nil
     private var backButton: UIButton? = nil
     private var menuButton: UIButton? = nil
@@ -27,6 +33,8 @@ class ItemDetailViewController: UIViewController {
     private var bottomSectionView = ItemDetailBottomSectionView(frame: .zero)
     private let networkManager = NetworkManager()
     var statusDelegate: StatusButtonChange?
+    private let modifyItem = RegisterNewProductViewController()
+    var lastViewController: LastViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +52,10 @@ class ItemDetailViewController: UIViewController {
         if statusDelegate == nil {
             statusDelegate = SaleLogViewController()
         }
+    }
+    
+    func lastViewControllerSet(what: LastViewController) {
+        self.lastViewController = what
     }
     
     private func bringButtonsToFront() {
@@ -219,8 +231,59 @@ class ItemDetailViewController: UIViewController {
     }
     
     @objc private func menuButtonTouched() {
-        //TODO: 오늘 하기
+        guard let id = itemDetailModel.info?.id else {return}
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
+            guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
+                return
+            }
+            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
+                switch result {
+                case .success(let data) :
+                    guard let detailInfo = data.last?.data else {
+                        return
+                    }
+                    
+                    modifyItem.getItemInfo(title: detailInfo.title, price: detailInfo.price.comma(), contents: detailInfo.contents, images: detailInfo.images)
+                case .failure(let error) :
+                    print(error.localizedDescription)
+                }
+            }
+            present(UINavigationController(rootViewController: modifyItem), animated: true)
+            modifyItem.updateId(id: id)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] (ACTION:UIAlertAction) in
+            
+            let url = URL(string: Server.shared.itemDetailURL(itemId: id))!
+            deleteItem(url: url)
+            self.navigationController?.popViewController(animated: true)
+            //업데이트가 되어야 함 >> 홈화면 or 세일로그화면
+            //탭바가 보여야함
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+        
     }
+    
+    func deleteItem(url: URL) {
+        networkManager.sendDelete(decodeType: ChangeStatusItem.self, what: nil, fromURL: url) { (result: Result<ChangeStatusItem?, Error>) in
+            switch result {
+            case .success(let data):
+                print("성공적으로 삭제되었습니다.")
+                if data?.message != nil {
+                    print(data!.message)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
     // MARK: IMAGE SECTION
     
