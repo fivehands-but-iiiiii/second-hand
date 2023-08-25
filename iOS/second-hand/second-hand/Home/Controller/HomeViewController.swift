@@ -1,5 +1,9 @@
 import UIKit
 
+protocol HomeDelegate {
+    func updateScreen()
+}
+
 final class HomeViewController: NavigationUnderLineViewController{
     
     enum Section: CaseIterable {
@@ -9,6 +13,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     private var productListCollectionView = UICollectionView(frame: .zero,collectionViewLayout: UICollectionViewFlowLayout())
     private let setLocationViewController = SetLocationViewController()
     private let joinViewController = JoinViewController()
+    private let itemDetailViewController = ItemDetailViewController()
     private var items: [SellingItem] = []
     private let categoryViewController = CategoryViewController()
     private var dataSource: UICollectionViewDiffableDataSource<Section, SellingItem>!
@@ -27,6 +32,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         setupInfiniteScroll()
         getItemList(page: currentPage)
         setupDataSource()
+        setDelegate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,6 +44,10 @@ final class HomeViewController: NavigationUnderLineViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func setDelegate() {
+        itemDetailViewController.homeDelegate = self
     }
     
     private func setupInfiniteScroll() {
@@ -186,7 +196,6 @@ final class HomeViewController: NavigationUnderLineViewController{
             }
         }
     }
-    
 }
 
 extension HomeViewController: UICollectionViewDelegate {
@@ -204,10 +213,10 @@ extension HomeViewController: UICollectionViewDelegate {
         let id = items[indexPath.item].id
         
         let url = Server.shared.itemDetailURL(itemId: id)
-        let itemDetailViewController = ItemDetailViewController()
         
         itemDetailViewController.setItemDetailURL(url)
         hideTabBar()
+        itemDetailViewController.lastViewControllerSet(what: .home)
         self.navigationController?.pushViewController(itemDetailViewController, animated: true)
     }
     
@@ -219,5 +228,14 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: HomeRightBarButtonTapped {
     func homeRightBarButtonTapped() {
         self.navigationController?.pushViewController(categoryViewController, animated: true)
+    }
+}
+
+extension HomeViewController: HomeDelegate {
+    func updateScreen() {
+        items.removeAll()
+        setupDataSource()
+        currentPage = 0
+        getItemList(page: currentPage)
     }
 }

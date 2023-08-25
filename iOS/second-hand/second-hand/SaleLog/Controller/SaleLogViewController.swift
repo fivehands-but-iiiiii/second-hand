@@ -225,6 +225,7 @@ extension SaleLogViewController: UICollectionViewDelegate {
         
         itemDetailViewController.setItemDetailURL(url)
         hideTabBar()
+        itemDetailViewController.lastViewControllerSet(what: .home)
         self.navigationController?.pushViewController(itemDetailViewController, animated: true)
     }
     
@@ -351,7 +352,6 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
     }
 }
 
-//TODO: 상품 수정시 dismiss되면서 컬렉션뷰가 바로 업데이트가 되길 바랬지만 실패. 나중에 다시 ㄱ ㄱ
 extension SaleLogViewController: CompleteModify {
     func didCompleteModifyItem() {
         productListCollectionView.reloadData()
