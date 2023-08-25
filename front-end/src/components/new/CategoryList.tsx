@@ -57,8 +57,6 @@ const MyCategoryList = styled.div`
 `;
 
 const MyCategory = styled.li<CategoryStyleProps>`
-  color: ${({ theme, active }) =>
-    active ? theme.colors.accent.backgroundPrimary : theme.colors.neutral.text};
   height: 6vh;
   min-height: 40px;
   margin: 0 1rem;
@@ -68,6 +66,10 @@ const MyCategory = styled.li<CategoryStyleProps>`
     width: 100%;
     height: 100%;
     text-align: left;
+    color: ${({ theme, active }) =>
+      active
+        ? theme.colors.accent.backgroundPrimary
+        : theme.colors.neutral.text};
   }
 `;
 
