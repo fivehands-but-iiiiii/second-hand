@@ -7,7 +7,7 @@ import Spinner from '@common/Spinner/Spinner';
 import { CategoryInfo } from '@components/home/category';
 import ItemList from '@components/home/ItemList';
 import { useCategories } from '@components/layout/MobileLayout';
-import useAPI from '@hooks/useAPI';
+import useAllAPI from '@hooks/useAllAPI';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import { styled } from 'styled-components';
@@ -19,24 +19,28 @@ import ItemDetail from './ItemDetail';
 
 type WishCategory = Omit<CategoryInfo, 'iconUrl'>;
 
+interface WishPage extends HomePageInfo {
+  wishItems: SaleItem[];
+  categories?: WishCategory[];
+}
+
 const WishList = () => {
   const title = '관심 목록';
   const categories = useCategories();
-  const [wishItems, setWishItems] = useState<SaleItem[]>([]);
-  const [wishCategories, setWishCategories] = useState<WishCategory[]>([]);
   const [selectedItem, setSelectedItem] = useState(0);
   const [selectedCategoryId, setSelectedCategoryId] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [onRefresh, setOnRefresh] = useState(false);
-  const [pageInfo, setPageInfo] = useState<HomePageInfo>({
+  const [pageInfo, setPageInfo] = useState<WishPage>({
     page: 0,
     hasPrevious: false,
     hasNext: true,
+    wishItems: [],
+    categories: [],
   });
-  const { request } = useAPI();
+  const { requestAll, loading } = useAllAPI();
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    if (isIntersecting && !isLoading) getWishListData();
+    if (isIntersecting && !loading) getWishListData();
   };
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
@@ -44,39 +48,39 @@ const WishList = () => {
   const getWishListData = async () => {
     if (!pageInfo.hasNext) return;
     try {
-      setIsLoading(true);
-      const [wishlistResponse, categoriesResponse] = await Promise.all([
-        request({
+      const [{ data: itemData }, { data: categoriesData }] = await requestAll([
+        {
           url: `wishlist?page=${pageInfo.page}${
             selectedCategoryId > 0 ? `&&category=${selectedCategoryId}` : ''
           }`,
-        }),
-        request({
+        },
+        {
           url: '/wishlist/categories',
-        }),
+        },
       ]);
-      const { data: itemData } = wishlistResponse;
-      const { data: categoriesData } = categoriesResponse;
-      matchCategories(categoriesData.categories);
+
       if (!itemData.items.length) {
         setSelectedCategoryId(0);
         initData();
         return;
       }
-      setWishItems((pre) => [...pre, ...itemData.items]);
+
       setPageInfo({
         page: itemData.page + 1,
         hasPrevious: itemData.hasPrevious,
         hasNext: itemData.hasNext,
+        wishItems: [...itemData.items],
+        categories: matchCategories(categoriesData.categories),
       });
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const matchCategories = (categoriesData: number[]) => {
+    const initCategory = [{ id: 0, title: '전체' }];
+    if (!categoriesData.length) return initCategory;
+
     const matchedCategories = categoriesData.map((categoryId: number) => {
       const targetCategory = categories.find(({ id }) => id === categoryId);
       return (
@@ -86,10 +90,10 @@ const WishList = () => {
         }
       );
     });
-    setWishCategories([
-      { id: 0, title: '전체' },
+    return [
+      ...initCategory,
       ...(matchedCategories.filter((item) => !!item?.id) as WishCategory[]),
-    ]);
+    ];
   };
 
   const initData = () => {
@@ -97,8 +101,10 @@ const WishList = () => {
       page: 0,
       hasPrevious: false,
       hasNext: true,
+      wishItems: [],
+      categories: [],
     });
-    setWishItems([]);
+    setOnRefresh(true);
   };
 
   const handleFilterCategories = (categoryId: number) => {
@@ -111,12 +117,7 @@ const WishList = () => {
     setSelectedItem(itemId);
     if (itemId) return;
     initData();
-    setOnRefresh(true);
   };
-
-  useEffect(() => {
-    getWishListData();
-  }, [selectedCategoryId]);
 
   useEffect(() => {
     if (!onRefresh) return;
@@ -124,13 +125,17 @@ const WishList = () => {
     setOnRefresh(false);
   }, [onRefresh]);
 
+  useEffect(() => {
+    getWishListData();
+  }, []);
+
   return (
     <>
       <NavBar center={title} />
       <MyWishList>
-        {!!wishCategories.length && (
+        {!!pageInfo.categories?.length && (
           <MyCategories>
-            {wishCategories.map(({ id, title }) => {
+            {pageInfo.categories.map(({ id, title }) => {
               const isActive = id === selectedCategoryId;
               return (
                 <Button
@@ -145,11 +150,14 @@ const WishList = () => {
             })}
           </MyCategories>
         )}
-        {!!wishItems.length ? (
+        {!!pageInfo.wishItems.length ? (
           <>
-            <ItemList saleItems={wishItems} onItemClick={handleItemDetail} />
+            <ItemList
+              saleItems={pageInfo.wishItems}
+              onItemClick={handleItemDetail}
+            />
             <MyOnFetchItems ref={setTarget}></MyOnFetchItems>
-            {isLoading && <Spinner />}
+            {loading && <Spinner />}
             {!!selectedItem && (
               <ItemDetail
                 id={selectedItem}
@@ -194,4 +202,3 @@ const MyOnFetchItems = styled.div`
 `;
 
 export default WishList;
-
