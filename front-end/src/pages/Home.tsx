@@ -176,7 +176,7 @@ const Home = () => {
 
   const handleCategoryModal = () => setIsCategoryModalOpen((prev) => !prev);
 
-  const regionPopupSheetMenu = useMemo(() => {
+  const regionPopupSheetMenu = () => {
     if (!userInfo)
       return userRegions.map(({ id, district, onFocus }) => ({
         id,
@@ -184,25 +184,24 @@ const Home = () => {
         style: onFocus ? 'font-weight: 600' : '',
         onClick: () => handleRegionSwitch(id),
       }));
-    else
-      return [
-        ...userRegions.map(({ id, district, onFocus }) => {
-          return {
-            id,
-            title: district,
-            style: onFocus ? 'font-weight: 600' : '',
-            onClick: () => handleRegionSwitch(id),
-          };
-        }),
-        ...REGION_MENU.map(({ id, title }) => {
-          return {
-            id,
-            title,
-            onClick: handleRegionMapModal,
-          };
-        }),
-      ];
-  }, [userRegions]);
+    return [
+      ...userRegions.map(({ id, district, onFocus }) => {
+        return {
+          id,
+          title: district,
+          style: onFocus ? 'font-weight: 600' : '',
+          onClick: () => handleRegionSwitch(id),
+        };
+      }),
+      ...REGION_MENU.map(({ id, title }) => {
+        return {
+          id,
+          title,
+          onClick: handleRegionMapModal,
+        };
+      }),
+    ];
+  };
 
   const handleNewButtonClick = () => {
     if (!userInfo) {
@@ -306,7 +305,7 @@ const Home = () => {
             {isRegionPopupSheetOpen && (
               <PopupSheet
                 isSlideDown
-                menu={regionPopupSheetMenu}
+                menu={regionPopupSheetMenu()}
                 onClick={handleRegionPopupSheetModal}
               />
             )}

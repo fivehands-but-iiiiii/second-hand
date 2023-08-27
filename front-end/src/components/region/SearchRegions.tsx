@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 
 import Button from '@common/Button/Button';
 import NavBar from '@common/NavBar/NavBar';
@@ -24,17 +24,9 @@ interface SearchRegionsProps {
 // TODO : 리렌더링 최적화하기
 const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [address, setAddress] = useState('역삼1동');
   const [regionList, setRegionList] = useState<Region[]>([]);
   const { request } = useAPI();
   const { location: currentLocation } = useGeoLocation();
-
-  const getCurrentRegionList = () => getCurrentLocation();
-
-  const getCurrentLocation = useCallback(() => {
-    if (!currentLocation.coords || !currentLocation.address) return;
-    setAddress(currentLocation.address);
-  }, [currentLocation]);
 
   const getRegionList = async (keyword: string) => {
     const { data } = await request({
@@ -43,20 +35,24 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
     setRegionList(data);
   };
 
-  const handleSearchChange = useCallback(
-    ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
-      const DEBOUNCE_DELAY = 5000;
-      const { value } = target;
-      setSearchKeyword(value);
-      if (value.length > 2) {
-        debounce(() => getRegionList(value), DEBOUNCE_DELAY)();
-      }
-    },
-    [debounce],
-  );
+  const getCurrentRegionList = async () => {
+    if (!currentLocation.address) return;
+    getRegionList(currentLocation.address);
+  };
+
+  const handleSearchChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+    const DEBOUNCE_DELAY = 5000;
+    const { value } = target;
+    setSearchKeyword(value);
+
+    if (value.length < 2) return;
+
+    const delayedSearch = debounce(() => getRegionList(value), DEBOUNCE_DELAY);
+    delayedSearch();
+  };
 
   useEffect(() => {
-    getRegionList(address);
+    getRegionList('역삼1동');
   }, []);
 
   return (

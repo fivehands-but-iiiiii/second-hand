@@ -32,6 +32,7 @@ interface SettingRegionMapProps {
 const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
   const [updatedRegions, setUpdatedRegions] = useState<RegionInfo[]>(regions);
+  const currentRegion = updatedRegions.find(({ onFocus }) => onFocus)?.district;
   const [, setMap] = useState(null);
   const [center, setCenter] = useState<coordsType>({
     lat: 37.5000776,
@@ -111,19 +112,17 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
     );
   };
 
-  const handleUpdateRegions = (regions: RegionInfo[]) => {
+  const handleUpdateRegions = (regions: RegionInfo[]) =>
     setUpdatedRegions(regions);
-  };
 
   useEffect(() => {
+    if (!currentRegion) return;
     const getCenter = async () => {
-      const coords = await getCoordinatesFromAddress(
-        updatedRegions.find(({ onFocus }) => onFocus)?.district || '역삼1동',
-      );
+      const coords = await getCoordinatesFromAddress(currentRegion);
       setCenter(coords);
     };
     getCenter();
-  }, [updatedRegions]);
+  }, [currentRegion]);
 
   return (
     <PortalLayout>
