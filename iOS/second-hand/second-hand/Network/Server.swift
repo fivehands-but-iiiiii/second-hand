@@ -9,7 +9,7 @@ import Foundation
 
 struct Server {
     static let shared = Server()
-    static let baseURL = "http://3.37.51.148:81"
+    static let baseURL = "http://43.202.132.236:81"
     static let oAuthURL = "https://github.com/login/oauth/authorize"
     static let clientID = "5c4b10099c0ae232e5a1"
     static let redirectURL = "http://localhost:5173/login/oauth2/code/github"
