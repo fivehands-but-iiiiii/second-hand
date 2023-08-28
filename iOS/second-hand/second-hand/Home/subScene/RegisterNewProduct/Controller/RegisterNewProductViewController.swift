@@ -12,7 +12,7 @@ protocol CompleteModify {
     func didCompleteModifyItem()
 }
 
-protocol SaleLogDelegate {
+protocol UpdateDelegate {
     func updateScreen()
 }
 
@@ -46,7 +46,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var hadImageUrl = [String]()
     private var processing = false
     var delegate: CompleteModify?
-    var saleLogDelegate: SaleLogDelegate?
+    var updateDelegate: UpdateDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -145,12 +145,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                     processing = false
                     delegate?.didCompleteModifyItem()
                     self.dismiss(animated: true) {
-                        self.saleLogDelegate?.updateScreen()
+                    self.updateDelegate?.updateScreen()
                     }
                 }
-                
             }
-            
         }
     }
     

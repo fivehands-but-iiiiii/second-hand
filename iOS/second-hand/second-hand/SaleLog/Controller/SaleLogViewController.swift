@@ -44,7 +44,7 @@ final class SaleLogViewController: UIViewController {
     
     private func setdelegate() {
         modifyItem.delegate = self
-        modifyItem.saleLogDelegate = self
+        modifyItem.updateDelegate = self
     }
     
     private func setSegmentControl() {
@@ -373,7 +373,7 @@ extension SaleLogViewController: StatusButtonChange {
     }
 }
 
-extension SaleLogViewController: SaleLogDelegate {
+extension SaleLogViewController: UpdateDelegate {
     func updateScreen() {
         items.removeAll()
         setupDataSource()
