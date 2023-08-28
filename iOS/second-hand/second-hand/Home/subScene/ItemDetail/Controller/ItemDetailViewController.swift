@@ -41,6 +41,7 @@ class ItemDetailViewController: UIViewController {
         setItemDetailModel()
         initializeScene()
         bottomSectionView.delegate = self
+        modifyItem.updateDelegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -252,6 +253,7 @@ class ItemDetailViewController: UIViewController {
             }
             present(UINavigationController(rootViewController: modifyItem), animated: true)
             modifyItem.updateId(id: id)
+            //저기서 작업이 끝난다면 여기서 업데이트를 해줘야행
         }))
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] (ACTION:UIAlertAction) in
@@ -496,9 +498,9 @@ extension ItemDetailViewController : ButtonActionDelegate {
     
     private func changeToChatroomViewController(fetchedData: ChatroomSuccess) {
         let privateChatroom = PrivateChatroomViewController()
-
+        
         privateChatroom.privateChatroomModel.updateData(from: fetchedData.data)
-
+        
         self.navigationController?.pushViewController(privateChatroom, animated: true)
     }
 }
@@ -519,6 +521,12 @@ extension ItemDetailViewController: StatusChanged {
         default:
             break
         }
+    }
+}
+
+extension ItemDetailViewController: UpdateDelegate {
+    func updateScreen() {
+        backButtonTouched()
     }
 }
 
