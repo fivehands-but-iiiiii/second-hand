@@ -259,8 +259,7 @@ class ItemDetailViewController: UIViewController {
             let url = URL(string: Server.shared.itemDetailURL(itemId: id))!
             deleteItem(url: url)
             self.navigationController?.popViewController(animated: true)
-            //업데이트가 되어야 함 >> 홈화면 or 세일로그화면
-            //탭바가 보여야함
+            tabBarController?.tabBar.isHidden = false
         }))
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
