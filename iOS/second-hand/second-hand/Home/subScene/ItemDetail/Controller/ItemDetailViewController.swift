@@ -101,9 +101,18 @@ class ItemDetailViewController: UIViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemDetailInfoSuccess], Error>) in
+        let group = DispatchGroup()
+        
+        group.enter()
+        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [weak self] (result: Result<[ItemDetailInfoSuccess], Error>) in
+            guard let self = self else { return }
+            
+            defer {
+                group.leave()
+            }
+            
             switch result {
-            case .success(let data) :
+            case .success(let data):
                 guard let detailInfo = data.last else {
                     return
                 }
@@ -112,9 +121,13 @@ class ItemDetailViewController: UIViewController {
                 self.setTextSectionView()
                 self.setBottomSectionView()
                 
-            case .failure(let error) :
+            case .failure(let error):
                 print(error.localizedDescription)
             }
+        }
+        
+        group.notify(queue: .main) {
+            self.initializeScene()
         }
     }
     
@@ -188,12 +201,13 @@ class ItemDetailViewController: UIViewController {
     }
     
     private func generateMenuButton() {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action:#selector(menuButtonTouched), for: .touchUpInside)
-        self.menuButton = button
-        
+        if itemDetailModel.info?.isMyItem == true {
+            let button = UIButton(type: .system)
+            button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+            button.tintColor = .black
+            button.addTarget(self, action:#selector(menuButtonTouched), for: .touchUpInside)
+            self.menuButton = button
+        }
     }
     
     private func setConstraintsBackButton() {
