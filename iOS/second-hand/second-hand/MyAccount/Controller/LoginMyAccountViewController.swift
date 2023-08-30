@@ -64,6 +64,12 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
     @objc func logoutButtonTouched() {
         delegate?.toggleLogin()
         delegate?.loginStatus()
+       
+        if let selectedNavVC = self.tabBarController?.selectedViewController as? UINavigationController {
+                selectedNavVC.setViewControllers([NotLoginMyAccountViewController()], animated: true)
+            }
+        
+        //헤더로직
     }
     
     private func layout() {

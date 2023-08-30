@@ -25,7 +25,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //isLogin은 추후 싱글톤으로 대체될 예정
-        
     }
     
     private func setObserver() {
