@@ -186,12 +186,12 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: SubscribeSSESuccess.self, header: header, body: body, fromURL: url ) { (result: Result<[SubscribeSSESuccess], Error>) in
+        NetworkManager.sendGET(decodeType: SubscribeSSESuccess.self, header: header, body: nil, fromURL: url ) { (result: Result<[SubscribeSSESuccess], Error>) in
             switch result {
             case .success(let response) :
                 let data = response.last
                 print(data)
-                
+                //Request timeout Error
             case .failure(let error) :
                 print("SSE 구독 실패 \(error)")
             }
@@ -199,7 +199,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     private func makeSSEHeader()-> [String:String]? {
-        //일단 lastId 도 그냥 보내자
         let authorizationKey: String = JSONCreater.headerKeyAuthorization
         
         guard let authorizationValue: String = UserInfoManager.shared.loginToken else {
@@ -214,7 +213,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         }
         
         let header = [authorizationKey:authorizationValue,contentTypeKey:"text/event-stream","Cache-Control": "no-store"]
-        
+        //LastEventID 아직 안넣었음. timeout Error 해결하고 넣을 예정
         return header
     }
     
