@@ -119,6 +119,15 @@ struct Server {
         return url
     }
     
+    func createSSESubscribeURL() -> String {
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let subscribePath = Path.subscribe.rawValue
+        
+        let url = baseURL + chatsPath + subscribePath
+        return url
+    }
+    
     enum Query: String {
         case code = "code="
         case page = "page="
