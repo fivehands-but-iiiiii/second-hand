@@ -88,7 +88,7 @@ class ItemDetailViewController: UIViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemDetailInfoSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ItemDetailInfoSuccess], Error>) in
             switch result {
             case .success(let data) :
                 guard let detailInfo = data.last else {
@@ -373,7 +373,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
                 return
             }
             
-            NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: ChatroomSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
                 switch result {
                 case .success(let reposonse) :
                     guard let response = reposonse.last else {
@@ -401,7 +401,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let response = response.last else {

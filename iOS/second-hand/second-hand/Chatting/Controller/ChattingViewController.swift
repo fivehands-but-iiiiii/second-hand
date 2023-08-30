@@ -45,13 +45,7 @@ final class ChattingViewController: NavigationUnderLineViewController {
             }
         }
     }
-    
-//    private func fetchChatroomListDataAndMakeTableView(completion: @escaping () -> Void) {
-//        fetchChatroomListData {
-//            completion()
-//        }
-//    }
-    
+
     private func fetchChatroomListData(isInitialize: Bool, completion: @escaping () -> Void) {
         if isInitialize {
             self.isLastPage = false
@@ -63,7 +57,7 @@ final class ChattingViewController: NavigationUnderLineViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ChatroomListSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomListSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ChatroomListSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomListSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let chatroomListPage = response.last?.data.chatRooms else {
@@ -129,7 +123,7 @@ extension ChattingViewController: ButtonActionDelegate {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let response = response.last else {

@@ -82,7 +82,7 @@ class CategoryItemListViewController: UIViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ItemListSuccess.self, header: nil, body: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let itemList = response.last?.data else {

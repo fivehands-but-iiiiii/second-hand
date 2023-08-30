@@ -122,7 +122,7 @@ class NetworkManager {
     }
     
     
-    static func sendGET<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
+    static func sendGET<T:Codable> (decodeType:T.Type, header: [String:String]? ,body data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
         
         let asyncCompletion: (Result<[T], Error>) -> Void = { result in
             DispatchQueue.main.async {

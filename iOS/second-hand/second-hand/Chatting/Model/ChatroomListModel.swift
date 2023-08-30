@@ -52,7 +52,7 @@ class ChatroomListModel: Updatable {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
             switch result {
             case .success(let reposonse) :
                 guard let response = reposonse.last else {
