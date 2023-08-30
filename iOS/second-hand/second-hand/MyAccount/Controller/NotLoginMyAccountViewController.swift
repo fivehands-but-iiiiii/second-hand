@@ -15,6 +15,8 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     private let githubLoginButton = UIButton()
     private let joinMembershipButton = UIButton()
     private let idInputSection = IdInputSection(frame: .zero)
+    private let networkManager = NetworkManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNotLogOnUI()
@@ -148,9 +150,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
 
     //MARK: 일반 로그인 테스트
     private func loginTest() {
-        
-        let networkManager = NetworkManager()
-        
+        //TODO: 일단 간달프로 고정
         let jsonString = """
                             {"memberId": "gandalf"}
                         """
@@ -169,6 +169,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
                     UserInfoManager.shared.updateData(from: user.data)
                     
                     print("로그인성공  \(user)")
+                    self.subscribeSSE()
                     
                 case .failure(let error) :
                     print("로그인실패 \(error)")
@@ -177,4 +178,54 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         }
     }
 
+    //MARK: About subscribe SSE
+    private func subscribeSSE() {
+        let header = makeSSEHeader()
+        let body = makeSSEBody()
+        guard let url = URL(string: makeSSEURL()) else {
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: SubscribeSSESuccess.self, header: header, body: nil, fromURL: url ) { (result: Result<[SubscribeSSESuccess], Error>) in
+            switch result {
+            case .success(let response) :
+                let data = response.last
+                print(data)
+                //Request timeout Error
+            case .failure(let error) :
+                print("SSE 구독 실패 \(error)")
+            }
+        }
+    }
+    
+    private func makeSSEHeader()-> [String:String]? {
+        let authorizationKey: String = JSONCreater.headerKeyAuthorization
+        
+        guard let authorizationValue: String = UserInfoManager.shared.loginToken else {
+            return nil
+        }
+        
+        let contentTypeKey: String = JSONCreater.headerKeyContentType
+        
+        
+        guard let userInfo = UserInfoManager.shared.userInfo else {
+            return [authorizationKey:authorizationValue,contentTypeKey:"text/event-stream","Cache-Control": "no-store"]
+        }
+        
+        let header = [authorizationKey:authorizationValue,contentTypeKey:"text/event-stream","Cache-Control": "no-store"]
+        //LastEventID 아직 안넣었음. timeout Error 해결하고 넣을 예정
+        return header
+    }
+    
+    private func makeSSEBody() -> Data? {
+        let body = JSONCreater().createSSESubscribeBody()
+        
+        return body
+    }
+    
+    private func makeSSEURL() -> String {
+        let url = Server.shared.createSSESubscribeURL()
+        
+        return url
+    }
 }

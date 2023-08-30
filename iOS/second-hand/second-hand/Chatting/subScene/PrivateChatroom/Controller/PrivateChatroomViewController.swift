@@ -285,7 +285,7 @@ class PrivateChatroomViewController: UIViewController {
             return
         }
 
-        NetworkManager.sendGET(decodeType: ChattingLog.self, what: nil, fromURL: url) { (result: Result<[ChattingLog], Error>) in
+        NetworkManager.sendGET(decodeType: ChattingLog.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChattingLog], Error>) in
             switch result {
             case .success(let response) :
                 guard let response = response.last else {

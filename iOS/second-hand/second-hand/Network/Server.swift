@@ -28,6 +28,7 @@ struct Server {
         case status = "/status"
         case itemsImage = "/items/image"
         case logs = "/logs"
+        case subscribe = "/subscribe"
         
     }
     
@@ -116,6 +117,15 @@ struct Server {
         }
         
         let url = baseURL + chatsPath + "?" + pageQuery + String(page) + "&" + itemIdQuery + String(itemId)
+        return url
+    }
+    
+    func createSSESubscribeURL() -> String {
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let subscribePath = Path.subscribe.rawValue
+        
+        let url = baseURL + chatsPath + subscribePath
         return url
     }
     

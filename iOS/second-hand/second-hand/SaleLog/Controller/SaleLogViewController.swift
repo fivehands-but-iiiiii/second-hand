@@ -22,9 +22,9 @@ final class SaleLogViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setNavigationBar()
-        navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewDidLoad()
+        //setNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
         items.removeAll()
@@ -38,6 +38,7 @@ final class SaleLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar()
         setupDataSource()
         setdelegate()
     }
@@ -60,7 +61,10 @@ final class SaleLogViewController: UIViewController {
         let borderView = UIView(frame: CGRect(x: .zero, y: navigationBar.frame.maxY, width: navigationBar.frame.width, height: 1))
         
         borderView.backgroundColor = UIColor.neutralBorder
-        navigationBar.addSubview(borderView)
+        
+        if !navigationBar.contains(borderView) {
+            navigationBar.addSubview(borderView)
+        }
     }
     
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
@@ -139,7 +143,7 @@ final class SaleLogViewController: UIViewController {
             return
         }
         
-        NetworkManager.sendGET(decodeType: MyItemListSuccess.self, what: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: MyItemListSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[MyItemListSuccess], Error>) in
             switch result {
             case .success(let data):
                 guard let itemList = data.last else {
@@ -246,7 +250,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
             guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
                 return
             }
-            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header: nil, body: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
                 switch result {
                 case .success(let data) :
                     guard let detailInfo = data.last?.data else {

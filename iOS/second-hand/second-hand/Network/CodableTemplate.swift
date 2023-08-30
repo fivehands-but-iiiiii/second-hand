@@ -268,7 +268,7 @@ struct ChatroomList: Codable {
     let chatroomId : String
     let opponent : ChatroomListOpponent
     let item : ChatroomListItem
-    let chatLogs : ChatroomListChatLog?
+    let chatLogs : ChatroomListChatLog
 }
 
 struct ChatroomListOpponent: Codable {
@@ -284,7 +284,7 @@ struct ChatroomListItem: Codable {
 
 struct ChatroomListChatLog: Codable {
     let lastMessage: String
-    let updatedAt : String
+    let updatedAt : String?
     let unReadCount: Int
 }
 
@@ -305,4 +305,10 @@ struct ImageData: Codable {
 struct ModifyItemSuccess: Codable {
     let message: String
     let id: Int
+}
+
+struct SubscribeSSESuccess: Codable {
+    let id: String
+    let event: String
+    let data: String
 }

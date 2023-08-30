@@ -52,4 +52,20 @@ class JSONCreater {
             return nil
         }
     }
+    
+    func createSSESubscribeBody() -> Data? {
+        guard let userInfo = UserInfoManager.shared.userInfo else {
+            return nil
+        }
+        
+        let requestBody: [String : String] = ["memberId":userInfo.memberId]
+        
+        do {
+            let jsonData = try JSONEncoder().encode(requestBody)
+            return jsonData
+        } catch {
+            print("JSON encoding error: \(error)")
+            return nil
+        }
+    }
 }
