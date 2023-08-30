@@ -31,7 +31,7 @@ class ChatroomListModel: Updatable {
                         self.info.append(chatroom)
                     }
                     count += 1
-                    if count + 1 == chatrooms.count {
+                    if count == chatrooms.count {
                         completion()
                     }
                 }
