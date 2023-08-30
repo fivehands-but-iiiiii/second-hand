@@ -306,3 +306,9 @@ struct ModifyItemSuccess: Codable {
     let message: String
     let id: Int
 }
+
+struct SubscribeSSESuccess: Codable {
+    let id: String
+    let event: String
+    let data: String
+}
