@@ -129,21 +129,25 @@ class NetworkManager {
                 completion(result)
             }
         }
-        var request = URLRequest(url: url, timeoutInterval: 60.0)
+        var request = URLRequest(url: url,timeoutInterval: 60)
         
-        
-        if let loginToken = UserInfoManager.shared.loginToken {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
+        if header == nil {
+            if let loginToken = UserInfoManager.shared.loginToken {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType,JSONCreater.headerKeyAuthorization: loginToken]
+            } else {
+                request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+            }
         } else {
-            request.allHTTPHeaderFields = [JSONCreater.headerKeyContentType: JSONCreater.headerValueContentType]
+            request.allHTTPHeaderFields = header
         }
         
         request.httpMethod = HttpMethod.get.rawValue
         request.httpBody = data
-        
+        // 9qns 32ch
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
                 guard let data = data else {
+                    print("response is nil")
                     return
                 }
                 
@@ -232,6 +236,7 @@ class NetworkManager {
                 completion(result)
             }
         }
+        
         guard let data = data else {
             return
         }
