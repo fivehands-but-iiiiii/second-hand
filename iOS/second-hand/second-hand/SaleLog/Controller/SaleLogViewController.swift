@@ -45,6 +45,7 @@ final class SaleLogViewController: UIViewController {
     
     private func setdelegate() {
         modifyItem.delegate = self
+        modifyItem.updateDelegate = self
     }
     
     private func setSegmentControl() {
@@ -228,6 +229,7 @@ extension SaleLogViewController: UICollectionViewDelegate {
         
         itemDetailViewController.setItemDetailURL(url)
         hideTabBar()
+        itemDetailViewController.lastViewControllerSet(what: .home)
         self.navigationController?.pushViewController(itemDetailViewController, animated: true)
     }
     
@@ -245,8 +247,6 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
-            print("게시글 수정을 눌렀음")
-            
             guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
                 return
             }
@@ -256,8 +256,8 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
                     guard let detailInfo = data.last?.data else {
                         return
                     }
-                    modifyItem.getItemInfo(title: detailInfo.title, price: detailInfo.price.comma(), contents: detailInfo.contents, images: detailInfo.images)
                     
+                    modifyItem.getItemInfo(title: detailInfo.title, price: detailInfo.price.comma(), contents: detailInfo.contents, images: detailInfo.images)
                 case .failure(let error) :
                     print(error.localizedDescription)
                 }
@@ -278,6 +278,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] (ACTION:UIAlertAction) in
             changeStatus(status: .delete, id: id)
             productListCollectionView.reloadData()
+            updateScreen()
         }))
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
@@ -355,7 +356,6 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
     }
 }
 
-//TODO: 상품 수정시 dismiss되면서 컬렉션뷰가 바로 업데이트가 되길 바랬지만 실패. 나중에 다시 ㄱ ㄱ
 extension SaleLogViewController: CompleteModify {
     func didCompleteModifyItem() {
         productListCollectionView.reloadData()
@@ -374,5 +374,15 @@ extension SaleLogViewController: StatusButtonChange {
     
     func soldOut(id: Int) {
         changeStatus(status: .salesCompleted, id: id)
+    }
+}
+
+extension SaleLogViewController: UpdateDelegate {
+    func updateScreen() {
+        items.removeAll()
+        setupDataSource()
+        currentPage = 0
+        fetchItemList(page: currentPage, isSales: segmentControl.selectedSegmentIndex == 0)
+        
     }
 }

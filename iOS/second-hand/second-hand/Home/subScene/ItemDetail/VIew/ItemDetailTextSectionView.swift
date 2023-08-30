@@ -10,7 +10,7 @@ import UIKit
 class ItemDetailTextSectionView: UIScrollView {
     private var sellerInfoView : SellerInfoView!
     var statusButton : StatusButton!
-    private var contentOfPost : ContentOfPost!
+    var contentOfPost : ContentOfPost!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

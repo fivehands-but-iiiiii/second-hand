@@ -45,7 +45,6 @@
 		E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */; };
 		E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042B2A5D56C300FDADE4 /* Utils.swift */; };
 		E448042F2A5EA25600FDADE4 /* ItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */; };
-		E45BF6732A763F710026AD03 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45BF6722A763F710026AD03 /* Secrets.plist */; };
 		E45BF6762A7642670026AD03 /* BottomSectionInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6752A7642670026AD03 /* BottomSectionInChatroom.swift */; };
 		E45BF6782A7647590026AD03 /* TableViewInChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6772A7647590026AD03 /* TableViewInChatroom.swift */; };
 		E45BF67A2A7649FD0026AD03 /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6792A7649FD0026AD03 /* MyCell.swift */; };
@@ -134,7 +133,6 @@
 		E4375C242A6D9004003F6F5B /* PrivateChatroomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomModel.swift; sourceTree = "<group>"; };
 		E448042B2A5D56C300FDADE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E448042E2A5EA25600FDADE4 /* ItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailModel.swift; sourceTree = "<group>"; };
-		E45BF6722A763F710026AD03 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		E45BF6752A7642670026AD03 /* BottomSectionInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSectionInChatroom.swift; sourceTree = "<group>"; };
 		E45BF6772A7647590026AD03 /* TableViewInChatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewInChatroom.swift; sourceTree = "<group>"; };
 		E45BF6792A7649FD0026AD03 /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
@@ -362,17 +360,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-
-		DB6258562A7242C7005A8846 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-				E45BF6722A763F710026AD03 /* Secrets.plist */,
-			);
-			name = Secrets;
-			path = "second-hand/Secrets";
-			sourceTree = "<group>";
-		};
-
 		DB6258662A72561D005A8846 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -950,9 +937,7 @@
 				DB51315F2A3EB18800FBFA49 /* SetLocationViewController.swift in Sources */,
 				E45BF67E2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift in Sources */,
 				E4375C192A67D82D003F6F5B /* PrivateChatroomViewController.swift in Sources */,
-				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
 				E4E694812A7F6E580033B4DB /* SocketActionDelegate.swift in Sources */,
-				DB55CB112A4407CB00578ED5 /* ProductImageCount.swift in Sources */,
 				E49EB8562A306E68001F2D56 /* ButtonCustomView.swift in Sources */,
 				E46EFD082A62F1F400FFC3B8 /* StatusButton.swift in Sources */,
 				E448042C2A5D56C300FDADE4 /* Utils.swift in Sources */,

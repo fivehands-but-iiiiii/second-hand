@@ -8,7 +8,7 @@
 import UIKit
 
 class ContentOfPost: UIView {
-    private var titleLabel : UILabel? = nil
+    var titleLabel : UILabel? = nil
     private var categotyAndCreateAtLabel : UILabel? = nil
     private var descriptionView : UITextView? = nil
     private var countsLabel : UILabel? = nil

@@ -12,6 +12,10 @@ protocol CompleteModify {
     func didCompleteModifyItem()
 }
 
+protocol UpdateDelegate {
+    func updateScreen()
+}
+
 final class RegisterNewProductViewController: NavigationUnderLineViewController, CancelButtonTappedDelegate, TitleLabelChange {
     
     enum Purpose {
@@ -42,6 +46,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var hadImageUrl = [String]()
     private var processing = false
     var delegate: CompleteModify?
+    var updateDelegate: UpdateDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -99,6 +104,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 sendRequest(body: body, purpos: .register) { _ in
                     processing = false
                 }
+                dismissFromSelf()
             }
         case .modify:
             processing = true
@@ -135,10 +141,14 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 }
                 print(images)
                 guard let body = self.makeBody(title: title, contents: contents, category: category, region: region, price: price, images: images) else {return}
-                self.modifySendRequest(body: body)
-                processing = false
+                self.modifySendRequest(body: body) { [self] in
+                    processing = false
+                    delegate?.didCompleteModifyItem()
+                    self.dismiss(animated: true) {
+                    self.updateDelegate?.updateScreen()
+                    }
+                }
             }
-            delegate?.didCompleteModifyItem()
         }
     }
     
@@ -231,7 +241,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         body.append(Data(boundarySuffix.utf8))
         return body
     }
-    private func modifySendRequest(body: Data) {
+    private func modifySendRequest(body: Data, completion: @escaping () -> Void) {
         print(body)
         guard let url = URL(string: Server.shared.itemDetailURL(itemId: currentId)) else { return }
         networkManager.sendPut(decodeType: ModifyItemSuccess.self, what: body, header: nil, fromURL: url) { (result: Result<ModifyItemSuccess, Error>) in
@@ -239,8 +249,10 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             switch result {
             case .success(let data) :
                 print("수정 성공 :  \(data.id)")
+                completion()
             case .failure(let error) :
                 print("가입실패 \(error.localizedDescription)")
+                completion()
             }
         }
     }
@@ -305,7 +317,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 } else {
                 }
             }
-            self.dismissFromSelf()
         }.resume()
     }
     
@@ -413,7 +424,16 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     
     func cancelButtonTapped() {
-        self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
+        if AddPhotoImageView.index-1 <= hadImageUrl.count {
+            //기존 이미지라면
+            hadImageUrl.remove(at:(AddPhotoImageView.index-1))
+        }else {
+            //가존 이미지가 아니라면
+            photoArray.remove(at: AddPhotoImageView.index-hadImageUrl.count-1)
+        }
+        
+        self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-2)/\(maximumPhotoNumber)"
+        
     }
     
     func titleLabelChange() {
@@ -441,7 +461,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                             //TODO: 특정한 사진이 안올라가는 버그 고치기
                             photoScrollView.addImage(image: image)
                             //사진이 아무것도 없는 상황에 추가를 한다면, 첫번째 사진에 대표사진 레이블을 세팅
-                            if photoScrollView.addPhotoStackView.arrangedSubviews.count == 0 {
+                            if photoScrollView.addPhotoStackView.arrangedSubviews.count == 2 {
                                 let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
                                 secondView?.setTitlePhotoLabel()
                             }
@@ -495,6 +515,10 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 guard let url = URL(string: image.url) else {return}
                 let data = try Data(contentsOf: url)
                 self.photoScrollView.addImage(image: UIImage(data: data)!)
+                if photoScrollView.addPhotoStackView.arrangedSubviews.count == 2 {
+                    let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
+                    secondView?.setTitlePhotoLabel()
+                }
             }
             catch {
                 print("url > data 과정에서 오류발생")
