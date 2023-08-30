@@ -254,7 +254,7 @@ class ItemDetailViewController: UIViewController {
             guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
                 return
             }
-            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header:nil,body: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
                 switch result {
                 case .success(let data) :
                     guard let detailInfo = data.last?.data else {
