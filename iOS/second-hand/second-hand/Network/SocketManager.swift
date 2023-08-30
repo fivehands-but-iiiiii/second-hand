@@ -29,7 +29,7 @@ class SocketManager {
         self.socketClient?.delegate = self
         self.socketClient?.autoReconnect = true
         self.socketClient?.enableLogging = true
-        self.socketClient?.connect()
+        self.socketClient?.connect(loginToken: loginToken)
         
     }
     
