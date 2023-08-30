@@ -22,9 +22,9 @@ final class SaleLogViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setNavigationBar()
-        navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewDidLoad()
+        //setNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: true)
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
         items.removeAll()
@@ -38,6 +38,7 @@ final class SaleLogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar()
         setupDataSource()
         setdelegate()
     }
@@ -59,7 +60,10 @@ final class SaleLogViewController: UIViewController {
         let borderView = UIView(frame: CGRect(x: .zero, y: navigationBar.frame.maxY, width: navigationBar.frame.width, height: 1))
         
         borderView.backgroundColor = UIColor.neutralBorder
-        navigationBar.addSubview(borderView)
+        
+        if !navigationBar.contains(borderView) {
+            navigationBar.addSubview(borderView)
+        }
     }
     
     @objc func segmentValueChanged(_ sender: UISegmentedControl) {
