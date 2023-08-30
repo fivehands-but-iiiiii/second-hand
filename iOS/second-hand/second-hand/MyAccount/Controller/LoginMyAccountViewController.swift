@@ -69,7 +69,7 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
                 selectedNavVC.setViewControllers([NotLoginMyAccountViewController()], animated: true)
             }
         
-        //헤더로직
+        NetworkManager.logout()
     }
     
     private func layout() {

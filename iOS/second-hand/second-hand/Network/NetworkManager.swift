@@ -225,6 +225,10 @@ class NetworkManager {
         
     }
     
+    static func logout() {
+        UserInfoManager.shared.loginToken = nil
+    }
+    
     func sendPOST<T:Codable>(decodeType:T.Type ,what data: Data?, header: ResponseHeader?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         
         let asyncCompletion: (Result<T, Error>) -> Void = { result in
