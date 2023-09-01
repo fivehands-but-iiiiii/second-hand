@@ -1,1 +1,1 @@
-export { default } from './ChatRoomList';
+export { default } from './ChatRooms';

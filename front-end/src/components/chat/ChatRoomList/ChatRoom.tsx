@@ -1,7 +1,7 @@
 import { ComponentPropsWithRef } from 'react';
 
-import Button from '@common/Button/Button';
-import ImgBox from '@common/ImgBox/ImgBox';
+import Button from '@common/Button';
+import ImgBox from '@common/ImgBox';
 import { SaleItem } from '@common/Item';
 import UserProfile from '@components/login/UserProfile';
 
