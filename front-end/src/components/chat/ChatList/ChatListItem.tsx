@@ -7,28 +7,6 @@ import UserProfile from '@components/login/UserProfile';
 
 import { styled } from 'styled-components';
 
-// {
-//   page : {number},
-//   hasPrevious: {boolean},
-//   hasNext: {boolean},
-//   chatRooms:[{
-//     chatroomId: string
-//     opponent: {
-//       memberId: string,
-//       profileImgUrl: string
-//     },
-//     item:{
-//       itemId: number,
-//       title: string,
-//       thumbnailImgUrl: string,
-//     },
-//     chatLogs:{
-//       lastMessage: string,
-//       updatedAt: date,
-//       unReadCount: number
-//     }
-//   }]
-//   }
 interface ChatListItem {
   id: string;
   userImage: string;
