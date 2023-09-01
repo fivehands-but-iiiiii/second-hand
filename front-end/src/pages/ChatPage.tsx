@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import NavBar from '@common/NavBar';
-import ChatRoomList from '@components/chat/ChatRoomList';
+import ChatList from '@components/chat/ChatList';
 import BlankPage from '@pages/BlankPage';
 
 import api from '../api';
@@ -38,7 +38,7 @@ const ChatPage = () => {
     <>
       <NavBar center={title} />
       {isChatListExist ? (
-        <ChatRoomList chatItems={chatList} />
+        <ChatList chatItems={chatList} />
       ) : (
         <BlankPage title={title} />
       )}

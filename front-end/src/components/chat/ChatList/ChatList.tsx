@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import ChatRoom from '../ChatRoom/ChatRoom';
 
-import ChatListItem from './ChatRoom';
+import ChatListItem from './ChatListItem';
 
 interface ChatRoomListProps {
   chatItems: ChatListItem[];
@@ -15,7 +15,7 @@ interface SSEMessage {
   unread: number;
 }
 
-const ChatRoomList = ({ chatItems }: ChatRoomListProps) => {
+const ChatList = ({ chatItems }: ChatRoomListProps) => {
   // TODO: 비지니스 로직 분리
   const [selectedItemId, setSelectedItemId] = useState(0);
   const [sse, setSse] = useState<EventSource | null>(null);
@@ -72,4 +72,4 @@ const ChatRoomList = ({ chatItems }: ChatRoomListProps) => {
   );
 };
 
-export default ChatRoomList;
+export default ChatList;
