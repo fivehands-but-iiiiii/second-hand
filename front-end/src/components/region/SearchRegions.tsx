@@ -28,6 +28,7 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   const { request } = useAPI();
   // 초기 위치 매개변수로 전달하는 로직 변경하기
   const { location: currentLocation } = useGeoLocation();
+  let ignore = false;
 
   const getRegionList = async (keyword: string) => {
     const { data } = await request({
@@ -53,7 +54,11 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   };
 
   useEffect(() => {
-    getRegionList('역삼1동');
+    if (ignore) return;
+    getRegionList('강남구');
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (

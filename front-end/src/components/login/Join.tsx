@@ -33,7 +33,7 @@ export interface UserInfo {
 }
 
 export type UserRegion = Omit<RegionInfo, 'district'>;
-
+// TODO: 프로필 사진 등록해야 가입되게 수정
 const Join = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +50,10 @@ const Join = () => {
   const { join } = useJoin();
 
   const isReadyToSubmit =
-    userInputId.length > 5 && !idExists && userAccount.regions.length > 0;
+    userInputId.length > 5 &&
+    !idExists &&
+    files?.file &&
+    userAccount.regions.length > 0;
 
   const handlePostUserAccount = async () => {
     const response = await join({ files, account: userAccount });
