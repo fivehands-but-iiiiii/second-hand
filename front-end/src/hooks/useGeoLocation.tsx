@@ -19,12 +19,14 @@ interface LocationType {
   };
 }
 
-const useGeoLocation = () => {
-  const [location, setLocation] = useState<LocationType>({
+const useGeoLocation = (
+  initialLocation: LocationType = {
     loaded: false,
     coords: { lat: 0, lng: 0 },
     address: '',
-  });
+  },
+) => {
+  const [location, setLocation] = useState<LocationType>(initialLocation);
 
   const getAddressFromCoordinates = async (location: {
     coords: {
@@ -45,7 +47,6 @@ const useGeoLocation = () => {
         },
         address: formattedAddress,
       });
-      return formattedAddress;
     } catch (error) {
       console.log(error);
     }

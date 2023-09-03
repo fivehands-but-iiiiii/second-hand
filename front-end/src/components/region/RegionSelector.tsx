@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 import Icon from '@assets/Icon';
 import Button from '@common/Button/Button';
