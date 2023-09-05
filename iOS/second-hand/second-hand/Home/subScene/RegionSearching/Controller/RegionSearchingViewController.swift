@@ -85,6 +85,32 @@ extension RegionSearchingViewController {
         }
         return layout
     }
+    
+    func configureHierarchy() {
+        view.backgroundColor = .systemBackground
+        let layout = createLayout()
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .systemBackground
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(searchBar)
+        view.addSubview(collectionView)
+        
+        let views = ["cv": collectionView, "searchBar": searchBar]
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(contentsOf: NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[cv]|", options: [], metrics: nil, views: views))
+        constraints.append(contentsOf: NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[searchBar]|", options: [], metrics: nil, views: views))
+        constraints.append(contentsOf: NSLayoutConstraint.constraints(
+            withVisualFormat: "V:[searchBar]-20-[cv]|", options: [], metrics: nil, views: views))
+        constraints.append(searchBar.topAnchor.constraint(
+            equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1.0))
+        NSLayoutConstraint.activate(constraints)
+        regionsCollectionView = collectionView
+        regionsCollectionView.delegate = self
+        searchBar.delegate = self
     }
     
     @objc func backButtonTapped() {
