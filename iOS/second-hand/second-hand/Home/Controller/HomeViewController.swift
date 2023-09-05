@@ -216,8 +216,12 @@ extension HomeViewController: UICollectionViewDelegate {
     }
 }
 
-extension HomeViewController: HomeRightBarButtonTapped {
+extension HomeViewController: ButtonActionDelegate {
     func homeRightBarButtonTapped() {
         self.navigationController?.pushViewController(categoryViewController, animated: true)
+    }
+    
+    func setRegionButtonTouched() {
+        self.navigationController?.pushViewController(regionSearchingViewController, animated: true)
     }
 }
