@@ -8,10 +8,14 @@
 import UIKit
 
 class RegionSearchingViewController: UIViewController {
+    enum Section: CaseIterable {
+        case main
+    }
     
     let regionsController = RegionController()
     let searchBar = UISearchBar(frame: .zero)
     var regionsCollectionView: UICollectionView!
+    var dataSource: UICollectionViewDiffableDataSource<Section, RegionController.RegionHashable>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,24 @@ class RegionSearchingViewController: UIViewController {
     }
 
 }
+
+extension RegionSearchingViewController {
+    
+    func configureDataSource() {
+        
+        let cellRegistration = UICollectionView.CellRegistration
+        <RegionCell, RegionController.RegionHashable> { (cell, indexPath, region) in
+
+            cell.label.text = region.name
+        }
+        
+        dataSource = UICollectionViewDiffableDataSource<Section, RegionController.RegionHashable>(collectionView: regionsCollectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: RegionController.RegionHashable) -> UICollectionViewCell? in
+            
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
+        }
+    }
+    
     }
     
     @objc func backButtonTapped() {
