@@ -7,14 +7,11 @@
 
 import UIKit
 
-protocol ButtonCustomViewDelegate {
-    func tappedSetLocation()
-}
-
 final class ButtonCustomView: UIButton {
     
     private var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)
+    var delegate : ButtonActionDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,11 +56,8 @@ final class ButtonCustomView: UIButton {
     private func setMenu() {
         let children : [UIAction] =
         [
-
-            UIAction(title: "동네를 설정하세요", handler: { [weak self] _ in
-                
+            UIAction(title: "동네를 설정하세요", handler: { [weak self] _ in self?.delegate?.setRegionButtonTouched?()
             })
-
         ]
         self.menu = UIMenu(options: .displayInline,children: children)
         self.showsMenuAsPrimaryAction = true

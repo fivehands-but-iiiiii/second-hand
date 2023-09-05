@@ -68,4 +68,41 @@ class JSONCreater {
             return nil
         }
     }
+    func createChangingRegionBody(_ cellData:Region) -> Data? {
+        
+        guard let userID = UserInfoManager.shared.userInfo?.id else {
+            return nil
+        }
+        
+        var jsonString = """
+        {
+            "id": \(userID),
+            "regions": [
+              {
+                "id": \(cellData.id),
+                "district": "\(cellData.district)",
+                "onFocus": \(cellData.onFocus)
+              }
+            ]
+          }
+       """
+        
+        jsonString = removeBackslashes(from: jsonString)
+        
+        do {
+            let jsonData = try JSONEncoder().encode(jsonString)
+            return jsonData
+        } catch {
+            print("JSON encoding error: \(error)")
+            return nil
+        }
+    }
+    
+    private func removeBackslashes(from jsonString: String) -> String {
+        let pattern = #"\\(.{1})"#
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let range = NSRange(location: 0, length: jsonString.utf16.count)
+        
+        return regex.stringByReplacingMatches(in: jsonString, options: [], range: range, withTemplate: "$1")
+    }
 }

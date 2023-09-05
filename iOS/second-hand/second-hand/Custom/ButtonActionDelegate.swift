@@ -13,4 +13,6 @@ import Foundation
     @objc optional func backButtonTouched()
     @objc optional func sendButtonTouched(message: String)
     @objc optional func chatroomCellTouched(index: Int)
+    @objc optional func setRegionButtonTouched()
+    @objc optional func homeRightBarButtonTapped()
 }
