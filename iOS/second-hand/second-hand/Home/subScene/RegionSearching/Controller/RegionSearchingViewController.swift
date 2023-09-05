@@ -117,7 +117,11 @@ extension RegionSearchingViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.popViewController(animated: true)
     }
-
+    
+    private func convertToRegionFrom(id:Int,district:String,onFocus:Bool) -> Region {
+        return Region(id: id, onFocus: onFocus, district: district)
+    }
+}
 }
 
 extension RegionSearchingViewController: UICollectionViewDelegate {
