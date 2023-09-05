@@ -121,10 +121,27 @@ extension RegionSearchingViewController {
 }
 
 extension RegionSearchingViewController: UICollectionViewDelegate {
-        
-    }
     
-        let body = JSONCreater().createChangingRegionBody(region)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // cell이 클릭되었을 때
+        guard let url = URL(string:Server.shared.createChangeRegionURL()) else {
+            return
+        }
+        let regionID = regionsController.havingCell[indexPath.item].regionId
+        let district = regionsController.havingCell[indexPath.item].name.split(separator: " ")[2]
         
+        let region = convertToRegionFrom(id: regionID, district: String(district), onFocus: false)
+        
+        let body = JSONCreater().createChangingRegionBody(region)
+        // 검색 -> 필터링된 cell 표시 -> 초기cell상태와 다른 indexPath가 부여됨, 근데 API가
+        NetworkManager().sendPut(decodeType: BooleanResponse.self, what: body, header: nil, fromURL: url) { (result: Result<BooleanResponse, Error>) in
+            switch result {
+            case .success(let response) :
+                print(response)
+                
+            case .failure(let error) :
+                print(error)
+            }
+        }
     }
 }
