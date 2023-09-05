@@ -114,6 +114,9 @@ extension RegionSearchingViewController {
     }
     
     @objc func backButtonTapped() {
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.popViewController(animated: true)
+    }
 
 }
 
