@@ -16,6 +16,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     private let registerProductButton = UIButton()
     private var currentPage: Int = 0
     private var isLoadingItems = true
+    private let regionSearchingViewController = RegionSearchingViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +107,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     private func setNavigationLeftBarButton() {
         let leftBarButton = HomeLeftBarButton()
         let buttonCustomView = leftBarButton.customView as? ButtonCustomView
+        buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
     
