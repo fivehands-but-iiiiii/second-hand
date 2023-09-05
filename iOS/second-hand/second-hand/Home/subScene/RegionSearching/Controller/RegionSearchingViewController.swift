@@ -21,6 +21,10 @@ class RegionSearchingViewController: UIViewController {
         super.viewDidLoad()
         commonInit()
         navigationItem.title = "동네 찾기"
+        configureHierarchy()
+        configureDataSource()
+        filterCell(with: nil)
+        print(UserInfoManager.shared.userInfo?.regions)
     }
     
     override func viewWillAppear(_ animated: Bool) {
