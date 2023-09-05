@@ -8,7 +8,7 @@
 import UIKit
 
 class RegionSearchingViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
@@ -18,15 +18,15 @@ class RegionSearchingViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     
-    private func setNavigationBar() {
-        
-    }
+    @objc func backButtonTapped() {
 
-    private func setSearchBar() {
+}
+
+extension RegionSearchingViewController: UICollectionViewDelegate {
         
     }
     
-    private func setCollectionView() {
+        let body = JSONCreater().createChangingRegionBody(region)
         
     }
 }

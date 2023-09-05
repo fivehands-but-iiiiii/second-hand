@@ -12,7 +12,6 @@ import UIKit
 class NetworkManager {
     let logger = Logger()
     
-    
     func sendOAuthGET(fromURL url: URL, completion: @escaping (Result<[Codable], Error>) -> Void) {
         
         let asyncCompletion: (Result<[Codable], Error>) -> Void = { result in
@@ -143,7 +142,7 @@ class NetworkManager {
         
         request.httpMethod = HttpMethod.get.rawValue
         request.httpBody = data
-        // 9qns 32ch
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {
                 guard let data = data else {
