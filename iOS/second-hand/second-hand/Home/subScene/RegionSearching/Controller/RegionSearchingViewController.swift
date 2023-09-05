@@ -122,6 +122,11 @@ extension RegionSearchingViewController {
         return Region(id: id, onFocus: onFocus, district: district)
     }
 }
+
+extension RegionSearchingViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterCell(with: searchText)
+    }
 }
 
 extension RegionSearchingViewController: UICollectionViewDelegate {
