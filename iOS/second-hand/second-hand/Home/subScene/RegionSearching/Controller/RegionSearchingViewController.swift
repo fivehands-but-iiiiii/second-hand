@@ -54,6 +54,15 @@ extension RegionSearchingViewController {
         }
     }
     
+    func filterCell(with filter: String?) {
+        let regions = regionsController.filteredRegions(with: filter).sorted { $0.name < $1.name }
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, RegionController.RegionHashable>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(regions)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+}
     }
     
     @objc func backButtonTapped() {
