@@ -286,7 +286,7 @@ class ItemDetailViewController: UIViewController {
     }
     
     func deleteItem(url: URL) {
-        networkManager.sendDelete(decodeType: ChangeStatusItem.self, what: nil, fromURL: url) { (result: Result<ChangeStatusItem?, Error>) in
+        networkManager.sendDelete(decodeType: BooleanResponse.self, what: nil, fromURL: url) { (result: Result<BooleanResponse?, Error>) in
             switch result {
             case .success(let data):
                 print("성공적으로 삭제되었습니다.")

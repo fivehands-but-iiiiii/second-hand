@@ -325,7 +325,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
     func petchItem(url: URL, data: [String:Int]) {
         let jsonData = try? JSONSerialization.data(withJSONObject: data)
         
-        networkManager.sendPatch(decodeType: ChangeStatusItem.self, what: jsonData, fromURL: url) { (result: Result<ChangeStatusItem, Error>) in
+        networkManager.sendPatch(decodeType: BooleanResponse.self, what: jsonData, fromURL: url) { (result: Result<BooleanResponse, Error>) in
             switch result {
             case .success(let data):
                 if !data.message.isEmpty {
@@ -341,7 +341,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
     }
     
     func deleteItem(url: URL) {
-        networkManager.sendDelete(decodeType: ChangeStatusItem.self, what: nil, fromURL: url) { (result: Result<ChangeStatusItem?, Error>) in
+        networkManager.sendDelete(decodeType: BooleanResponse.self, what: nil, fromURL: url) { (result: Result<BooleanResponse?, Error>) in
             switch result {
             case .success(let data):
                 print("성공적으로 삭제되었습니다.")

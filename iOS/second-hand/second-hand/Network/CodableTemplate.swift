@@ -18,6 +18,7 @@ struct LoginFetchedUserData: Codable {
 struct Region: Codable {
     let id : Int
     let onFocus : Bool
+    let district : String?
 }
 
 struct GitUserNeedsJoin: Codable {
@@ -288,7 +289,7 @@ struct ChatroomListChatLog: Codable {
     let unReadCount: Int
 }
 
-struct ChangeStatusItem: Codable {
+struct BooleanResponse: Codable {
     let message: String
     let data: Bool
 }
