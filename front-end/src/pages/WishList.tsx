@@ -153,7 +153,7 @@ const WishList = () => {
     <>
       <NavBar center={title} />
       <MyWishList>
-        {!!pageInfo.categories?.length && (
+        {wishCategories.length > 1 && (
           <MyCategories>
             {pageInfo.categories.map(({ id, title }) => {
               const isActive = id === selectedCategoryId;
