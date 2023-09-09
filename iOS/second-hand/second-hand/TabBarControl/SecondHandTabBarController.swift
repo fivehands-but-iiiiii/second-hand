@@ -8,7 +8,7 @@
 import UIKit
 
 class SecondHandTabBarController: UITabBarController {
-
+    
     private var isLogined = false
     private let home = HomeViewController()
     private let saleLog = SaleLogViewController()
@@ -34,7 +34,6 @@ class SecondHandTabBarController: UITabBarController {
         }
         self.setViewControllers(navigationControllerEmbeded, animated: true)
     }
-    
 }
 
 extension SecondHandTabBarController: UITabBarControllerDelegate {

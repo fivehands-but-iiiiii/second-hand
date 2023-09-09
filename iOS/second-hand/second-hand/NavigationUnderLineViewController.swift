@@ -29,7 +29,6 @@ class NavigationUnderLineViewController: UIViewController {
         if navigationController?.navigationBar.subviews.filter({$0 == borderView}).count == .zero {
             navigationController?.navigationBar.addSubview(borderView)
         }
-        
         navigationFontSetting()
     }
     
