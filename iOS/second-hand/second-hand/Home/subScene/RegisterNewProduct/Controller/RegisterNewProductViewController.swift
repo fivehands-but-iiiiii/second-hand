@@ -204,7 +204,6 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
             print(jsonData ?? "")
             return jsonData
         } catch {
-            // Handle error here
             print("Error creating JSON data: \(error)")
             return nil
         }
@@ -510,22 +509,19 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         self.descriptionTextView.textColor = .neutralText
         self.photoScrollView.emptyStackView()
 
-        // Create a dispatch group to manage asynchronous tasks
         let group = DispatchGroup()
         
         for image in images {
             do {
                 hadImageUrl.append(image.url)
                 guard let url = URL(string: image.url) else { continue }
-                
-                // Enter the dispatch group before starting the task
+
                 group.enter()
-                
-                // Perform the image download asynchronously
+
                 DispatchQueue.global().async {
                     if let data = try? Data(contentsOf: url),
                        let image = UIImage(data: data) {
-                        // Perform UI updates on the main thread
+ 
                         DispatchQueue.main.async {
                             self.photoScrollView.addImage(image: image)
                             if self.photoScrollView.addPhotoStackView.arrangedSubviews.count == 2 {
@@ -540,8 +536,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
                 print("URL to data conversion error")
             }
         }
-        
-        // Notify when all tasks in the group are completed
+
         group.notify(queue: .main) {
             self.photoScrollView.countPictureLabel.text = "\(self.photoScrollView.addPhotoStackView.arrangedSubviews.count - 1)/\(self.maximumPhotoNumber)"
             self.purpose = .modify
