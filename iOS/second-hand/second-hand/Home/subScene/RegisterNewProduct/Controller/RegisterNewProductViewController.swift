@@ -251,7 +251,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 print("수정 성공 :  \(data.id)")
                 completion()
             case .failure(let error) :
-                print("가입실패 \(error.localizedDescription)")
+                print("수정 실패 \(error.localizedDescription)")
                 completion()
             }
         }
@@ -508,7 +508,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         self.priceTextField.text = price
         self.descriptionTextView.text = contents
         self.descriptionTextView.textColor = .neutralText
-        self.photoScrollView.emtyStackView()
+        self.photoScrollView.emptyStackView()
         for image in images {
             do {
                 hadImageUrl.append(image.url)
