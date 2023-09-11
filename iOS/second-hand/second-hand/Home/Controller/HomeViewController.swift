@@ -20,7 +20,6 @@ final class HomeViewController: NavigationUnderLineViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setCollectionView()
         setNavigationRightBarButton()
         setNavigationLeftBarButton()
@@ -32,7 +31,6 @@ final class HomeViewController: NavigationUnderLineViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
         setRegisterProductButton()
     }
     
@@ -58,9 +56,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         var snapshot = NSDiffableDataSourceSnapshot<Section, SellingItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items, toSection: .main)
-        
         dataSource?.apply(snapshot, animatingDifferences: true)
-        
     }
     
     private func setObserver() {
@@ -73,7 +69,6 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setCollectionView() {
-        
         let layout = UICollectionViewFlowLayout()
         let figmaCellHight = 152
         let figmaHeight = 852
@@ -202,9 +197,7 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let id = items[indexPath.item].id
-        
         let url = Server.shared.itemDetailURL(itemId: id)
         let itemDetailViewController = ItemDetailViewController()
         
