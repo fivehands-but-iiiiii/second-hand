@@ -509,25 +509,46 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         self.descriptionTextView.text = contents
         self.descriptionTextView.textColor = .neutralText
         self.photoScrollView.emptyStackView()
+
+        // Create a dispatch group to manage asynchronous tasks
+        let group = DispatchGroup()
+        
         for image in images {
             do {
                 hadImageUrl.append(image.url)
-                guard let url = URL(string: image.url) else {return}
-                let data = try Data(contentsOf: url)
-                self.photoScrollView.addImage(image: UIImage(data: data)!)
-                if photoScrollView.addPhotoStackView.arrangedSubviews.count == 2 {
-                    let secondView = (photoScrollView.addPhotoStackView.arrangedSubviews[1]) as?  (AddPhotoImageView)
-                    secondView?.setTitlePhotoLabel()
+                guard let url = URL(string: image.url) else { continue }
+                
+                // Enter the dispatch group before starting the task
+                group.enter()
+                
+                // Perform the image download asynchronously
+                DispatchQueue.global().async {
+                    if let data = try? Data(contentsOf: url),
+                       let image = UIImage(data: data) {
+                        // Perform UI updates on the main thread
+                        DispatchQueue.main.async {
+                            self.photoScrollView.addImage(image: image)
+                            if self.photoScrollView.addPhotoStackView.arrangedSubviews.count == 2 {
+                                let secondView = (self.photoScrollView.addPhotoStackView.arrangedSubviews[1]) as? AddPhotoImageView
+                                secondView?.setTitlePhotoLabel()
+                            }
+                        }
+                    }
+                    group.leave()
                 }
-            }
-            catch {
-                print("url > data 과정에서 오류발생")
+            } catch {
+                print("URL to data conversion error")
             }
         }
-        self.photoScrollView.countPictureLabel.text = "\(photoScrollView.addPhotoStackView.arrangedSubviews.count-1)/\(maximumPhotoNumber)"
-        purpose = .modify
-        //TODO: countLabel이 초기화되지 않는 문제 (사진추가나 삭제를 하면 값에 맞게 보여지긴 함)
+        
+        // Notify when all tasks in the group are completed
+        group.notify(queue: .main) {
+            self.photoScrollView.countPictureLabel.text = "\(self.photoScrollView.addPhotoStackView.arrangedSubviews.count - 1)/\(self.maximumPhotoNumber)"
+            self.purpose = .modify
+            // TODO: countLabel 초기화 문제 해결
+        }
     }
+
     
 }
 
