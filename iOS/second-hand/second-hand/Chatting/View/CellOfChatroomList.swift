@@ -55,6 +55,12 @@ class CellOfChatroomList: UITableViewCell {
         self.numberBadge?.backgroundColor = .accentBackgroundPrimary
         self.numberBadge?.textColor = .white
         self.numberBadge?.textAlignment = .center
+        
+        if number == 0 {
+            self.numberBadge?.isHidden = true
+        } else {
+            self.numberBadge?.isHidden = false
+        }
     }
     
     private func setItemPhoto(img: String) {
