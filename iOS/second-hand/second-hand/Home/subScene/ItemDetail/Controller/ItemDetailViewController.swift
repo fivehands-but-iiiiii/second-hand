@@ -430,15 +430,9 @@ class ItemDetailViewController: UIViewController {
 extension ItemDetailViewController : ButtonActionDelegate {
     func requestForChattingRoom() {
         if !UserInfoManager.shared.isLogOn {
-            let alertController = UIAlertController(
-                title: "로그인이 필요합니다",
-                message: nil,
-                preferredStyle: .alert
-            )
-            alertController.addAction(
-                UIAlertAction(title: "확인", style: .default, handler: nil)
-            )
-            present(alertController, animated: true, completion: nil)
+            let alert = UIAlertController(title: "로그인 필요", message: "해당 기능을 사용하려면 로그인이 필요합니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         } else {
             guard let itemId = itemDetailModel.info?.id else {
                 return
