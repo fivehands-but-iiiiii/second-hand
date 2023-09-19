@@ -10,7 +10,7 @@ import UIKit
 final class IdInputSection: UIView {
     
     private var idLabel = UILabel()
-    private var idTextField = UITextField()
+    var idTextField = UITextField()
     private var contour = UILabel()
     private var idConvention = UILabel()
     var idDescription = UILabel()

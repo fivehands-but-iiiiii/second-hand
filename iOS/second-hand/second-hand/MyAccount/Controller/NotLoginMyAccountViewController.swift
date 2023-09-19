@@ -27,7 +27,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //isLogin은 추후 싱글톤으로 대체될 예정
-        
     }
     
     private func setObserver() {
@@ -95,7 +94,6 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     @objc private func loginButtonTouched() { //일단 로그인 성공했다고 가정
 
         loginTest()
-        setLogOnUI()
 
     }
     
@@ -150,9 +148,13 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
 
     //MARK: 일반 로그인 테스트
     private func loginTest() {
-        //TODO: 일단 간달프로 고정
+  
+        let networkManager = NetworkManager()
+        
+        guard let id = idInputSection.idTextField.text else {return}
+
         let jsonString = """
-                            {"memberId": "gandalf"}
+                            {"memberId": "\(id)"}
                         """
         guard let loginURL = URL(string:Server.shared.url(for: .login)) else {
             return
@@ -169,10 +171,17 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
                     UserInfoManager.shared.updateData(from: user.data)
                     
                     print("로그인성공  \(user)")
+                  
+                    self.setLogOnUI()
                     self.subscribeSSE()
                     
                 case .failure(let error) :
-                    print("로그인실패 \(error)")
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "로그인 실패", message: "아이디를 확인해주세요.", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                 }
             }
         }
