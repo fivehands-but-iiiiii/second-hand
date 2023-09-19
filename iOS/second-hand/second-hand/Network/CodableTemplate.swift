@@ -18,6 +18,7 @@ struct LoginFetchedUserData: Codable {
 struct Region: Codable {
     let id : Int
     let onFocus : Bool
+    let district : String?
 }
 
 struct GitUserNeedsJoin: Codable {
@@ -268,7 +269,7 @@ struct ChatroomList: Codable {
     let chatroomId : String
     let opponent : ChatroomListOpponent
     let item : ChatroomListItem
-    let chatLogs : ChatroomListChatLog?
+    let chatLogs : ChatroomListChatLog
 }
 
 struct ChatroomListOpponent: Codable {
@@ -284,11 +285,11 @@ struct ChatroomListItem: Codable {
 
 struct ChatroomListChatLog: Codable {
     let lastMessage: String
-    let updatedAt : String
+    let updatedAt : String?
     let unReadCount: Int
 }
 
-struct ChangeStatusItem: Codable {
+struct BooleanResponse: Codable {
     let message: String
     let data: Bool
 }
@@ -305,4 +306,10 @@ struct ImageData: Codable {
 struct ModifyItemSuccess: Codable {
     let message: String
     let id: Int
+}
+
+struct SubscribeSSESuccess: Codable {
+    let id: String
+    let event: String
+    let data: String
 }

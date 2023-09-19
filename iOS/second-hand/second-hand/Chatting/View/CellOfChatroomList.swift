@@ -21,9 +21,9 @@ class CellOfChatroomList: UITableViewCell {
         
         setOpponentPhoto(img:chatroomList.opponent.profileImgUrl)
         
-        setTextSection(opponeneId: chatroomList.opponent.memberId, time: chatroomList.chatLogs?.updatedAt ?? "", lastMessage: chatroomList.chatLogs?.lastMessage ?? "last Message")
+        setTextSection(opponeneId: chatroomList.opponent.memberId, time: chatroomList.chatLogs.updatedAt ?? "", lastMessage: chatroomList.chatLogs.lastMessage ?? "")
         
-        setNumberBadge(number: chatroomList.chatLogs?.unReadCount ?? 7)
+        setNumberBadge(number: chatroomList.chatLogs.unReadCount)
         
         setItemPhoto(img: chatroomList.item.thumbnailImgUrl)
     }
@@ -55,6 +55,12 @@ class CellOfChatroomList: UITableViewCell {
         self.numberBadge?.backgroundColor = .accentBackgroundPrimary
         self.numberBadge?.textColor = .white
         self.numberBadge?.textAlignment = .center
+        
+        if number == 0 {
+            self.numberBadge?.isHidden = true
+        } else {
+            self.numberBadge?.isHidden = false
+        }
     }
     
     private func setItemPhoto(img: String) {

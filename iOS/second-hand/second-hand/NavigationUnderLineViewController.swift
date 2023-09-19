@@ -13,12 +13,13 @@ class NavigationUnderLineViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNavigationBarBottomBorder()
+        //setNavigationBarBottomBorder()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        setNavigationBarBottomBorder()
     }
     
     private func setNavigationBarBottomBorder() {
@@ -28,7 +29,6 @@ class NavigationUnderLineViewController: UIViewController {
         if navigationController?.navigationBar.subviews.filter({$0 == borderView}).count == .zero {
             navigationController?.navigationBar.addSubview(borderView)
         }
-        
         navigationFontSetting()
     }
     

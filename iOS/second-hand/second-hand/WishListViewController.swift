@@ -205,7 +205,7 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
             return
         }
         
-        NetworkManager.sendGET(decodeType: WishItemList.self, what: nil, fromURL: url) { [weak self] (result: Result<[WishItemList], Error>) in
+        NetworkManager.sendGET(decodeType: WishItemList.self,header: nil, body: nil, fromURL: url) { [weak self] (result: Result<[WishItemList], Error>) in
             switch result {
             case .success(let data):
                 guard let itemList = data.last else {
@@ -245,7 +245,7 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
             return
         }
         
-        NetworkManager.sendGET(decodeType: GetCategories.self, what: nil, fromURL: url) { [weak self] (result: Result<[GetCategories], Error>) in
+        NetworkManager.sendGET(decodeType: GetCategories.self,header: nil, body: nil, fromURL: url) { [weak self] (result: Result<[GetCategories], Error>) in
             switch result {
             case .success(let data):
                 guard let categories = data.last?.data.categories else {

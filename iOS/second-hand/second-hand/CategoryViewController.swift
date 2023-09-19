@@ -67,7 +67,7 @@ class CategoryViewController: UIViewController {
     }
     
     private func sendGet() {
-        NetworkManager.sendGET(decodeType: CategoryData.self, what: nil, fromURL: URL(string: Server.shared.url(for: .resourceCategories))!) { (result: Result<[CategoryData], Error>) in
+        NetworkManager.sendGET(decodeType: CategoryData.self,header: nil, body: nil, fromURL: URL(string: Server.shared.url(for: .resourceCategories))!) { (result: Result<[CategoryData], Error>) in
             switch result {
             case .success(let data) :
                 self.categoryList = data

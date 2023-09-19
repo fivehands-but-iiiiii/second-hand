@@ -65,7 +65,7 @@ final class AddPhotoScrollView: UIScrollView {
         ])
     }
     
-    func emtyStackView() {
+    func emptyStackView() {
         for subview in addPhotoStackView.arrangedSubviews {
             if subview == addPhotoStackView.arrangedSubviews.first {
                 continue

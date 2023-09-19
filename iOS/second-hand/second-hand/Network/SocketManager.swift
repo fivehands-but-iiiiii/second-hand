@@ -17,7 +17,7 @@ class SocketManager {
         self.roomId = roomId
         self.sender = sender
         
-        guard let socketURL = URL(string: "ws://3.37.51.148:81/chat") else {
+        guard let socketURL = URL(string: "ws://43.202.132.236:81/chat") else {
             return
         }
         
@@ -29,7 +29,7 @@ class SocketManager {
         self.socketClient?.delegate = self
         self.socketClient?.autoReconnect = true
         self.socketClient?.enableLogging = true
-        self.socketClient?.connect()
+        self.socketClient?.connect(loginToken: loginToken)
         
     }
     

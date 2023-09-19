@@ -28,6 +28,9 @@ struct Server {
         case status = "/status"
         case itemsImage = "/items/image"
         case logs = "/logs"
+        case subscribe = "/subscribe"
+        case regions = "/regions"
+        case changeRegion = "/members/region"
         
     }
     
@@ -119,6 +122,32 @@ struct Server {
         return url
     }
     
+    func createSSESubscribeURL() -> String {
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        let subscribePath = Path.subscribe.rawValue
+        
+        let url = baseURL + chatsPath + subscribePath
+        return url
+    }
+    
+    func createRegionListURL(address:String?) -> String {
+        let baseURL = Server.baseURL
+        let path = Path.regions.rawValue
+        guard let address = address else {
+            return baseURL + path
+        }
+        let query = Query.address.rawValue
+        return baseURL + path + "?" + query + address
+    }
+    
+    func createChangeRegionURL() -> String {
+        let baseURL = Server.baseURL
+        let path = Path.changeRegion.rawValue
+        
+        return baseURL + path
+    }
+    
     enum Query: String {
         case code = "code="
         case page = "page="
@@ -127,6 +156,7 @@ struct Server {
         case category = "category="
         case categoryId = "categoryId="
         case isSales = "isSales="
+        case address = "keyword="
     }
 }
 

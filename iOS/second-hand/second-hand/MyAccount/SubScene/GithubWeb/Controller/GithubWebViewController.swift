@@ -88,7 +88,9 @@ final class GithubWebViewController: UIViewController {
     }
     
     private func joinFlow(with userData: [Codable],path: URL) {
-        let region = Region(id: 1, onFocus: true)
+        let region = Region(id: 1, onFocus: true, district: nil)
+        //TODO: district 손봐
+        
         let jsonCreater = JSONCreater()
         
         guard let cookie = userData.first as? ResponseHeader else {

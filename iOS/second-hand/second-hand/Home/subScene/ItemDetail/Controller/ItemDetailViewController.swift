@@ -101,16 +101,17 @@ class ItemDetailViewController: UIViewController {
             return
         }
         
+
         let group = DispatchGroup()
         
         group.enter()
-        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [weak self] (result: Result<[ItemDetailInfoSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header: nil, body: nil, fromURL: url) { [weak self] (result: Result<[ItemDetailInfoSuccess], Error>) in
             guard let self = self else { return }
             
             defer {
                 group.leave()
             }
-            
+
             switch result {
             case .success(let data):
                 guard let detailInfo = data.last else {
@@ -253,7 +254,7 @@ class ItemDetailViewController: UIViewController {
             guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
                 return
             }
-            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self, what: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header:nil,body: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
                 switch result {
                 case .success(let data) :
                     guard let detailInfo = data.last?.data else {
@@ -285,7 +286,7 @@ class ItemDetailViewController: UIViewController {
     }
     
     func deleteItem(url: URL) {
-        networkManager.sendDelete(decodeType: ChangeStatusItem.self, what: nil, fromURL: url) { (result: Result<ChangeStatusItem?, Error>) in
+        networkManager.sendDelete(decodeType: BooleanResponse.self, what: nil, fromURL: url) { (result: Result<BooleanResponse?, Error>) in
             switch result {
             case .success(let data):
                 print("성공적으로 삭제되었습니다.")
@@ -429,15 +430,9 @@ class ItemDetailViewController: UIViewController {
 extension ItemDetailViewController : ButtonActionDelegate {
     func requestForChattingRoom() {
         if !UserInfoManager.shared.isLogOn {
-            let alertController = UIAlertController(
-                title: "로그인이 필요합니다",
-                message: nil,
-                preferredStyle: .alert
-            )
-            alertController.addAction(
-                UIAlertAction(title: "확인", style: .default, handler: nil)
-            )
-            present(alertController, animated: true, completion: nil)
+            let alert = UIAlertController(title: "로그인 필요", message: "해당 기능을 사용하려면 로그인이 필요합니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         } else {
             guard let itemId = itemDetailModel.info?.id else {
                 return
@@ -451,7 +446,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
                 return
             }
             
-            NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+            NetworkManager.sendGET(decodeType: ChatroomSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
                 switch result {
                 case .success(let reposonse) :
                     guard let response = reposonse.last else {
@@ -479,7 +474,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
             return
         }
         
-        NetworkManager.sendGET(decodeType: ChatroomSuccess.self, what: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
+        NetworkManager.sendGET(decodeType: ChatroomSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ChatroomSuccess], Error>) in
             switch result {
             case .success(let response) :
                 guard let response = response.last else {
