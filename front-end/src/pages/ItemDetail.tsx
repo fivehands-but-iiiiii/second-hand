@@ -364,7 +364,10 @@ const ItemDetail = ({
         </Button>
       </SubTabBar>
       {!!isChatRoomOpen && (
-        <ChatRoom itemId={id} onRoomClose={handleChatRoom}></ChatRoom>
+        <ChatRoom
+          chatId={{ itemId: id }}
+          onRoomClose={handleChatRoom}
+        ></ChatRoom>
       )}
       {isStatusPopupOpen && (
         <PopupSheet

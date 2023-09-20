@@ -1,20 +1,18 @@
-// import { useEffect, useState } from 'react';
-
 import ChatListItem from './ChatListItem';
 
 interface ChatListProps {
-  chatItems: ChatListItem[];
-  onRoomClick: (itemId: number) => void;
+  chatListItems: ChatListItem[];
+  onRoomClick: (itemId: string) => void;
 }
 
-const ChatList = ({ chatItems, onRoomClick }: ChatListProps) => {
+const ChatList = ({ chatListItems, onRoomClick }: ChatListProps) => {
   return (
     <>
-      {chatItems.map((chat) => (
+      {chatListItems.map((chat) => (
         <ChatListItem
-          key={chat.id}
-          chatItem={chat}
-          onClick={() => onRoomClick(chat.itemInfo.id)}
+          key={chat.chatroomId}
+          chatListItem={chat}
+          onItemClick={onRoomClick}
         />
       ))}
     </>
