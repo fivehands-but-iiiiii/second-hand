@@ -44,7 +44,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     {} as SalesItemSummary,
   );
   const [roomId, setRoomId] = useState('');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [opponentId, setOpponentId] = useState('');
   const [chatBubbles, setChatBubbles] = useState<ChatBubble[]>([]);
   const [chat, setChat] = useState('');
@@ -96,7 +96,6 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
   };
 
   useEffect(() => {
-    console.log(chatId);
     const { roomId, itemId } = chatId;
     getChatData(roomId, itemId);
   }, [chatId]);
@@ -114,8 +113,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
   };
 
   const getChatBubbles = async (roomId: number, page: number) => {
-    const pageQuery = page ? `?page=${page}` : '';
-    const { data } = await api.get(`chats/${roomId}/logs${pageQuery}`);
+    const { data } = await api.get(`chats/${roomId}/logs?page=${page}`);
     setChatBubbles(data);
   };
 
