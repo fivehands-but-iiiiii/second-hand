@@ -23,12 +23,10 @@ interface SearchRegionsProps {
 
 const DEBOUNCE_DELAY = 3000;
 
-// TODO : 리렌더링 최적화하기
 const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [regionList, setRegionList] = useState<Region[]>([]);
   const { request } = useAPI();
-  // 초기 위치 매개변수로 전달하는 로직 변경하기
   const { location: currentLocation } = useGeoLocation();
   let ignore = false;
 

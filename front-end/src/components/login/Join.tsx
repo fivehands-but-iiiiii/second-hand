@@ -33,7 +33,7 @@ export interface UserInfo {
 }
 
 export type UserRegion = Omit<RegionInfo, 'district'>;
-// TODO: 프로필 사진 등록해야 가입되게 수정
+
 const Join = () => {
   const navigate = useNavigate();
   const location = useLocation();

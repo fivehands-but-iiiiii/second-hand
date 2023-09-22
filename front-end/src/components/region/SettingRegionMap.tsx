@@ -1,10 +1,11 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 
 import NavBar from '@common/NavBar/NavBar';
 import PortalLayout from '@components/layout/PortalLayout';
 import { RegionInfo } from '@components/login/Join';
+import useAddressToCoordinates from '@hooks/useAddressToCoords';
 import useAPI from '@hooks/useAPI';
-import useGeoLocation, { coordsType } from '@hooks/useGeoLocation';
+import { CoordsType } from '@hooks/useGeoLocation';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { getStoredValue, setStorageValue } from '@utils/sessionStorage';
 
@@ -29,16 +30,19 @@ interface SettingRegionMapProps {
   onPortal: () => void;
 }
 
+interface UpdatedRegionTypes {
+  regions: RegionInfo[];
+  center: CoordsType;
+}
+
 const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
-  const [updatedRegions, setUpdatedRegions] = useState<RegionInfo[]>(regions);
-  const currentRegion = updatedRegions.find(({ onFocus }) => onFocus)?.district;
-  const [, setMap] = useState(null);
-  const [center, setCenter] = useState<coordsType>({
-    lat: 37.5000776,
-    lng: 127.0385419,
+  const [updated, setUpdated] = useState<UpdatedRegionTypes>({
+    regions: regions,
+    center: { lat: 37.5000776, lng: 127.0385419 },
   });
-  const { getCoordinatesFromAddress } = useGeoLocation();
+  const [, setMap] = useState(null);
+  const { getCoordinatesFromAddress } = useAddressToCoordinates();
   const { request } = useAPI();
 
   const { isLoaded } = useJsApiLoader({
@@ -47,7 +51,7 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   });
 
   const onLoad = useCallback((map: any) => {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds(updated.center);
     map.fitBounds(bounds);
     setMap(map);
   }, []);
@@ -56,17 +60,17 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
 
   const handleSettingRegions = async () => {
     const prevRegions = regions;
-    const isSame = areRegionsSame(prevRegions, updatedRegions);
-    const isSwitched = haveSwitchedRegions(prevRegions, updatedRegions);
-    const isChanged = haveChangedRegions(prevRegions, updatedRegions);
+    const isSame = areRegionsSame(prevRegions, updated.regions);
+    const isSwitched = haveSwitchedRegions(prevRegions, updated.regions);
+    const isChanged = haveChangedRegions(prevRegions, updated.regions);
 
     if (isSame) return onPortal();
     if (!isSwitched && !isChanged) return;
 
     const endpoint = '/members/region';
     const method = isSwitched ? 'patch' : 'put';
-    const requestBody = { id: userInfo.id, regions: updatedRegions };
-    const updatedUserAccount = { ...userInfo, regions: updatedRegions };
+    const requestBody = { id: userInfo.id, regions: updated.regions };
+    const updatedUserAccount = { ...userInfo, regions: updated.regions };
     try {
       const { data } = await request({
         url: endpoint,
@@ -118,17 +122,13 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
     );
   };
 
-  const handleUpdateRegions = (regions: RegionInfo[]) =>
-    setUpdatedRegions(regions);
+  const handleUpdateRegions = async (regions: RegionInfo[]) => {
+    const focusedRegion = regions.find(({ onFocus }) => onFocus)?.district;
+    if (!focusedRegion) return;
 
-  useEffect(() => {
-    if (!currentRegion) return;
-    const getCenter = async () => {
-      const coords = await getCoordinatesFromAddress(currentRegion);
-      setCenter(coords);
-    };
-    getCenter();
-  }, [currentRegion]);
+    const coords = await getCoordinatesFromAddress(focusedRegion);
+    setUpdated({ regions: regions, center: coords });
+  };
 
   return (
     <PortalLayout>
@@ -140,16 +140,16 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
         {isLoaded && (
           <GoogleMap
             mapContainerStyle={MAP_STYLE}
-            center={center}
+            center={updated.center}
             onLoad={onLoad}
             onUnmount={onUnmount}
             options={OPTIONS}
           >
-            <Marker position={center}></Marker>
+            <Marker position={updated.center}></Marker>
           </GoogleMap>
         )}
         <SettingRegionSelector
-          regions={updatedRegions}
+          regions={updated.regions}
           onSetRegions={handleUpdateRegions}
         />
       </MySettingRegionMap>
