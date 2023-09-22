@@ -38,6 +38,7 @@ const WishList = () => {
     categories: [],
   });
   const { requestAll, loading } = useAllAPI();
+  let ignore = false;
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
     if (isIntersecting && !loading) getWishListData();
@@ -126,7 +127,11 @@ const WishList = () => {
   }, [onRefresh]);
 
   useEffect(() => {
+    if (ignore) return;
     getWishListData();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (

@@ -59,6 +59,7 @@ const SalesHistory = () => {
     hasNext: true,
   });
   const { request } = useAPI();
+  let ignore = false;
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
     if (isIntersecting && !isLoading) getSalesHistory();
@@ -229,7 +230,11 @@ const SalesHistory = () => {
   }, [onRefresh]);
 
   useEffect(() => {
+    if (ignore) return;
     getSalesHistory();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (
