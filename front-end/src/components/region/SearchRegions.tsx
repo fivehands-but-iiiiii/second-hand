@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent, useCallback } from 'react';
 
 import Button from '@common/Button/Button';
 import NavBar from '@common/NavBar/NavBar';
@@ -20,6 +20,8 @@ interface SearchRegionsProps {
   onPortal: () => void;
   onSelectRegion: (id: number, district: string) => void;
 }
+
+const DEBOUNCE_DELAY = 3000;
 
 // TODO : 리렌더링 최적화하기
 const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
@@ -43,15 +45,20 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   };
 
   const handleSearchChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
-    const DEBOUNCE_DELAY = 5000;
     const { value } = target;
     setSearchKeyword(value);
 
-    if (value.length < 2) return;
-
-    const delayedSearch = debounce(() => getRegionList(value), DEBOUNCE_DELAY);
-    delayedSearch();
+    if (searchKeyword.length >= 2) {
+      delayedSearch(searchKeyword);
+    }
   };
+
+  const delayedSearch = useCallback(
+    debounce((value) => {
+      getRegionList(value);
+    }, DEBOUNCE_DELAY),
+    [],
+  );
 
   useEffect(() => {
     if (ignore) return;
@@ -67,7 +74,7 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
         <Textarea
           type={'icon'}
           icon={'search'}
-          placeholder={'동명(읍, 면)으로 검색(ex. 서초동)'}
+          placeholder={'동명(읍, 면)으로 검색(ex. 역삼1동)'}
           singleLine
           rows={1}
           value={searchKeyword}
