@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 
 import FileInput from '@common/FileInput';
 import { getPreviewFile } from '@utils/getPreviewFile';
@@ -13,7 +13,7 @@ interface UserProfileProps {
   memberId?: string;
   onChange?: (file: InputFile) => void;
 }
-// TODO: 등록된 이미지 없는 유저일 경우 이미지 변경 가능 버튼 생성하고, PATCH 요청
+
 const UserProfile = ({
   size = 'm',
   profileImgUrl,
@@ -22,17 +22,16 @@ const UserProfile = ({
 }: UserProfileProps) => {
   const [preview, setPreview] = useState<string>('');
 
-  const handleFileChange = async ({
-    target,
-  }: ChangeEvent<HTMLInputElement>) => {
-    const file = target.files?.[0];
+  const handleFileChange = async (file: FileList) => {
     if (!file) return;
 
-    const newPreview = await getPreviewFile(file);
+    const newFile = file?.[0];
+    const newPreview = await getPreviewFile(newFile);
     setPreview(newPreview);
+
     const newFormData: InputFile = {
       preview: newPreview,
-      file: file,
+      file: newFile,
     };
     onChange && onChange(newFormData);
   };

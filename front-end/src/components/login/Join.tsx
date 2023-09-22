@@ -51,6 +51,7 @@ const Join = () => {
 
   const isReadyToSubmit =
     userInputId.length > 5 &&
+    userAccount.memberId === userInputId &&
     !idExists &&
     files?.file &&
     userAccount.regions.length > 0;
@@ -99,6 +100,12 @@ const Join = () => {
     const timerId = setTimeout(async () => {
       const idExists = await checkUserIdAvailability(value);
       setIdExists(idExists);
+      if (!idExists) {
+        setUserAccount({
+          ...userAccount,
+          memberId: value,
+        });
+      }
     }, 1000);
     timerRef.current = timerId;
   };
@@ -115,7 +122,6 @@ const Join = () => {
   const handleUserRegions = (regions: RegionInfo[]) => {
     setUserAccount({
       ...userAccount,
-      memberId: userInputId,
       regions: regions,
     });
   };
