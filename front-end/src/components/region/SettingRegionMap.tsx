@@ -83,12 +83,15 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   };
 
   const areRegionsSame = (prev: RegionInfo[], updated: RegionInfo[]) => {
-    return prev.every((prevRegion) =>
-      updated.some(
-        (updatedRegion) =>
-          prevRegion.id === updatedRegion.id &&
-          prevRegion.onFocus === updatedRegion.onFocus,
-      ),
+    return (
+      prev.length === updated.length &&
+      prev.every((prevRegion) =>
+        updated.some(
+          (updatedRegion) =>
+            prevRegion.id === updatedRegion.id &&
+            prevRegion.onFocus === updatedRegion.onFocus,
+        ),
+      )
     );
   };
 
