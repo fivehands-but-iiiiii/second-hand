@@ -7,13 +7,20 @@ import { styled } from 'styled-components';
 
 interface FileInputProps {
   fileDescription?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (files: FileList) => void;
 }
 
 const FileInput = ({ fileDescription, onChange }: FileInputProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputFile = () => fileInputRef.current?.click();
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (!files) return;
+    onChange(files);
+    e.target.value = '';
+  };
 
   return (
     <MyFileInput>
@@ -25,7 +32,7 @@ const FileInput = ({ fileDescription, onChange }: FileInputProps) => {
         type="file"
         ref={fileInputRef}
         accept="image/jpg, image/png, image/jpeg, image/gif"
-        onChange={onChange}
+        onChange={handleFileChange}
         multiple
       />
     </MyFileInput>

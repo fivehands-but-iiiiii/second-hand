@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 import Icon from '@assets/Icon';
 import Button from '@common/Button';
@@ -11,7 +11,7 @@ import { styled } from 'styled-components';
 
 interface ImageEditorProps {
   files: InputFile[];
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (files: FileList) => void;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 

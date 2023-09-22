@@ -76,20 +76,21 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
     category.selectedId > 0 &&
     currentRegion.id > 0;
 
-  const handleInputFiles = async ({
-    target,
-  }: ChangeEvent<HTMLInputElement>) => {
-    const file = target.files?.[0];
-    if (!file || files.length >= 10) return;
+  const handleInputFiles = async (newFiles: FileList) => {
+    if (!newFiles || files.length >= 10) return;
 
-    const newPreview = await getPreviewFile(file);
-    setFiles((prev) => [
-      ...prev,
-      {
-        preview: newPreview,
-        file: file,
-      },
-    ]);
+    const updatedFiles = [...newFiles]
+      .map(async (file) => {
+        const newPreview = await getPreviewFile(file);
+        return {
+          preview: newPreview,
+          file: file,
+        };
+      })
+      .slice(0, 10 - files.length);
+
+    const newFilesList = await Promise.all(updatedFiles);
+    setFiles((prev) => [...prev, ...newFilesList]);
   };
 
   const handleSubmit = async () => {
