@@ -96,7 +96,10 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
     return (
       prev.length === updated.length &&
       prev.every(
-        (prevRegion, index) => prevRegion.onFocus !== updated[index].onFocus,
+        (prevRegion, index) =>
+          prevRegion.id === updated[index].id &&
+          prevRegion.district === updated[index].district &&
+          prevRegion.onFocus !== updated[index].onFocus,
       )
     );
   };
