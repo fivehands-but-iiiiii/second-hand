@@ -15,11 +15,14 @@ import { styled } from 'styled-components';
 
 import api from '../../../api';
 
-interface ChatBubble {
+import ChatBubbles from './ChatBubbles';
+
+export interface ChatBubble {
   roomId: string;
   sender: string;
   receiver: string;
   message: string;
+  isMine: boolean;
 }
 
 interface SalesItemSummary {
@@ -37,8 +40,7 @@ interface ChatRoomProps {
 }
 
 const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
-  console.log('------------', chatId);
-  const { id: userId } = getStoredValue({ key: 'userInfo' });
+  const { memberId: userId } = getStoredValue({ key: 'userInfo' });
 
   const [itemInfo, setItemInfo] = useState<SalesItemSummary>(
     {} as SalesItemSummary,
@@ -114,7 +116,8 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
 
   const getChatBubbles = async (roomId: number, page: number) => {
     const { data } = await api.get(`chats/${roomId}/logs?page=${page}`);
-    setChatBubbles(data);
+    console.log(data.data.chatBubbles);
+    setChatBubbles(data.data.chatBubbles);
   };
 
   const connect = () => {
@@ -226,27 +229,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
         </MyChatRoomItemInfo>
       </MyChatRoomItem>
       {/* TODO: MyChatBubbles component 분리 */}
-      {!!chatBubbles.length && (
-        <MyChatBubbles>
-          {chatBubbles.map((bubble) => {
-            const isMyBubble = bubble.sender === userId;
-            const BubbleComponent = isMyBubble ? MyBubble : MyOpponentBubble;
-            const renderBubbleComponent = (
-              <BubbleComponent>
-                <span>{bubble.message}</span>
-              </BubbleComponent>
-            );
-
-            return isMyBubble ? (
-              <>{renderBubbleComponent}</>
-            ) : (
-              <MyOpponentBubbleWrapper>
-                {renderBubbleComponent}
-              </MyOpponentBubbleWrapper>
-            );
-          })}
-        </MyChatBubbles>
-      )}
+      {!!chatBubbles.length && <ChatBubbles bubbles={chatBubbles} />}
       {isMoreViewPopupOpen && (
         <PopupSheet
           menu={viewMorePopupSheetMenu}
@@ -287,43 +270,6 @@ const MyChatRoomItemInfo = styled.div`
   }
   & > span:nth-child(2) {
     font-weight: 510;
-  }
-`;
-
-const MyChatBubbles = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  margin-bottom: 75px;
-`;
-
-const MyChatBubble = styled.div`
-  width: fit-content;
-  max-width: 65%;
-  display: flex;
-  padding: 6px 12px;
-  margin-bottom: 16px;
-  border-radius: 18px;
-  & > span {
-    text-align: left;
-    ${({ theme }) => theme.fonts.body};
-    color: ${({ theme }) => theme.colors.neutral.textStrong};
-  }
-`;
-
-const MyBubble = styled(MyChatBubble)`
-  background-color: ${({ theme }) => theme.colors.neutral.backgroundBold};
-`;
-
-const MyOpponentBubbleWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const MyOpponentBubble = styled(MyChatBubble)`
-  background-color: ${({ theme }) => theme.colors.accent.backgroundPrimary};
-  & > span {
-    color: ${({ theme }) => theme.colors.accent.text};
   }
 `;
 
