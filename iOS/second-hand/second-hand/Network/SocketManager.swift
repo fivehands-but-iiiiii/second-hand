@@ -11,11 +11,13 @@ class SocketManager {
     var socketClient : SwiftStomp?
     private var roomId: String
     private var sender: String
+    private var receiver: String
     weak var delegate : SocketActionDelegate?
     
-    init(roomId: String, sender: String) {
+    init(roomId: String, sender: String, receiver: String) {
         self.roomId = roomId
         self.sender = sender
+        self.receiver = receiver
         
         guard let socketURL = URL(string: "ws://43.202.132.236:81/chat") else {
             return
@@ -34,7 +36,7 @@ class SocketManager {
     }
     
     func send(_ message: String) {
-        guard let body = JSONCreater().createWSMessageRequestBody(roomId: self.roomId, sender: self.sender, message: message) else {
+        guard let body = JSONCreater().createWSMessageRequestBody(roomId: self.roomId, sender: self.sender, receiver: self.receiver, message: message) else {
             return
         }
         

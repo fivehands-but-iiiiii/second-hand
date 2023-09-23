@@ -44,8 +44,11 @@ class PrivateChatroomViewController: UIViewController {
         guard let sender = UserInfoManager.shared.userInfo?.memberId else {
             return
         }
+        guard let receiver = privateChatroomModel.info?.opponentId else {
+            return
+        }
         
-        self.socketManager = SocketManager(roomId: roomId, sender: sender)
+        self.socketManager = SocketManager(roomId: roomId, sender: sender,receiver: receiver)
         self.socketManager?.delegate = self
     }
     

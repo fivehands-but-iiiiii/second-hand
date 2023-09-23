@@ -41,7 +41,7 @@ class JSONCreater {
         }
     }
     
-    func createWSMessageRequestBody(roomId: String, sender: String, message: String) -> Data? {
+    func createWSMessageRequestBody(roomId: String, sender: String, receiver: String, message: String) -> Data? {
         let requestBody: [String : String] = ["roomId":roomId,"sender":sender,"message":message]
         
         do {
