@@ -42,7 +42,7 @@ extension UIImageView {
                 self.image = image
                 ImageCacheManager.shared.setObject(image, forKey: cacheKey)
             case .failure(let error):
-                print(error.localizedDescription)
+                print("불러오지 못한 이미지가 있습니다.")
             }
         }
     }

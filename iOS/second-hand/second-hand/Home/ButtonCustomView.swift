@@ -27,7 +27,7 @@ final class ButtonCustomView: UIButton {
     }
     private func setLabel() {
         
-        label.text = "역삼1동"
+        label.text = "월성2동"
         label.font = UIFont.headLine
         label.textColor = UIColor.black
         label.textColor = .black
