@@ -102,6 +102,7 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
       }
       const isPosted = await postNewItem();
       if (!isPosted) return;
+
       onPortal();
     } catch (error) {
       console.error('error');
@@ -127,6 +128,7 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
       images: newImageFiles,
       firstImageUrl: newImageFiles && newImageFiles[0],
     };
+
     try {
       await request({
         url: `/items/${origin?.id}`,
@@ -177,6 +179,7 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
     formData.append('category', category.selectedId.toString());
     formData.append('price', getNumericPrice(price).toString());
     formData.append('region', currentRegion.id.toString());
+
     try {
       const response = await request({
         url: '/items',
@@ -224,6 +227,7 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
         usedId.push(originCategoryId);
       }
     }
+
     while (randomCategories.length < RANDOM_COUNT) {
       const randomId = Math.floor(Math.random() * categoryInfo.length);
       if (!usedId.includes(randomId)) {

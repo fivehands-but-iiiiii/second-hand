@@ -80,6 +80,7 @@ const useGeoLocation = (
       getAddressFromCoordinates,
       onError,
     );
+
     return () => {
       ignore = true;
     };

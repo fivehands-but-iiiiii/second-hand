@@ -7,7 +7,7 @@ import useAPI from '@hooks/useAPI';
 
 import { styled } from 'styled-components';
 
-const MobileLayout = () => {
+const Layout = () => {
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
   const { request } = useAPI();
 
@@ -28,10 +28,10 @@ const MobileLayout = () => {
   }, []);
 
   return (
-    <MyMobileLayout>
+    <MyLayout>
       <Outlet context={categories} />
       <MainTabBar />
-    </MyMobileLayout>
+    </MyLayout>
   );
 };
 
@@ -39,7 +39,7 @@ export const useCategories = () => {
   return useOutletContext<CategoryInfo[]>();
 };
 
-const MyMobileLayout = styled.div`
+const MyLayout = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.neutral.background};
@@ -51,4 +51,4 @@ const MyMobileLayout = styled.div`
   }
 `;
 
-export default MobileLayout;
+export default Layout;
