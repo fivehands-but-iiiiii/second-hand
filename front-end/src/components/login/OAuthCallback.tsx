@@ -5,6 +5,8 @@ import { setStorageValue } from '@utils/sessionStorage';
 import { AxiosError } from 'axios';
 
 import api from '../../api';
+
+import Loading from './Loading';
 const ENV_MODE = import.meta.env.VITE_ENV_MODE;
 
 export interface GitHubUserInfo {
@@ -74,7 +76,11 @@ const OAuthCallback = () => {
     authenticateWithSessionId();
   }, [queryCode]);
 
-  return <></>;
+  return (
+    <>
+      <Loading />
+    </>
+  );
 };
 
 export default OAuthCallback;
