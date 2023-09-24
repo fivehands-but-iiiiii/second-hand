@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
 import MainTabBar from '@common/TabBar/MainTabBar';
 import { CategoryInfo } from '@components/home/category';
+import Loading from '@components/login/Loading';
 import useAPI from '@hooks/useAPI';
 
 import { styled } from 'styled-components';
@@ -29,7 +30,9 @@ const Layout = () => {
 
   return (
     <MyLayout>
-      <Outlet context={categories} />
+      <Suspense fallback={<Loading />}>
+        <Outlet context={categories} />
+      </Suspense>
       <MainTabBar />
     </MyLayout>
   );

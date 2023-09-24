@@ -60,7 +60,7 @@ const WishList = () => {
         },
       ]);
 
-      if (!itemData.items.length) {
+      if (!itemData.items.length && !!categoriesData.categories.length) {
         setSelectedCategoryId(0);
         initData();
         return;
