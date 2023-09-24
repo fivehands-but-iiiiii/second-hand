@@ -171,6 +171,9 @@ const MyButtons = styled.div`
   flex-direction: column;
   height: 170px;
   gap: 10px;
+  > button {
+    min-width: max-content;
+  }
 `;
 
 export default Login;
