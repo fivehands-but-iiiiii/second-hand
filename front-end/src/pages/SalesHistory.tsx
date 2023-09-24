@@ -14,7 +14,7 @@ import SegmentedControl from '@common/SegmentedControl';
 import Spinner from '@common/Spinner/Spinner';
 import ItemList from '@components/home/ItemList';
 import { ItemStatus } from '@components/ItemStatus';
-import { useCategories } from '@components/layout/MobileLayout';
+import { useCategories } from '@components/layout/Layout';
 import New from '@components/new/New';
 import useAPI from '@hooks/useAPI';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';

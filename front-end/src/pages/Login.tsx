@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, ChangeEvent } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
@@ -30,8 +30,10 @@ const Login = () => {
   const joinedUserInfo = location.state;
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [userId, setUserId] = useState('');
-  const [validationMessage, setValidationMessage] = useState('');
+  const [userId, setUserId] = useState(joinedUserInfo?.memberId || '');
+  const [validationMessage, setValidationMessage] = useState(
+    joinedUserInfo?.validationMessage || '',
+  );
   const [isLogoutAlertOpen, setIsLogoutAlertOpen] = useState(false);
   const storedUserInfo = getStoredValue({ key: 'userInfo' });
   const isLogin = !!storedUserInfo;
@@ -50,6 +52,7 @@ const Login = () => {
       },
     });
     if (!data) return;
+
     setStorageValue({
       key: 'userInfo',
       value: {
@@ -94,10 +97,10 @@ const Login = () => {
   const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     const validationMessage = getValidationMessage(value);
-    setValidationMessage(validationMessage);
-
     const formattedId = getFormattedId(value);
     const formattedValue = formattedId || value;
+
+    setValidationMessage(validationMessage);
     setUserId(formattedValue);
   };
 
@@ -111,12 +114,6 @@ const Login = () => {
   };
 
   const { handleKeyDown } = useEnterKeyPress({ onEnterPress: handleLogin });
-
-  useEffect(() => {
-    if (!joinedUserInfo) return;
-    setUserId(joinedUserInfo?.memberId);
-    setValidationMessage(joinedUserInfo?.validationMessage);
-  }, []);
 
   return (
     <>

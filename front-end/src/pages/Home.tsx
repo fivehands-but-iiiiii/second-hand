@@ -16,7 +16,7 @@ import { REGION_MENU } from '@common/PopupSheet/constants';
 import Spinner from '@common/Spinner/Spinner';
 import Category from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { useCategories } from '@components/layout/MobileLayout';
+import { useCategories } from '@components/layout/Layout';
 import { RegionInfo } from '@components/login/Join';
 import New from '@components/new/New';
 import SettingRegionMap from '@components/region/SettingRegionMap';
