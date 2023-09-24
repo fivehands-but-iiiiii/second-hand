@@ -18,7 +18,7 @@ const OAuthCallback = () => {
   const currentURL = new URL(window.location.href);
   const queryCode = currentURL.searchParams.get('code');
 
-  const loginOrSignUpWithGitHub = async (userInfo: GitHubUserInfo) => {
+  const loginWithGitHub = async (userInfo: GitHubUserInfo) => {
     try {
       const { data } = await api.post('/login', {
         memberId: userInfo.login,
@@ -39,15 +39,20 @@ const OAuthCallback = () => {
         value: token,
       });
 
-      navigate('/');
+      return true;
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 401) {
-        navigate('/join', {
-          state: { ...userInfo },
-          replace: true,
-        });
+        return false;
       }
+      throw error;
     }
+  };
+
+  const signUpWithGitHub = async (userInfo: GitHubUserInfo) => {
+    navigate('/join', {
+      state: { ...userInfo },
+      replace: true,
+    });
   };
 
   useEffect(() => {
@@ -56,8 +61,13 @@ const OAuthCallback = () => {
         await api.get(`/git/login?code=${queryCode}&env=${ENV_MODE}`);
       } catch (error) {
         if (error instanceof AxiosError && error.response?.status === 401) {
-          const gitHubUserInfo: GitHubUserInfo = error.response.data.body;
-          loginOrSignUpWithGitHub(gitHubUserInfo);
+          const gitHubUser: GitHubUserInfo = error.response.data.body;
+          const isLoginSuccess = await loginWithGitHub(gitHubUser);
+          if (isLoginSuccess) {
+            navigate('/', { replace: true });
+            return;
+          }
+          await signUpWithGitHub(gitHubUser);
         }
       }
     };
