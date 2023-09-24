@@ -18,47 +18,51 @@ const OAuthCallback = () => {
   const currentURL = new URL(window.location.href);
   const queryCode = currentURL.searchParams.get('code');
 
+  const loginOrSignUpWithGitHub = async (userInfo: GitHubUserInfo) => {
+    try {
+      const { data } = await api.post('/login', {
+        memberId: userInfo.login,
+      });
+      const { id, memberId, profileImgUrl, regions, token } = data.data;
+
+      setStorageValue({
+        key: 'userInfo',
+        value: {
+          id: id,
+          memberId: memberId,
+          profileImgUrl: profileImgUrl,
+          regions: regions,
+        },
+      });
+      setStorageValue({
+        key: 'token',
+        value: token,
+      });
+
+      navigate('/');
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 401) {
+        navigate('/join', {
+          state: { ...userInfo },
+          replace: true,
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     const authenticateWithSessionId = async () => {
       try {
         await api.get(`/git/login?code=${queryCode}&env=${ENV_MODE}`);
       } catch (error) {
-        if (error instanceof AxiosError) {
-          if (error.response?.status === 401) {
-            const gitHubUserInfo: GitHubUserInfo = error.response.data.body;
-            try {
-              const { data } = await api.post('/login', {
-                memberId: gitHubUserInfo.login,
-              });
-              setStorageValue({
-                key: 'userInfo',
-                value: {
-                  id: data.data.id,
-                  memberId: data.data.memberId,
-                  profileImgUrl: data.data.profileImgUrl,
-                  regions: data.data.regions,
-                },
-              });
-              setStorageValue({
-                key: 'token',
-                value: data.data.token,
-              });
-              navigate('/');
-            } catch {
-              const { response } = error;
-              if (response.status === 401) {
-                navigate('/join', {
-                  state: { ...gitHubUserInfo },
-                  replace: true,
-                });
-              } else console.log(response.data.message);
-            }
-          } else console.log(error.response?.data.message);
+        if (error instanceof AxiosError && error.response?.status === 401) {
+          const gitHubUserInfo: GitHubUserInfo = error.response.data.body;
+          loginOrSignUpWithGitHub(gitHubUserInfo);
         }
       }
     };
     authenticateWithSessionId();
-  }, [location, navigate, queryCode]);
+  }, [queryCode]);
 
   return <></>;
 };
