@@ -126,6 +126,8 @@ const Join = () => {
     });
   };
 
+  const validationMessage = getValidationMessage();
+
   return (
     <MyJoin>
       <NavBar
@@ -151,7 +153,7 @@ const Join = () => {
           {!!gitHubUserInfo || (
             <LabelInput
               label={'아이디'}
-              subText={getValidationMessage()}
+              subText={validationMessage}
               maxLength={12}
               value={userInputId}
               onChange={handleInputChange}
