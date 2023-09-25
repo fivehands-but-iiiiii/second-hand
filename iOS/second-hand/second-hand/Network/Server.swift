@@ -47,7 +47,7 @@ struct Server {
     }
     
     func gitLoginURL(withCode code: String) -> String {
-        let query = Server.Query.code.rawValue + code
+        let query = Server.Query.code.rawValue + code + "&env=LOCAL"
         return Server.baseURL + Path.gitLogin.rawValue + "?" + query
     }
     
