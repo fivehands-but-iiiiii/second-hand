@@ -27,11 +27,12 @@ final class HomeViewController: NavigationUnderLineViewController{
         setupInfiniteScroll()
         getItemList(page: currentPage)
         setupDataSource()
+        setRegisterProductButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        setRegisterProductButton()
+        switchShowingRegisterProductButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,13 +113,21 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setRegisterProductButton() {
-        guard UserInfoManager.shared.loginToken != nil else{ return }
+
         registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
         registerProductButton.tintColor = .neutralBackground
         registerProductButton.backgroundColor = .accentBackgroundPrimary
         layoutRegisterProductButton()
+        registerProductButton.isHidden = true
         
         registerProductButton.addTarget(self, action: #selector(registerProductButtonTapped), for: .touchUpInside)
+    }
+    
+    private func switchShowingRegisterProductButton() {
+        guard UserInfoManager.shared.isLogOn else {
+            registerProductButton.isHidden = true
+            return }
+        registerProductButton.isHidden = false
     }
     
     private func layoutRegisterProductButton() {
