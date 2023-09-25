@@ -3,8 +3,8 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 
 import MainTabBar from '@common/TabBar/MainTabBar';
 import { CategoryInfo } from '@components/home/category';
-import Loading from '@components/login/Loading';
 import useAPI from '@hooks/useAPI';
+import Loading from '@pages/Loading';
 
 import { styled } from 'styled-components';
 

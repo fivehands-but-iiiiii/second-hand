@@ -5,8 +5,7 @@ import { setStorageValue } from '@utils/sessionStorage';
 import { AxiosError } from 'axios';
 
 import api from '../../api';
-
-import Loading from './Loading';
+import Loading from '@pages/Loading';
 const ENV_MODE = import.meta.env.VITE_ENV_MODE;
 
 export interface GitHubUserInfo {
@@ -67,7 +66,6 @@ const OAuthCallback = () => {
           const isLoginSuccess = await loginWithGitHub(gitHubUser);
           if (isLoginSuccess) {
             navigate('/', { replace: true });
-            return;
           }
           await signUpWithGitHub(gitHubUser);
         }

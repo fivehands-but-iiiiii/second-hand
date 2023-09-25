@@ -37,23 +37,19 @@ const UserProfile = ({
   };
 
   return (
-    <MyUserProfile>
+    <div>
       {profileImgUrl ? (
         <MyUserImg src={profileImgUrl} alt={memberId} size={size} />
       ) : (
-        <>
-          <MyDefaultImgBox>
-            {preview && <MyPreviewFile src={preview} alt="미리 보기" />}
-            <FileInput onChange={handleFileChange} />
-          </MyDefaultImgBox>
-        </>
+        <MyDefaultImgBox>
+          {preview && <MyPreviewFile src={preview} alt="미리 보기" />}
+          <FileInput onChange={handleFileChange} />
+        </MyDefaultImgBox>
       )}
       {memberId && <p>{memberId}</p>}
-    </MyUserProfile>
+    </div>
   );
 };
-
-const MyUserProfile = styled.div``;
 
 const MyUserImg = styled.img<UserProfileProps>`
   ${({ size }) =>
