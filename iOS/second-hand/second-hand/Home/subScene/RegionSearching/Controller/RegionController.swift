@@ -55,20 +55,21 @@ class RegionController {
 }
 
 extension RegionController {
-    private func generateRegions() -> [RegionHashable] {
-        let components = regionRawData.components(separatedBy: CharacterSet.newlines)
-        var regions = [RegionHashable]()
-        for line in components {
-            let regionComponents = line.components(separatedBy: ",")
-            let name = regionComponents[0]
-            guard let regionId = Int(regionComponents[1]) else {
-                return []
+    private func generateRegions(completion: @escaping ([RegionHashable]) -> Void) {
+        getRegionList { regionList in
+            var regions = [RegionHashable]()
+            for region in regionList {
+                let name = region.city + " " + region.county + " " + region.district
+                let regionId = region.id
+                regions.append(RegionHashable(name: name, regionId: regionId))
             }
-            regions.append(RegionHashable(name: name, regionId: regionId))
+            
+            self.havingCell = regions
+
+            completion(regions)
         }
-        self.havingCell = regions
-        return regions
     }
+    
     private func getRegionList(completion: @escaping ([RegionInfo]) -> Void) {
         var regionList: [RegionInfo] = []
         
@@ -97,4 +98,3 @@ extension RegionController {
         }
     }
 }
-
