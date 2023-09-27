@@ -10,10 +10,16 @@ import UIKit
 class RegionController {
     var havingCell : [RegionHashable] = []
     
-    struct RegionHashable: Hashable {
+    class RegionHashable: Hashable {
         let name: String
         let regionId : Int
         let identifier = UUID()
+        
+        init(name: String, regionId: Int) {
+            self.name = name
+            self.regionId = regionId
+        }
+        
         func hash(into hasher: inout Hasher) {
             hasher.combine(identifier)
         }
