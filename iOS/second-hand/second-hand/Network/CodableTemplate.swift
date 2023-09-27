@@ -101,6 +101,10 @@ struct MyItem: Codable {
 
 // MARK: - Region
 
+struct RegionListFetchedSuccess: Codable {
+    let message: String
+    let data: [RegionInfo]
+}
 struct RegionInfo: Codable {
     let id: Int
     let city: String
