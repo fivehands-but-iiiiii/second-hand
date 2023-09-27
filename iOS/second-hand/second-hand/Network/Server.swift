@@ -131,14 +131,14 @@ struct Server {
         return url
     }
     
-    func createRegionListURL(address:String?) -> String {
+    func createRegionListURL(keyword:String?) -> String {
         let baseURL = Server.baseURL
         let path = Path.regions.rawValue
-        guard let address = address else {
+        guard let keyword = keyword else {
             return baseURL + path
         }
-        let query = Query.address.rawValue
-        return baseURL + path + "?" + query + address
+        let query = Query.keyword.rawValue
+        return baseURL + path + "?" + query + keyword
     }
     
     func createChangeRegionURL() -> String {
@@ -156,7 +156,7 @@ struct Server {
         case category = "category="
         case categoryId = "categoryId="
         case isSales = "isSales="
-        case address = "keyword="
+        case keyword = "keyword="
     }
 }
 
