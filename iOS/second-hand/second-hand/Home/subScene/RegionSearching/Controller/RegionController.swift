@@ -34,6 +34,10 @@ class RegionController {
         }
     }
     func filteredRegions(with filter: String?=nil, limit: Int?=nil) -> [RegionHashable] {
+        guard let regions = regions else {
+            return []
+        }
+        
         let filtered = regions.filter { $0.contains(filter) }
         if let limit = limit {
             return Array(filtered.prefix(through: limit))
@@ -41,9 +45,13 @@ class RegionController {
             return filtered
         }
     }
-    private lazy var regions: [RegionHashable] = {
-        return generateRegions()
-    }()
+    private var regions: [RegionHashable]? // regions 배열을 옵셔널로 정의
+
+    init() {
+        generateRegions { [weak self] regions in
+            self?.regions = regions // 비동기 작업이 완료되면 regions 배열 업데이트
+        }
+    }
 }
 
 extension RegionController {
