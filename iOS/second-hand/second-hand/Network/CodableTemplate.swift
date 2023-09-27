@@ -74,7 +74,7 @@ struct Item: Codable {
     let id: Int
     let title: String
     let thumbnailUrl: String?
-    let region: ProductRegion
+    let region: RegionInfo
     let createdAt: String
     let price, status, hits, chatCount,likeCount: Int
     let isLike: Bool
@@ -94,13 +94,14 @@ struct MyItem: Codable {
     let id: Int
     let title: String
     let thumbnailUrl: String?
-    let region: ProductRegion
+    let region: RegionInfo
     let createdAt: String
     let price, status, hits, chatCount,likeCount: Int
 }
 
 // MARK: - Region
-struct ProductRegion: Codable {
+
+struct RegionInfo: Codable {
     let id: Int
     let city: String
     let county: String
