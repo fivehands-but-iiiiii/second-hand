@@ -87,7 +87,6 @@
 		E4D685562A9F363500B0667D /* RegionSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D685552A9F363500B0667D /* RegionSearchingViewController.swift */; };
 		E4D6855B2A9F3BAE00B0667D /* RegionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D6855A2A9F3BAE00B0667D /* RegionCell.swift */; };
 		E4D6855D2A9F402A00B0667D /* RegionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D6855C2A9F402A00B0667D /* RegionController.swift */; };
-		E4D6855F2AA1EAFC00B0667D /* regionRawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D6855E2AA1EAFC00B0667D /* regionRawData.swift */; };
 		E4E694792A7B82820033B4DB /* YourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E694782A7B82820033B4DB /* YourCell.swift */; };
 		E4E6947B2A7B828B0033B4DB /* YourBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947A2A7B828B0033B4DB /* YourBubble.swift */; };
 		E4E6947D2A7B86780033B4DB /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947C2A7B86780033B4DB /* Bubble.swift */; };
@@ -179,7 +178,6 @@
 		E4D685552A9F363500B0667D /* RegionSearchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionSearchingViewController.swift; sourceTree = "<group>"; };
 		E4D6855A2A9F3BAE00B0667D /* RegionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCell.swift; sourceTree = "<group>"; };
 		E4D6855C2A9F402A00B0667D /* RegionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionController.swift; sourceTree = "<group>"; };
-		E4D6855E2AA1EAFC00B0667D /* regionRawData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = regionRawData.swift; sourceTree = "<group>"; };
 		E4E694782A7B82820033B4DB /* YourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourCell.swift; sourceTree = "<group>"; };
 		E4E6947A2A7B828B0033B4DB /* YourBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBubble.swift; sourceTree = "<group>"; };
 		E4E6947C2A7B86780033B4DB /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
@@ -819,7 +817,6 @@
 		E4D685592A9F3AB100B0667D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E4D6855E2AA1EAFC00B0667D /* regionRawData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1005,7 +1002,6 @@
 				E4375C252A6D9004003F6F5B /* PrivateChatroomModel.swift in Sources */,
 				E49EB83C2A2DD3AF001F2D56 /* WishListViewController.swift in Sources */,
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
-				E4D6855F2AA1EAFC00B0667D /* regionRawData.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
