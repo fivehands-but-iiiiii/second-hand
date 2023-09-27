@@ -69,5 +69,32 @@ extension RegionController {
         self.havingCell = regions
         return regions
     }
+    private func getRegionList(completion: @escaping ([RegionInfo]) -> Void) {
+        var regionList: [RegionInfo] = []
+        
+        let keyword = "서울"
+        let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        guard let url = URL(string: Server.shared.createRegionListURL(keyword: encodedKeyword)) else {
+            completion(regionList)
+            return
+        }
+        
+        NetworkManager.sendGET(decodeType: RegionListFetchedSuccess.self, header: nil, body: nil, fromURL: url) { (result: Result<[RegionListFetchedSuccess], Error>) in
+            switch result {
+            case .success(let response):
+                guard let regions = response.last?.data else {
+                    completion(regionList)
+                    return
+                }
+                regionList = regions
+                completion(regionList)
+                
+            case .failure(let error):
+                print(error)
+                completion(regionList)
+            }
+        }
+    }
 }
 
