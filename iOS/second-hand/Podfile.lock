@@ -1,5 +1,11 @@
 PODS:
   - ReachabilitySwift (5.0.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
   - Starscream (4.0.4)
   - SwiftLint (0.51.0)
   - SwiftStomp (1.1.1):
@@ -8,22 +14,30 @@ PODS:
 
 DEPENDENCIES:
   - ReachabilitySwift
+  - RxCocoa
+  - RxSwift
   - SwiftLint
   - SwiftStomp
 
 SPEC REPOS:
   trunk:
     - ReachabilitySwift
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - Starscream
     - SwiftLint
     - SwiftStomp
 
 SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftLint: 1b7561918a19e23bfed960e40759086e70f4dba5
   SwiftStomp: d473421ceac1d47a4466a77e12277280aa03d4d7
 
-PODFILE CHECKSUM: 87dac5b89c419c168f6002ad3e32bfebb173802f
+PODFILE CHECKSUM: e7b7fa91e6c74d622f13bbed46cfcece1dc37f80
 
 COCOAPODS: 1.12.1
