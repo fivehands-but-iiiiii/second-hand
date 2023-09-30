@@ -16,8 +16,16 @@ class RegionSearchingViewController: UIViewController {
     
     let regionsController = RegionController()
     let searchBar = UISearchBar(frame: .zero)
-    var regionsCollectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, RegionController.RegionHashable>!
+    var regionListTableView = UITableView()
+    
+    lazy var dataSource: UITableViewDiffableDataSource<Section, RegionController.RegionHashable> = {
+        return UITableViewDiffableDataSource(tableView: regionListTableView) { tableView, indexPath, region in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "REGIONCELL", for: indexPath) as? RegionCell
+            cell?.label.text = region.name
+            cell?.configure()
+            return cell
+        }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
