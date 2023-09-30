@@ -27,8 +27,6 @@ extension RegionCell {
         contentView.addSubview(label)
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.systemGray2.cgColor
         let inset = CGFloat(10)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
