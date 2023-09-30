@@ -42,6 +42,10 @@ class RegionSearchingViewController: UIViewController {
     
     private func commonInit() {
         self.view.backgroundColor = .white
+        setNavigationBar()
+        regionListTableView.register(RegionCell.self, forCellReuseIdentifier: "REGIONCELL")
+        setLayoutOfSearchBar()
+        setLayoutTableView()
     }
     
     private func bindUI() {
