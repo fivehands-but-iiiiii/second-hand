@@ -68,6 +68,18 @@ class RegionSearchingViewController: UIViewController {
         navigationItem.leftBarButtonItem = backButton
     }
     
+    private func setLayoutOfSearchBar() {
+        self.view.addSubview(self.searchBar)
+        self.searchBar.placeholder = "행정구역명으로 검색 (ex: 광진구)"
+        self.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(
+            [
+                self.searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                self.searchBar.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                self.searchBar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                self.searchBar.heightAnchor.constraint(equalToConstant: 50.0)
+            ]
+        )
     }
     
     private func setLayoutTableView() {
