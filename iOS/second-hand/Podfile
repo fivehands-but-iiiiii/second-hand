@@ -9,6 +9,9 @@ target 'second-hand' do
   pod 'SwiftLint'
   pod 'SwiftStomp'
   pod 'ReachabilitySwift'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  
 end
 
 post_install do |installer|
