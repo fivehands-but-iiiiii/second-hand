@@ -39,19 +39,15 @@ extension RegionController {
     }
 }
 
-extension RegionController {
-    private func generateRegions(completion: @escaping ([RegionHashable]) -> Void) {
-        getRegionList { regionList in
-            var regions = [RegionHashable]()
-            for region in regionList {
+    func updateRegionList(data: [RegionInfo]){
+        if data.count == 0 {
+            self.havingCell = []
+        } else {
+            for region in data {
                 let name = region.city + " " + region.county + " " + region.district
                 let regionId = region.id
-                regions.append(RegionHashable(name: name, regionId: regionId))
+                self.havingCell.append(RegionHashable(name: name, regionId: regionId))
             }
-            
-            self.havingCell = regions
-
-            completion(regions)
         }
     }
     
