@@ -11,7 +11,7 @@ import RxCocoa
 
 class RegionSearchingViewController: UIViewController {
     enum Section: CaseIterable {
-        case main
+        case regionList
     }
     
     let regionsController = RegionController()
