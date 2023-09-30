@@ -7,12 +7,12 @@
 
 import UIKit
 
-class RegionCell: UICollectionViewCell {
+class RegionCell: UITableViewCell {
     static let reuseIdentifier = "REGIONCELL"
     let label = UILabel()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
         configure()
     }
     required init?(coder: NSCoder) {
