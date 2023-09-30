@@ -33,12 +33,10 @@ class RegionController {
 }
 
 extension RegionController {
-        generateRegions { [weak self] regions in
-            self?.regions = regions // 비동기 작업이 완료되면 regions 배열 업데이트
-        }
+    func updateComplete() -> [RegionHashable] {
+        return havingCell
     }
-}
-
+    
     func updateRegionList(data: [RegionInfo]){
         if data.count == 0 {
             self.havingCell = []

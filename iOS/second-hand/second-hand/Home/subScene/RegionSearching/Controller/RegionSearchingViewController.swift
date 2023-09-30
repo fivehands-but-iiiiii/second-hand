@@ -82,6 +82,8 @@ class RegionSearchingViewController: UIViewController {
 
 extension RegionSearchingViewController {
 
+    private func showCell() {
+        let regions = self.regionsController.updateComplete()
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, RegionController.RegionHashable>()
         snapshot.appendSections([.regionList])
