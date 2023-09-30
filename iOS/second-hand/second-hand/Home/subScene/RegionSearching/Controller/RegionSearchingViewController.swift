@@ -63,6 +63,8 @@ class RegionSearchingViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    private func setNavigationBar() {
+        navigationItem.title = "동네 찾기"
         let backButton = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(backButtonTapped))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
