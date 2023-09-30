@@ -18,6 +18,8 @@ class RegionSearchingViewController: UIViewController {
     let searchBar = UISearchBar(frame: .zero)
     var regionListTableView = UITableView()
     
+    var disposeBag = DisposeBag()
+    
     lazy var dataSource: UITableViewDiffableDataSource<Section, RegionController.RegionHashable> = {
         return UITableViewDiffableDataSource(tableView: regionListTableView) { tableView, indexPath, region in
             let cell = tableView.dequeueReusableCell(withIdentifier: "REGIONCELL", for: indexPath) as? RegionCell
@@ -40,6 +42,23 @@ class RegionSearchingViewController: UIViewController {
     
     private func commonInit() {
         self.view.backgroundColor = .white
+    }
+    
+    private func bindUI() {
+        let searchBarObservable : Observable<String> = searchBar.rx.text.orEmpty.asObservable()
+        
+        searchBarObservable
+            .flatMapLatest { keyword in
+                return self.regionsController.getRegionList(keyword: keyword)
+                    .catchAndReturn([])
+            }
+            .subscribe(onNext: { regions in
+                self.regionsController.updateRegionList(data: regions)
+                self.showCell()
+            })
+            .disposed(by: disposeBag)
+    }
+    
         let backButton = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(backButtonTapped))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
