@@ -183,7 +183,11 @@ final class HomeViewController: NavigationUnderLineViewController{
                 }
                 
                 itemList.items.forEach { item in
-                    self.items.append(self.convertToHashable(from: item))
+                    let newItem = self.convertToHashable(from: item)
+
+                    if !self.items.contains(where: { $0.id == newItem.id }) {
+                        self.items.append(newItem)
+                    }
                 }
                 self.applySnapshot()
                 
