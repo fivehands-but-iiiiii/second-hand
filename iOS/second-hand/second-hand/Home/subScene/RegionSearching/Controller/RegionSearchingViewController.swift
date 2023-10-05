@@ -122,6 +122,12 @@ extension RegionSearchingViewController {
     private func convertToRegionFrom(id:Int,district:String,onFocus:Bool) -> Region {
         return Region(id: id, onFocus: onFocus, district: district)
     }
+    
+    private func updateRegion(region : Region) {
+        UserInfoManager.shared.userInfo?.regions.removeAll()
+        UserInfoManager.shared.userInfo?.regions.append(region)
+        UserInfoManager.shared.regionSubject.onNext(region)
+    }
 }
 
 extension RegionSearchingViewController: UITableViewDelegate {
