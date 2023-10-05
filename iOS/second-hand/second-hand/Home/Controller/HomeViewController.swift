@@ -166,8 +166,14 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func getItemList(page: Int) {
-        // TODO: 리전 하드코딩 없애기
-        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 2729060200, category: nil)) else {
+        var region = Region(id: 0, onFocus: false, district: "")
+        
+        UserInfoManager.shared.regionSubject.subscribe { data in
+            region = data
+        }
+        .disposed(by: disposeBag)
+        
+        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: region.id, category: nil)) else {
             return
         }
         NetworkManager.sendGET(decodeType: ItemListSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
