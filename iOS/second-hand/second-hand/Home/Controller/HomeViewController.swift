@@ -193,6 +193,20 @@ final class HomeViewController: NavigationUnderLineViewController{
         }
     }
     
+    private func updateRegion() {
+        UserInfoManager.shared.regionSubject
+            .subscribe(onNext: { [weak self] region in
+                guard let district = region.district else {
+                    return
+                }
+                
+                guard let regionLabel = self?.leftBarButton.customView as? ButtonCustomView else {
+                    return
+                }
+                regionLabel.updateLabel(text:district)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate {
