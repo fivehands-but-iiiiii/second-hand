@@ -73,25 +73,21 @@ class JSONCreater {
         guard let userID = UserInfoManager.shared.userInfo?.id else {
             return nil
         }
-        
-        var jsonString = """
-        {
-            "id": \(userID),
+
+        var jsonData: [String: Any] = [
+            "id": userID,
             "regions": [
-              {
-                "id": \(cellData.id),
-                "district": "\(cellData.district)",
-                "onFocus": \(cellData.onFocus)
-              }
+                [
+                    "id": cellData.id,
+                    "district": cellData.district!,
+                    "onFocus": cellData.onFocus
+                ] as [String : Any]
             ]
-          }
-       """
-        
-        jsonString = removeBackslashes(from: jsonString)
-        
+        ]
+
         do {
-            let jsonData = try JSONEncoder().encode(jsonString)
-            return jsonData
+            let requestBody = try JSONSerialization.data(withJSONObject: jsonData)
+            return requestBody
         } catch {
             print("JSON encoding error: \(error)")
             return nil
