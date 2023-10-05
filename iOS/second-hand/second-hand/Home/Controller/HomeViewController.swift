@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class HomeViewController: NavigationUnderLineViewController{
     
@@ -17,6 +19,9 @@ final class HomeViewController: NavigationUnderLineViewController{
     private var currentPage: Int = 0
     private var isLoadingItems = true
     private let regionSearchingViewController = RegionSearchingViewController()
+    
+    private let disposeBag = DisposeBag()
+    let leftBarButton = HomeLeftBarButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,14 +100,13 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setNavigationRightBarButton() {
-           let rightBarButton = HomeRightBarButton()
-           rightBarButton.delegate = self
-           navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
-       }
+        let rightBarButton = HomeRightBarButton()
+        rightBarButton.delegate = self
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = rightBarButton
+    }
     
     private func setNavigationLeftBarButton() {
-        let leftBarButton = HomeLeftBarButton()
-        let buttonCustomView = leftBarButton.customView as? ButtonCustomView
+        let buttonCustomView = self.leftBarButton.customView as? ButtonCustomView
         buttonCustomView?.delegate = self
         navigationController?.navigationBar.topItem?.leftBarButtonItem = leftBarButton
     }
@@ -113,7 +117,7 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     private func setRegisterProductButton() {
-
+        
         registerProductButton.setImage(UIImage(systemName: "plus"), for: .normal)
         registerProductButton.tintColor = .neutralBackground
         registerProductButton.backgroundColor = .accentBackgroundPrimary
