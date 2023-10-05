@@ -9,7 +9,7 @@ import UIKit
 
 final class ButtonCustomView: UIButton {
     
-    private var label = UILabel(frame: .zero)
+    var label = UILabel(frame: .zero)
     private var sideImage = UIImageView(frame: .zero)
     var delegate : ButtonActionDelegate?
     
@@ -25,9 +25,13 @@ final class ButtonCustomView: UIButton {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    func updateLabel(text: String) {
+        self.label.text = text
+    }
     private func setLabel() {
         
-        label.text = "월성2동"
+        label.text = ""
         label.font = UIFont.headLine
         label.textColor = UIColor.black
         label.textColor = .black
