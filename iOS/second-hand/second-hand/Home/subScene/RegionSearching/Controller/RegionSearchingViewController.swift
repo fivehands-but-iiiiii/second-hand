@@ -37,12 +37,14 @@ class RegionSearchingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.searchBar.text = ""
         self.tabBarController?.tabBar.isHidden = true
     }
     
     private func commonInit() {
         self.view.backgroundColor = .white
         setNavigationBar()
+        regionListTableView.delegate = self
         regionListTableView.register(RegionCell.self, forCellReuseIdentifier: "REGIONCELL")
         setLayoutOfSearchBar()
         setLayoutTableView()
