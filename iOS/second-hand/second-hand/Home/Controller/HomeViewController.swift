@@ -33,6 +33,8 @@ final class HomeViewController: NavigationUnderLineViewController{
         getItemList(page: currentPage)
         setupDataSource()
         setRegisterProductButton()
+        updateRegion()
+        bindRegionUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,6 +49,20 @@ final class HomeViewController: NavigationUnderLineViewController{
     
     private func setupInfiniteScroll() {
         productListCollectionView.delegate = self
+    }
+    
+    private func bindRegionUI() {
+        UserInfoManager.shared.regionSubject
+            .subscribe(onNext: { [weak self] region in
+                guard let district = region.district else {
+                    return
+                }
+
+                self?.items.removeAll()
+                self?.applySnapshot()
+                self?.getItemList(page: self?.currentPage ?? 0)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func loadNextPage() {
@@ -64,6 +80,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         snapshot.appendItems(self.items, toSection: .main)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
+    
     
     private func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(didRecieveLogin(_:)), name: NSNotification.Name("LOGIN"), object: nil)
