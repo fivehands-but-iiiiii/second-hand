@@ -29,7 +29,7 @@ class RegionController {
             return lhs.identifier == rhs.identifier
         }
     }
-
+    
 }
 
 extension RegionController {
@@ -41,6 +41,7 @@ extension RegionController {
         if data.count == 0 {
             self.havingCell = []
         } else {
+            self.havingCell = []
             for region in data {
                 let name = region.city + " " + region.county + " " + region.district
                 let regionId = region.id
