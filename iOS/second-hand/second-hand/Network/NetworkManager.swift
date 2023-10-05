@@ -57,7 +57,6 @@ class NetworkManager {
         task.resume()
     }
     
-    
     static func sendOAuthPOST(data: Data?, header: ResponseHeader, fromURL url: URL, completion: @escaping (Result<Codable, Error>) -> Void) {
         
         let asyncCompletion: (Result<Codable, Error>) -> Void = { result in
@@ -120,7 +119,6 @@ class NetworkManager {
         }
     }
     
-    
     static func sendGET<T:Codable> (decodeType:T.Type, header: [String:String]? ,body data :Data?, fromURL url: URL, completion: @escaping (Result<[T], Error>) -> Void) {
         
         let asyncCompletion: (Result<[T], Error>) -> Void = { result in
@@ -180,12 +178,10 @@ class NetworkManager {
                 asyncCompletion(.failure(error))
                 return
             }
-            
             guard let data = data, let image = UIImage(data: data) else {
                 asyncCompletion(.failure(ErrorManager.invalidResponse))
                 return
             }
-            
             asyncCompletion(.success(image))
         }
         task.resume()
@@ -199,7 +195,6 @@ class NetworkManager {
             }
         }
 
-        
         let loginToken = UserInfoManager.shared.loginToken
         
         let request = makeRequest(methodType: .delete, cookie: nil, url: url, body: nil, loginToken: loginToken)
@@ -313,7 +308,7 @@ class NetworkManager {
                 case 200..<300 :
                     let answer = try JSONDecoder().decode(T.self, from: data)
                     
-                    UserInfoManager.shared.loginToken = loginToken
+                    //UserInfoManager.shared.loginToken = loginToken
                     
                     return asyncCompletion(.success(answer))
                 default :
