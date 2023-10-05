@@ -34,11 +34,10 @@ const useGeoLocation = (
   },
 ) => {
   const [location, setLocation] = useState<LocationType>(initialLocation);
-  let ignore = false;
 
   const getAddressFromCoordinates = useCallback(
     async ({ coords: { latitude, longitude } }: Corrdinates) => {
-      if (location.loaded || !ignore) return;
+      if (location.loaded) return;
 
       try {
         const { data } = await axios.get(
@@ -61,7 +60,6 @@ const useGeoLocation = (
   );
 
   const onError = (error: { code: number; message: string }) => {
-    if (ignore) return;
     setLocation({
       loaded: true,
       error,
@@ -69,7 +67,6 @@ const useGeoLocation = (
   };
 
   useEffect(() => {
-    if (ignore) return;
     if (!('geolocation' in navigator)) {
       onError({
         code: 0,
@@ -80,10 +77,6 @@ const useGeoLocation = (
       getAddressFromCoordinates,
       onError,
     );
-
-    return () => {
-      ignore = true;
-    };
   }, []);
 
   return { location };

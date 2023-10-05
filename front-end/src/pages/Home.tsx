@@ -30,7 +30,7 @@ import api from '../api';
 
 import ItemDetail from './ItemDetail';
 
-interface HomeInfo {
+export interface HomeInfo {
   page: number;
   hasPrevious: boolean;
   hasNext: boolean;

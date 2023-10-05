@@ -12,12 +12,15 @@ import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import { styled } from 'styled-components';
 
-import { HomePageInfo } from '../pages/Home';
+import { HomeInfo, HomePageInfo } from '../pages/Home';
 
 import BlankPage from './BlankPage';
 import ItemDetail from './ItemDetail';
 
 type WishCategory = Omit<CategoryInfo, 'iconUrl'>;
+type WishCategoryInfo = {
+  categories: number[];
+};
 
 interface WishPage extends HomePageInfo {
   wishItems: SaleItem[];
@@ -38,16 +41,26 @@ const WishList = () => {
     categories: [],
   });
   const { requestAll, loading } = useAllAPI();
-  let ignore = false;
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    if (isIntersecting && !loading) getWishListData();
+    if (isIntersecting && !loading) getWishList();
   };
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
-  const getWishListData = async () => {
+  const getWishList = async () => {
     if (!pageInfo.hasNext) return;
+
+    const [itemData, categoriesData] = await fetchWishList();
+    if (!itemData.items.length && !!categoriesData.categories.length) {
+      setSelectedCategoryId(0);
+      initData();
+      return;
+    }
+    updateWishList(itemData, categoriesData);
+  };
+
+  const fetchWishList = async () => {
     try {
       const [{ data: itemData }, { data: categoriesData }] = await requestAll([
         {
@@ -59,23 +72,21 @@ const WishList = () => {
           url: '/wishlist/categories',
         },
       ]);
-
-      if (!itemData.items.length && !!categoriesData.categories.length) {
-        setSelectedCategoryId(0);
-        initData();
-        return;
-      }
-
-      setPageInfo({
-        page: itemData.page + 1,
-        hasPrevious: itemData.hasPrevious,
-        hasNext: itemData.hasNext,
-        wishItems: [...itemData.items],
-        categories: matchCategories(categoriesData.categories),
-      });
+      return [itemData, categoriesData];
     } catch (error) {
       console.error(error);
+      throw error;
     }
+  };
+
+  const updateWishList = (item: HomeInfo, category: WishCategoryInfo) => {
+    setPageInfo({
+      page: item.page + 1,
+      hasPrevious: item.hasPrevious,
+      hasNext: item.hasNext,
+      wishItems: [...item.items],
+      categories: matchCategories(category.categories),
+    });
   };
 
   const matchCategories = (categoriesData: number[]) => {
@@ -122,13 +133,17 @@ const WishList = () => {
 
   useEffect(() => {
     if (!onRefresh) return;
-    getWishListData();
+    getWishList();
     setOnRefresh(false);
   }, [onRefresh]);
 
   useEffect(() => {
-    if (ignore) return;
-    getWishListData();
+    let ignore = false;
+
+    fetchWishList().then(([itemData, categoriesData]) => {
+      if (!ignore) updateWishList(itemData, categoriesData);
+    });
+
     return () => {
       ignore = true;
     };

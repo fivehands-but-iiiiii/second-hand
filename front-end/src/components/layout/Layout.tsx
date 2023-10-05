@@ -12,20 +12,23 @@ const Layout = () => {
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
   const { request } = useAPI();
 
-  const getCategories = async () => {
-    if (categories.length) return;
-    try {
-      const { data } = await request({
-        url: '/resources/categories',
-      });
-      setCategories(data.categories);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getCategories();
+    let ignore = false;
+    if (categories.length) return;
+
+    request({
+      url: '/resources/categories',
+    })
+      .then(({ data }) => {
+        if (!ignore) setCategories(data.categories);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (

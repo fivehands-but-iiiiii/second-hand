@@ -28,13 +28,25 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   const [regionList, setRegionList] = useState<Region[]>([]);
   const { request } = useAPI();
   const { location: currentLocation } = useGeoLocation();
-  let ignore = false;
+
+  const fetchRegionList = async (keyword: string) => {
+    try {
+      const { data } = await request({
+        url: `/regions?keyword=${keyword}`,
+      });
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateRegionList = async (region: Region[]) => {
+    setRegionList(region);
+  };
 
   const getRegionList = async (keyword: string) => {
-    const { data } = await request({
-      url: `/regions?keyword=${keyword}`,
-    });
-    setRegionList(data);
+    const regionList = await fetchRegionList(keyword);
+    updateRegionList(regionList);
   };
 
   const getCurrentRegionList = async () => {
@@ -59,8 +71,12 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   );
 
   useEffect(() => {
-    if (ignore) return;
-    getRegionList('강남구');
+    let ignore = false;
+
+    fetchRegionList('강남구').then((regionList) => {
+      if (!ignore) updateRegionList(regionList);
+    });
+
     return () => {
       ignore = true;
     };
