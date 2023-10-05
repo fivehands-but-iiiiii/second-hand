@@ -12,7 +12,7 @@ struct LoginFetchedUserData: Codable {
     let memberId: String
     let profileImgUrl: String
     let oauth: String?
-    let regions : [Region]
+    var regions : [Region]
 }
 
 struct Region: Codable {
