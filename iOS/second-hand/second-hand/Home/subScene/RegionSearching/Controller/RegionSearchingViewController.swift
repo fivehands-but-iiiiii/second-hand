@@ -122,28 +122,30 @@ extension RegionSearchingViewController {
     }
 }
 
-//extension RegionSearchingViewController: UICollectionViewDelegate {
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        // cell이 클릭되었을 때
-//        guard let url = URL(string:Server.shared.createChangeRegionURL()) else {
-//            return
-//        }
-//        let regionID = regionsController.havingCell[indexPath.item].regionId
-//        let district = regionsController.havingCell[indexPath.item].name.split(separator: " ")[2]
-//
-//        let region = convertToRegionFrom(id: regionID, district: String(district), onFocus: false)
-//
-//        let body = JSONCreater().createChangingRegionBody(region)
-//
-//        NetworkManager().sendPut(decodeType: BooleanResponse.self, what: body, header: nil, fromURL: url) { (result: Result<BooleanResponse, Error>) in
-//            switch result {
-//            case .success(let response) :
-//                print(response)
-//
-//            case .failure(let error) :
-//                print(error)
-//            }
-//        }
-//    }
-//}
+extension RegionSearchingViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let url = URL(string:Server.shared.createChangeRegionURL()) else {
+            return
+        }
+        let regionID = regionsController.havingCell[indexPath.item].regionId
+        let district = regionsController.havingCell[indexPath.item].name.split(separator: " ")[2]
+
+        let region = convertToRegionFrom(id: regionID, district: String(district), onFocus: true)
+
+        let body = JSONCreater().createChangingRegionBody(region)
+
+        NetworkManager().sendPut(decodeType: BooleanResponse.self, what: body, header: nil, fromURL: url) { (result: Result<BooleanResponse, Error>) in
+            switch result {
+            case .success(let response) :
+                self.updateRegion(region: region)
+                let alert = UIAlertController(title: "지역 변경 성공", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+
+            case .failure(let error) :
+                print(error)
+            }
+        }
+    }
+}
