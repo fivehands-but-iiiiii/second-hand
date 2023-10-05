@@ -51,29 +51,29 @@ extension RegionController {
     }
     
     func getRegionList(keyword: String) -> Observable<[RegionInfo]> {
-            return Observable.create { observer in
-                let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                
-                guard let url = URL(string: Server.shared.createRegionListURL(keyword: encodedKeyword)) else {
-                    return Disposables.create()
-                }
-                
-                NetworkManager.sendGET(decodeType: RegionListFetchedSuccess.self, header: nil, body: nil, fromURL: url) { (result: Result<[RegionListFetchedSuccess], Error>) in
-                    switch result {
-                    case .success(let response):
-                        guard let regions = response.last?.data else {
-                            observer.onNext([])
-                            observer.onCompleted()
-                            return
-                        }
-                        observer.onNext(regions)
-                        observer.onCompleted()
-                    case .failure(let error):
-                        observer.onError(error)
-                    }
-                }
-                
+        return Observable.create { observer in
+            let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            
+            guard let url = URL(string: Server.shared.createRegionListURL(keyword: encodedKeyword)) else {
                 return Disposables.create()
             }
+            
+            NetworkManager.sendGET(decodeType: RegionListFetchedSuccess.self, header: nil, body: nil, fromURL: url) { (result: Result<[RegionListFetchedSuccess], Error>) in
+                switch result {
+                case .success(let response):
+                    guard let regions = response.last?.data else {
+                        observer.onNext([])
+                        observer.onCompleted()
+                        return
+                    }
+                    observer.onNext(regions)
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create()
         }
+    }
 }
