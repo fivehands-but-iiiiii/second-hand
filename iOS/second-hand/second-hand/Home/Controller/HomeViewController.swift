@@ -101,7 +101,6 @@ final class HomeViewController: NavigationUnderLineViewController{
         productListCollectionView.setCollectionViewLayout(layout, animated: true)
         self.view.addSubview(productListCollectionView)
         setCollectionViewConstraints()
-        
     }
     
     private func setCollectionViewConstraints() {
