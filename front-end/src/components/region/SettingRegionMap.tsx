@@ -39,7 +39,7 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
   const [updated, setUpdated] = useState<UpdatedRegionTypes>({
     regions: regions,
-    center: { lat: 37.5000776, lng: 127.0385419 },
+    center: { lat: 37.49087142944336, lng: 127.03343963623047 },
   });
   const [, setMap] = useState(null);
   const { getCoordinatesFromAddress } = useAddressToCoordinates();

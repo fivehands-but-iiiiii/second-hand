@@ -8,7 +8,7 @@ const useAddressToCoords = () => {
   const getCoordinatesFromAddress = useCallback(async (address: string) => {
     try {
       const { data } = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&language=ko&key=${GOOGLE_KEY}`,
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address},+CA&key=${GOOGLE_KEY}`,
       );
       const coords = data.results[0].geometry.location;
       return coords;
