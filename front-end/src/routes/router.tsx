@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-import Layout from '@components/layout/Layout';
+import Layout from '@components/layout';
 import Join from '@components/login/Join';
 import OAuthCallback from '@components/login/OAuthCallback';
 import NotFound from '@pages/NotFound';

@@ -13,8 +13,10 @@ interface LabelInputStyleProps {
 
 const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
   ({ label, subText, placeholder, ...rest }, ref) => {
+    const isSubText = subText !== undefined;
+
     return (
-      <MyLabelInput subText={subText !== undefined}>
+      <MyLabelInput subText={isSubText}>
         <label htmlFor="labelInput">{label}</label>
         <input
           name="labelInput"

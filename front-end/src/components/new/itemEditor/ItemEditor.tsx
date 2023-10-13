@@ -120,8 +120,8 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
       ...newFiles.map((image) => ({ url: image })),
     ];
     const editedData = {
-      title: title,
-      contents: contents,
+      title,
+      contents,
       category: category.selectedId,
       region: currentRegion.id,
       price: getNumericPrice(price),

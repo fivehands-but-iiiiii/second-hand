@@ -6,7 +6,7 @@ import NavBar from '@common/NavBar';
 import Spinner from '@common/Spinner/Spinner';
 import { CategoryInfo } from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { useCategories } from '@components/layout/Layout';
+import { useCategories } from '@components/layout';
 import useAllAPI from '@hooks/useAllAPI';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 

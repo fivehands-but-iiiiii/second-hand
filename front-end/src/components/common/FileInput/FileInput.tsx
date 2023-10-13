@@ -15,11 +15,11 @@ const FileInput = ({ fileDescription, onChange }: FileInputProps) => {
 
   const handleInputFile = () => fileInputRef.current?.click();
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
+  const handleFileChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { files } = target;
     if (!files) return;
     onChange(files);
-    e.target.value = '';
+    target.value = '';
   };
 
   return (
