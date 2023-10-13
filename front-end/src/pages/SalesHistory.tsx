@@ -14,7 +14,7 @@ import SegmentedControl from '@common/SegmentedControl';
 import Spinner from '@common/Spinner/Spinner';
 import ItemList from '@components/home/ItemList';
 import { ItemStatus } from '@components/ItemStatus';
-import { useCategories } from '@components/layout/MobileLayout';
+import { useCategories } from '@components/layout';
 import New from '@components/new/New';
 import useAPI from '@hooks/useAPI';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
@@ -39,6 +39,13 @@ const SALES_STATUS = [
   },
 ];
 
+interface SalesHistoryPage {
+  number: number;
+  hasPrevious: boolean;
+  hasNext: boolean;
+  items: SaleItem[];
+}
+
 const SalesHistory = () => {
   const categories = useCategories();
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
@@ -59,6 +66,7 @@ const SalesHistory = () => {
     hasNext: true,
   });
   const { request } = useAPI();
+  const isLogin = !!getStoredValue({ key: 'userInfo' });
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
     if (isIntersecting && !isLoading) getSalesHistory();
@@ -67,27 +75,33 @@ const SalesHistory = () => {
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
   const getSalesHistory = async () => {
-    if (!pageInfo.hasNext) return;
+    if (!pageInfo.hasNext || !isLogin) return;
 
-    const userInfo = getStoredValue({ key: 'userInfo' });
-    if (!userInfo) return;
+    const salesList = await fetchSalesHistory();
+    updateSalesHistory(salesList);
+  };
 
+  const fetchSalesHistory = async () => {
     try {
       setIsLoading(true);
       const { data } = await request({
         url: `items/mine?page=${pageInfo.page}&isSales=${!selectedStatusIndex}`,
       });
-      setSaleItems((pre) => [...pre, ...data.items]);
-      setPageInfo({
-        page: data.number + 1,
-        hasPrevious: data.hasPrevious,
-        hasNext: data.hasNext,
-      });
+      return data;
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const updateSalesHistory = async (salesList: SalesHistoryPage) => {
+    setSaleItems((pre) => [...pre, ...salesList.items]);
+    setPageInfo({
+      page: salesList.number + 1,
+      hasPrevious: salesList.hasPrevious,
+      hasNext: salesList.hasNext,
+    });
   };
 
   const initData = () => {
@@ -229,7 +243,16 @@ const SalesHistory = () => {
   }, [onRefresh]);
 
   useEffect(() => {
-    getSalesHistory();
+    if (!isLogin) return;
+    let ignore = false;
+
+    fetchSalesHistory().then((salesList) => {
+      if (!ignore) updateSalesHistory(salesList);
+    });
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   return (
@@ -262,9 +285,8 @@ const SalesHistory = () => {
           )}
           {isViewMorePopupOpen && (
             <PopupSheet
-              type={'slideUp'}
               menu={viewMorePopupSheetMenu}
-              onSheetClose={handleViewMorePopup}
+              onClick={handleViewMorePopup}
             />
           )}
           {isNewModalOpen && (

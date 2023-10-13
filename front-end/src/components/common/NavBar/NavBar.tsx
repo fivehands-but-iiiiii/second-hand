@@ -66,17 +66,19 @@ const MyNavBarTitle = styled.div`
 `;
 
 const MyLeftTitle = styled.p`
+  min-width: max-content;
   text-align: left;
   grid-column: 1;
 `;
 
 const MyRightTitle = styled.p`
+  min-width: max-content;
   text-align: right;
   grid-column: 3;
 `;
 
 const MyCenter = styled.p`
-  min-width: 80px;
+  min-width: max-content;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.neutral.textStrong};
   text-align: center;

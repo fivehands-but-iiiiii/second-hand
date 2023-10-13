@@ -24,11 +24,12 @@ const TitleEditor = ({
   onClickTitle,
   onClickCategory,
 }: TitleEditorProps) => {
+  const { total, recommendedCategory, selectedId } = category;
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const handleSelectCategory = (selectedCategory: Category) => {
     onClickCategory(selectedCategory);
-    if (category.selectedId !== selectedCategory.id) handleCategoryModal();
+    if (selectedId !== selectedCategory.id) handleCategoryModal();
   };
 
   const handleCategoryModal = () => setIsCategoryModalOpen((prev) => !prev);
@@ -44,11 +45,11 @@ const TitleEditor = ({
         onChange={onChangeTitle}
         onClick={onClickTitle}
       />
-      {!!category.recommendedCategory.length && (
+      {!!recommendedCategory.length && (
         <MyTitleCategories>
           <MyCategories>
-            {category.recommendedCategory.map(({ id, title }: Category) => {
-              const isActive = id === category.selectedId;
+            {recommendedCategory.map(({ id, title }: Category) => {
+              const isActive = id === selectedId;
               return (
                 <Button
                   key={id}
@@ -70,8 +71,8 @@ const TitleEditor = ({
       )}
       {isCategoryModalOpen && (
         <CategoryList
-          categories={category.total}
-          selectedId={category.selectedId}
+          categories={total}
+          selectedId={selectedId}
           onClickCategory={handleSelectCategory}
           onPortal={handleCategoryModal}
         />

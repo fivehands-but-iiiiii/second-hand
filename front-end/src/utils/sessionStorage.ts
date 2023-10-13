@@ -3,7 +3,7 @@ interface sessionStorageProps {
   value?: object;
 }
 
-const getStoredValue = ({ key }: sessionStorageProps) => {
+export const getStoredValue = ({ key }: sessionStorageProps) => {
   try {
     const value = sessionStorage.getItem(key);
     return value ? JSON.parse(value) : null;
@@ -12,7 +12,7 @@ const getStoredValue = ({ key }: sessionStorageProps) => {
   }
 };
 
-const setStorageValue = ({ key, value }: sessionStorageProps) => {
+export const setStorageValue = ({ key, value }: sessionStorageProps) => {
   try {
     sessionStorage.setItem(key, JSON.stringify(value));
   } catch (err) {
@@ -20,7 +20,7 @@ const setStorageValue = ({ key, value }: sessionStorageProps) => {
   }
 };
 
-const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
+export const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
   try {
     keys.forEach((key) => {
       sessionStorage.removeItem(key);
@@ -29,6 +29,3 @@ const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
     console.error('Error removing sessionStorage:', err);
   }
 };
-
-// TODO: formatText.ts 처럼 함수 앞에 export를 각자 붙일 건지 현 파일처럼 할 건지 정하기
-export { getStoredValue, setStorageValue, removeStorageValue };

@@ -234,9 +234,8 @@ const ChatRoom = ({ itemId, onRoomClose }: ChatRoomProps) => {
       )}
       {isMoreViewPopupOpen && (
         <PopupSheet
-          type={'slideUp'}
           menu={viewMorePopupSheetMenu}
-          onSheetClose={handleViewMorePopup}
+          onClick={handleViewMorePopup}
         ></PopupSheet>
       )}
       <div ref={endRef}></div>

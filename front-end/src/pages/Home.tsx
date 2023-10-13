@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Icon from '@assets/Icon';
@@ -16,7 +16,7 @@ import { REGION_MENU } from '@common/PopupSheet/constants';
 import Spinner from '@common/Spinner/Spinner';
 import Category from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { useCategories } from '@components/layout/MobileLayout';
+import { useCategories } from '@components/layout';
 import { RegionInfo } from '@components/login/Join';
 import New from '@components/new/New';
 import SettingRegionMap from '@components/region/SettingRegionMap';
@@ -30,7 +30,7 @@ import api from '../api';
 
 import ItemDetail from './ItemDetail';
 
-interface HomeInfo {
+export interface HomeInfo {
   page: number;
   hasPrevious: boolean;
   hasNext: boolean;
@@ -60,8 +60,7 @@ const Home = () => {
     ],
   );
   const currentRegion = userRegions.find(({ onFocus }) => onFocus);
-  if (!currentRegion) return;
-  const currentRegionId = currentRegion?.id;
+  const currentRegionId = currentRegion?.id || 1168064000;
   const categories = useCategories();
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -177,7 +176,7 @@ const Home = () => {
 
   const handleCategoryModal = () => setIsCategoryModalOpen((prev) => !prev);
 
-  const regionPopupSheetMenu = useMemo(() => {
+  const regionPopupSheetMenu = () => {
     if (!userInfo)
       return userRegions.map(({ id, district, onFocus }) => ({
         id,
@@ -185,25 +184,24 @@ const Home = () => {
         style: onFocus ? 'font-weight: 600' : '',
         onClick: () => handleRegionSwitch(id),
       }));
-    else
-      return [
-        ...userRegions.map(({ id, district, onFocus }) => {
-          return {
-            id,
-            title: district,
-            style: onFocus ? 'font-weight: 600' : '',
-            onClick: () => handleRegionSwitch(id),
-          };
-        }),
-        ...REGION_MENU.map(({ id, title }) => {
-          return {
-            id,
-            title,
-            onClick: handleRegionMapModal,
-          };
-        }),
-      ];
-  }, [userRegions]);
+    return [
+      ...userRegions.map(({ id, district, onFocus }) => {
+        return {
+          id,
+          title: district,
+          style: onFocus ? 'font-weight: 600' : '',
+          onClick: () => handleRegionSwitch(id),
+        };
+      }),
+      ...REGION_MENU.map(({ id, title }) => {
+        return {
+          id,
+          title,
+          onClick: handleRegionMapModal,
+        };
+      }),
+    ];
+  };
 
   const handleNewButtonClick = () => {
     if (!userInfo) {
@@ -306,9 +304,9 @@ const Home = () => {
             </MyNavBarBtn>
             {isRegionPopupSheetOpen && (
               <PopupSheet
-                type={'slideDown'}
-                menu={regionPopupSheetMenu}
-                onSheetClose={handleRegionPopupSheetModal}
+                isSlideDown
+                menu={regionPopupSheetMenu()}
+                onClick={handleRegionPopupSheetModal}
               />
             )}
           </>

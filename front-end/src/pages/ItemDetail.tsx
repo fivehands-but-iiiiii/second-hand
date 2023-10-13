@@ -20,7 +20,7 @@ import ChatRoom from '@components/chat/ChatRoom';
 import { CategoryInfo } from '@components/home/category';
 import Carousel from '@components/home/ItemDetail/Carousel';
 import { ItemStatus } from '@components/ItemStatus';
-import { useCategories } from '@components/layout/MobileLayout';
+import { useCategories } from '@components/layout';
 import PortalLayout from '@components/layout/PortalLayout';
 import New from '@components/new/New';
 import { formatNumberToSI } from '@utils/formatNumberToSI';
@@ -368,16 +368,14 @@ const ItemDetail = ({
       )}
       {isStatusPopupOpen && (
         <PopupSheet
-          type={'slideUp'}
           menu={statusPopupSheetMenu}
-          onSheetClose={handleStatusPopup}
+          onClick={handleStatusPopup}
         ></PopupSheet>
       )}
       {isMoreViewPopupOpen && (
         <PopupSheet
-          type={'slideUp'}
           menu={viewMorePopupSheetMenu}
-          onSheetClose={handleViewMorePopup}
+          onClick={handleViewMorePopup}
         ></PopupSheet>
       )}
       {isNewModalOpen && (
