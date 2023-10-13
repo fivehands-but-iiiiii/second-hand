@@ -381,7 +381,7 @@ const ItemEditor = ({ categoryInfo, origin, onPortal }: ItemEditorProps) => {
 const MyNew = styled.div`
   width: 100%;
   height: calc(90vh - 85px);
-  padding: 0 2.7vw;
+  padding: 0 15px;
   > div:nth-child(1) {
     padding: 15px 0;
   }

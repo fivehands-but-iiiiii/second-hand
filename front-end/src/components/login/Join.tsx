@@ -171,7 +171,7 @@ const MyJoin = styled.div`
 `;
 
 const MyUserAccount = styled.div`
-  padding: 5vh 2.7vw;
+  padding: 5vh 15px;
 `;
 
 const MyUserInfo = styled.div`

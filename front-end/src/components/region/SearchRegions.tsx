@@ -123,12 +123,12 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
 };
 
 const MySearchRegions = styled.div`
-  padding: 10px 2.7vw;
+  padding: 10px 15px;
 `;
 
 const MyRegionList = styled.div`
   height: calc(100vh - 194px);
-  padding: 0 3vw 10px;
+  padding: 0 15px 10px;
   text-align: center;
   color: ${({ theme }) => theme.colors.neutral.textWeak};
   ul {
