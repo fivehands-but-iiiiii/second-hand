@@ -30,7 +30,7 @@ const NavBar = ({
     <MyNavBar className={className}>
       <MyNavBarTitle>
         {left && <MyLeftTitle>{left}</MyLeftTitle>}
-        <MyCenter>{center}</MyCenter>
+        {center && <MyCenter>{center}</MyCenter>}
         {right && <MyRightTitle>{right}</MyRightTitle>}
       </MyNavBarTitle>
       {children && <MyChildren>{children}</MyChildren>}

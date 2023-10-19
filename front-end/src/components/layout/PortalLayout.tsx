@@ -10,14 +10,14 @@ interface PortalLayoutProps {
 const PortalLayout = ({ children }: PortalLayoutProps) => {
   return createPortal(
     <MyPortalLayout>{children}</MyPortalLayout>,
-    document.getElementById('root')?.querySelector('main') as HTMLElement,
+    document.getElementById('root')?.querySelector('main') || document.body,
   );
 };
 
 PortalLayout.Alert = ({ children }: PortalLayoutProps) => {
   return createPortal(
     <MyAlertPortal>{children}</MyAlertPortal>,
-    document.getElementById('root')?.querySelector('main') as HTMLElement,
+    document.getElementById('root')?.querySelector('main') || document.body,
   );
 };
 
