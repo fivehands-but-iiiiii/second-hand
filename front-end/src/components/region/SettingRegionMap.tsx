@@ -159,7 +159,7 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
 
 const MySettingRegionMap = styled.div`
   height: 50vh;
-  padding: 0 2.7vw;
+  padding: 0 15px;
   > div:first-child {
     margin-bottom: 10px;
   }

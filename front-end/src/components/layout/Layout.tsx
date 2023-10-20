@@ -46,8 +46,9 @@ export const useCategories = () => {
 };
 
 const MyLayout = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
   background-color: ${({ theme }) => theme.colors.neutral.background};
   text-align: center;
   overflow: auto;

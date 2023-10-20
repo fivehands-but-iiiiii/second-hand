@@ -162,7 +162,7 @@ const MyLogin = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5vh 2.7vw;
+  padding: 5vh 15px;
   height: calc(90vh - 83px);
 `;
 
