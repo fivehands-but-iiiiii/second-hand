@@ -6,7 +6,7 @@ import NavBar from '@common/NavBar';
 import Spinner from '@common/Spinner/Spinner';
 import { CategoryInfo } from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { useCategories } from '@components/layout';
+import { getOutletContext } from '@components/layout';
 import useAllAPI from '@hooks/useAllAPI';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
@@ -29,7 +29,7 @@ interface WishPage extends HomePageInfo {
 
 const WishList = () => {
   const title = '관심 목록';
-  const categories = useCategories();
+  const { categories } = getOutletContext();
   const [selectedItem, setSelectedItem] = useState(0);
   const [selectedCategoryId, setSelectedCategoryId] = useState(0);
   const [onRefresh, setOnRefresh] = useState(false);

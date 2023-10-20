@@ -8,21 +8,25 @@ import Loading from '@pages/Loading';
 
 import { styled } from 'styled-components';
 
+interface OutletContext {
+  categories: CategoryInfo[];
+}
+
 const Layout = () => {
   const categories = useCategory();
 
   return (
     <MyLayout>
       <Suspense fallback={<Loading />}>
-        <Outlet context={categories} />
+        <Outlet context={{ categories }} />
       </Suspense>
       <MainTabBar />
     </MyLayout>
   );
 };
 
-export const useCategories = () => {
-  return useOutletContext<CategoryInfo[]>();
+export const getOutletContext = () => {
+  return useOutletContext<OutletContext>();
 };
 
 const MyLayout = styled.div`

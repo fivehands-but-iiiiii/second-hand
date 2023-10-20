@@ -20,7 +20,7 @@ import ChatRoom from '@components/chat/ChatRoom';
 import { CategoryInfo } from '@components/home/category';
 import Carousel from '@components/home/ItemDetail/Carousel';
 import { ItemStatus } from '@components/ItemStatus';
-import { useCategories } from '@components/layout';
+import { getOutletContext } from '@components/layout';
 import PortalLayout from '@components/layout/PortalLayout';
 import New from '@components/new/New';
 import { formatNumberToSI } from '@utils/formatNumberToSI';
@@ -125,7 +125,7 @@ const ItemDetail = ({
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const likeIcon = isLike ? 'fullHeart' : 'heart';
-  const categories = useCategories();
+  const { categories } = getOutletContext();
   const loginNavigator = useNavigate();
   const chatNavigator = useNavigate();
 
