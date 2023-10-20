@@ -52,7 +52,7 @@ const MyBlurNavBar = styled(MyDefaultNavBar)`
 `;
 
 const MyTransparentNavBar = styled(MyDefaultNavBar)`
-  position: fixed;
+  position: absolute;
   border: none;
 `;
 
