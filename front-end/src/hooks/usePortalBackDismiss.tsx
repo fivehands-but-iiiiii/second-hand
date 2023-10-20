@@ -1,8 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 
+export interface PortalHandler {
+  registerPortal: (
+    closeFunction: ClosePortalFunction,
+    urlSuffix?: string,
+  ) => void;
+  unregisterLastPortal: () => void;
+}
+
 type ClosePortalFunction = () => void;
 
-const usePortalBackDismiss = () => {
+const usePortalBackDismiss = (): PortalHandler => {
   const [closeFunctions, setCloseFunctions] = useState<ClosePortalFunction[]>(
     [],
   );
