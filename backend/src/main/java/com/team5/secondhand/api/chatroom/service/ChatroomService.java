@@ -59,7 +59,9 @@ public class ChatroomService {
     @Transactional
     public ChatroomList findChatroomListByMember(Pageable page, Member member) {
         Slice<Chatroom> chatroomSlice = chatRoomRepository.findAllByBuyerIdOrSellerIdOrderByIdDesc(page, member.getId(), member.getId());
+
         List<ChatroomSummary> chatroomSummaries = chatroomSlice.getContent().stream()
+                .filter(c -> c.isChatroomMember(member))
                 .map(c -> ChatroomSummary.of(c, member))
                 .collect(Collectors.toList());
 
