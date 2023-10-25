@@ -1,5 +1,6 @@
 package com.team5.secondhand.chat.chatroom.handler;
 
+import com.team5.secondhand.api.chatroom.exception.NotChatroomMemberException;
 import com.team5.secondhand.chat.chatroom.service.ChatroomCacheService;
 import com.team5.secondhand.chat.exception.ErrorType;
 import com.team5.secondhand.chat.notification.service.SessionService;
@@ -36,20 +37,24 @@ public class StompMessageProcessor implements ChannelInterceptor {
             throw new MessageDeliveryException(ErrorType.BAD_REQUEST.getMessage());
         }
 
-        switch (headerAccessor.getCommand()) {
-            case CONNECT:
-                String memberId = getMemberIdByToken(headerAccessor.getFirstNativeHeader("Authorization"));
-                sessionService.saveSession(headerAccessor.getSessionId(), memberId);
-                break;
-            case SUBSCRIBE:
-                enterToChatRoom(headerAccessor);
-                break;
-            case UNSUBSCRIBE:
-                exitToChatRoom(headerAccessor);
-                break;
-            case DISCONNECT:
-                sessionService.deleteSession(headerAccessor.getSessionId());
-                break;
+        try {
+            switch (headerAccessor.getCommand()) {
+                case CONNECT:
+                    String memberId = getMemberIdByToken(headerAccessor.getFirstNativeHeader("Authorization"));
+                    sessionService.saveSession(headerAccessor.getSessionId(), memberId);
+                    break;
+                case SUBSCRIBE:
+                    enterToChatRoom(headerAccessor);
+                    break;
+                case UNSUBSCRIBE:
+                    exitToChatRoom(headerAccessor);
+                    break;
+                case DISCONNECT:
+                    sessionService.deleteSession(headerAccessor.getSessionId());
+                    break;
+            }
+        } catch (NotChatroomMemberException e) {
+            throw new MessageDeliveryException(ErrorType.BAD_REQUEST.getMessage());
         }
     }
 
@@ -61,7 +66,7 @@ public class StompMessageProcessor implements ChannelInterceptor {
         return jwtService.getMemberId(authorization).orElseThrow(() -> new MessageDeliveryException(ErrorType.UNAUTHORIZED.getMessage()));
     }
 
-    private void enterToChatRoom(StompHeaderAccessor headerAccessor) {
+    private void enterToChatRoom(StompHeaderAccessor headerAccessor) throws NotChatroomMemberException {
         String memberId = sessionService.getMemberIdBySessionId(headerAccessor.getSessionId());
         String roomId = extractRoomId(headerAccessor.getDestination());
         chatroomCacheService.enterToChatRoom(roomId, memberId);
