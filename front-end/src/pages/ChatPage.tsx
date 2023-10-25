@@ -14,6 +14,7 @@ const ChatPage = () => {
   const [page, setPage] = useState(0);
   const [chatList, setChatList] = useState([]);
   const [selectedChatRoomId, setSelectedChatRoomId] = useState('');
+  const [freshCount, setFreshCount] = useState(0);
   const isChatListExist = !!chatList.length;
 
   const buildChatListApiUrl = (page: number, itemId?: string) => {
@@ -35,11 +36,14 @@ const ChatPage = () => {
 
   const handleChatRoomClick = (chatId: string) => setSelectedChatRoomId(chatId);
 
-  const handleChatRoom = () => setSelectedChatRoomId('');
+  const handleChatRoom = () => {
+    setSelectedChatRoomId('');
+    setFreshCount((prev) => prev + 1);
+  };
 
   useEffect(() => {
     getChatList();
-  }, []);
+  }, [freshCount]);
 
   if (!isChatListExist) return <BlankPage title={title} />;
   return (
@@ -57,26 +61,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
-// data: {
-//   page : {number},
-//   hasPrevious: {boolean},
-//   hasNext: {boolean},
-//   chatRooms:[{
-//     chatroomId: string
-//     opponent: {
-//       memberId: string,
-//       profileImgUrl: string
-//     },
-//     item:{
-//       itemId: number,
-//       title: string,
-//       thumbnailImgUrl: string,
-//     },
-//     chatLogs:{
-//       lastMessage: string,
-//       updatedAt: date
-//       unReadCount: number
-//     }
-//   }]
-// }
