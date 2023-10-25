@@ -10,23 +10,21 @@ interface PortalLayoutProps {
 const PortalLayout = ({ children }: PortalLayoutProps) => {
   return createPortal(
     <MyPortalLayout>{children}</MyPortalLayout>,
-    document.getElementById('root')?.querySelector('main') || document.body,
+    document.body,
   );
 };
 
 PortalLayout.Alert = ({ children }: PortalLayoutProps) => {
-  return createPortal(
-    <MyAlertPortal>{children}</MyAlertPortal>,
-    document.getElementById('root')?.querySelector('main') || document.body,
-  );
+  return createPortal(<MyAlertPortal>{children}</MyAlertPortal>, document.body);
 };
 
 const MyDefaultPortal = styled.div`
   z-index: 11000;
   position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   color: ${({ theme }) => theme.colors.neutral.text};
 `;
 

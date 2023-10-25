@@ -6,62 +6,64 @@ interface MenuItem {
   style?: string;
   onClick: () => void;
 }
+
 interface PopupSheetProps {
-  isSlideDown?: boolean;
+  type: 'slideDown' | 'slideUp';
   menu: MenuItem[];
-  onClick?: () => void;
+  onSheetClose?: () => void;
 }
 
 interface PopupSheetStyleProps {
+  option?: string;
   isSlideDown?: boolean;
 }
 
-interface OptionStyleProps extends PopupSheetStyleProps {
-  option?: string;
+interface PopupSheetBackgroundProps {
+  isSlideDown?: boolean;
 }
 
-const PopupSheet = ({
-  isSlideDown = false,
-  menu,
-  onClick,
-}: PopupSheetProps) => {
+// TODO: type을 받는 대신 component composition로 구현하는 게 어떨지 고민해보기
+const PopupSheet = ({ type, menu, onSheetClose }: PopupSheetProps) => {
+  const isSlideDown = type === 'slideDown';
+
+  const menuOptions = (menuItems: MenuItem[]) => {
+    return menuItems.map(({ id, title, style, onClick }) => (
+      <MyPopupOption
+        key={id}
+        option={style}
+        isSlideDown={isSlideDown}
+        onClick={onClick}
+      >
+        {title}
+      </MyPopupOption>
+    ));
+  };
+
   return (
     <>
-      <MyPopupSheetBackground isSlideDown={isSlideDown} onClick={onClick} />
-      <SlideSheet isSlideDown={isSlideDown} menu={menu} onClick={onClick} />
+      <MyPopupBackground isSlideDown={isSlideDown} onClick={onSheetClose} />
+      {isSlideDown ? (
+        <MyMenuPopdown onClick={(e) => e.stopPropagation()}>
+          {menuOptions(menu)}
+        </MyMenuPopdown>
+      ) : (
+        <MyPopupSheet>
+          <MyMenuPopUp onClick={(e) => e.stopPropagation()}>
+            {menuOptions(menu)}
+          </MyMenuPopUp>
+          <div onClick={onSheetClose}>취소</div>
+        </MyPopupSheet>
+      )}
     </>
   );
 };
 
-const SlideSheet = ({ isSlideDown, menu, onClick }: PopupSheetProps) => {
-  return (
-    <MyMenuPopupSheet isSlideDown={isSlideDown}>
-      <MySlideSheet
-        isSlideDown={isSlideDown}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {menu.map(({ id, title, style, onClick }) => (
-          <MyPopupOption
-            key={id}
-            option={style}
-            isSlideDown={isSlideDown}
-            onClick={onClick}
-          >
-            {title}
-          </MyPopupOption>
-        ))}
-      </MySlideSheet>
-      {!isSlideDown && <MyCancelButton onClick={onClick}>취소</MyCancelButton>}
-    </MyMenuPopupSheet>
-  );
-};
-
-const MyPopupSheetBackground = styled.div<PopupSheetStyleProps>`
+const MyPopupBackground = styled.div<PopupSheetBackgroundProps>`
   position: absolute;
   z-index: 1;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   ${({ isSlideDown, theme }) =>
     isSlideDown
@@ -73,51 +75,43 @@ const MyPopupSheetBackground = styled.div<PopupSheetStyleProps>`
         `}
 `;
 
-const MySlideSheet = styled.div<PopupSheetStyleProps>`
-  display: flex;
-  flex-direction: column;
+const MyMenuPopdown = styled.div`
+  position: absolute;
+  z-index: 10;
+  width: 180px;
+  border: 1px solid ${({ theme }) => theme.colors.neutral.borderStrong};
   border-radius: 12px;
-  ${({ isSlideDown }) =>
-    isSlideDown
-      ? css`
-          z-index: 10;
-          position: absolute;
-          width: 180px;
-          border: 1px solid ${({ theme }) => theme.colors.neutral.borderStrong};
-          background-color: ${({ theme }) => theme.colors.system.background};
-        `
-      : css`
-          margin: 8px 0;
-          background-color: ${({ theme }) =>
-            theme.colors.system.backgroundWeak};
-        `}
+  background-color: ${({ theme }) => theme.colors.system.background};
 `;
 
-const MyMenuPopupSheet = styled.div<PopupSheetStyleProps>`
-  ${({ isSlideDown }) =>
-    !isSlideDown &&
-    css`
-      z-index: 10;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 0 8px;
-      ${({ theme }) => theme.fonts.title3};
-      font-weight: 600;
-    `}
+const MyMenuPopUp = styled.div`
+  background-color: ${({ theme }) => theme.colors.system.backgroundWeak};
 `;
 
-const MyCancelButton = styled.button`
+const MyPopupSheet = styled.div`
+  position: absolute;
+  z-index: 10;
   width: 100%;
-  height: 60px;
-  line-height: 60px;
-  margin: 0 0 8px;
-  border-radius: 12px;
-  background-color: ${({ theme }) => theme.colors.neutral.background};
+  padding: 0 8px;
+  bottom: 0;
   color: ${({ theme }) => theme.colors.system.default};
+  ${({ theme }) => theme.fonts.title3};
+  font-weight: 600;
+  > div {
+    margin: 8px 0;
+    border-radius: 12px;
+    &:last-child {
+      height: 60px;
+      line-height: 60px;
+      background-color: ${({ theme }) => theme.colors.neutral.background};
+      text-align: center;
+      cursor: pointer;
+    }
+  }
 `;
 
-const MyPopupOption = styled.button<OptionStyleProps>`
+const MyPopupOption = styled.div<PopupSheetStyleProps>`
+  cursor: pointer;
   ${({ isSlideDown }) =>
     isSlideDown
       ? css`
@@ -125,13 +119,13 @@ const MyPopupOption = styled.button<OptionStyleProps>`
           line-height: 45px;
           ${({ theme }) => theme.fonts.subhead};
           padding: 0 16px;
-          text-align: left;
+          ${({ theme }) => theme.colors.neutral.textStrong};
         `
       : css`
           height: 60px;
           line-height: 60px;
           ${({ theme }) => theme.fonts.title3};
-          color: ${({ theme }) => theme.colors.system.default};
+          text-align: center;
         `}
   ${({ option }) => option};
   &:not(:last-child) {

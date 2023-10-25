@@ -1,65 +1,73 @@
 import { ComponentPropsWithRef } from 'react';
 
-import Button from '@common/Button';
-import ImgBox from '@common/ImgBox';
+import Button from '@common/Button/Button';
+import ImgBox from '@common/ImgBox/ImgBox';
+import { SaleItem } from '@common/Item';
 import UserProfile from '@components/login/UserProfile';
-import getElapsedTime from '@utils/getElapsedTime';
 
 import { styled } from 'styled-components';
 
+// {
+//   page : {number},
+//   hasPrevious: {boolean},
+//   hasNext: {boolean},
+//   chatRooms:[{
+//     chatroomId: string
+//     opponent: {
+//       memberId: string,
+//       profileImgUrl: string
+//     },
+//     item:{
+//       itemId: number,
+//       title: string,
+//       thumbnailImgUrl: string,
+//     },
+//     chatLogs:{
+//       lastMessage: string,
+//       updatedAt: date,
+//       unReadCount: number
+//     }
+//   }]
+//   }
 interface ChatListItem {
-  chatroomId: string;
-  chatLogs: ChatSummary;
-  opponent: ChatOpponent;
-  item: SalesItemSummary;
-}
-
-interface ChatSummary {
+  id: string;
+  userImage: string;
+  userName: string;
+  lastMessageTime: string;
   lastMessage: string;
-  updateAt: string;
-  unReadCount: number;
-}
-
-interface ChatOpponent {
-  memberId: string;
-  profileImgUrl: string;
-}
-
-interface SalesItemSummary {
-  itemId: number;
-  title: string;
-  thumbnailImgUrl: string;
+  unreadCount: number;
+  itemInfo: Pick<SaleItem, 'id' | 'title' | 'thumbnailUrl'>;
 }
 
 interface ChatListProps extends ComponentPropsWithRef<'button'> {
-  chatListItem: ChatListItem;
-  onItemClick: (itemId: string) => void;
+  chatItem: ChatListItem;
 }
 
-const ChatListItem = ({ chatListItem, onItemClick }: ChatListProps) => {
-  const { chatroomId: id, chatLogs, opponent, item } = chatListItem;
-  const lastMassageDate =
-    chatLogs.updateAt && getElapsedTime(chatLogs.updateAt);
-  const hasUnreadMessage = chatLogs.unReadCount > 0;
-
+const ChatListItem = ({ chatItem, ...rest }: ChatListProps) => {
+  const {
+    userImage,
+    userName,
+    lastMessageTime,
+    lastMessage,
+    unreadCount,
+    itemInfo,
+  } = chatItem;
   return (
-    <MyChatListItem onClick={() => onItemClick(id)}>
-      <UserProfile size="s" profileImgUrl={opponent.profileImgUrl} />
+    <MyChatListItem {...rest}>
+      <UserProfile size="s" profileImgUrl={userImage} />
       <MyChatInfo>
         <MyChatUserName>
           {/* TODO: Semantic Tag로 수정 */}
-          <div>{opponent.memberId}</div>
-          <div>{lastMassageDate}</div>
+          <div>{userName}</div>
+          <div>{lastMessageTime}</div>
         </MyChatUserName>
-        <MyChatLastMessage>{chatLogs.lastMessage}</MyChatLastMessage>
+        <MyChatLastMessage>{lastMessage}</MyChatLastMessage>
       </MyChatInfo>
       <MyChatItem>
-        {hasUnreadMessage && (
-          <Button active circle="sm">
-            {chatLogs.unReadCount}
-          </Button>
-        )}
-        <ImgBox src={item.thumbnailImgUrl} alt={item.title} size="sm" />
+        <Button active circle="sm">
+          {unreadCount}
+        </Button>
+        <ImgBox src={itemInfo.thumbnailUrl} alt={itemInfo.title} size="sm" />
       </MyChatItem>
     </MyChatListItem>
   );

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 import FileInput from '@common/FileInput';
-import { getPreviewFile } from '@utils/getPreviewFile';
+import { getPreviewURL } from '@utils/getConvertedFile';
 
 import { css, styled } from 'styled-components';
 
@@ -13,43 +13,47 @@ interface UserProfileProps {
   memberId?: string;
   onChange?: (file: InputFile) => void;
 }
-
+// TODO: 등록된 이미지 없는 유저일 경우 이미지 변경 가능 버튼 생성하고, PATCH 요청
 const UserProfile = ({
   size = 'm',
   profileImgUrl,
   memberId,
   onChange,
 }: UserProfileProps) => {
-  const [preview, setPreview] = useState<string>('');
+  const [previewURL, setPreviewURL] = useState<string>('');
 
-  const handleFileChange = async (file: FileList) => {
+  const handleFileChange = async ({
+    target,
+  }: ChangeEvent<HTMLInputElement>) => {
+    const file = target.files?.[0];
     if (!file) return;
-
-    const newFile = file?.[0];
-    const newPreview = await getPreviewFile(newFile);
-    setPreview(newPreview);
-
+    const newPreviewURL = await getPreviewURL(file);
+    newPreviewURL && setPreviewURL(newPreviewURL);
     const newFormData: InputFile = {
-      preview: newPreview,
-      file: newFile,
+      preview: newPreviewURL,
+      file: file,
     };
     onChange && onChange(newFormData);
   };
 
   return (
-    <div>
+    <MyUserProfile>
       {profileImgUrl ? (
         <MyUserImg src={profileImgUrl} alt={memberId} size={size} />
       ) : (
-        <MyDefaultImgBox>
-          {preview && <MyPreviewFile src={preview} alt="미리 보기" />}
-          <FileInput onChange={handleFileChange} />
-        </MyDefaultImgBox>
+        <>
+          <MyDefaultImgBox>
+            {previewURL && <MyPreviewFile src={previewURL} alt="미리 보기" />}
+            <FileInput onChange={handleFileChange} />
+          </MyDefaultImgBox>
+        </>
       )}
       {memberId && <p>{memberId}</p>}
-    </div>
+    </MyUserProfile>
   );
 };
+
+const MyUserProfile = styled.div``;
 
 const MyUserImg = styled.img<UserProfileProps>`
   ${({ size }) =>

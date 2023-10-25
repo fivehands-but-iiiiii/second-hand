@@ -24,13 +24,11 @@ const Carousel = ({ itemTitle, images }: CarouselProps) => {
     arrows: false,
   };
 
-  const imageLength = imageInfo.length;
-
-  if (!imageLength) return;
+  if (!images.length) return;
 
   return (
     <MyContainer>
-      <Slider {...settings} key={imageLength}>
+      <Slider {...settings}>
         {imageInfo.map((image) => (
           <MyImgContainer key={image.id}>
             <MyCarouselImg src={image.url} alt={image.alt} />

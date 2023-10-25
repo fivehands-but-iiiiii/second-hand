@@ -5,16 +5,15 @@ import GlobalStyle from '@styles/globalStyles';
 import theme from '@styles/theme';
 
 import { ThemeProvider } from 'styled-components';
-import ResponsiveLayout from '@components/layout/ResponsiveLayout';
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <ResponsiveLayout>
+    <>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
         <RouterProvider router={router} />
-      </ResponsiveLayout>
-    </ThemeProvider>
+      </ThemeProvider>
+    </>
   );
 };
 

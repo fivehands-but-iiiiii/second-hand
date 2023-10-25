@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent, useCallback } from 'react';
+import { useCallback, useEffect, useState, ChangeEvent } from 'react';
 
 import Button from '@common/Button/Button';
 import NavBar from '@common/NavBar/NavBar';
@@ -21,66 +21,42 @@ interface SearchRegionsProps {
   onSelectRegion: (id: number, district: string) => void;
 }
 
-const DEBOUNCE_DELAY = 3000;
-
 const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [address, setAddress] = useState('역삼1동');
   const [regionList, setRegionList] = useState<Region[]>([]);
   const { request } = useAPI();
   const { location: currentLocation } = useGeoLocation();
 
-  const fetchRegionList = async (keyword: string) => {
-    try {
-      const { data } = await request({
-        url: `/regions?keyword=${keyword}`,
-      });
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const getCurrentRegionList = () => getCurrentLocation();
 
-  const updateRegionList = async (region: Region[]) => {
-    setRegionList(region);
-  };
+  const getCurrentLocation = useCallback(() => {
+    if (!currentLocation.coords || !currentLocation.address) return;
+    setAddress(currentLocation.address);
+  }, [currentLocation]);
 
   const getRegionList = async (keyword: string) => {
-    const regionList = await fetchRegionList(keyword);
-    updateRegionList(regionList);
+    const { data } = await request({
+      url: `/regions?keyword=${keyword}`,
+    });
+    setRegionList(data);
   };
 
-  const getCurrentRegionList = async () => {
-    if (!currentLocation.address) return;
-    getRegionList(currentLocation.address);
-  };
-
-  const handleSearchChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = target;
-    setSearchKeyword(value);
-
-    if (searchKeyword.length >= 2) {
-      delayedSearch(searchKeyword);
-    }
-  };
-
-  const delayedSearch = useCallback(
-    debounce((value) => {
-      getRegionList(value);
-    }, DEBOUNCE_DELAY),
-    [],
+  const handleSearchChange = useCallback(
+    ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+      const DEBOUNCE_DELAY = 5000;
+      const { value } = target;
+      setSearchKeyword(value);
+      if (value.length > 2) {
+        debounce(() => getRegionList(value), DEBOUNCE_DELAY)();
+      }
+    },
+    [debounce],
   );
 
   useEffect(() => {
-    let ignore = false;
-
-    fetchRegionList('강남구').then((regionList) => {
-      if (!ignore) updateRegionList(regionList);
-    });
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
+    getRegionList(address);
+  }, [address]);
 
   return (
     <PortalLayout>
@@ -88,7 +64,7 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
         <Textarea
           type={'icon'}
           icon={'search'}
-          placeholder={'동명(읍, 면)으로 검색(ex. 역삼1동)'}
+          placeholder={'동명(읍, 면)으로 검색(ex. 서초동)'}
           singleLine
           rows={1}
           value={searchKeyword}
@@ -104,10 +80,8 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
         {regionList.length > 0 ? (
           <ul>
             {regionList.map(({ id, city, county, district }: Region) => (
-              <MyRegion key={id}>
-                <button onClick={() => onSelectRegion(id, district)}>
-                  {city} {county} {district}
-                </button>
+              <MyRegion key={id} onClick={() => onSelectRegion(id, district)}>
+                {city} {county} {district}
               </MyRegion>
             ))}
           </ul>
@@ -123,12 +97,12 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
 };
 
 const MySearchRegions = styled.div`
-  padding: 10px 15px;
+  padding: 10px 2.7vw;
 `;
 
 const MyRegionList = styled.div`
   height: calc(100vh - 194px);
-  padding: 0 15px 10px;
+  padding: 0 3vw 10px;
   text-align: center;
   color: ${({ theme }) => theme.colors.neutral.textWeak};
   ul {
@@ -148,9 +122,7 @@ const MyRegion = styled.li`
   min-height: 35px;
   min-width: 200px;
   padding-left: 5px;
-  > button {
-    height: 100%;
-  }
+  color: ${({ theme }) => theme.colors.neutral.text};
 `;
 
 export default SearchRegions;

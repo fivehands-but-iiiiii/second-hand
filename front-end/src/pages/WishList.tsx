@@ -6,93 +6,76 @@ import NavBar from '@common/NavBar';
 import Spinner from '@common/Spinner/Spinner';
 import { CategoryInfo } from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { getOutletContext } from '@components/layout';
-import useAllAPI from '@hooks/useAllAPI';
+import { useCategories } from '@components/layout/MobileLayout';
+import useAPI from '@hooks/useAPI';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import { styled } from 'styled-components';
 
-import { HomeInfo, HomePageInfo } from '../pages/Home';
+import { HomePageInfo } from '../pages/Home';
 
 import BlankPage from './BlankPage';
 import ItemDetail from './ItemDetail';
 
 type WishCategory = Omit<CategoryInfo, 'iconUrl'>;
-type WishCategoryInfo = {
-  categories: number[];
-};
-
-interface WishPage extends HomePageInfo {
-  wishItems: SaleItem[];
-  categories?: WishCategory[];
-}
-
 const WishList = () => {
   const title = '관심 목록';
-  const { categories } = getOutletContext();
+  const categories = useCategories();
+  const [wishItems, setWishItems] = useState<SaleItem[]>([]);
+  const [wishCategories, setWishCategories] = useState<WishCategory[]>([]);
   const [selectedItem, setSelectedItem] = useState(0);
   const [selectedCategoryId, setSelectedCategoryId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [onRefresh, setOnRefresh] = useState(false);
-  const [pageInfo, setPageInfo] = useState<WishPage>({
+  const [pageInfo, setPageInfo] = useState<HomePageInfo>({
     page: 0,
     hasPrevious: false,
     hasNext: true,
-    wishItems: [],
-    categories: [],
   });
-  const { requestAll, loading } = useAllAPI();
+  const { request } = useAPI();
 
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    if (isIntersecting && !loading) getWishList();
+    if (isIntersecting && !isLoading) getWishListData();
   };
 
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
-  const getWishList = async () => {
+  const getWishListData = async () => {
     if (!pageInfo.hasNext) return;
-
-    const [itemData, categoriesData] = await fetchWishList();
-    if (!itemData.items.length && !!categoriesData.categories.length) {
-      setSelectedCategoryId(0);
-      initData();
-      return;
-    }
-    updateWishList(itemData, categoriesData);
-  };
-
-  const fetchWishList = async () => {
     try {
-      const [{ data: itemData }, { data: categoriesData }] = await requestAll([
-        {
+      setIsLoading(true);
+      const [wishlistResponse, categoriesResponse] = await Promise.all([
+        request({
           url: `wishlist?page=${pageInfo.page}${
             selectedCategoryId > 0 ? `&&category=${selectedCategoryId}` : ''
           }`,
-        },
-        {
+        }),
+        request({
           url: '/wishlist/categories',
-        },
+        }),
       ]);
-      return [itemData, categoriesData];
+      const { data: itemData } = wishlistResponse;
+      const { data: categoriesData } = categoriesResponse;
+      matchCategories(categoriesData.categories);
+      if (!itemData.items.length) {
+        setSelectedCategoryId(0);
+        initData();
+        return;
+      }
+      setWishItems((pre) => [...pre, ...itemData.items]);
+      setPageInfo({
+        page: itemData.page + 1,
+        hasPrevious: itemData.hasPrevious,
+        hasNext: itemData.hasNext,
+      });
     } catch (error) {
       console.error(error);
-      throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const updateWishList = (item: HomeInfo, category: WishCategoryInfo) => {
-    setPageInfo({
-      page: item.page + 1,
-      hasPrevious: item.hasPrevious,
-      hasNext: item.hasNext,
-      wishItems: [...item.items],
-      categories: matchCategories(category.categories),
-    });
-  };
-
   const matchCategories = (categoriesData: number[]) => {
-    const initCategory = [{ id: 0, title: '전체' }];
-    if (!categoriesData.length) return initCategory;
-
     const matchedCategories = categoriesData.map((categoryId: number) => {
       const targetCategory = categories.find(({ id }) => id === categoryId);
       return (
@@ -102,10 +85,10 @@ const WishList = () => {
         }
       );
     });
-    return [
-      ...initCategory,
+    setWishCategories([
+      { id: 0, title: '전체' },
       ...(matchedCategories.filter((item) => !!item?.id) as WishCategory[]),
-    ];
+    ]);
   };
 
   const initData = () => {
@@ -113,10 +96,8 @@ const WishList = () => {
       page: 0,
       hasPrevious: false,
       hasNext: true,
-      wishItems: [],
-      categories: [],
     });
-    setOnRefresh(true);
+    setWishItems([]);
   };
 
   const handleFilterCategories = (categoryId: number) => {
@@ -129,33 +110,26 @@ const WishList = () => {
     setSelectedItem(itemId);
     if (itemId) return;
     initData();
+    setOnRefresh(true);
   };
 
   useEffect(() => {
-    if (!onRefresh) return;
-    getWishList();
-    setOnRefresh(false);
-  }, [onRefresh]);
+    getWishListData();
+  }, [selectedCategoryId]);
 
   useEffect(() => {
-    let ignore = false;
-
-    fetchWishList().then(([itemData, categoriesData]) => {
-      if (!ignore) updateWishList(itemData, categoriesData);
-    });
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
+    if (!onRefresh) return;
+    getWishListData();
+    setOnRefresh(false);
+  }, [onRefresh]);
 
   return (
     <>
       <NavBar center={title} />
       <MyWishList>
-        {categories.length > 1 && (
+        {!!wishCategories.length && (
           <MyCategories>
-            {pageInfo.categories?.map(({ id, title }) => {
+            {wishCategories.map(({ id, title }) => {
               const isActive = id === selectedCategoryId;
               return (
                 <Button
@@ -170,14 +144,11 @@ const WishList = () => {
             })}
           </MyCategories>
         )}
-        {!!pageInfo.wishItems.length ? (
+        {!!wishItems.length ? (
           <>
-            <ItemList
-              saleItems={pageInfo.wishItems}
-              onItemClick={handleItemDetail}
-            />
+            <ItemList saleItems={wishItems} onItemClick={handleItemDetail} />
             <MyOnFetchItems ref={setTarget}></MyOnFetchItems>
-            {loading && <Spinner />}
+            {isLoading && <Spinner />}
             {!!selectedItem && (
               <ItemDetail
                 id={selectedItem}
@@ -222,3 +193,4 @@ const MyOnFetchItems = styled.div`
 `;
 
 export default WishList;
+

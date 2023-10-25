@@ -3,7 +3,7 @@ interface sessionStorageProps {
   value?: object;
 }
 
-export const getStoredValue = ({ key }: sessionStorageProps) => {
+const getStoredValue = ({ key }: sessionStorageProps) => {
   try {
     const value = sessionStorage.getItem(key);
     return value ? JSON.parse(value) : null;
@@ -12,7 +12,7 @@ export const getStoredValue = ({ key }: sessionStorageProps) => {
   }
 };
 
-export const setStorageValue = ({ key, value }: sessionStorageProps) => {
+const setStorageValue = ({ key, value }: sessionStorageProps) => {
   try {
     sessionStorage.setItem(key, JSON.stringify(value));
   } catch (err) {
@@ -20,7 +20,7 @@ export const setStorageValue = ({ key, value }: sessionStorageProps) => {
   }
 };
 
-export const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
+const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
   try {
     keys.forEach((key) => {
       sessionStorage.removeItem(key);
@@ -29,3 +29,5 @@ export const removeStorageValue = (...keys: sessionStorageProps['key'][]) => {
     console.error('Error removing sessionStorage:', err);
   }
 };
+
+export { getStoredValue, setStorageValue, removeStorageValue };
