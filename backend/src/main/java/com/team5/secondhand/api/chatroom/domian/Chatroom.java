@@ -115,10 +115,9 @@ public class Chatroom extends BasedTimeEntity {
             case FULL:
                 return true;
             default:
-                throw new IllegalStateException("알 수 없는 채팅방 상태입니다.");
+                return false;
         }
     }
-
 
     public Member findOpponent(Member myself) {
         Map<Long, Member> chatroomMembers = getChatroomMembers();
