@@ -8,10 +8,10 @@ interface ChatBubblesProps {
   bubbles: ChatBubble[];
 }
 
-const { memberId } = getStoredValue({ key: 'userInfo' });
+const userInfo = getStoredValue({ key: 'userInfo' });
 
 const renderBubble = (bubble: ChatBubble) => {
-  const isMine = bubble.sender === memberId;
+  const isMine = bubble.sender === userInfo?.memberId;
   const BubbleComponent = isMine ? MyBubble : MyOpponentBubble;
 
   return isMine ? (
