@@ -29,8 +29,8 @@ public class ChatroomCacheService {
     private final ChatroomMetaRepository metaInfoRepository;
     private final ApplicationEventPublisher eventPublisher;
 
-    public void enterToChatRoom(String roomId, String memberId) {
-        Chatroom chatroom = metaInfoRepository.findById(roomId).orElseThrow();
+    public void enterToChatRoom(String roomId, String memberId) throws NotChatroomMemberException {
+        Chatroom chatroom = metaInfoRepository.findById(roomId).orElseThrow(() -> new NotChatroomMemberException("채팅방 멤버가 아닙니다."));
         chatroom.enter(memberId);
         metaInfoRepository.save(chatroom);
     }
