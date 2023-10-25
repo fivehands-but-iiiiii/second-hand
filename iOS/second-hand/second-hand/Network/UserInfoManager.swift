@@ -33,9 +33,5 @@ class UserInfoManager: Updatable{
         regionSubject.onNext(region)
         NotificationCenter.default.post(name: loginNotification.name, object: nil)
     }
-    
-    func loadRegion() -> Observable<Region> {
-            return regionSubject.asObservable()
-        }
 }
 
