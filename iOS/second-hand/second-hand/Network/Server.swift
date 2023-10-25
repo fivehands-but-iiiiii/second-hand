@@ -120,6 +120,15 @@ struct Server {
         return url
     }
     
+    func createDeletingChatroomURL(from chatroomId:String) -> String {
+        let baseURL = Server.baseURL
+        let chatsPath = Path.chats.rawValue
+        
+        let url = baseURL + chatsPath + "/\(chatroomId)"
+        
+        return url
+    }
+    
     func createSSESubscribeURL() -> String {
         let baseURL = Server.baseURL
         let chatsPath = Path.chats.rawValue
