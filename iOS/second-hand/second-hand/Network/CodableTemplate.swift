@@ -242,7 +242,7 @@ struct ChattingLogPage: Codable {
 
 struct ChatBubbles: Codable {
     let id : String
-    let senderId: String
+    let sender: String
     let message: String
     let isMine: Bool
     let createdAt: String
