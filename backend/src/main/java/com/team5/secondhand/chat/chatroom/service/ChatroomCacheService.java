@@ -11,6 +11,7 @@ import com.team5.secondhand.global.event.chatbubble.ChatBubbleArrivedEvent;
 import com.team5.secondhand.global.event.chatbubble.ChatNotificationEvent;
 import com.team5.secondhand.global.event.chatroom.ChatroomCreatedEvent;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChatroomCacheService {
@@ -69,8 +71,10 @@ public class ChatroomCacheService {
     public void chatBubbleArrivedEventHandler(ChatBubbleArrivedEvent event) throws NotChatroomMemberException {
         ChatBubble chatBubble = event.getChatBubble();
         Chatroom chatroom = getChatroom(chatBubble.getRoomId());
+        log.debug("🐛 chatroom : {}", chatroom.toString());
         chatroom.updateLastMessage(chatBubble);
         Chatroom saveChatroom = metaInfoRepository.save(chatroom);
+        log.debug("🐛 saved chatroom : {}", saveChatroom.toString());
         eventPublisher.publishEvent(ChatNotificationEvent.of(saveChatroom, chatBubble));
     }
 }

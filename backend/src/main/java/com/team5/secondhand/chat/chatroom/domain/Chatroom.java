@@ -66,4 +66,14 @@ public class Chatroom implements Serializable { // NoSQL 에 저장될 자료 �
     public boolean hasPaticipant(String id) {
         return this.participants.hasMember(id);
     }
+
+    @Override
+    public String toString() {
+        return "Chatroom{" +
+                "chatroomId='" + chatroomId + '\'' +
+                ", participants=" + participants +
+                ", lastMessage='" + lastMessage + '\'' +
+                ", updateAt=" + updateAt +
+                '}';
+    }
 }
