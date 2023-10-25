@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 8
+  jpa:
+    properties:
+      hibernate:
+#        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update # 데이터베이스 스키마 자동 업데이트 설정 (옵션)
+logging:
+  level:
+    root: warn
+    com.team5.secondhand: debug
+  file:
+    name: application.log
+  logback:
+    rolling policy:
+      file-name-pattern: application.%d{yyyy-MM-dd}.log
+      max-history: 30
+server:
+  address:
+    frontend: "http://localhost:5173"
