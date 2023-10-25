@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@components/layout';
 import Join from '@components/login/Join';
@@ -47,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: 'join',
     element: <Join />,
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" />,
   },
 ]);
 

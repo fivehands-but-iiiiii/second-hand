@@ -1,3 +1,3 @@
 export { default } from './Layout';
 
-export { useCategories } from './Layout';
+export { getOutletContext } from './Layout';

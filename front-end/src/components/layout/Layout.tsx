@@ -1,48 +1,37 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
 import MainTabBar from '@common/TabBar/MainTabBar';
 import { CategoryInfo } from '@components/home/category';
-import useAPI from '@hooks/useAPI';
+import useCategory from '@hooks/useCategory';
+import usePortalBackDismiss, {
+  PortalHandler,
+} from '@hooks/usePortalBackDismiss';
 import Loading from '@pages/Loading';
 
 import { styled } from 'styled-components';
 
+interface OutletContext {
+  categories: CategoryInfo[];
+  portalHandler: PortalHandler;
+}
+
 const Layout = () => {
-  const [categories, setCategories] = useState<CategoryInfo[]>([]);
-  const { request } = useAPI();
-
-  useEffect(() => {
-    let ignore = false;
-    if (categories.length) return;
-
-    request({
-      url: '/resources/categories',
-    })
-      .then(({ data }) => {
-        if (!ignore) setCategories(data.categories);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  const categories = useCategory();
+  const portalHandler = usePortalBackDismiss();
 
   return (
     <MyLayout>
       <Suspense fallback={<Loading />}>
-        <Outlet context={categories} />
+        <Outlet context={{ categories, portalHandler }} />
       </Suspense>
       <MainTabBar />
     </MyLayout>
   );
 };
 
-export const useCategories = () => {
-  return useOutletContext<CategoryInfo[]>();
+export const getOutletContext = () => {
+  return useOutletContext<OutletContext>();
 };
 
 const MyLayout = styled.div`

@@ -16,7 +16,7 @@ import { REGION_MENU } from '@common/PopupSheet/constants';
 import Spinner from '@common/Spinner/Spinner';
 import Category from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { useCategories } from '@components/layout';
+import { getOutletContext } from '@components/layout';
 import { RegionInfo } from '@components/login/Join';
 import New from '@components/new/New';
 import SettingRegionMap from '@components/region/SettingRegionMap';
@@ -61,7 +61,7 @@ const Home = () => {
   );
   const currentRegion = userRegions.find(({ onFocus }) => onFocus);
   const currentRegionId = currentRegion?.id || 1168064000;
-  const categories = useCategories();
+  const { categories } = getOutletContext();
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
