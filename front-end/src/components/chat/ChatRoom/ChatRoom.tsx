@@ -66,15 +66,12 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
 
   const getChatData = async (roomId?: string, itemId?: number) => {
     try {
-      let endpoint;
-      if (roomId) {
-        endpoint = `chats/${roomId}`;
-      } else if (itemId !== undefined) {
-        endpoint = `chats/items/${itemId}`;
-      } else {
+      if (!roomId && itemId === undefined) {
+        console.error('roomId or itemId must be provided');
         return;
       }
 
+      const endpoint = roomId ? `chats/${roomId}` : `chats/items/${itemId}`;
       const { data } = await api.get(endpoint);
       const { item, chatroomId, opponentId } = data.data;
 
