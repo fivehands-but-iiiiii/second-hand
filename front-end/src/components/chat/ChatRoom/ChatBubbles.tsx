@@ -1,3 +1,5 @@
+import { getStoredValue } from '@utils/sessionStorage';
+
 import { styled } from 'styled-components';
 
 import { ChatBubble } from './ChatRoom';
@@ -6,10 +8,19 @@ interface ChatBubblesProps {
   bubbles: ChatBubble[];
 }
 
-const renderBubble = (bubble: ChatBubble) => {
-  const BubbleComponent = bubble.isMine ? MyBubble : MyOpponentBubble;
+const { memberId } = getStoredValue({ key: 'userInfo' });
 
-  return (
+const renderBubble = (bubble: ChatBubble) => {
+  const isMine = bubble.sender === memberId;
+  const BubbleComponent = isMine ? MyBubble : MyOpponentBubble;
+
+  return isMine ? (
+    <MyBubbleWrapper key={bubble.roomId}>
+      <BubbleComponent>
+        <span>{bubble.message}</span>
+      </BubbleComponent>
+    </MyBubbleWrapper>
+  ) : (
     <BubbleComponent>
       <span>{bubble.message}</span>
     </BubbleComponent>
@@ -17,17 +28,7 @@ const renderBubble = (bubble: ChatBubble) => {
 };
 
 const ChatBubbles = ({ bubbles }: ChatBubblesProps) => (
-  <MyChatBubbles>
-    {bubbles.map((bubble) =>
-      bubble.isMine ? (
-        <MyBubbleWrapper key={bubble.roomId}>
-          {renderBubble(bubble)}
-        </MyBubbleWrapper>
-      ) : (
-        renderBubble(bubble)
-      ),
-    )}
-  </MyChatBubbles>
+  <MyChatBubbles>{bubbles.map(renderBubble)}</MyChatBubbles>
 );
 
 const MyChatBubbles = styled.section`
@@ -45,7 +46,6 @@ const MyChatBubble = styled.div`
   margin-bottom: 16px;
   border-radius: 18px;
   & > span {
-    text-align: left;
     ${({ theme }) => theme.fonts.body};
     color: ${({ theme }) => theme.colors.neutral.textStrong};
   }

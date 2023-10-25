@@ -22,7 +22,8 @@ export interface ChatBubble {
   sender: string;
   receiver: string;
   message: string;
-  isMine: boolean;
+  // 서버에서 iOS 확인 후 삭제 예정 (프론트는 사용 안 함)
+  isMine?: boolean;
 }
 
 interface SalesItemSummary {
@@ -116,7 +117,6 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
 
   const getChatBubbles = async (roomId: number, page: number) => {
     const { data } = await api.get(`chats/${roomId}/logs?page=${page}`);
-    console.log(data.data.chatBubbles);
     setChatBubbles(data.data.chatBubbles);
   };
 
