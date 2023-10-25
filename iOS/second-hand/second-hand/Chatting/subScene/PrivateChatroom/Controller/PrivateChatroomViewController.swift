@@ -9,7 +9,7 @@ import UIKit
 
 class PrivateChatroomViewController: UIViewController {
     private var backButton: UIButton? = nil
-    private var menuButton: UIButton? = nil
+    private var deleteButton: UIButton? = nil
     private var chatroomTitle: UILabel? = nil
     var privateChatroomModel = PrivateChatroomModel()
     private var itemSummary: ItemSummaryInChatroom? = nil
@@ -27,7 +27,7 @@ class PrivateChatroomViewController: UIViewController {
     private func commonInit() {
         self.view.backgroundColor = .systemBackground
         generateBackButton()
-        generateMenuButton()
+        generateDeleteButton()
         generateBottomSectionView()
         setConstraintsBackButton()
         setConstraintsMenuButton()
@@ -112,7 +112,7 @@ class PrivateChatroomViewController: UIViewController {
             return
         }
         
-        guard let menuButton = self.menuButton else {
+        guard let menuButton = self.deleteButton else {
             return
         }
         
@@ -130,12 +130,12 @@ class PrivateChatroomViewController: UIViewController {
         self.backButton = button
     }
     
-    private func generateMenuButton() {
+    private func generateDeleteButton() {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action:#selector(menuButtonTouched), for: .touchUpInside)
-        self.menuButton = button
+        button.setImage(UIImage(systemName: "trash.circle"), for: .normal)
+        button.tintColor = .red
+        button.addTarget(self, action:#selector(deleteButtonTouched), for: .touchUpInside)
+        self.deleteButton = button
     }
     
     private func setConstraintsBackButton() {
@@ -151,7 +151,7 @@ class PrivateChatroomViewController: UIViewController {
     }
     
     private func setConstraintsMenuButton() {
-        guard let menubutton = self.menuButton else {
+        guard let menubutton = self.deleteButton else {
             return
         }
         
@@ -200,8 +200,38 @@ class PrivateChatroomViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func menuButtonTouched() {
+    @objc private func deleteButtonTouched() {
+        let alert = UIAlertController(title: "정말로 채팅방을 나가시겠습니까?", message: "나가면 채팅내역은 복구되지 않습니다.", preferredStyle: .alert)
+        let exit = UIAlertAction(title: "나가기", style: .destructive) { (action) in
+            self.deleteChatroom()
+        }
+        alert.addAction(exit)
+
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            
+        }
+        alert.addAction(cancel)
         
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func deleteChatroom() {
+        guard let chatrromId = self.privateChatroomModel.info?.chatroomId else {
+            return
+        }
+        
+        guard let url = URL(string: Server().createDeletingChatroomURL(from: chatrromId)) else {
+            return
+        }
+        
+        NetworkManager().sendDelete(decodeType: CommonAPIResponse.self, what: nil, fromURL: url) { (result: Result<CommonAPIResponse?, Error>) in
+            switch result {
+            case .success(_) :
+                self.backButtonTouched()
+            case .failure(let error) :
+                print(error)
+            }
+        }
     }
     
     //MARK: BottomSection
@@ -315,6 +345,7 @@ extension PrivateChatroomViewController: ButtonActionDelegate {
         }
         socketManager.send(message)
     }
+    
 }
 
 extension PrivateChatroomViewController: SocketActionDelegate {
