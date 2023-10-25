@@ -47,7 +47,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     {} as SalesItemSummary,
   );
   const [roomId, setRoomId] = useState('');
-  const [page, setPage] = useState(0);
+  const [page, _] = useState(0);
   const [opponentId, setOpponentId] = useState('');
   const [chatBubbles, setChatBubbles] = useState<ChatBubble[]>([]);
   const [chat, setChat] = useState('');

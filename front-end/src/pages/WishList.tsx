@@ -153,9 +153,9 @@ const WishList = () => {
     <>
       <NavBar center={title} />
       <MyWishList>
-        {wishCategories.length > 1 && (
+        {categories.length > 1 && (
           <MyCategories>
-            {pageInfo.categories.map(({ id, title }) => {
+            {pageInfo.categories?.map(({ id, title }) => {
               const isActive = id === selectedCategoryId;
               return (
                 <Button
