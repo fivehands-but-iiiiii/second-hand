@@ -1,13 +1,12 @@
 package com.team5.secondhand.chat.chatroom.domain;
 
-import com.team5.secondhand.api.chatroom.dto.ChatroomInfo;
-import com.team5.secondhand.api.chatroom.exception.NotChatroomMemberException;
+import com.team5.secondhand.application.chatroom.dto.ChatroomInfo;
+import com.team5.secondhand.application.chatroom.exception.NotChatroomMemberException;
 import com.team5.secondhand.chat.bubble.domain.ChatBubble;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.time.Instant;
