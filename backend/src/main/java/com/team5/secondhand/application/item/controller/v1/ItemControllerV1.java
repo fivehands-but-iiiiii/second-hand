@@ -28,7 +28,7 @@ import com.team5.secondhand.api.aws.dto.response.ImageInfo;
 import com.team5.secondhand.api.aws.exception.ImageHostException;
 import com.team5.secondhand.api.aws.service.usecase.ItemDetailImageUpload;
 import com.team5.secondhand.api.aws.service.usecase.ItemThumbnailImageUpload;
-import com.team5.secondhand.global.dto.GenericResponse;
+import com.team5.secondhand.global.model.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,7 @@ import com.team5.secondhand.application.member.dto.request.MemberProfileImageUpd
 import com.team5.secondhand.api.aws.dto.response.ProfileImageInfo;
 import com.team5.secondhand.api.aws.exception.ImageHostException;
 import com.team5.secondhand.api.aws.service.ImageHostService;
-import com.team5.secondhand.global.dto.GenericResponse;
+import com.team5.secondhand.global.model.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package com.team5.secondhand.global.resource.controller;
 
-import com.team5.secondhand.global.dto.GenericResponse;
+import com.team5.secondhand.global.model.GenericResponse;
 import com.team5.secondhand.global.resource.dto.response.CategoryList;
 import com.team5.secondhand.global.resource.service.ResourceService;
 import lombok.RequiredArgsConstructor;
