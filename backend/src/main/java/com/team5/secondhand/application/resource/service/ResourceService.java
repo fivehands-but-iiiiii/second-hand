@@ -1,9 +1,9 @@
-package com.team5.secondhand.global.resource.service;
+package com.team5.secondhand.application.resource.service;
 
-import com.team5.secondhand.global.resource.domain.Category;
-import com.team5.secondhand.global.resource.dto.response.CategoryDetail;
-import com.team5.secondhand.global.resource.dto.response.CategoryList;
-import com.team5.secondhand.global.resource.repository.CategoryRepository;
+import com.team5.secondhand.application.resource.dto.response.CategoryDetail;
+import com.team5.secondhand.application.resource.dto.response.CategoryList;
+import com.team5.secondhand.application.resource.repository.CategoryRepository;
+import com.team5.secondhand.application.resource.domain.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

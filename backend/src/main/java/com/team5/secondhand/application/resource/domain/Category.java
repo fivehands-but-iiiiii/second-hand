@@ -1,4 +1,4 @@
-package com.team5.secondhand.global.resource.domain;
+package com.team5.secondhand.application.resource.domain;
 
 import lombok.*;
 
