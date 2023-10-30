@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import NavBar from '@common/NavBar/NavBar';
 import PortalLayout from '@components/layout/PortalLayout';
@@ -30,19 +30,17 @@ interface SettingRegionMapProps {
   onPortal: () => void;
 }
 
-interface UpdatedRegionTypes {
-  regions: RegionInfo[];
-  center: CoordsType;
-}
-
 const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
-  const [updated, setUpdated] = useState<UpdatedRegionTypes>({
-    regions: regions,
-    center: { lat: 37.49087142944336, lng: 127.03343963623047 },
-  });
   const [, setMap] = useState(null);
   const { getCoordinatesFromAddress } = useAddressToCoordinates();
+  const [updatedRegions, setUpdatedRegions] = useState<RegionInfo[]>(regions);
+  const [updatedCenter, setUpdatedCenter] = useState<CoordsType>({
+    lat: 0,
+    lng: 0,
+  });
+  const focusedRegion = updatedRegions.find(({ onFocus }) => onFocus)?.district;
+
   const { request } = useAPI();
 
   const { isLoaded } = useJsApiLoader({
@@ -51,7 +49,7 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   });
 
   const onLoad = useCallback((map: any) => {
-    const bounds = new window.google.maps.LatLngBounds(updated.center);
+    const bounds = new window.google.maps.LatLngBounds(updatedCenter);
     map.fitBounds(bounds);
     setMap(map);
   }, []);
@@ -60,17 +58,17 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
 
   const handleSettingRegions = async () => {
     const prevRegions = regions;
-    const isSame = areRegionsSame(prevRegions, updated.regions);
-    const isSwitched = haveSwitchedRegions(prevRegions, updated.regions);
-    const isChanged = haveChangedRegions(prevRegions, updated.regions);
+    const isSame = areRegionsSame(prevRegions, updatedRegions);
+    const isSwitched = haveSwitchedRegions(prevRegions, updatedRegions);
+    const isChanged = haveChangedRegions(prevRegions, updatedRegions);
 
     if (isSame) return onPortal();
     if (!isSwitched && !isChanged) return;
 
     const endpoint = '/members/region';
     const method = isSwitched ? 'patch' : 'put';
-    const requestBody = { id: userInfo.id, regions: updated.regions };
-    const updatedUserAccount = { ...userInfo, regions: updated.regions };
+    const requestBody = { id: userInfo.id, regions: updatedRegions };
+    const updatedUserAccount = { ...userInfo, regions: updatedRegions };
     try {
       const { data } = await request({
         url: endpoint,
@@ -122,13 +120,18 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
     );
   };
 
-  const handleUpdateRegions = async (regions: RegionInfo[]) => {
-    const focusedRegion = regions.find(({ onFocus }) => onFocus)?.district;
+  const handleUpdateRegions = async (regions: RegionInfo[]) =>
+    setUpdatedRegions(regions);
+
+  useEffect(() => {
     if (!focusedRegion) return;
 
-    const coords = await getCoordinatesFromAddress(focusedRegion);
-    setUpdated({ regions: regions, center: coords });
-  };
+    const getCoords = async () => {
+      const coords = await getCoordinatesFromAddress(focusedRegion);
+      setUpdatedCenter(coords);
+    };
+    getCoords();
+  }, [focusedRegion, getCoordinatesFromAddress]);
 
   return (
     <PortalLayout>
@@ -140,16 +143,16 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
         {isLoaded && (
           <GoogleMap
             mapContainerStyle={MAP_STYLE}
-            center={updated.center}
+            center={updatedCenter}
             onLoad={onLoad}
             onUnmount={onUnmount}
             options={OPTIONS}
           >
-            <Marker position={updated.center}></Marker>
+            <Marker position={updatedCenter}></Marker>
           </GoogleMap>
         )}
         <SettingRegionSelector
-          regions={updated.regions}
+          regions={updatedRegions}
           onSetRegions={handleUpdateRegions}
         />
       </MySettingRegionMap>
@@ -158,7 +161,7 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
 };
 
 const MySettingRegionMap = styled.div`
-  height: 50vh;
+  height: 390px;
   padding: 0 15px;
   > div:first-child {
     margin-bottom: 10px;
