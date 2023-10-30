@@ -33,11 +33,13 @@ final class SaleLogViewController: UIViewController {
         setupInfiniteScroll()
         currentPage = 0
         fetchItemList(page: currentPage, isSales: true)
-        setNavigationBar()
         setupDataSource()
         setdelegate()
     }
-    
+
+   override func viewDidLoad() {
+        setNavigationBar()
+    }
     private func setdelegate() {
         modifyItem.delegate = self
         modifyItem.updateDelegate = self
