@@ -1,4 +1,4 @@
-package com.team5.secondhand.global.auth.interceptor;
+package com.team5.secondhand.global.auth;
 
 import com.team5.secondhand.application.member.dto.response.MemberDetails;
 import org.springframework.web.servlet.HandlerInterceptor;

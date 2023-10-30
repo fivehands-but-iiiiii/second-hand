@@ -1,6 +1,6 @@
 package com.team5.secondhand.global.config;
 
-import com.team5.secondhand.global.auth.interceptor.AuthorityInterceptor;
+import com.team5.secondhand.global.auth.AuthorityInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.server.CookieSameSiteSupplier;
 import org.springframework.context.annotation.Bean;
