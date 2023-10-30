@@ -92,6 +92,7 @@
 		E4E6947D2A7B86780033B4DB /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947C2A7B86780033B4DB /* Bubble.swift */; };
 		E4E6947F2A7B8BDA0033B4DB /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */; };
 		E4E694812A7F6E580033B4DB /* SocketActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E694802A7F6E580033B4DB /* SocketActionDelegate.swift */; };
+		E4FE662C2AEF91BE00314CC8 /* MultipartTypeCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE662B2AEF91BE00314CC8 /* MultipartTypeCreater.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,7 @@
 		E4E6947C2A7B86780033B4DB /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		E4E6947E2A7B8BDA0033B4DB /* BubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		E4E694802A7F6E580033B4DB /* SocketActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketActionDelegate.swift; sourceTree = "<group>"; };
+		E4FE662B2AEF91BE00314CC8 /* MultipartTypeCreater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartTypeCreater.swift; sourceTree = "<group>"; };
 		F3184226B15155556BE36237 /* Pods-second-hand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-second-hand.debug.xcconfig"; path = "Target Support Files/Pods-second-hand/Pods-second-hand.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -752,6 +754,7 @@
 				E46738102A482DF1006A46D1 /* Updatable.swift */,
 				E41076C32A4AF67A00F5204E /* ImageCacheManager.swift */,
 				E4375C162A666843003F6F5B /* SocketManager.swift */,
+				E4FE662B2AEF91BE00314CC8 /* MultipartTypeCreater.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1009,6 +1012,7 @@
 				DB51AD9C2A5A9E5D00EB939D /* AddPhotoImageView.swift in Sources */,
 				DB7E5EEC2A31682D00ECCBC2 /* CategoryButton.swift in Sources */,
 				DB55CB0D2A43E63200578ED5 /* UIImageView+Extension.swift in Sources */,
+				E4FE662C2AEF91BE00314CC8 /* MultipartTypeCreater.swift in Sources */,
 				DBAF83A52A32E38B00194A02 /* UIFont+Extension.swift in Sources */,
 				E4D6855D2A9F402A00B0667D /* RegionController.swift in Sources */,
 				DB55CB132A44186E00578ED5 /* UITextField+Extension.swift in Sources */,
