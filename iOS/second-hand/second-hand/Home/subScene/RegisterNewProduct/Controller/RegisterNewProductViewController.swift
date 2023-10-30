@@ -422,9 +422,11 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         ])
     }
     
+    //TODO: 지금 여기서 인덱스 같은것을 삭제하면(인덱스1번째 삭제 후 또 1번째 삭제) 삭제가 안되는 현상 발생
     func cancelButtonTapped() {
         if AddPhotoImageView.index-1 <= hadImageUrl.count {
             //기존 이미지라면
+            print(AddPhotoImageView.index-1)
             hadImageUrl.remove(at:(AddPhotoImageView.index-1))
         }else {
             //가존 이미지가 아니라면
@@ -510,7 +512,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
         self.photoScrollView.emptyStackView()
 
         let group = DispatchGroup()
-        
+        hadImageUrl = []
         for image in images {
             do {
                 hadImageUrl.append(image.url)
