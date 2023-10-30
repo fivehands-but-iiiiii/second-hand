@@ -23,7 +23,6 @@ final class SaleLogViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         super.viewDidLoad()
-        //setNavigationBar()
         navigationController?.setNavigationBarHidden(false, animated: true)
         self.view.backgroundColor = .white
         self.navigationItem.title = "판매 내역"
@@ -34,10 +33,6 @@ final class SaleLogViewController: UIViewController {
         setupInfiniteScroll()
         currentPage = 0
         fetchItemList(page: currentPage, isSales: true)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         setNavigationBar()
         setupDataSource()
         setdelegate()
