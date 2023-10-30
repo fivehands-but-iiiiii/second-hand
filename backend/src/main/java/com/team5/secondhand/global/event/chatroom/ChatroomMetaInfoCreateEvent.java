@@ -1,6 +1,6 @@
 package com.team5.secondhand.global.event.chatroom;
 
-import com.team5.secondhand.api.chatroom.dto.ChatroomInfo;
+import com.team5.secondhand.application.chatroom.dto.ChatroomInfo;
 import com.team5.secondhand.global.model.BaseEvent;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package com.team5.secondhand.chat.chatroom.handler;
 
-import com.team5.secondhand.api.chatroom.exception.NotChatroomMemberException;
+import com.team5.secondhand.application.chatroom.exception.NotChatroomMemberException;
 import com.team5.secondhand.chat.chatroom.service.ChatroomCacheService;
 import com.team5.secondhand.chat.exception.ErrorType;
 import com.team5.secondhand.chat.notification.service.SessionService;
