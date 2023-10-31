@@ -1,5 +1,8 @@
 package com.team5.secondhand.application.member.controller;
 
+import com.team5.secondhand.api.aws.dto.response.ProfileImageInfo;
+import com.team5.secondhand.api.aws.exception.ImageHostException;
+import com.team5.secondhand.api.aws.service.usecase.ProfileUpload;
 import com.team5.secondhand.application.member.domain.BasedRegion;
 import com.team5.secondhand.application.member.domain.Oauth;
 import com.team5.secondhand.application.member.domain.OauthEnv;
@@ -18,11 +21,8 @@ import com.team5.secondhand.application.region.exception.EmptyBasedRegionExcepti
 import com.team5.secondhand.application.region.exception.NoMainRegionException;
 import com.team5.secondhand.application.region.exception.NotValidRegionException;
 import com.team5.secondhand.application.region.service.GetValidRegionsUsecase;
-import com.team5.secondhand.api.aws.dto.response.ProfileImageInfo;
-import com.team5.secondhand.api.aws.exception.ImageHostException;
-import com.team5.secondhand.api.aws.service.usecase.ProfileUpload;
-import com.team5.secondhand.global.model.GenericResponse;
 import com.team5.secondhand.global.jwt.service.JwtService;
+import com.team5.secondhand.global.model.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -115,7 +115,7 @@ public class MemberController {
             description = "사용자는 자신의 프로필 사진을 변경할 수 있다."
     )
 
-    @PatchMapping(value = "/members/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/members/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public GenericResponse<ProfileImageInfo> setMemberProfile(@RequestAttribute MemberDetails loginMember, @ModelAttribute MemberProfileImageUpdate profile) throws ImageHostException {
         log.debug("🌠 원본사진 주소 : " + profile.getProfileImage());
         ProfileImageInfo profileImageInfo = profileUpload.uploadMemberProfileImage(profile.getProfileImage());
