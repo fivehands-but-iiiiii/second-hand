@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import NavBar from '@common/NavBar/NavBar';
 import PortalLayout from '@components/layout/PortalLayout';
 import { RegionInfo } from '@components/login/Join';
 import useAddressToCoordinates from '@hooks/useAddressToCoords';
 import useAPI from '@hooks/useAPI';
-import { CoordsType } from '@hooks/useGeoLocation';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { getStoredValue, setStorageValue } from '@utils/sessionStorage';
 
@@ -33,16 +32,11 @@ interface SettingRegionMapProps {
 const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
   const [, setMap] = useState(null);
-  const { getCoordinatesFromAddress } = useAddressToCoordinates();
   const [updatedRegions, setUpdatedRegions] = useState<RegionInfo[]>(regions);
-  const [updatedCenter, setUpdatedCenter] = useState<CoordsType>({
-    lat: 0,
-    lng: 0,
-  });
   const focusedRegion = updatedRegions.find(({ onFocus }) => onFocus)?.district;
+  const updatedCenter = useAddressToCoordinates(focusedRegion);
 
   const { request } = useAPI();
-
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: GOOGLE_KEY,
@@ -122,16 +116,6 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
 
   const handleUpdateRegions = async (regions: RegionInfo[]) =>
     setUpdatedRegions(regions);
-
-  useEffect(() => {
-    if (!focusedRegion) return;
-
-    const getCoords = async () => {
-      const coords = await getCoordinatesFromAddress(focusedRegion);
-      setUpdatedCenter(coords);
-    };
-    getCoords();
-  }, [focusedRegion, getCoordinatesFromAddress]);
 
   return (
     <PortalLayout>
