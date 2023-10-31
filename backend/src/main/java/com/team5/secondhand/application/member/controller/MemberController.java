@@ -114,8 +114,7 @@ public class MemberController {
             tags = "Members",
             description = "사용자는 자신의 프로필 사진을 변경할 수 있다."
     )
-
-    @PostMapping(value = "/members/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PatchMapping(value = "/members/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public GenericResponse<ProfileImageInfo> setMemberProfile(@RequestAttribute MemberDetails loginMember, @ModelAttribute MemberProfileImageUpdate profile) throws ImageHostException {
         log.debug("🌠 원본사진 주소 : " + profile.getProfileImage());
         ProfileImageInfo profileImageInfo = profileUpload.uploadMemberProfileImage(profile.getProfileImage());
