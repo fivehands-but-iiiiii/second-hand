@@ -26,6 +26,7 @@ import com.team5.secondhand.global.jwt.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -113,7 +114,8 @@ public class MemberController {
             tags = "Members",
             description = "사용자는 자신의 프로필 사진을 변경할 수 있다."
     )
-    @PatchMapping(value = "/members/image", consumes = {"multipart/form-data"})
+
+    @PatchMapping(value = "/members/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public GenericResponse<ProfileImageInfo> setMemberProfile(@RequestAttribute MemberDetails loginMember, @ModelAttribute MemberProfileImageUpdate profile) throws ImageHostException {
         log.debug("🌠 원본사진 주소 : " + profile.getProfileImage());
         ProfileImageInfo profileImageInfo = profileUpload.uploadMemberProfileImage(profile.getProfileImage());
