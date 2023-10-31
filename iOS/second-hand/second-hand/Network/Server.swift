@@ -31,7 +31,7 @@ struct Server {
         case subscribe = "/subscribe"
         case regions = "/regions"
         case changeRegion = "/members/region"
-        
+        case changeProfilePhoto = "/members/image"
     }
     
     func url(for path: Path) -> String {
@@ -151,6 +151,13 @@ struct Server {
     func createChangeRegionURL() -> String {
         let baseURL = Server.baseURL
         let path = Path.changeRegion.rawValue
+        
+        return baseURL + path
+    }
+    
+    func createChangeProfilePhotoURL() -> String {
+        let baseURL = Server.baseURL
+        let path = Path.changeProfilePhoto.rawValue
         
         return baseURL + path
     }
