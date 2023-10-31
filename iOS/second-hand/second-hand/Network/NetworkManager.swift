@@ -331,6 +331,22 @@ class NetworkManager {
         return nil
     }
     
+    func makeMultipartRequest(methodType: HttpMethod, url: URL, body: Data?, boundary: String, loginToken: String?) -> URLRequest{
+        var request = URLRequest(url: url)
+        request.httpMethod = methodType.method
+        
+        let contentType = "multipart/form-data; boundary=\(boundary)"
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
+        
+        guard let loginToken = loginToken else {
+            return request
+        }
+        request.setValue(loginToken, forHTTPHeaderField: "Authorization")
+        
+        return request
+    }
+    
     private func makeRequest(methodType: HttpMethod ,cookie: ResponseHeader?, url: URL, body: Data?, loginToken : String?) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = methodType.method
