@@ -49,6 +49,7 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
         
         circleButton.layer.cornerRadius =  Self.buttonHeightWidth / 2
         circleButton.layer.masksToBounds = true
+        circleButton.addTarget(self, action: #selector(circleButtonTouched), for: .touchUpInside)
     }
     
     private func setLogoutButton() {
@@ -99,5 +100,46 @@ final class LoginMyAccountViewController: NavigationUnderLineViewController {
             logoutButton.widthAnchor.constraint(equalToConstant: 361*widthRatio),
             logoutButton.heightAnchor.constraint(equalToConstant: 52*heightRatio)
         ])
+    }
+}
+
+extension LoginMyAccountViewController:  UINavigationControllerDelegate,UIImagePickerControllerDelegate {
+    
+    @objc func circleButtonTouched() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[.originalImage] as? UIImage else {
+            return
+        }
+        
+        let multipartCreator = MultipartTypeCreater()
+        let boundary = UUID().uuidString
+        let multipartData = multipartCreator.createMultipartData(image: image, boundary: boundary)
+        
+        guard let url = URL(string: Server.shared.createChangeProfilePhotoURL()) else {
+            return
+        }
+        
+        NetworkManager().sendPatch(boundary:boundary,decodeType: profilePhotoResponse.self, what: multipartData, fromURL: url) { (result: Result<profilePhotoResponse, Error>) in
+            switch result {
+            case .success(let response) :
+                print(response)
+                self.circleButton.setImage(image, for: .normal)
+                picker.dismiss(animated: true, completion: nil)
+            case .failure(let error) :
+                print(error)
+                picker.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
