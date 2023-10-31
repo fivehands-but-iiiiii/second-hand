@@ -12,6 +12,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionalEventListener;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletResponse;
@@ -87,9 +88,7 @@ public class NotificationService implements SendChatNotificationUsecase {
 
     }
 
-    //TODO Transaction 관련된 문제가 나지는 않을까?
-    @Async
-    @EventListener
+    @TransactionalEventListener
     public void getChatBubble (ChatNotificationEvent event) {
         String receiverId = event.getChatBubble().getReceiver();
         //TODO 유효성 검증이 필요
