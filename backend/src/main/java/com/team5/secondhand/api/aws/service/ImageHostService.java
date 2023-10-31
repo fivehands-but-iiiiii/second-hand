@@ -17,6 +17,7 @@ import com.team5.secondhand.api.aws.service.usecase.ItemDetailImageUpload;
 import com.team5.secondhand.api.aws.service.usecase.ItemThumbnailImageUpload;
 import com.team5.secondhand.api.aws.service.usecase.ProfileUpload;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ import java.util.UUID;
 
 import static com.amazonaws.services.s3.internal.Constants.MB;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ImageHostService implements ProfileUpload, ItemDetailImageUpload, ItemThumbnailImageUpload {
@@ -63,6 +65,7 @@ public class ImageHostService implements ProfileUpload, ItemDetailImageUpload, I
     public ProfileImageInfo uploadMemberProfileImage(MultipartFile file) throws ImageHostException {
         String imageUrl = "";
 
+        log.debug("🌠 muliparFile :" + file);
         try {
             String upload = upload(file, Directory.MEMBER_PROFILE_ORIGIN);
             imageUrl = upload.replace("/origin", "");

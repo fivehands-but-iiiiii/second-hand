@@ -25,6 +25,7 @@ import com.team5.secondhand.global.model.GenericResponse;
 import com.team5.secondhand.global.jwt.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,7 @@ import java.util.Map;
 
 import static com.team5.secondhand.application.member.exception.MemberExceptionHandler.JOIN_SESSION_KEY;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -113,6 +115,7 @@ public class MemberController {
     )
     @PatchMapping(value = "/members/image", consumes = {"multipart/form-data"})
     public GenericResponse<ProfileImageInfo> setMemberProfile(@RequestAttribute MemberDetails loginMember, @ModelAttribute MemberProfileImageUpdate profile) throws ImageHostException {
+        log.debug("🌠 원본사진 주소 : " + profile.getProfileImage());
         ProfileImageInfo profileImageInfo = profileUpload.uploadMemberProfileImage(profile.getProfileImage());
         profileImageInfo.owned(loginMember.getId());
 
