@@ -64,7 +64,7 @@ public class NotificationService implements SendChatNotificationUsecase {
 
     private void sendToClient(SseEmitter emitter, String id, Object data) {
         try {
-            log.debug("send to client : {}", data);
+            log.debug("✌️ send to client : {}", data.toString());
             emitter.send(SseEmitter.event()
                     .id(id)
                     .name(SseEvent.CHAT_NOTIFICATION.getEvent())
@@ -79,7 +79,9 @@ public class NotificationService implements SendChatNotificationUsecase {
     public void sendChatNotificationToMember(String id, Chatroom chatroom, ChatNotification chatNotification) {
         try {
             SseEmitter sseEmitter = notificationRepository.findStartById(id).get(); //TODO 에러 작성해주기
-            if (!chatroom.hasPaticipant(id)) {
+            log.debug("👋 sse receiverId : {}, notification : {}", id, chatNotification.getMessage());
+            if (chatroom.hasPaticipant(id)) {
+                log.debug("🥹 has participant : {}");
                 sendToClient(sseEmitter, id, chatNotification);
             }
         } catch (NoSuchElementException e) {
