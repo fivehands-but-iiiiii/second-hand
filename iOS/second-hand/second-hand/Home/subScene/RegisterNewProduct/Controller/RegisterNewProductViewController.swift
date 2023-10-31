@@ -480,7 +480,7 @@ extension RegisterNewProductViewController: PHPickerViewControllerDelegate  {
     }
     
     @objc private func addPhotoButtonTapped() {
-        //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조취해야함
+        //TODO: 버튼배경(?)을눌렀으시만(카메라뷰나 카운팅레이블을누르면 터치가안먹음) 반응이 되는데, 힛테스트 통해서 전체를 눌러도 가능하도록 수정조치 취해야함
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = maximumPhotoNumber-photoScrollView.addPhotoStackView.arrangedSubviews.count

@@ -194,7 +194,7 @@ class NetworkManager {
                 completion(result)
             }
         }
-
+        
         let loginToken = UserInfoManager.shared.loginToken
         
         let request = makeRequest(methodType: .delete, cookie: nil, url: url, body: nil, loginToken: loginToken)
@@ -379,7 +379,6 @@ class NetworkManager {
                 guard let urlResponse = response as? HTTPURLResponse else {
                     return asyncCompletion(.failure(ErrorManager.invalidResponse))
                 }
-                //MARK: 보안상 문제 있다... 방법을 찾아보자
                 
                 if loginToken == nil {
                     loginToken = self.extractLoginToken(from: urlResponse)
