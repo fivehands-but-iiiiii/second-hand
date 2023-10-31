@@ -88,7 +88,7 @@ public class NotificationService implements SendChatNotificationUsecase {
 
     }
 
-    @TransactionalEventListener
+    @EventListener
     public void getChatBubble (ChatNotificationEvent event) {
         String receiverId = event.getChatBubble().getReceiver();
         //TODO 유효성 검증이 필요
