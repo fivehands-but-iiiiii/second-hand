@@ -42,11 +42,16 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
     googleMapsApiKey: GOOGLE_KEY,
   });
 
-  const onLoad = useCallback((map: any) => {
-    const bounds = new window.google.maps.LatLngBounds(updatedCenter);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
+  const onLoad = useCallback(
+    async (map: any) => {
+      if (isLoaded) {
+        const bounds = new window.google.maps.LatLngBounds(updatedCenter);
+        map.fitBounds(bounds);
+        setMap(map);
+      }
+    },
+    [isLoaded, updatedCenter],
+  );
 
   const onUnmount = useCallback(() => setMap(null), []);
 
