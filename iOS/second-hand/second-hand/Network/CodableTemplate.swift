@@ -156,7 +156,7 @@ struct UnlikeResponseMessage : Codable {
 
 struct CommonAPIResponse: Codable {
     let message: String
-    let data: String?
+    let data: String
 }
 
 
