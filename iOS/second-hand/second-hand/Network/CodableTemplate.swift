@@ -156,7 +156,7 @@ struct UnlikeResponseMessage : Codable {
 
 struct CommonAPIResponse: Codable {
     let message: String
-    let data: String
+    let data: String?
 }
 
 
@@ -317,4 +317,15 @@ struct SubscribeSSESuccess: Codable {
     let id: String
     let event: String
     let data: String
+}
+
+struct profilePhotoResponse: Codable {
+    let message : String
+    let data: ProfilePhotoSuccess
+}
+
+struct ProfilePhotoSuccess: Codable {
+    let memberId: Int
+    let originKey: String
+    let uploadUrl: String
 }
