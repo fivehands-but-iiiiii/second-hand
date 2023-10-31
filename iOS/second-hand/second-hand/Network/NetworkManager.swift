@@ -355,7 +355,7 @@ class NetworkManager {
         }
     }
     
-    func sendPatch<T:Codable> (decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+    func sendPatch<T:Codable> (boundary:String? ,decodeType:T.Type,what data :Data?, fromURL url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         
         let asyncCompletion: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
@@ -367,8 +367,13 @@ class NetworkManager {
         }
         
         var loginToken = UserInfoManager.shared.loginToken
+        var request = URLRequest(url: url)
         
-        let request = self.makeRequest(methodType: .patch, cookie: nil, url: url, body: data, loginToken: loginToken)
+        if boundary == nil {
+            request = makeRequest(methodType: .patch, cookie: nil, url: url, body: data, loginToken: loginToken)
+        } else {
+            request = makeMultipartRequest(methodType: .patch, url: url, body: data, boundary: boundary!,loginToken: loginToken)
+        }
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             do {

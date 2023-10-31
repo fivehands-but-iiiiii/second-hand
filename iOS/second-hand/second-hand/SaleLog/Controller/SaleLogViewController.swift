@@ -325,7 +325,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
     func petchItem(url: URL, data: [String:Int]) {
         let jsonData = try? JSONSerialization.data(withJSONObject: data)
         
-        networkManager.sendPatch(decodeType: BooleanResponse.self, what: jsonData, fromURL: url) { (result: Result<BooleanResponse, Error>) in
+        networkManager.sendPatch(boundary:nil ,decodeType: BooleanResponse.self, what: jsonData, fromURL: url) { (result: Result<BooleanResponse, Error>) in
             switch result {
             case .success(let data):
                 if !data.message.isEmpty {
