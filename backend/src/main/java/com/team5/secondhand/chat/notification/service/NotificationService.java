@@ -48,6 +48,7 @@ public class NotificationService implements SendChatNotificationUsecase {
             notificationRepository.deleteAllStartByWithId(id);
         });
 
+        log.debug("connected successfully member key : {}", id);
         sendToClient(emitter, id, String.format("connected successfully member key : %s", id));
 
         if (!lastEventId.isEmpty()) {
@@ -62,6 +63,7 @@ public class NotificationService implements SendChatNotificationUsecase {
 
     private void sendToClient(SseEmitter emitter, String id, Object data) {
         try {
+            log.debug("send to client : {}", data);
             emitter.send(SseEmitter.event()
                     .id(id)
                     .name(SseEvent.CHAT_NOTIFICATION.getEvent())
@@ -93,6 +95,7 @@ public class NotificationService implements SendChatNotificationUsecase {
         //TODO 유효성 검증이 필요
             //TODO 현재 채팅방에 존재하는 멤버(1인 이상)에게 알람을 보내야 한다.
             //TODO 현재 채팅방을 구독중(websocket 통신중인) 멤버에게는 보내지 않아야 한다.
+        log.debug("👋 sse receiverId : {}", receiverId);
         sendChatNotificationToMember(receiverId, event.getChatroom(), ChatNotification.of(event.getChatBubble(), event.getChatroom()));
     }
 
