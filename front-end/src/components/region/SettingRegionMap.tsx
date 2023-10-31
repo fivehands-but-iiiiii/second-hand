@@ -129,17 +129,19 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
         center={'동네 설정'}
       />
       <MySettingRegionMap>
-        {isLoaded && (
-          <GoogleMap
-            mapContainerStyle={MAP_STYLE}
-            center={updatedCenter}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-            options={OPTIONS}
-          >
-            <Marker position={updatedCenter}></Marker>
-          </GoogleMap>
-        )}
+        <div>
+          {isLoaded && (
+            <GoogleMap
+              mapContainerStyle={MAP_STYLE}
+              center={updatedCenter}
+              onLoad={onLoad}
+              onUnmount={onUnmount}
+              options={OPTIONS}
+            >
+              <Marker position={updatedCenter}></Marker>
+            </GoogleMap>
+          )}
+        </div>
         <SettingRegionSelector
           regions={updatedRegions}
           onSetRegions={handleUpdateRegions}
@@ -153,7 +155,10 @@ const MySettingRegionMap = styled.div`
   height: 390px;
   padding: 0 15px;
   > div:first-child {
-    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    margin: 10px 0;
+    border: 1px solid ${({ theme }) => theme.colors.neutral.border};
   }
 `;
 
