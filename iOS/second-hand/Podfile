@@ -7,7 +7,7 @@ target 'second-hand' do
 
   # Pods for second-hand
   pod 'SwiftLint'
-  pod 'SwiftStomp'
+  pod 'SwiftStomp', :git => 'https://github.com/HG-SONG/SwiftStomp.git'
   pod 'ReachabilitySwift'
   pod 'RxSwift'
   pod 'RxCocoa'
