@@ -11,7 +11,6 @@ import org.springframework.cache.annotation.Cacheable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +19,7 @@ public class RegionService implements GetValidRegionsUsecase {
     private final RegionRepository regionRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Map<Long, Region> getRegions(List<Long> ids) throws NotValidRegionException {
         Map<Long, Region> regions = new HashMap<>();
         for (Region region : regionRepository.findAllById(ids)) {
@@ -35,11 +35,12 @@ public class RegionService implements GetValidRegionsUsecase {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "region", key = "#id")
     public Region getRegion(Long id) throws NotValidRegionException {
         return regionRepository.findById(id).orElseThrow(() -> new NotValidRegionException("해당하는 지역이 없습니다."));
     }
 
-//    @Cacheable(value = "itemListCache")
+    @Transactional(readOnly = true)
     public List<Region> findRegionByAddress (String address) {
         return regionRepository.findAllByAddress(address);
     }

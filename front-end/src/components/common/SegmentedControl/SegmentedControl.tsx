@@ -55,8 +55,9 @@ const MySelectedBar = styled.div<SelectedBarProps>`
 
 const MySegmentedButton = styled.button`
   z-index: 10;
-  width: 50%;
   height: 100%;
+  width: 50%;
+  min-width: max-content;
   ${({ theme }) => theme.fonts.footnote}
 `;
 

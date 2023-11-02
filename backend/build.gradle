@@ -25,6 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework:spring-messaging'
 //    implementation 'org.webjars:sockjs-client:1.5.1'
     implementation 'org.webjars:stomp-websocket:2.3.4'
@@ -33,7 +34,6 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
     implementation 'com.amazonaws:aws-java-sdk-core:1.12.472'
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.470'
@@ -45,7 +45,19 @@ dependencies {
             "javax.annotation:javax.annotation-api",
             "com.querydsl:querydsl-apt:5.0.0:jpa"
     )
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    // 자바 역직렬화 문제 해결 패키지
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
+    // test ONLY
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // FixtureMonkey
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:0.6.8")
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-javax-validation:0.6.8")
+    // testcontainers
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
 }
 
 clean {

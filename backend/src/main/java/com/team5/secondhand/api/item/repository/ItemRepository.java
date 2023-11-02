@@ -3,6 +3,7 @@ package com.team5.secondhand.api.item.repository;
 import com.team5.secondhand.api.item.domain.Item;
 import com.team5.secondhand.api.item.domain.Status;
 import com.team5.secondhand.api.region.domain.Region;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,11 +17,14 @@ import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemSliceRepository {
-    Optional<Item> findById(Long id);
 
     Slice<Item> findAllByRegion(Region region, Pageable pageable);
 
+    Optional<Item> getTopByRegion(Region region);
+
     int countAllByRegion(Region region);
+
+    boolean existsByIdAndSellerId(Long id, Long sellerId);
 
     @Modifying
     @Query("SELECT DISTINCT category from Item where region.id = :regionId")
@@ -32,10 +36,10 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemSliceRepo
 
     @Modifying
     @Query("update ItemCounts ic set ic.hits = ic.hits +1 where ic.id = :id")
-    int updateHits(@Param("id") Long countsId);
+    void updateHits(@Param("id") Long countsId);
 
     @Modifying
     @Query("update ItemCounts ic set ic.likeCounts = ic.likeCounts +1 where ic.id = :id")
-    int updateLikes(@Param("id") Long countsId);
+    void updateLikes(@Param("id") Long countsId);
 
 }

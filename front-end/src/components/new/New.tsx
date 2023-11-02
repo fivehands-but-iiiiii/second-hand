@@ -12,7 +12,7 @@ const New = ({ categoryInfo, onClick, ...editProps }: NewProps) => {
     <PortalLayout>
       <ItemEditor
         categoryInfo={categoryInfo}
-        handleClose={onClick}
+        onPortal={onClick}
         {...editProps}
       />
     </PortalLayout>

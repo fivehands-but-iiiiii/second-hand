@@ -114,7 +114,7 @@ DROP TABLE IF EXISTS chatroom;
 create table if not exists chatroom
 (
     id         bigint auto_increment primary key,
-    chatroom_id binary(16) not null unique,
+    chatroom_id varchar(255) not null unique,
     item_id    bigint   not null,
     seller_id bigint not null,
     buyer_id   bigint   not null,
@@ -128,10 +128,6 @@ create table if not exists chatroom
         foreign key (seller_id) references member (id)
 );
 CREATE UNIQUE INDEX idx_my_chatroom_id on chatroom (chatroom_id);
-
-create trigger init_uuid_chatroom before insert on chatroom
-    for each row
-    set NEW.chatroom_id = UUID_TO_BIN(UUID());
 
 create table if not exists chat_log
 (
