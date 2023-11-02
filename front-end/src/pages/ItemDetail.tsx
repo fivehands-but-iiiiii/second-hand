@@ -20,7 +20,7 @@ import ChatRoom from '@components/chat/ChatRoom';
 import { CategoryInfo } from '@components/home/category';
 import Carousel from '@components/home/ItemDetail/Carousel';
 import { ItemStatus } from '@components/ItemStatus';
-import { getOutletContext } from '@components/layout';
+import { useCategories } from '@components/layout/MobileLayout';
 import PortalLayout from '@components/layout/PortalLayout';
 import New from '@components/new/New';
 import { formatNumberToSI } from '@utils/formatNumberToSI';
@@ -85,6 +85,7 @@ const ItemDetail = ({
   handleBackBtnClick,
 }: ItemDetailProps) => {
   const isLogin = !!getStoredValue({ key: 'userInfo' });
+
   const [itemDetailInfo, setItemDetailInfo] = useState<ItemDetailInfo>({
     id: 0,
     seller: { id: 0, memberId: '' },
@@ -121,13 +122,7 @@ const ItemDetail = ({
   } = itemDetailInfo;
   const itemInfoRef = useRef(undefined);
   const [onRefresh, setOnRefresh] = useState(false);
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
-  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
-  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const likeIcon = isLike ? 'fullHeart' : 'heart';
-  const { categories } = getOutletContext();
-  const loginNavigator = useNavigate();
-  const chatNavigator = useNavigate();
 
   const statusLabel = useMemo(() => {
     const statusType = {
@@ -139,6 +134,9 @@ const ItemDetail = ({
     return statusType[status];
   }, [status]);
 
+  const categories = useCategories();
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+
   const handleStatusSheet = async (status: ItemStatus) => {
     try {
       await api.patch(`/items/${id}/status`, { status: status });
@@ -147,6 +145,9 @@ const ItemDetail = ({
     }
     setItemDetailInfo((prev) => ({ ...prev, status: status }));
   };
+
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
 
   const handleViewMoreSheet = (type: string) => {
     if (type === 'delete') {
@@ -159,12 +160,14 @@ const ItemDetail = ({
 
   const handleAlert = (type: AlertActionsProps['id']) => {
     if (type === 'leave' || type === 'logout') return;
+
     const actions = {
       delete: () => handleDeleteAlert(type),
       cancel: () => setIsDeleteAlertOpen(false),
       home: () => handleLoginAlert(type),
       login: () => handleLoginAlert(type),
     };
+
     return actions[type]();
   };
 
@@ -180,13 +183,16 @@ const ItemDetail = ({
   // TODO: 채팅하기 버튼에도 적용하기
   const handleLoginAlertOpen = () => setIsLoginAlertOpen(true);
 
+  const navigator = useNavigate();
+
   const handleLoginAlert = (type: string) => {
     if (type === 'home') {
       handleBackBtnClick(0);
       return;
     }
+
     if (type === 'login') {
-      loginNavigator('/login');
+      navigator('/login');
     }
   };
 
@@ -199,35 +205,33 @@ const ItemDetail = ({
     }
   };
 
-  const updateLike = async (isAdding: boolean): Promise<boolean> => {
-    // TODO: useAPI 사용하기
-    try {
-      if (isAdding) {
-        await api.post('/wishlist/like', { itemId: id });
-        return true;
-      } else {
-        await api.delete(`/wishlist/like?itemId=${id}`);
-        return false;
-      }
-    } catch (error) {
-      console.error(`Failed to request: ${error}`);
-      return isAdding ? false : true;
-    }
-  };
-
   const handleLike = async () => {
-    if (!isLogin) {
+    if (isLogin) {
+      let likesCount = itemDetailInfo.likesCount;
+      if (isLike) {
+        try {
+          await api.delete(`/wishlist/like?itemId=${id}`);
+          likesCount--;
+        } catch (error) {
+          console.error(`Failed to request: ${error}`);
+        }
+      } else {
+        try {
+          await api.post('/wishlist/like', { itemId: id });
+          likesCount++;
+        } catch (error) {
+          console.error(`Failed to request: ${error}`);
+        }
+      }
+
+      setItemDetailInfo((prev) => ({
+        ...prev,
+        isLike: !prev.isLike,
+        likesCount: likesCount,
+      }));
+    } else {
       handleLoginAlertOpen();
-      return;
     }
-
-    const updatedLikeStatus = await updateLike(!isLike);
-
-    setItemDetailInfo((prev) => ({
-      ...prev,
-      isLike: updatedLikeStatus,
-      likesCount: updatedLikeStatus ? prev.likesCount + 1 : prev.likesCount - 1,
-    }));
   };
 
   const statusPopupSheetMenu = DETAIL_STATUS_MENU.filter(
@@ -255,8 +259,10 @@ const ItemDetail = ({
 
   const handleChatRoom = () => setIsChatRoomOpen(!isChatRoomOpen);
 
+  const navigate = useNavigate();
+
   const handleChatButton = () => {
-    isMyItem ? chatNavigator(`/chat-list/${id}`) : handleChatRoom();
+    isMyItem ? navigate(`/chat-list/${id}`) : handleChatRoom();
   };
 
   const handleNewModal = () => {
@@ -290,7 +296,6 @@ const ItemDetail = ({
     ));
 
   const getItemDetail = async () => {
-    // TODO: useAPI 사용하기
     try {
       const {
         data: { data },
@@ -364,21 +369,20 @@ const ItemDetail = ({
         </Button>
       </SubTabBar>
       {!!isChatRoomOpen && (
-        <ChatRoom
-          chatId={{ itemId: id }}
-          onRoomClose={handleChatRoom}
-        ></ChatRoom>
+        <ChatRoom itemId={id} onRoomClose={handleChatRoom}></ChatRoom>
       )}
       {isStatusPopupOpen && (
         <PopupSheet
+          type={'slideUp'}
           menu={statusPopupSheetMenu}
-          onClick={handleStatusPopup}
+          onSheetClose={handleStatusPopup}
         ></PopupSheet>
       )}
       {isMoreViewPopupOpen && (
         <PopupSheet
+          type={'slideUp'}
           menu={viewMorePopupSheetMenu}
-          onClick={handleViewMorePopup}
+          onSheetClose={handleViewMorePopup}
         ></PopupSheet>
       )}
       {isNewModalOpen && (

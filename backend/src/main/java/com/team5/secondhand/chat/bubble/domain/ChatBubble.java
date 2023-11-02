@@ -1,8 +1,9 @@
 package com.team5.secondhand.chat.bubble.domain;
 
+import com.team5.secondhand.api.member.dto.response.MemberDetails;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
@@ -11,31 +12,29 @@ import java.util.UUID;
 
 @Getter
 @ToString
-@Document("chatbubbles")
+@RedisHash("chat-bubble")
 @NoArgsConstructor
 public class ChatBubble implements Serializable, Comparable {
     @Id
-    private UUID id;
+    private String id;
     @Indexed
     private String roomId;
     private String sender;
-    private String receiver;
     private String message;
     private String createdAt;
 
     @Builder
-    private ChatBubble(UUID id, String roomId, String sender, String receiver, String message, String createdAt) {
+    private ChatBubble(String id, String roomId, String sender, String message, String createdAt) {
         this.id = id;
         this.roomId = roomId;
         this.sender = sender;
-        this.receiver = receiver;
         this.message = message;
         this.createdAt = createdAt;
     }
 
-    private UUID generateKey() {
+    private static String generateKey(String id) {
         if (id==null) {
-            return UUID.randomUUID();
+            return UUID.randomUUID().toString().replace("-", "");
         }
         return id;
     }
@@ -47,8 +46,8 @@ public class ChatBubble implements Serializable, Comparable {
         return time;
     }
 
-    public Boolean isSender(String memberId) {
-        return this.sender.equals(memberId);
+    public Boolean isSender(MemberDetails loginMember) {
+        return this.sender.equals(loginMember.getMemberId());
     }
 
     @Override
@@ -61,7 +60,7 @@ public class ChatBubble implements Serializable, Comparable {
     }
 
     public void ready() {
-        this.id = generateKey();
+        this.id = generateKey(id);
         this.createdAt = generateCreatedAt(createdAt);
     }
 }

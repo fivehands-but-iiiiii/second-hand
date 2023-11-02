@@ -33,7 +33,6 @@ const SettingRegionSelector = ({
 
   const handleSelectRegion = (id: number, district: string) => {
     if (selectedRegions.some((region) => region.id === id)) return;
-
     const newRegion = { id, district, onFocus: true };
     setSelectedRegions((prev) => [
       ...prev.map((region) =>
@@ -45,8 +44,6 @@ const SettingRegionSelector = ({
   };
 
   const handleRegionClick = (id: number) => {
-    if (selectedRegions.find((region) => region.id === id)?.onFocus) return;
-
     setSelectedRegions((prev) =>
       prev.map((region) =>
         region.id === id
@@ -58,7 +55,6 @@ const SettingRegionSelector = ({
 
   const handleDeleteRegion = (id: number) => {
     if (selectedRegions.length === 1) return;
-
     const isSelectingRegion = selectedRegions.some(
       (region) => region.id === id && region.onFocus,
     );

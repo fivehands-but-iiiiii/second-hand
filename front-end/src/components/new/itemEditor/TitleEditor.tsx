@@ -12,7 +12,7 @@ import { CategoryInfo, Category } from '../itemEditor/ItemEditor';
 interface TitleEditorProps {
   title: string;
   category: CategoryInfo;
-  onChangeTitle: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChageTitle: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickTitle: () => void;
   onClickCategory: (category: Category) => void;
 }
@@ -20,16 +20,15 @@ interface TitleEditorProps {
 const TitleEditor = ({
   title,
   category,
-  onChangeTitle,
+  onChageTitle,
   onClickTitle,
   onClickCategory,
 }: TitleEditorProps) => {
-  const { total, recommendedCategory, selectedId } = category;
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const handleSelectCategory = (selectedCategory: Category) => {
     onClickCategory(selectedCategory);
-    if (selectedId !== selectedCategory.id) handleCategoryModal();
+    if (category.selectedId !== selectedCategory.id) handleCategoryModal();
   };
 
   const handleCategoryModal = () => setIsCategoryModalOpen((prev) => !prev);
@@ -42,14 +41,14 @@ const TitleEditor = ({
         placeholder="글 제목"
         rows={title.length > 30 ? 2 : 1}
         maxLength={64}
-        onChange={onChangeTitle}
+        onChange={onChageTitle}
         onClick={onClickTitle}
       />
-      {!!recommendedCategory.length && (
+      {!!category.recommendedCategory.length && (
         <MyTitleCategories>
           <MyCategories>
-            {recommendedCategory.map(({ id, title }: Category) => {
-              const isActive = id === selectedId;
+            {category.recommendedCategory.map(({ id, title }: Category) => {
+              const isActive = id === category.selectedId;
               return (
                 <Button
                   key={id}
@@ -71,8 +70,8 @@ const TitleEditor = ({
       )}
       {isCategoryModalOpen && (
         <CategoryList
-          categories={total}
-          selectedId={selectedId}
+          categories={category.total}
+          selectedId={category.selectedId}
           onClickCategory={handleSelectCategory}
           onPortal={handleCategoryModal}
         />

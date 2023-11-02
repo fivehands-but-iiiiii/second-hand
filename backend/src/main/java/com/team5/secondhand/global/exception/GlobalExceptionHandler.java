@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.persistence.EntityExistsException;
 import javax.security.sasl.AuthenticationException;
 
 @Slf4j
@@ -42,11 +41,6 @@ public class GlobalExceptionHandler {
         return ErrorResponse.occur(e);
     }
 
-    @ExceptionHandler(EntityExistsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleEntityExistsException(EntityExistsException e) {
-        return ErrorResponse.occur(e);
-    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

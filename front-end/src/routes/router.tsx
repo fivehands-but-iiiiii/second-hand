@@ -1,22 +1,20 @@
-import { lazy } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
-import Layout from '@components/layout';
+import MobileLayout from '@components/layout/MobileLayout';
 import Join from '@components/login/Join';
 import OAuthCallback from '@components/login/OAuthCallback';
-import NotFound from '@pages/NotFound';
-
-const Home = lazy(() => import('@pages/Home'));
-const Login = lazy(() => import('@pages/Login'));
-const WishList = lazy(() => import('@pages/WishList'));
-const SalesHistory = lazy(() => import('@pages/SalesHistory'));
-const ChatPage = lazy(() => import('@pages/ChatPage'));
+import ChatPage from '@pages/ChatPage';
+import ErrorPage from '@pages/ErrorPage';
+import Home from '@pages/Home';
+import Login from '@pages/Login';
+import SalesHistory from '@pages/SalesHistory';
+import WishList from '@pages/WishList';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
-    errorElement: <NotFound />,
+    element: <MobileLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '',
@@ -47,10 +45,6 @@ const router = createBrowserRouter([
   {
     path: 'join',
     element: <Join />,
-  },
-  {
-    path: '*',
-    element: <Navigate to="/" />,
   },
 ]);
 

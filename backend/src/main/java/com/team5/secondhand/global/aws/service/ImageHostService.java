@@ -5,7 +5,7 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.team5.secondhand.api.item.domain.Item;
-import com.team5.secondhand.api.item.domain.ItemImage;
+import com.team5.secondhand.api.item.domain.ItemDetailImage;
 import com.team5.secondhand.global.aws.domain.Directory;
 import com.team5.secondhand.global.aws.domain.Type;
 import com.team5.secondhand.global.aws.dto.response.ImageInfo;
@@ -88,7 +88,7 @@ public class ImageHostService implements ProfileUpload, ItemDetailImageUpload, I
 
     @Override
     public String uploadItemThumbnailImage(Item item) throws ImageHostException {
-        String url = item.getFirstImageUrl();
+        String url = item.getFirstDetailImage().getUrl();
         String key = getKey(url);
         String newKey = key.replace(Directory.ITEM_DETAIL.getPrefix(), Directory.ITEM_THUMBNAIL_ORIGIN.getPrefix());
         try {
@@ -107,16 +107,16 @@ public class ImageHostService implements ProfileUpload, ItemDetailImageUpload, I
     }
 
     @Override
-    public List<ItemImage> uploadItemDetailImages(List<MultipartFile> request) throws ImageHostException {
+    public List<ItemDetailImage> uploadItemDetailImages(List<MultipartFile> request) throws ImageHostException {
         if (request.size() < 1 || request.size() > 10) {
             throw new ImageHostException("이미지 첨부는 1개 이상 10개 이하로 해야합니다.");
         }
 
-        List<ItemImage> images = new ArrayList<>();
+        List<ItemDetailImage> images = new ArrayList<>();
 
         for (MultipartFile multipartFile : request) {
             ImageInfo imageInfo = uploadItemDetailImage(multipartFile);
-            images.add(ItemImage.from(imageInfo.getImageUrl()));
+            images.add(ItemDetailImage.create(imageInfo.getImageUrl()));
         }
 
         return images;

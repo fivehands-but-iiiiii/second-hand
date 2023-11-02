@@ -1,31 +1,31 @@
 package com.team5.secondhand.api.item.domain;
 
-
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
 public enum Status {
     ON_SALE(true),
     RESERVATION(true),
     SOLD(false);
 
-    private final boolean isOnSales;
+    private final boolean isSales;
 
-    Status(boolean isOnSales) {
-        this.isOnSales = isOnSales;
+    Status(boolean isSales) {
+        this.isSales = isSales;
     }
 
-    public static List<Status> isOnSales(Boolean value) {
+    @JsonValue
+    public Integer getValue(){
+        return ordinal();
+    }
+
+    public static List<Status> isSales(Boolean value) {
         if (value!=null) {
-            return Arrays.stream(values())
-                    .filter(e -> e.isOnSales == value)
-                    .collect(Collectors.toList());
+            return Arrays.stream(values()).filter(e -> e.isSales == value).collect(Collectors.toList());
         }
-        return Collections.emptyList();
+        return null;
     }
 }

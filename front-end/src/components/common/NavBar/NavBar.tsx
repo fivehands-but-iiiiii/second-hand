@@ -30,7 +30,7 @@ const NavBar = ({
     <MyNavBar className={className}>
       <MyNavBarTitle>
         {left && <MyLeftTitle>{left}</MyLeftTitle>}
-        {center && <MyCenter>{center}</MyCenter>}
+        <MyCenter>{center}</MyCenter>
         {right && <MyRightTitle>{right}</MyRightTitle>}
       </MyNavBarTitle>
       {children && <MyChildren>{children}</MyChildren>}
@@ -52,7 +52,7 @@ const MyBlurNavBar = styled(MyDefaultNavBar)`
 `;
 
 const MyTransparentNavBar = styled(MyDefaultNavBar)`
-  position: absolute;
+  position: fixed;
   border: none;
 `;
 
@@ -66,19 +66,17 @@ const MyNavBarTitle = styled.div`
 `;
 
 const MyLeftTitle = styled.p`
-  min-width: max-content;
   text-align: left;
   grid-column: 1;
 `;
 
 const MyRightTitle = styled.p`
-  min-width: max-content;
   text-align: right;
   grid-column: 3;
 `;
 
 const MyCenter = styled.p`
-  min-width: max-content;
+  min-width: 80px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.neutral.textStrong};
   text-align: center;

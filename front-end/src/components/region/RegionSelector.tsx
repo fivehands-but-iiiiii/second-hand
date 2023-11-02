@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { useState, useMemo, useEffect, MouseEvent } from 'react';
 
 import Icon from '@assets/Icon';
 import Button from '@common/Button/Button';
@@ -20,6 +20,8 @@ const RegionSelector = ({
   onClickDeleteButton,
   onClickAddButton,
 }: RegionSelectorProps) => {
+  const [regionMessage, setRegionMessage] = useState('');
+
   const handleRegionClick = (id: number) => onClickRegionButton(id);
 
   const handleRemoveClick = (id: number, event: MouseEvent) => {
@@ -27,42 +29,50 @@ const RegionSelector = ({
     onClickDeleteButton(id);
   };
 
-  const regionButtons = selectedRegions.map(({ id, district, onFocus }) => (
-    <Button
-      key={id}
-      fullWidth
-      active={onFocus}
-      onClick={() => handleRegionClick(id)}
-    >
-      {district}
-      <MyRemoveIcon
-        name={'x'}
-        size={'xs'}
-        fill={palette.neutral.background}
-        onClick={(event) => handleRemoveClick(id, event)}
-      />
-    </Button>
-  ));
+  const regionButtons = useMemo(() => {
+    const selectedRegionButtons = selectedRegions.map(
+      ({ id, district, onFocus }) => {
+        return (
+          <Button
+            key={id}
+            fullWidth
+            active={onFocus}
+            onClick={() => handleRegionClick(id)}
+          >
+            {district}
+            <MyRemoveIcon
+              name={'x'}
+              size={'xs'}
+              fill={palette.neutral.background}
+              onClick={(event) => handleRemoveClick(id, event)}
+            />
+          </Button>
+        );
+      },
+    );
+    const addButton = (
+      <Button fullWidth onClick={onClickAddButton}>
+        <Icon name={'plus'} size={'xs'} />
+        위치추가
+      </Button>
+    );
 
-  const addButton = (
-    <Button fullWidth onClick={onClickAddButton}>
-      <Icon name={'plus'} size={'xs'} />
-      위치추가
-    </Button>
-  );
+    return selectedRegions.length < 2
+      ? [...selectedRegionButtons, addButton]
+      : selectedRegionButtons;
+  }, [selectedRegions]);
 
-  const canAddMoreRegions = selectedRegions.length < 2;
-
-  const regionMessage = canAddMoreRegions
-    ? '최소 1개 이상 최대 2개까지 선택 가능해요'
-    : '';
+  useEffect(() => {
+    if (selectedRegions.length < 2) {
+      setRegionMessage('최소 1개 이상 최대 2개까지 선택 가능해요');
+      return;
+    }
+    setRegionMessage('');
+  }, [selectedRegions.length]);
 
   return (
     <>
-      <MyRegionButton>
-        {regionButtons}
-        {canAddMoreRegions && addButton}
-      </MyRegionButton>
+      <MyRegionButton>{regionButtons}</MyRegionButton>
       <MyRegionMessage>{regionMessage}</MyRegionMessage>
     </>
   );

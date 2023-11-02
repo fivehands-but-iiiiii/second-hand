@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Loading from '@pages/Loading';
 import { setStorageValue } from '@utils/sessionStorage';
 import { AxiosError } from 'axios';
 
@@ -18,68 +16,50 @@ const OAuthCallback = () => {
   const navigate = useNavigate();
   const currentURL = new URL(window.location.href);
   const queryCode = currentURL.searchParams.get('code');
-
-  const loginWithGitHub = async (userInfo: GitHubUserInfo) => {
-    try {
-      const { data } = await api.post('/login', {
-        memberId: userInfo.login,
-      });
-      const { id, memberId, profileImgUrl, regions, token } = data.data;
-
-      setStorageValue({
-        key: 'userInfo',
-        value: {
-          id: id,
-          memberId: memberId,
-          profileImgUrl: profileImgUrl,
-          regions: regions,
-        },
-      });
-      setStorageValue({
-        key: 'token',
-        value: token,
-      });
-
-      return true;
-    } catch (error) {
-      if (error instanceof AxiosError && error.response?.status === 401) {
-        return false;
-      }
-      throw error;
-    }
-  };
-
-  const signUpWithGitHub = async (userInfo: GitHubUserInfo) => {
-    navigate('/join', {
-      state: { ...userInfo },
-      replace: true,
-    });
-  };
-
+  
   useEffect(() => {
     const authenticateWithSessionId = async () => {
       try {
         await api.get(`/git/login?code=${queryCode}&env=${ENV_MODE}`);
       } catch (error) {
-        if (error instanceof AxiosError && error.response?.status === 401) {
-          const gitHubUser: GitHubUserInfo = error.response.data.body;
-          const isLoginSuccess = await loginWithGitHub(gitHubUser);
-          if (isLoginSuccess) {
-            navigate('/', { replace: true });
-            return;
-          }
-          await signUpWithGitHub(gitHubUser);
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            const gitHubUserInfo: GitHubUserInfo = error.response.data.body;
+            try {
+              const { data } = await api.post('/login', {
+                memberId: gitHubUserInfo.login,
+              });
+              setStorageValue({
+                key: 'userInfo',
+                value: {
+                  id: data.data.id,
+                  memberId: data.data.memberId,
+                  profileImgUrl: data.data.profileImgUrl,
+                  regions: data.data.regions,
+                },
+              });
+              setStorageValue({
+                key: 'token',
+                value: data.data.token,
+              });
+              navigate('/');
+            } catch {
+              const { response } = error;
+              if (response.status === 401) {
+                navigate('/join', {
+                  state: { ...gitHubUserInfo },
+                  replace: true,
+                });
+              } else console.log(response.data.message);
+            }
+          } else console.log(error.response?.data.message);
         }
       }
     };
     authenticateWithSessionId();
-  }, [queryCode]);
+  }, [location]);
 
-  return (
-    <>
-      <Loading />
-    </>
-  );
+  return <></>;
 };
 
 export default OAuthCallback;

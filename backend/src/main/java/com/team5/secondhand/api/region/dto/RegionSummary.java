@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.io.Serializable;
-
 @Getter
 @RequiredArgsConstructor
-public class RegionSummary implements Serializable {
+public class RegionSummary {
     private final Long id;
     private final String city;
     private final String county;

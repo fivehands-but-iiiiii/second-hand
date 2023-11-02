@@ -9,16 +9,14 @@ import com.team5.secondhand.api.chatroom.exception.ExistChatRoomException;
 import com.team5.secondhand.api.chatroom.exception.NotChatroomMemberException;
 import com.team5.secondhand.api.item.domain.Item;
 import com.team5.secondhand.api.item.exception.ExistItemException;
-import com.team5.secondhand.api.item.service.ItemReadService;
+import com.team5.secondhand.api.item.service.ItemService;
 import com.team5.secondhand.api.member.domain.Member;
 import com.team5.secondhand.api.member.exception.ExistMemberIdException;
 import com.team5.secondhand.api.member.service.MemberService;
-import com.team5.secondhand.chat.chatroom.service.ChatroomCacheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -26,9 +24,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatroomFacade {
     private final ChatroomService chatRoomService;
-    private final ItemReadService itemService;
+    private final ItemService itemService;
     private final MemberService memberService;
-    private final ChatroomCacheService chatroomCacheService;
 
     private final int FILTER_SIZE = 10;
 
@@ -58,28 +55,21 @@ public class ChatroomFacade {
 
     public ChatroomList findChatroomList(ChatItem chatItem, Long id) throws ExistMemberIdException, ExistItemException {
         PageRequest pageRequest = PageRequest.of(chatItem.getPage(), FILTER_SIZE, Sort.by(Sort.Direction.DESC, "id"));
-        ChatroomList chatroomList;
-        Member member = memberService.findById(id);
         //채팅방 id가 존재하지 않고 멤버id가 존재할 경우
         if (chatItem.getItemId() == null) {
-            chatroomList = chatRoomService.findChatroomListByMember(pageRequest, member);
-        } else {
-            Item item = itemService.findById(chatItem.getItemId());
-            chatroomList = chatRoomService.findChatroomListByItem(pageRequest, item);
+            Member member = memberService.findById(id);
+            return chatRoomService.findChatroomListByMember(pageRequest, member);
         }
-        //마지막 채팅로그 추가
-        chatroomList.addLastMessage(chatroomCacheService.addLastMessage(chatroomList.getChatRooms(), member.getMemberId()));
-        chatroomList.sort();
-
-        return chatroomList;
+        //채팅방 id가 존재할 경우
+        Item item = itemService.findById(chatItem.getItemId());
+        return chatRoomService.findChatroomListByItem(pageRequest, item);
     }
 
-    @Transactional
     public String create(Long itemId, Long memberId) throws ExistMemberIdException, ExistItemException, ExistChatRoomException, BuyerException {
         Member buyer = memberService.findById(memberId);
         Item item = itemService.findById(itemId);
-        Chatroom createdChatroom = chatRoomService.create(item, buyer);
-        return createdChatroom.getChatroomId().toString();
+
+        return chatRoomService.create(item, buyer);
     }
 
     public void exitChatroom(String chatId, Long memberId) throws ExistMemberIdException, ExistChatRoomException, NotChatroomMemberException {
