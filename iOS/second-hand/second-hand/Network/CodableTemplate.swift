@@ -275,6 +275,7 @@ struct ChatroomList: Codable {
     let opponent : ChatroomListOpponent
     let item : ChatroomListItem
     let chatLogs : ChatroomListChatLog
+    let lastUpdate : String
 }
 
 struct ChatroomListOpponent: Codable {
