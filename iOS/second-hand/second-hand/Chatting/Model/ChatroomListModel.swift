@@ -43,21 +43,21 @@ class ChatroomListModel: Updatable {
     
     private func sortList(list: [ChatroomList]) -> [ChatroomList] {
         let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFractionalSeconds, .withDashSeparatorInDate, .withColonSeparatorInTime,.withFullDate,.withTime]
         
-        for chatroom in list {
-            
-        }
-        
-        let sortedList = list.sorted { (chatroom1, chatroom2) in
-            if let date1 = dateFormatter.date(from: chatroom1.lastUpdate),
-               let date2 = dateFormatter.date(from: chatroom2.lastUpdate) {
-                return date1 > date2
+        if list.count <= 1 {
+            return list
+        } else {
+            let sortedList = list.sorted { (chatroom1, chatroom2) in
+                if let date1 = dateFormatter.date(from: chatroom1.lastUpdate), let date2 = dateFormatter.date(from: chatroom2.lastUpdate) {
+                    return date1 > date2
+                } else {
+                    return false
+                }
             }
-            return false
+            return sortedList
         }
-        return sortedList
     }
-    
     private func isValidChatroom(chatroom: ChatroomList, completion: @escaping (Bool) -> Void) {
         let itemId = chatroom.item.itemId
         
