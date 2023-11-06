@@ -21,7 +21,7 @@ class CellOfChatroomList: UITableViewCell {
         
         setOpponentPhoto(img:chatroomList.opponent.profileImgUrl)
         
-        setTextSection(opponeneId: chatroomList.opponent.memberId, time: chatroomList.chatLogs.updatedAt ?? "", lastMessage: chatroomList.chatLogs.lastMessage ?? "")
+        setTextSection(opponeneId: chatroomList.opponent.memberId, time: chatroomList.chatLogs.updatedAt ?? "", lastMessage: chatroomList.chatLogs.lastMessage )
         
         setNumberBadge(number: chatroomList.chatLogs.unReadCount)
         
