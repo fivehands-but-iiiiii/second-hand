@@ -32,11 +32,30 @@ class ChatroomListModel: Updatable {
                     }
                     count += 1
                     if count == chatrooms.count {
+                        let sortedList = self.sortList(list: self.info)
+                        self.info = sortedList
                         completion()
                     }
                 }
             }
         }
+    }
+    
+    private func sortList(list: [ChatroomList]) -> [ChatroomList] {
+        let dateFormatter = ISO8601DateFormatter()
+        
+        for chatroom in list {
+            
+        }
+        
+        let sortedList = list.sorted { (chatroom1, chatroom2) in
+            if let date1 = dateFormatter.date(from: chatroom1.lastUpdate),
+               let date2 = dateFormatter.date(from: chatroom2.lastUpdate) {
+                return date1 > date2
+            }
+            return false
+        }
+        return sortedList
     }
     
     private func isValidChatroom(chatroom: ChatroomList, completion: @escaping (Bool) -> Void) {
@@ -60,12 +79,12 @@ class ChatroomListModel: Updatable {
                     return
                 }
                 completion(true)
-//                if response.data.chatroomId == nil || response.data.opponentId == UserInfoManager.shared.userInfo?.memberId {
-//                    completion(false)
-//                    return
-//                } else {
-//                    completion(true)
-//                }
+                //                if response.data.chatroomId == nil || response.data.opponentId == UserInfoManager.shared.userInfo?.memberId {
+                //                    completion(false)
+                //                    return
+                //                } else {
+                //                    completion(true)
+                //                }
                 
             case .failure(let error) :
                 print(error.localizedDescription)
