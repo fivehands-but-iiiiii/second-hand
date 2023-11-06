@@ -22,11 +22,10 @@ class MultipartTypeCreater {
             let contentType = "Content-Type: image/jpeg\r\n\r\n"
             body.append(contentType.data(using: .utf8)!)
 
-            // 이미지 데이터를 추가
             body.append(imageData)
             
             body.append("\r\n".data(using: .utf8)!)
-            // 마지막 boundary 추가
+
             let finalBoundaryString = "--\(boundary)--\r\n"
             body.append(finalBoundaryString.data(using: .utf8)!)
         }
