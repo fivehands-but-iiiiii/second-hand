@@ -79,13 +79,6 @@ class ChatroomListModel: Updatable {
                     return
                 }
                 completion(true)
-                //                if response.data.chatroomId == nil || response.data.opponentId == UserInfoManager.shared.userInfo?.memberId {
-                //                    completion(false)
-                //                    return
-                //                } else {
-                //                    completion(true)
-                //                }
-                
             case .failure(let error) :
                 print(error.localizedDescription)
                 completion(false)
