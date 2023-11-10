@@ -101,7 +101,7 @@ class ItemDetailViewController: UIViewController {
             return
         }
         
-
+        
         let group = DispatchGroup()
         
         group.enter()
@@ -111,7 +111,7 @@ class ItemDetailViewController: UIViewController {
             defer {
                 group.leave()
             }
-
+            
             switch result {
             case .success(let data):
                 guard let detailInfo = data.last else {
