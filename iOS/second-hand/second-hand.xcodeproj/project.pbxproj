@@ -50,6 +50,7 @@
 		E45BF67A2A7649FD0026AD03 /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF6792A7649FD0026AD03 /* MyCell.swift */; };
 		E45BF67C2A765BF20026AD03 /* MyBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF67B2A765BF20026AD03 /* MyBubble.swift */; };
 		E45BF67E2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45BF67D2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift */; };
+		E466677F2AFA34490040C5CB /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E466677E2AFA34490040C5CB /* UIScrollView+Extension.swift */; };
 		E467380D2A440D0E006A46D1 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380C2A440D0E006A46D1 /* UserInfoManager.swift */; };
 		E467380F2A453FBF006A46D1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = E467380E2A453FBF006A46D1 /* Server.swift */; };
 		E46738112A482DF1006A46D1 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46738102A482DF1006A46D1 /* Updatable.swift */; };
@@ -142,6 +143,7 @@
 		E45BF6792A7649FD0026AD03 /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		E45BF67B2A765BF20026AD03 /* MyBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBubble.swift; sourceTree = "<group>"; };
 		E45BF67D2A78FD830026AD03 /* PrivateChatroomChattingLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatroomChattingLogModel.swift; sourceTree = "<group>"; };
+		E466677E2AFA34490040C5CB /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		E467380C2A440D0E006A46D1 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		E467380E2A453FBF006A46D1 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		E46738102A482DF1006A46D1 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				DB55CB122A44186E00578ED5 /* UITextField+Extension.swift */,
 				E4987E442A4D9F7600337543 /* Int,String+Extension.swift */,
 				DBCD32192A80E3EB00F58AC0 /* Array+Extension.swift */,
+				E466677E2AFA34490040C5CB /* UIScrollView+Extension.swift */,
 			);
 			path = UIExtensions;
 			sourceTree = "<group>";
@@ -1007,6 +1010,7 @@
 				DBAF838A2A32B7CA00194A02 /* NavigationUnderLineViewController.swift in Sources */,
 				E49EB8362A2DC207001F2D56 /* TabBarItem.swift in Sources */,
 				DBB04D2D2A2DA5BF001233CC /* SceneDelegate.swift in Sources */,
+				E466677F2AFA34490040C5CB /* UIScrollView+Extension.swift in Sources */,
 				DBAF83B12A32E3E900194A02 /* IdStackView.swift in Sources */,
 				DB08D4482A4BFC6F00D45E32 /* UIStackView+extension.swift in Sources */,
 				DB51AD9C2A5A9E5D00EB939D /* AddPhotoImageView.swift in Sources */,
@@ -1088,7 +1092,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1142,7 +1146,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
