@@ -22,15 +22,11 @@ class ItemDetailTextSectionView: UIScrollView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.contentSize = CGSize(width: self.frame.width, height: contentOfPost.intrinsicContentSize.height + sellerInfoView.frame.height + statusButton.frame.height + 40)
-        invalidateIntrinsicContentSize()
         setSellerInfoConstraints()
         setStatusButtonConstraints()
         setContenetOfPostConstraints()
     }
-    
-    
+
     
     // MARK: SELLER INFO VIEW
     func setSellerInfoView(sellerName: String) {
