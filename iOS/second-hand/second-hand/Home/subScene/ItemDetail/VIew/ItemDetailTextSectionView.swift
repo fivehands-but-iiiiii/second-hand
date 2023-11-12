@@ -119,20 +119,19 @@ class ItemDetailTextSectionView: UIScrollView {
         
         if self.subviews.contains(statusButton) {
             NSLayoutConstraint.activate(
-                [
+                [   contentOfPost.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 10.0),
+                    contentOfPost.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0),
                     contentOfPost.topAnchor.constraint(equalTo: statusButton.bottomAnchor, constant: 10),
-                    contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
-                    contentOfPost.heightAnchor.constraint(equalToConstant: self.contentSize.height),
                     contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
                 ]
             )
         } else {
             NSLayoutConstraint.activate(
                 [
+                    contentOfPost.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 10.0),
+                    contentOfPost.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0),
                     contentOfPost.topAnchor.constraint(equalTo: sellerInfoView.bottomAnchor, constant: 10),
-                    contentOfPost.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -30.0),
-                    contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-                    contentOfPost.heightAnchor.constraint(equalToConstant: contentOfPost.intrinsicContentSize.height)
+                    contentOfPost.centerXAnchor.constraint(equalTo: self.centerXAnchor)
                 ]
             )
         }
