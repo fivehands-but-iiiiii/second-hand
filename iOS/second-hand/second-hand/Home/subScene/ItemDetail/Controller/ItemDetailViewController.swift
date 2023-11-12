@@ -47,6 +47,22 @@ class ItemDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         bringButtonsToFront()
+        updateContentSize()
+    }
+    
+    func updateContentSize() {
+        if textSectionView == nil {
+            return
+        }
+        
+        if textSectionView.contentOfPost == nil {
+            return
+        }
+
+        if textSectionView.contentOfPost!.frame.height == .zero {
+            return
+        }
+        self.textSectionView.updateContentSize()
     }
     
     func updateStatusDelegateIfNeeded() {
@@ -381,9 +397,9 @@ class ItemDetailViewController: UIViewController {
         NSLayoutConstraint.activate(
             [
                 textSectionView.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 10.0),
-                textSectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -50),
                 textSectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-                textSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+                textSectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                textSectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -50.0)
             ]
         )
     }
