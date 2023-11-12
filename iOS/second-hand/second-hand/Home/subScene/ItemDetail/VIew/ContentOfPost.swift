@@ -33,11 +33,11 @@ class ContentOfPost: UIView {
         let contentWidth = bounds.width
         let titleHeight = titleLabel.intrinsicContentSize.height
         let categoryHeight = categotyAndCreateAtLabel.intrinsicContentSize.height
-        let descriptionHeight = descriptionView.intrinsicContentSize.height
+        let descriptionHeight = calculateTextBoxHeight(for: .systemFont(ofSize: 15.0), text: descriptionView.text, maxWidth: Utils.screenWidth() * 0.95) + descriptionView.intrinsicContentSize.height
         let countHeight = countsLabel.intrinsicContentSize.height
         
-        let totalHeight = titleHeight + categoryHeight + descriptionHeight + countHeight + 30 
-
+        let totalHeight = titleHeight + categoryHeight + descriptionHeight + countHeight + 30.0
+        
         return CGSize(width: contentWidth, height: totalHeight)
     }
     
@@ -59,8 +59,8 @@ class ContentOfPost: UIView {
         setCategotyAndCreateAtLabelConstraints()
         setDescriptionViewConstraints()
         setCountLabelConstraints()
-        invalidateIntrinsicContentSize()
     }
+    
     // MARK: TITLE
     
     private func setTitleLabel(title: String) {
@@ -155,7 +155,6 @@ class ContentOfPost: UIView {
     
     private func setDescriptionView(content: String) {
         self.descriptionView = UITextView(frame: .zero)
-        
         self.descriptionView?.text = content
         self.descriptionView?.textAlignment = .left
         self.descriptionView?.font = .systemFont(ofSize: 15.0)
@@ -167,10 +166,6 @@ class ContentOfPost: UIView {
             return
         }
         
-        guard let text = descriptionView.text else {
-            return
-        }
-        
         guard let standard = categotyAndCreateAtLabel?.bottomAnchor else {
             return
         }
@@ -179,20 +174,25 @@ class ContentOfPost: UIView {
             self.addSubview(descriptionView)
         }
         
-        let lineCount = text.components(separatedBy: "\n").count
-        
-        let height = CGFloat((lineCount+(text.count / 25)) * 30)
-        
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(
             [
                 descriptionView.topAnchor.constraint(equalTo: standard ,constant: 10.0),
-                descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: -5.0),
-                descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor),
-                descriptionView.heightAnchor.constraint(equalToConstant: height)
+                descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor)
             ]
         )
+    }
+    
+    private func calculateTextBoxHeight(for font: UIFont, text: String, maxWidth: CGFloat) -> CGFloat{
+        let boundingSize = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        
+        let attributes: [NSAttributedString.Key: Any] = [.font: font]
+        let boundingRect = text.boundingRect(with: boundingSize, options: options, attributes: attributes, context: nil)
+        
+        return boundingRect.height
     }
     
     // MARK: countsLabel
