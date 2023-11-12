@@ -9,27 +9,23 @@ import UIKit
 
 extension UIScrollView {
     func updateContentSize() {
-        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
+        let height = calculateHeight(view: self)
 
-        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height)
+        self.contentSize = CGSize(width: self.frame.width, height: height)
     }
     
-    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-        var totalRect: CGRect = .zero
+    private func calculateHeight(view: UIView) -> CGFloat {
+        var totalHeight: CGFloat = .zero
 
         for subview in view.subviews {
             if ((subview as? StatusButton) != nil) {
-                print("StatusButton \(subview.frame)")
-                totalRect = totalRect.union(recursiveUnionInDepthFor(view: subview))
+                totalHeight += subview.frame.height
             } else if ((subview as? SellerInfoView) != nil) {
-                print("SellerInfoView \(subview.frame)")
-                totalRect = totalRect.union(recursiveUnionInDepthFor(view: subview))
+                totalHeight += subview.frame.height
             } else if ((subview as? ContentOfPost) != nil) {
-                print("ContentOfPost \(subview.frame)")
-                totalRect = totalRect.union(recursiveUnionInDepthFor(view: subview))
+                totalHeight += subview.frame.height
             }
         }
-        print("한사이클 끝 \(totalRect.union(view.frame).size)")
-        return totalRect.union(view.frame)
+        return totalHeight
     }
 }
