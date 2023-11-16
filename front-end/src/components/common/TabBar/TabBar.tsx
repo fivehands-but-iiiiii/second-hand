@@ -14,7 +14,7 @@ const TabBar = ({ className, children }: TabBarProps) => {
 
 const MyTabBar = styled.div`
   display: flex;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
   height: 83px;

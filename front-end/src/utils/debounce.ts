@@ -1,7 +1,11 @@
-export const debounce = (callback: () => void, delay: number) => {
+interface DebounceTypes<T extends any[]> {
+  (callback: (...args: T) => void, delay: number): (...args: T) => void;
+}
+
+export const debounce: DebounceTypes<any[]> = (callback, delay) => {
   let timer: ReturnType<typeof setTimeout>;
-  return () => {
+  return (...args) => {
     clearTimeout(timer);
-    timer = setTimeout(callback, delay);
+    timer = setTimeout(() => callback(...args), delay);
   };
 };

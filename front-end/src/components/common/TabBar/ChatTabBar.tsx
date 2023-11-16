@@ -9,17 +9,16 @@ import { styled } from 'styled-components';
 
 interface ChatTabBarProps {
   chatInput: string;
-  handleInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  handleChatSubmit: (chat: string) => void;
+  onInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChatSubmit: (chat: string) => void;
 }
 // TODO: Event Handler props prefix 'on'
 const ChatTabBar = ({
   chatInput,
-  handleInputChange,
-  handleChatSubmit,
+  onInputChange,
+  onChatSubmit,
 }: ChatTabBarProps) => {
-  // TODO: 더 나은 함수명으로 ...
-  const _handleChatSubmit = () => handleChatSubmit(chatInput);
+  const handleChatSubmit = () => onChatSubmit(chatInput);
 
   return (
     <TabBar>
@@ -28,10 +27,9 @@ const ChatTabBar = ({
         rows={4}
         value={chatInput}
         autoFocus
-        onChange={handleInputChange}
-        onKeyDown={_handleChatSubmit}
+        onChange={onInputChange}
       ></Textarea>
-      <MyChatTabBarButton icon active circle="md" onClick={_handleChatSubmit}>
+      <MyChatTabBarButton icon active circle="md" onClick={handleChatSubmit}>
         <Icon name="arrowUp" size="xs" fill="#fff" />
       </MyChatTabBarButton>
     </TabBar>

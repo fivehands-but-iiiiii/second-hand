@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// eslint-disable-next-line import/named
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 import api from '../api';
@@ -11,29 +10,31 @@ interface APIProps {
   config?: AxiosRequestConfig;
 }
 
-const useAPI = () => {
+const useAllAPI = () => {
   const [loading, setLoading] = useState(false);
 
-  const request = async ({ url, method = 'get', config }: APIProps) => {
+  const requestAll = async (requests: APIProps[]) => {
     setLoading(true);
     try {
-      const requestConfig = {
+      const requestConfig = requests.map(({ url, config }: APIProps) => ({
         url,
-        method,
         ...config,
-      };
-      const { data }: AxiosResponse = await api(requestConfig);
-      return data;
+      }));
+      const data: AxiosResponse[] = await Promise.all(
+        requestConfig.map((config) => api.get(config.url, config)),
+      );
+      return data.map(({ data }: AxiosResponse) => data);
     } catch (error) {
       if (error instanceof AxiosError) {
         throw error;
       }
+      return [];
     } finally {
       setLoading(false);
     }
   };
 
-  return { loading, request };
+  return { loading, requestAll };
 };
 
-export default useAPI;
+export default useAllAPI;
