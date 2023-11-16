@@ -78,7 +78,7 @@ class CategoryItemListViewController: UIViewController {
     }
     
     private func fetchItemList(page: Int) {
-        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: 2729060200, category: self.category)) else {
+        guard let url = URL(string: EndpointHandler.shared.itemsListURL(page: page, regionID: 2729060200, category: self.category)) else {
             return
         }
         
@@ -137,7 +137,7 @@ extension CategoryItemListViewController: UICollectionViewDelegate {
            
            let id = items[indexPath.item].id
            
-           let url = Server.shared.itemDetailURL(itemId: id)
+           let url = EndpointHandler.shared.itemDetailURL(itemId: id)
            let itemDetailViewController = ItemDetailViewController()
            
            itemDetailViewController.setItemDetailURL(url)

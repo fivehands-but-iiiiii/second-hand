@@ -220,7 +220,7 @@ class PrivateChatroomViewController: UIViewController {
             return
         }
         
-        guard let url = URL(string: Server().createDeletingChatroomURL(from: chatrromId)) else {
+        guard let url = URL(string: EndpointHandler().createDeletingChatroomURL(from: chatrromId)) else {
             return
         }
         
@@ -314,7 +314,7 @@ class PrivateChatroomViewController: UIViewController {
             return
         }
         
-        guard let url = URL(string:Server.shared.requestToChattingLog(roomId: roomId, page: 0)) else {
+        guard let url = URL(string:EndpointHandler.shared.requestToChattingLog(roomId: roomId, page: 0)) else {
             return
         }
 

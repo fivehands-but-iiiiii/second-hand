@@ -133,7 +133,7 @@ extension RegionSearchingViewController {
 extension RegionSearchingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let url = URL(string:Server.shared.createChangeRegionURL()) else {
+        guard let url = URL(string:EndpointHandler.shared.createChangeRegionURL()) else {
             return
         }
         let regionID = regionsController.havingCell[indexPath.item].regionId

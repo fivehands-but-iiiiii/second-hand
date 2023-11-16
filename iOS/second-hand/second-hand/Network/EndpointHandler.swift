@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Server {
-    static let shared = Server()
+struct EndpointHandler {
+    static let shared = EndpointHandler()
     static let baseURL = "http://43.202.132.236:81"
     static let oAuthURL = "https://github.com/login/oauth/authorize"
     static let clientID = "5c4b10099c0ae232e5a1"
@@ -35,65 +35,65 @@ struct Server {
     }
     
     func url(for path: Path) -> String {
-        return Server.baseURL + path.rawValue
+        return EndpointHandler.baseURL + path.rawValue
     }
     
     func url(path: Path, query: Query, queryValue: Int) -> String {
-        return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
+        return EndpointHandler.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue)
     }
     
     func urlBoolType(path: Path, query: Query, queryValue: Bool, page: Int) -> String {
-        return Server.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue) + "&" + Query.page.rawValue + "\(page)"
+        return EndpointHandler.baseURL + path.rawValue + "?" + query.rawValue + String(queryValue) + "&" + Query.page.rawValue + "\(page)"
     }
     
     func gitLoginURL(withCode code: String) -> String {
-        let query = Server.Query.code.rawValue + code + "&env=LOCAL"
-        return Server.baseURL + Path.gitLogin.rawValue + "?" + query
+        let query = EndpointHandler.Query.code.rawValue + code + "&env=LOCAL"
+        return EndpointHandler.baseURL + Path.gitLogin.rawValue + "?" + query
     }
     
     func oAuthAuthorizeURL() -> String {
-        let query = "client_id=\(Server.clientID)&redirect_url=\(Server.redirectURL)"
-        return Server.oAuthURL + "?" + query
+        let query = "client_id=\(EndpointHandler.clientID)&redirect_url=\(EndpointHandler.redirectURL)"
+        return EndpointHandler.oAuthURL + "?" + query
     }
     
     func itemsListURL(page: Int, regionID: Int, category: Int?) -> String {
-        var query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.region.rawValue + "\(regionID)"
+        var query = EndpointHandler.Query.page.rawValue + "\(page)" + "&" + EndpointHandler.Query.region.rawValue + "\(regionID)"
         
         if let categoryData = category {
-            query = query + "&" + Server.Query.categoryId.rawValue + "\(categoryData)"
+            query = query + "&" + EndpointHandler.Query.categoryId.rawValue + "\(categoryData)"
         }
-        return Server.baseURL + Path.items.rawValue + "?" + query
+        return EndpointHandler.baseURL + Path.items.rawValue + "?" + query
     }
     
     func wishItemListURL(page: Int) -> String {
-        let query = Server.Query.page.rawValue + "\(page)"
-        return Server.baseURL + Path.wishlist.rawValue + "?" + query
+        let query = EndpointHandler.Query.page.rawValue + "\(page)"
+        return EndpointHandler.baseURL + Path.wishlist.rawValue + "?" + query
     }
     
     func wishItemListCategoryURL(page: Int, categoryValue: Int) -> String {
-        let query = Server.Query.page.rawValue + "\(page)" + "&" + Server.Query.category.rawValue + "\(categoryValue)"
-        return Server.baseURL + Path.wishlist.rawValue + "?" + query
+        let query = EndpointHandler.Query.page.rawValue + "\(page)" + "&" + EndpointHandler.Query.category.rawValue + "\(categoryValue)"
+        return EndpointHandler.baseURL + Path.wishlist.rawValue + "?" + query
     }
     
     func itemDetailURL(itemId: Int) -> String {
-        return Server.baseURL + Path.items.rawValue + "/" + String(itemId)
+        return EndpointHandler.baseURL + Path.items.rawValue + "/" + String(itemId)
     }
     
     func requestIsExistChattingRoom(itemId: Int) -> String {
-        return Server.baseURL + Path.chats.rawValue + Path.items.rawValue + "/" + String(itemId)
+        return EndpointHandler.baseURL + Path.chats.rawValue + Path.items.rawValue + "/" + String(itemId)
     }
     
     func requestToCreateChattingRoom() -> String {
-        return Server.baseURL + Path.chats.rawValue
+        return EndpointHandler.baseURL + Path.chats.rawValue
     }
     
     func changeItemStatusUrl(for path: Path, id: Int, status: Path) -> String {
-        return Server.baseURL + path.rawValue + "/\(id)" + status.rawValue
+        return EndpointHandler.baseURL + path.rawValue + "/\(id)" + status.rawValue
         
     }
     
     func requestToChattingLog(roomId: String, page: Int) -> String {
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let chatsPath = Path.chats.rawValue
         let logsPath = Path.logs.rawValue
         let pageQuery = Query.page.rawValue + String(page)
@@ -105,7 +105,7 @@ struct Server {
     
     func createRequestURLToChatroomList(page:Int, itemId:Int?) -> String {
         
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let chatsPath = Path.chats.rawValue
         let pageQuery = Query.page.rawValue
         let itemIdQuery = Query.itemId.rawValue
@@ -121,7 +121,7 @@ struct Server {
     }
     
     func createDeletingChatroomURL(from chatroomId:String) -> String {
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let chatsPath = Path.chats.rawValue
         
         let url = baseURL + chatsPath + "/\(chatroomId)"
@@ -130,7 +130,7 @@ struct Server {
     }
     
     func createSSESubscribeURL() -> String {
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let chatsPath = Path.chats.rawValue
         let subscribePath = Path.subscribe.rawValue
         
@@ -139,7 +139,7 @@ struct Server {
     }
     
     func createRegionListURL(keyword:String?) -> String {
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let path = Path.regions.rawValue
         guard let keyword = keyword else {
             return baseURL + path
@@ -149,14 +149,14 @@ struct Server {
     }
     
     func createChangeRegionURL() -> String {
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let path = Path.changeRegion.rawValue
         
         return baseURL + path
     }
     
     func createChangeProfilePhotoURL() -> String {
-        let baseURL = Server.baseURL
+        let baseURL = EndpointHandler.baseURL
         let path = Path.changeProfilePhoto.rawValue
         
         return baseURL + path

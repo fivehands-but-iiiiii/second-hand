@@ -54,7 +54,7 @@ extension RegionController {
         return Observable.create { observer in
             let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             
-            guard let url = URL(string: Server.shared.createRegionListURL(keyword: encodedKeyword)) else {
+            guard let url = URL(string: EndpointHandler.shared.createRegionListURL(keyword: encodedKeyword)) else {
                 return Disposables.create()
             }
             

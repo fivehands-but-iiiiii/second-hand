@@ -242,7 +242,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     }
     private func modifySendRequest(body: Data, completion: @escaping () -> Void) {
         print(body)
-        guard let url = URL(string: Server.shared.itemDetailURL(itemId: currentId)) else { return }
+        guard let url = URL(string: EndpointHandler.shared.itemDetailURL(itemId: currentId)) else { return }
         networkManager.sendPut(decodeType: ModifyItemSuccess.self, what: body, header: nil, fromURL: url) { (result: Result<ModifyItemSuccess, Error>) in
             print(result)
             switch result {
@@ -260,9 +260,9 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
         var url = URL(string: "")
         switch purpos {
         case .register:
-            url = URL(string: Server.shared.url(for: .items))
+            url = URL(string: EndpointHandler.shared.url(for: .items))
         case .modify:
-            url = URL(string: Server.shared.url(for: .itemsImage))
+            url = URL(string: EndpointHandler.shared.url(for: .itemsImage))
         }
         
         var request = URLRequest(url: url!)

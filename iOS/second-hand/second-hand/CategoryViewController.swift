@@ -67,7 +67,7 @@ class CategoryViewController: UIViewController {
     }
     
     private func sendGet() {
-        NetworkManager.sendGET(decodeType: CategoryData.self,header: nil, body: nil, fromURL: URL(string: Server.shared.url(for: .resourceCategories))!) { (result: Result<[CategoryData], Error>) in
+        NetworkManager.sendGET(decodeType: CategoryData.self,header: nil, body: nil, fromURL: URL(string: EndpointHandler.shared.url(for: .resourceCategories))!) { (result: Result<[CategoryData], Error>) in
             switch result {
             case .success(let data) :
                 self.categoryList = data
@@ -101,7 +101,7 @@ extension CategoryViewController: UICollectionViewDataSource {
         
         let id = categoryElement.id
         
-        let url = Server.shared.itemDetailURL(itemId: id)
+        let url = EndpointHandler.shared.itemDetailURL(itemId: id)
         let categoryItemListViewController = CategoryItemListViewController()
         
         categoryItemListViewController.getCategory(category: Category.convertCategoryStringToInt(categoryElement.title))

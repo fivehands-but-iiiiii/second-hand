@@ -36,7 +36,7 @@ final class GithubWebViewController: UIViewController {
     
     private func startOAuthFlow() {
         initializeWebViewCahChe()
-        let authURLString = Server.shared.oAuthAuthorizeURL()
+        let authURLString = EndpointHandler.shared.oAuthAuthorizeURL()
         
         if let authURL = URL(string: authURLString) {
             let authRequest = URLRequest(url: authURL,timeoutInterval: 30.0) // 예처
@@ -50,11 +50,11 @@ final class GithubWebViewController: UIViewController {
         }
         logger.log("\naccess token: \(accessToken)")
         
-        guard let accessURL = URL(string:Server.shared.gitLoginURL(withCode: accessToken)) else {
+        guard let accessURL = URL(string:EndpointHandler.shared.gitLoginURL(withCode: accessToken)) else {
             return
         }
         
-        guard let joinURL = URL(string:Server.shared.url(for: .join)) else {
+        guard let joinURL = URL(string:EndpointHandler.shared.url(for: .join)) else {
             return
         }
         

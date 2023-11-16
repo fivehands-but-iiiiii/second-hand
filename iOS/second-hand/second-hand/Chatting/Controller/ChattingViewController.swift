@@ -52,7 +52,7 @@ final class ChattingViewController: NavigationUnderLineViewController {
             self.currentPage = 0
         }
         
-        guard let url = URL(string: Server.shared.createRequestURLToChatroomList(page: currentPage, itemId: nil)) else {
+        guard let url = URL(string: EndpointHandler.shared.createRequestURLToChatroomList(page: currentPage, itemId: nil)) else {
             completion()
             return
         }
@@ -119,7 +119,7 @@ extension ChattingViewController: ButtonActionDelegate {
     }
     
     private func enterChattingRoom(chatroomId: String) {
-        guard let url = URL(string: Server.baseURL + "/chats/" + chatroomId ) else {
+        guard let url = URL(string: EndpointHandler.baseURL + "/chats/" + chatroomId ) else {
             return
         }
         

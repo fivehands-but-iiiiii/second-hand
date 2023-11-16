@@ -193,7 +193,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         }
         .disposed(by: disposeBag)
         
-        guard let url = URL(string: Server.shared.itemsListURL(page: page, regionID: region.id, category: nil)) else {
+        guard let url = URL(string: EndpointHandler.shared.itemsListURL(page: page, regionID: region.id, category: nil)) else {
             return
         }
         NetworkManager.sendGET(decodeType: ItemListSuccess.self,header: nil, body: nil, fromURL: url) { (result: Result<[ItemListSuccess], Error>) in
@@ -251,7 +251,7 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let id = items[indexPath.item].id
-        let url = Server.shared.itemDetailURL(itemId: id)
+        let url = EndpointHandler.shared.itemDetailURL(itemId: id)
         let itemDetailViewController = ItemDetailViewController()
         
         itemDetailViewController.setItemDetailURL(url)

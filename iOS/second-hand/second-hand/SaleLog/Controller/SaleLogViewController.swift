@@ -136,7 +136,7 @@ final class SaleLogViewController: UIViewController {
     }
     
     private func fetchItemList(page: Int, isSales: Bool) {
-        guard let url = URL(string: Server.shared.urlBoolType(path: .itemsMine, query: .isSales, queryValue: isSales, page: page)) else {
+        guard let url = URL(string: EndpointHandler.shared.urlBoolType(path: .itemsMine, query: .isSales, queryValue: isSales, page: page)) else {
             return
         }
         
@@ -221,7 +221,7 @@ extension SaleLogViewController: UICollectionViewDelegate {
         
         let id = items[indexPath.item].id
         
-        let url = Server.shared.itemDetailURL(itemId: id)
+        let url = EndpointHandler.shared.itemDetailURL(itemId: id)
         let itemDetailViewController = ItemDetailViewController()
         
         itemDetailViewController.setItemDetailURL(url)
@@ -244,7 +244,7 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
-            guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
+            guard let url = URL(string: EndpointHandler.shared.itemDetailURL(itemId: id)) else {
                 return
             }
             NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header: nil, body: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
@@ -288,16 +288,16 @@ extension SaleLogViewController: MoreButtonTappedDelegate {
         var data = [String:Int]()
         switch status {
         case .onSale:
-            url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
+            url = URL(string: EndpointHandler.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
             petchItem(url: url, data: ["status": 0])
         case .reservation:
-            url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
+            url = URL(string: EndpointHandler.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
             petchItem(url: url, data: ["status": 1])
         case .salesCompleted:
-            url = URL(string: Server.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
+            url = URL(string: EndpointHandler.shared.changeItemStatusUrl(for: .items, id: id, status: .status))!
             petchItem(url: url, data: ["status": 2])
         case .delete:
-            url = URL(string: Server.shared.itemDetailURL(itemId: id))!
+            url = URL(string: EndpointHandler.shared.itemDetailURL(itemId: id))!
             deleteItem(url: url)
         }
         productListCollectionView.reloadData()

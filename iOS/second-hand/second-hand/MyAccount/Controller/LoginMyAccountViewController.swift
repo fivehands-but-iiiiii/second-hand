@@ -122,7 +122,7 @@ extension LoginMyAccountViewController:  UINavigationControllerDelegate,UIImageP
         let boundary = UUID().uuidString
         let multipartData = multipartCreator.createMultipartData(image: image, boundary: boundary)
         
-        guard let url = URL(string: Server.shared.createChangeProfilePhotoURL()) else {
+        guard let url = URL(string: EndpointHandler.shared.createChangeProfilePhotoURL()) else {
             return
         }
         

@@ -157,7 +157,7 @@ class ItemDetailViewController: UIViewController {
         
         if let isLike = itemDetailModel.info?.isLike {
             if isLike {
-                guard let unwishlistLikeURL = URL(string: Server.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {
+                guard let unwishlistLikeURL = URL(string: EndpointHandler.shared.url(path: .wishlistLike, query: .itemId, queryValue: itemId)) else {
                     return
                 }
                 
@@ -174,7 +174,7 @@ class ItemDetailViewController: UIViewController {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: jsonData)
                     
-                    guard let wishlistLikeURL = URL(string: Server.shared.url(for: .wishlistLike)) else {
+                    guard let wishlistLikeURL = URL(string: EndpointHandler.shared.url(for: .wishlistLike)) else {
                         return
                     }
                     
@@ -267,7 +267,7 @@ class ItemDetailViewController: UIViewController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "게시글 수정", style: .default, handler: { [self] (ACTION:UIAlertAction) in
-            guard let url = URL(string: Server.shared.itemDetailURL(itemId: id)) else {
+            guard let url = URL(string: EndpointHandler.shared.itemDetailURL(itemId: id)) else {
                 return
             }
             NetworkManager.sendGET(decodeType: ItemDetailInfoSuccess.self,header:nil,body: nil, fromURL: url) { [self] (result: Result<[ItemDetailInfoSuccess], Error>) in
@@ -289,7 +289,7 @@ class ItemDetailViewController: UIViewController {
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { [self] (ACTION:UIAlertAction) in
             
-            let url = URL(string: Server.shared.itemDetailURL(itemId: id))!
+            let url = URL(string: EndpointHandler.shared.itemDetailURL(itemId: id))!
             deleteItem(url: url)
             self.navigationController?.popViewController(animated: true)
             tabBarController?.tabBar.isHidden = false
@@ -454,7 +454,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
                 return
             }
             
-            guard let url = URL(string: Server.shared.requestIsExistChattingRoom(itemId: itemId)) else {
+            guard let url = URL(string: EndpointHandler.shared.requestIsExistChattingRoom(itemId: itemId)) else {
                 return
             }
             
@@ -486,7 +486,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
     }
     
     private func enterChattingRoom(chatroomId: String) {
-        guard let url = URL(string: Server.baseURL + "/chats/" + chatroomId ) else {
+        guard let url = URL(string: EndpointHandler.baseURL + "/chats/" + chatroomId ) else {
             return
         }
         
@@ -506,7 +506,7 @@ extension ItemDetailViewController : ButtonActionDelegate {
     }
     
     private func createChattingRoom(body: Data) {
-        guard let url = URL(string: Server.shared.requestToCreateChattingRoom()) else {
+        guard let url = URL(string: EndpointHandler.shared.requestToCreateChattingRoom()) else {
             return
         }
         

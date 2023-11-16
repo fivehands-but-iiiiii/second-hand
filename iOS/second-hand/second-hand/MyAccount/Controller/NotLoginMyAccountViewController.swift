@@ -156,7 +156,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
         let jsonString = """
                             {"memberId": "\(id)"}
                         """
-        guard let loginURL = URL(string:Server.shared.url(for: .login)) else {
+        guard let loginURL = URL(string:EndpointHandler.shared.url(for: .login)) else {
             return
         }
         
@@ -233,7 +233,7 @@ final class NotLoginMyAccountViewController: NavigationUnderLineViewController {
     }
     
     private func makeSSEURL() -> String {
-        let url = Server.shared.createSSESubscribeURL()
+        let url = EndpointHandler.shared.createSSESubscribeURL()
         
         return url
     }

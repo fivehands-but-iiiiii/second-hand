@@ -196,9 +196,9 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
         lastCategoryNumber = categoryNumber
         var urlString: String
         if let category = categoryNumber {
-            urlString = Server.shared.wishItemListCategoryURL(page: page, categoryValue: category)
+            urlString = EndpointHandler.shared.wishItemListCategoryURL(page: page, categoryValue: category)
         } else {
-            urlString = Server.shared.wishItemListURL(page: page)
+            urlString = EndpointHandler.shared.wishItemListURL(page: page)
         }
         
         guard let url = URL(string: urlString) else {
@@ -241,7 +241,7 @@ final class WishListViewController: NavigationUnderLineViewController, ButtonAct
     }
 
     private func getCategories() {
-        guard let url = URL(string: Server.shared.url(for: .wishlistCategories)) else {
+        guard let url = URL(string: EndpointHandler.shared.url(for: .wishlistCategories)) else {
             return
         }
         
@@ -281,7 +281,7 @@ extension WishListViewController: UICollectionViewDelegate {
            
            let id = items[indexPath.item].id
            
-           let url = Server.shared.itemDetailURL(itemId: id)
+           let url = EndpointHandler.shared.itemDetailURL(itemId: id)
            let itemDetailViewController = ItemDetailViewController()
            
            itemDetailViewController.setItemDetailURL(url)

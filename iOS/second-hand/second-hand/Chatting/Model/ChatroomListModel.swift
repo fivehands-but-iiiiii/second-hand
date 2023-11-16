@@ -61,7 +61,7 @@ class ChatroomListModel: Updatable {
     private func isValidChatroom(chatroom: ChatroomList, completion: @escaping (Bool) -> Void) {
         let itemId = chatroom.item.itemId
         
-        guard let url = URL(string: Server.shared.requestIsExistChattingRoom(itemId: itemId)) else {
+        guard let url = URL(string: EndpointHandler.shared.requestIsExistChattingRoom(itemId: itemId)) else {
             completion(false)
             return
         }
