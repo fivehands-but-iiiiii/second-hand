@@ -33,5 +33,11 @@ class UserInfoManager: Updatable{
         regionSubject.onNext(region)
         NotificationCenter.default.post(name: loginNotification.name, object: nil)
     }
+    
+    func logout() {
+        self.userInfo = nil
+        self.isLogOn = false
+        self.loginToken = nil 
+    }
 }
 
