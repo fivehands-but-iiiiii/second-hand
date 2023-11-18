@@ -270,7 +270,6 @@ struct ChatroomListPage: Codable {
 }
 
 struct ChatroomList: Codable {
-    
     let chatroomId : String
     let opponent : ChatroomListOpponent
     let item : ChatroomListItem
