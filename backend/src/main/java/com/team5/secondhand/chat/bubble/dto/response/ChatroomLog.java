@@ -1,6 +1,6 @@
 package com.team5.secondhand.chat.bubble.dto.response;
 
-import com.team5.secondhand.api.member.dto.response.MemberDetails;
+import com.team5.secondhand.application.member.dto.response.MemberDetails;
 import com.team5.secondhand.chat.bubble.domain.ChatBubble;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class ChatroomLog {
 
     public static ChatroomLog from(Slice<ChatBubble> chatBubbles, MemberDetails loginMember) {
         List<BubbleSummary> bubbleSummaries = chatBubbles.getContent().stream()
-                .map(e -> BubbleSummary.from(e, loginMember))
+                .map(e -> BubbleSummary.from(e, loginMember.getMemberId()))
                 .collect(Collectors.toList());
 
         return ChatroomLog.builder()
