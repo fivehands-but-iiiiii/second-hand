@@ -8,6 +8,5 @@
 import Foundation
 
 protocol ItemOperationDelegate {
-    func didCompleteRegisterItem()
-    func didCompleteDeleteItem()
+    func reloadItems()
 }
