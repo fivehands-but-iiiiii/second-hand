@@ -7,7 +7,7 @@ import getElapsedTime from '@utils/getElapsedTime';
 
 import { styled } from 'styled-components';
 
-interface ChatListItem {
+export interface ChatListItemInfo {
   chatroomId: string;
   chatLogs: ChatSummary;
   opponent: ChatOpponent;
@@ -32,7 +32,7 @@ interface SalesItemSummary {
 }
 
 interface ChatListProps extends ComponentPropsWithRef<'button'> {
-  chatListItem: ChatListItem;
+  chatListItem: ChatListItemInfo;
   onItemClick: (itemId: string) => void;
 }
 
