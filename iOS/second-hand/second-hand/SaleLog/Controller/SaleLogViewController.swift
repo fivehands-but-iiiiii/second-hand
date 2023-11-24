@@ -360,7 +360,6 @@ extension SaleLogViewController: CompleteModify {
 }
 
 extension SaleLogViewController: StatusButtonChange {
-    //여기가 왜 안걸림?
     func onsale(id: Int) {
         changeStatus(status: .onSale, id: id)
     }

@@ -13,9 +13,6 @@ protocol StatusButtonChange {
     func soldOut(id: Int)
 }
 
-//protocol BackButtonTouchedDelegate {
-//    func backButtonTouched()
-//}
 enum LastViewController {
     case home
     case saleLog

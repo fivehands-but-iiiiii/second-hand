@@ -295,7 +295,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                         do {
                             let responseData = try JSONDecoder().decode(IntData.self, from: data ?? Data())
                             let message = responseData.message
-                            print(message)
+                            completion(message)
                         } catch {
                             print("Error decoding JSON: \(error)")
                         }

@@ -53,14 +53,15 @@ final class HomeViewController: NavigationUnderLineViewController{
     
     private func bindRegionUI() {
         UserInfoManager.shared.regionSubject
-            .subscribe(onNext: { [weak self] region in
+            .subscribe(onNext: { region in
                 guard let district = region.district else {
                     return
                 }
 
-                self?.items.removeAll()
-                self?.applySnapshot()
-                self?.getItemList(page: self?.currentPage ?? 0)
+                self.items.removeAll()
+                self.applySnapshot()
+                self.currentPage = 0
+                self.getItemList(page: self.currentPage)
             })
             .disposed(by: disposeBag)
     }
@@ -69,7 +70,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         if !isLoadingItems {
             return
         }
-        self.isLoadingItems  = true
+        self.isLoadingItems = true
         currentPage += 1
         getItemList(page: currentPage)
     }
@@ -225,12 +226,12 @@ final class HomeViewController: NavigationUnderLineViewController{
     
     private func updateRegion() {
         UserInfoManager.shared.regionSubject
-            .subscribe(onNext: { [weak self] region in
+            .subscribe(onNext: { region in
                 guard let district = region.district else {
                     return
                 }
                 
-                guard let regionLabel = self?.leftBarButton.customView as? ButtonCustomView else {
+                guard let regionLabel = self.leftBarButton.customView as? ButtonCustomView else {
                     return
                 }
                 regionLabel.updateLabel(text:district)
