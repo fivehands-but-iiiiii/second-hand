@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Button from '@common/Button';
 import useMediaQuery from '@hooks/useMediaQuery';
 
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 interface ResponsiveLayoutProps {
   children: ReactNode;
@@ -62,15 +62,31 @@ const ResponsiveLayout = ({ children }: ResponsiveLayoutProps) => {
   );
 };
 
-const MybackGround = styled.div`
-  background-color: #fef3d6;
+const MyLeftArea = styled.div`
+  position: fixed;
+  height: 100%;
+  left: calc(50vw - 30rem);
+  width: 32rem;
+  > div {
+    width: 100%;
+    height: 100%;
+    max-width: 30rem;
+    padding: 7rem 0 3.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `;
 
-const DefaultView = styled.main`
-  position: relative;
-  max-width: 420px;
-  height: 100vh;
-  background-color: ${({ theme }) => theme.colors.neutral.background};
+const MyDescription = styled.div`
+  width: 380px;
+  height: 500px;
+  color: ${({ theme }) => theme.colors.neutral.text};
+  line-height: 2;
+  ${({ theme }) => theme.fonts.footnote};
+  span {
+    color: ${({ theme }) => theme.colors.accent.backgroundPrimary};
+  }
 `;
 
 const MyButton = styled.div`

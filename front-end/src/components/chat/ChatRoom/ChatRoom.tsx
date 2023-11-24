@@ -225,13 +225,12 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
           <span>{itemInfo.price}</span>
         </MyChatRoomItemInfo>
       </MyChatRoomItem>
-      {/* TODO: MyChatBubbles component 분리 */}
       {!!chatBubbles.length && <ChatBubbles bubbles={chatBubbles} />}
       {isMoreViewPopupOpen && (
         <PopupSheet
           menu={viewMorePopupSheetMenu}
           onClick={handleViewMorePopup}
-        ></PopupSheet>
+        />
       )}
       <div ref={endRef}></div>
       <ChatTabBar
