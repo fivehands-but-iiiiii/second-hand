@@ -47,6 +47,7 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
     private var processing = false
     var delegate: CompleteModify?
     var updateDelegate: UpdateDelegate?
+    var itemOperattionDelegate : ItemOperationDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -102,9 +103,12 @@ final class RegisterNewProductViewController: NavigationUnderLineViewController,
                 
                 let body = makeBody(title: title, contents: contents, category: category, region: region, price: price, imagesData: imagesData)
                 sendRequest(body: body, purpos: .register) { _ in
-                    processing = false
+                    self.processing = false
+                    self.itemOperattionDelegate?.reloadItems()
+                    
                 }
                 dismissFromSelf()
+
             }
         case .modify:
             processing = true

@@ -32,6 +32,7 @@ class ItemDetailViewController: UIViewController {
     var statusDelegate: StatusButtonChange?
     private let modifyItem = RegisterNewProductViewController()
     var lastViewController: LastViewController?
+    var itemOperattionDelegate : ItemOperationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -306,6 +307,7 @@ class ItemDetailViewController: UIViewController {
                 if data?.message != nil {
                     print(data!.message)
                 }
+                self.itemOperattionDelegate?.reloadItems()
                 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -536,10 +538,13 @@ extension ItemDetailViewController: StatusChanged {
         switch status {
         case "판매중":
             statusDelegate?.onsale(id: itemId)
+            itemOperattionDelegate?.reloadItems()
         case "예약중":
             statusDelegate?.reservation(id: itemId)
+            itemOperattionDelegate?.reloadItems()
         case "판매완료":
             statusDelegate?.soldOut(id: itemId)
+            itemOperattionDelegate?.reloadItems()
         default:
             break
         }

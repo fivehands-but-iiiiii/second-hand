@@ -35,6 +35,7 @@ final class HomeViewController: NavigationUnderLineViewController{
         setRegisterProductButton()
         updateRegion()
         bindRegionUI()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -167,7 +168,10 @@ final class HomeViewController: NavigationUnderLineViewController{
     }
     
     @objc func registerProductButtonTapped() {
-        present(UINavigationController(rootViewController: RegisterNewProductViewController()), animated: true)
+        let registerNewProductViewController = RegisterNewProductViewController()
+        registerNewProductViewController.itemOperattionDelegate = self
+        
+        present(UINavigationController(rootViewController: registerNewProductViewController), animated: true)
     }
     
     private func setupDataSource() {
@@ -256,6 +260,7 @@ extension HomeViewController: UICollectionViewDelegate {
         let itemDetailViewController = ItemDetailViewController()
         
         itemDetailViewController.setItemDetailURL(url)
+        itemDetailViewController.itemOperattionDelegate = self
         hideTabBar()
         self.navigationController?.pushViewController(itemDetailViewController, animated: true)
     }
@@ -272,5 +277,14 @@ extension HomeViewController: ButtonActionDelegate {
     
     func setRegionButtonTouched() {
         self.navigationController?.pushViewController(regionSearchingViewController, animated: true)
+    }
+}
+
+extension HomeViewController: ItemOperationDelegate {
+    func reloadItems() {
+        self.items.removeAll()
+        self.applySnapshot()
+        self.currentPage = 0
+        self.getItemList(page: self.currentPage)
     }
 }
