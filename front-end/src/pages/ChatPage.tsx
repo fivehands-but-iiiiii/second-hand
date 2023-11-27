@@ -18,10 +18,20 @@ interface EventData {
 }
 
 interface EventMessage {
-  data: EventData;
+  data: EventData | string;
   id?: string;
   event?: string;
 }
+
+const isEventData = (data: any): data is EventData => {
+  return (
+    data &&
+    typeof data === 'object' &&
+    'roomId' in data &&
+    'message' in data &&
+    'unread' in data
+  );
+};
 
 const ChatPage = () => {
   const { itemId } = useParams();
@@ -72,38 +82,21 @@ const ChatPage = () => {
     // xhr.setRequestHeader('Content-Type', 'text/event-stream');
     // xhr.setRequestHeader('Cache-Control', 'no-store');
 
-    let lastEventId: string | null | undefined = null;
-
-    // xhr.onprogress = () => {
-    //   console.log(xhr.responseText);
-    //   const rawMessages = xhr.responseText.split('\n\n');
-    //   for (const rawMessage of rawMessages) {
-    //     const message = parseSSEMessage(rawMessage);
-    //     // message.data.roomId
-    //     if (message.id !== lastEventId) {
-    //       setMessages((prevMessages) => [...prevMessages, message]);
-    //       lastEventId = message.id;
-    //     }
-    //   }
-    // };
-
     xhr.onprogress = () => {
       const rawMessages = xhr.responseText.split('\n\n');
-      console.log(rawMessages);
-      // ['id:ahnlook\nevent:chatNotification\ndata:connected successfully member key : ahnlook', '']
-      for (const rawMessage of rawMessages) {
-        console.log(rawMessage);
+      rawMessages.forEach((rawMessage) => {
         try {
-          const message = parseSSEMessage(rawMessage);
-
-          if (message.id !== lastEventId) {
-            setMessages((prevMessages) => [...prevMessages, message]);
-            lastEventId = message.id;
-          }
+          const parsedMessages = parseSSEMessage(rawMessage);
+          parsedMessages.forEach((message) => {
+            // data 필드가 객체인 경우에만 messages 상태 업데이트
+            if (typeof message.data === 'object' && message.data !== null) {
+              setMessages((prevMessages) => [...prevMessages, message]);
+            }
+          });
         } catch (error) {
           console.error('Failed to parse SSE message:', error);
         }
-      }
+      });
     };
 
     xhr.onerror = () => {
@@ -117,26 +110,113 @@ const ChatPage = () => {
     };
   }, []);
 
-  const parseSSEMessage = (data: string): EventMessage => {
-    const result: Partial<EventMessage> = {};
-    const lines = data.split('\n');
+  useEffect(() => {
+    messages?.forEach((message) => {
+      if (
+        message.event === 'chatNotification' &&
+        message.data &&
+        typeof message.data === 'object'
+      ) {
+        const { roomId, message: newMessage, unread } = message.data;
+        console.log(messages);
 
-    lines.forEach((line) => {
-      if (line.startsWith('data: ')) {
-        result.data = JSON.parse(line.replace('data: ', ''));
-      } else if (line.startsWith('id: ')) {
-        result.id = line.replace('id: ', '');
-      } else if (line.startsWith('event: ')) {
-        result.event = line.replace('event: ', '');
+        setChatList((prevChatList) => {
+          return prevChatList.map((chatItem) => {
+            if (chatItem.chatroomId === roomId) {
+              return {
+                ...chatItem,
+                chatLogs: {
+                  ...chatItem.chatLogs,
+                  lastMessage: newMessage,
+                  unReadCount: unread,
+                  updateAt: new Date().toISOString(),
+                },
+                lastUpdate: new Date().toISOString(),
+              };
+            }
+            return chatItem;
+          });
+        });
       }
     });
+  }, [messages]);
 
-    if (!result.id || !result.event || !result.data) {
-      throw new Error('SSE message is missing required fields');
-    }
+  const parseSSEMessage = (rawMessage: string): EventMessage[] => {
+    const messages = rawMessage
+      .trim()
+      .split('\n\n')
+      .map((chunk) => {
+        const result: Partial<EventMessage> = {};
+        const lines = chunk.split('\n');
 
-    return result as EventMessage;
+        lines.forEach((line) => {
+          const [key, ...values] = line.split(':');
+          const value = values.join(':').trim();
+
+          switch (key) {
+            case 'id':
+              result.id = value;
+              break;
+            case 'event':
+              result.event = value;
+              break;
+            case 'data':
+              try {
+                result.data = JSON.parse(value);
+              } catch (error) {
+                result.data = value;
+              }
+              break;
+            default:
+              break;
+          }
+        });
+
+        return result as EventMessage;
+      });
+
+    return messages;
   };
+
+  useEffect(() => {
+    const latestMessage = messages[messages.length - 1];
+    // messages :
+    // {
+    //   "id": "12345",
+    //   "event": "chatNotification",
+    //   "data": {
+    //     "roomId": "b2e55401-4005-11ee-869c-0242ac110002",
+    //     "message": "새로운 메시지가 도착했습니다",
+    //     "unread": 3
+    //   }
+    // }
+
+    if (
+      latestMessage &&
+      latestMessage.event === 'chatNotification' &&
+      isEventData(latestMessage.data)
+    ) {
+      const { roomId, message: newMessage, unread } = latestMessage.data;
+
+      setChatList((prevChatList) =>
+        prevChatList.map((chatItem) => {
+          if (chatItem.chatroomId === roomId) {
+            return {
+              ...chatItem,
+              chatLogs: {
+                ...chatItem.chatLogs,
+                lastMessage: newMessage,
+                unReadCount: unread,
+                updateAt: new Date().toISOString(),
+              },
+              lastUpdate: new Date().toISOString(),
+            };
+          }
+          return chatItem;
+        }),
+      );
+    }
+  }, [messages]);
 
   if (!isChatListExist) return <BlankPage title={title} />;
   return (
