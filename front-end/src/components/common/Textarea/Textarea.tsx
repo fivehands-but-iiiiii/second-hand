@@ -9,7 +9,7 @@ import { styled } from 'styled-components';
 interface TextareaProps extends ComponentPropsWithRef<'textarea'> {
   value?: string;
   type?: 'default' | 'icon' | 'chat';
-  singleLine?: boolean;
+  single?: boolean;
   icon?: keyof typeof iconTypes;
   autoFocus?: boolean;
 }
@@ -17,7 +17,7 @@ interface TextareaProps extends ComponentPropsWithRef<'textarea'> {
 const Textarea = ({
   value,
   type = 'default',
-  singleLine = false,
+  single = false,
   icon,
   autoFocus = false,
   ...rest
@@ -32,7 +32,7 @@ const Textarea = ({
 
   // TODO: 고치기...
   const handleResizeHeight = () => {
-    if (!singleLine && textRef.current) {
+    if (!single && textRef.current) {
       textRef.current.style.height = textRef.current.scrollHeight + 'px';
     }
   };
@@ -40,7 +40,7 @@ const Textarea = ({
   const handlePrevNewLineOnEnter = (
     event: KeyboardEvent<HTMLTextAreaElement>,
   ) => {
-    if (singleLine && event.key === 'Enter') {
+    if (single && event.key === 'Enter') {
       event.preventDefault();
     }
   };
@@ -56,7 +56,7 @@ const Textarea = ({
       <MyTextarea
         ref={textRef}
         value={value}
-        singleLine={singleLine}
+        single={single}
         onInput={handleResizeHeight}
         onKeyDown={handlePrevNewLineOnEnter}
         {...rest}
@@ -85,7 +85,7 @@ const MyTextarea = styled.textarea<TextareaProps>`
   outline: none;
   resize: none;
   overflow: hidden;
-  ${({ singleLine }) => singleLine && 'white-space: nowrap; overflow: hidden;'}
+  ${({ single }) => single && 'white-space: nowrap; overflow: hidden;'}
   ::placeholder {
     color: ${({ theme }) => theme.colors.neutral.textWeak};
   }

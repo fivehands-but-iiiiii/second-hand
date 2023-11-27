@@ -89,7 +89,7 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
           type={'icon'}
           icon={'search'}
           placeholder={'동명(읍, 면)으로 검색(ex. 역삼1동)'}
-          singleLine
+          single
           rows={1}
           value={searchKeyword}
           onChange={handleSearchChange}
