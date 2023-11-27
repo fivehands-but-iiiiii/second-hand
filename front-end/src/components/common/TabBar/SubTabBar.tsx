@@ -21,7 +21,7 @@ const SubTabBar = ({
   onIconClick,
 }: SubTabBarProps) => (
   <TabBar>
-    <MyTabBarIconButton icon>
+    <MyTabBarIconButton>
       <Icon name={icon} size="lg" onClick={onIconClick} />
       <span>{content}</span>
     </MyTabBarIconButton>
@@ -32,6 +32,7 @@ const SubTabBar = ({
 const MyTabBarIconButton = styled(Button)`
   flex-direction: row;
   padding: 0;
+  border: 0;
   ${({ theme }) => theme.fonts.footnote}
 `;
 
