@@ -13,7 +13,7 @@ interface PopupSheetProps {
 }
 
 interface PopupSheetStyleProps {
-  isSlideDown?: boolean;
+  dropped?: boolean;
 }
 
 interface OptionStyleProps extends PopupSheetStyleProps {
@@ -27,7 +27,7 @@ const PopupSheet = ({
 }: PopupSheetProps) => {
   return (
     <>
-      <MyPopupSheetBackground isSlideDown={isSlideDown} onClick={onClick} />
+      <MyPopupSheetBackground dropped={isSlideDown} onClick={onClick} />
       <SlideSheet isSlideDown={isSlideDown} menu={menu} onClick={onClick} />
     </>
   );
@@ -35,16 +35,13 @@ const PopupSheet = ({
 
 const SlideSheet = ({ isSlideDown, menu, onClick }: PopupSheetProps) => {
   return (
-    <MyMenuPopupSheet isSlideDown={isSlideDown}>
-      <MySlideSheet
-        isSlideDown={isSlideDown}
-        onClick={(e) => e.stopPropagation()}
-      >
+    <MyMenuPopupSheet dropped={isSlideDown}>
+      <MySlideSheet dropped={isSlideDown} onClick={(e) => e.stopPropagation()}>
         {menu.map(({ id, title, style, onClick }) => (
           <MyPopupOption
             key={id}
             option={style}
-            isSlideDown={isSlideDown}
+            dropped={isSlideDown}
             onClick={onClick}
           >
             {title}
@@ -63,8 +60,8 @@ const MyPopupSheetBackground = styled.div<PopupSheetStyleProps>`
   left: 0;
   width: 100%;
   height: 100vh;
-  ${({ isSlideDown, theme }) =>
-    isSlideDown
+  ${({ dropped, theme }) =>
+    dropped
       ? css`
           opacity: 0;
         `
@@ -77,8 +74,8 @@ const MySlideSheet = styled.div<PopupSheetStyleProps>`
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  ${({ isSlideDown }) =>
-    isSlideDown
+  ${({ dropped }) =>
+    dropped
       ? css`
           z-index: 10;
           position: absolute;
@@ -94,8 +91,8 @@ const MySlideSheet = styled.div<PopupSheetStyleProps>`
 `;
 
 const MyMenuPopupSheet = styled.div<PopupSheetStyleProps>`
-  ${({ isSlideDown }) =>
-    !isSlideDown &&
+  ${({ dropped }) =>
+    !dropped &&
     css`
       z-index: 10;
       position: absolute;
@@ -118,8 +115,8 @@ const MyCancelButton = styled.button`
 `;
 
 const MyPopupOption = styled.button<OptionStyleProps>`
-  ${({ isSlideDown }) =>
-    isSlideDown
+  ${({ dropped }) =>
+    dropped
       ? css`
           height: 45px;
           line-height: 45px;

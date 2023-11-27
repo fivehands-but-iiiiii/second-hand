@@ -7,8 +7,8 @@ interface ButtonProps extends ComponentPropsWithRef<'button'> {
   category?: boolean;
   icon?: boolean;
   circle?: 'sm' | 'md' | 'lg';
-  fullWidth?: boolean;
-  spaceBetween?: boolean;
+  stretch?: boolean;
+  gapped?: boolean;
   disabled?: boolean;
   children?: ReactNode;
 }
@@ -18,7 +18,7 @@ interface Circle {
 }
 
 interface ButtonStyleProps extends ButtonProps {
-  circleSize?: number;
+  size?: number;
   children?: ReactNode;
 }
 
@@ -29,8 +29,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       category = false,
       icon = false,
       circle,
-      fullWidth = false,
-      spaceBetween = false,
+      stretch = false,
+      gapped = false,
       disabled = false,
       children,
       ...rest
@@ -38,14 +38,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const circleTypes = (circle: keyof Circle) => {
-      const circleSize: Circle = {
+      const size: Circle = {
         sm: 20,
         md: 28,
         lg: 56,
       };
 
       if (circle) {
-        return circleSize[circle];
+        return size[circle];
       }
     };
 
@@ -54,9 +54,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         active={active}
         category={category}
         icon={icon}
-        circleSize={circle && circleTypes(circle)}
-        fullWidth={fullWidth}
-        spaceBetween={spaceBetween}
+        size={circle && circleTypes(circle)}
+        stretch={stretch}
+        gapped={gapped}
         disabled={disabled}
         ref={ref}
         {...rest}
@@ -92,11 +92,11 @@ const MyButton = styled.button<ButtonStyleProps>`
       border: none;
       gap: 7px;
     `}
-  ${({ circleSize, theme }) =>
-    circleSize &&
+  ${({ size, theme }) =>
+    size &&
     css`
-      height: ${circleSize}px;
-      width: ${circleSize}px;
+      height: ${size}px;
+      width: ${size}px;
       ${theme.fonts.caption2};
       border-radius: 50%;
       padding: 10px;
@@ -106,15 +106,15 @@ const MyButton = styled.button<ButtonStyleProps>`
     css`
       border-radius: 50px;
     `}
-  ${({ fullWidth, theme }) =>
-    fullWidth &&
+  ${({ stretch, theme }) =>
+    stretch &&
     css`
       width: 100%;
       padding: 16px 20px;
       ${theme.fonts.subhead};
     `}
-  ${({ spaceBetween }) =>
-    spaceBetween &&
+  ${({ gapped }) =>
+    gapped &&
     css`
       justify-content: space-between;
     `}

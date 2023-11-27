@@ -6,8 +6,8 @@ interface SegmentedControlProps {
   onClick: (status: number) => void;
 }
 
-interface SelectedBarProps {
-  selectedIndex: number;
+interface SelectionBarProps {
+  selection: number;
 }
 
 const SegmentedControl = ({
@@ -17,7 +17,7 @@ const SegmentedControl = ({
 }: SegmentedControlProps) => {
   return (
     <MySegmentedControl>
-      <MySelectedBar selectedIndex={value} />
+      <MySelectionBar selection={value} />
       {options.map(({ status, label }, index) => (
         <MySegmentedButton key={status} onClick={() => onClick(index)}>
           {label}
@@ -40,11 +40,11 @@ const MySegmentedControl = styled.div`
   border-radius: 8px;
 `;
 
-const MySelectedBar = styled.div<SelectedBarProps>`
+const MySelectionBar = styled.div<SelectionBarProps>`
   position: absolute;
   width: 48%;
   height: 89%;
-  left: ${({ selectedIndex }) => selectedIndex * 50 + 1}%;
+  left: ${({ selection }) => selection * 50 + 1}%;
   transition: left 0.3s ease-in-out;
   background-color: ${({ theme }) => theme.colors.accent.text};
   border: 0.5px solid ${({ theme }) => theme.colors.neutral.border};
