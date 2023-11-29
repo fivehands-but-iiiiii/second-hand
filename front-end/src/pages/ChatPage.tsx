@@ -6,6 +6,7 @@ import ChatList from '@components/chat/ChatList';
 import { ChatListItemInfo } from '@components/chat/ChatList/ChatListItem';
 import ChatRoom from '@components/chat/ChatRoom';
 import BlankPage from '@pages/BlankPage';
+import { getCurrentISODate } from '@utils/currentDate';
 
 import api from '../api';
 
@@ -111,27 +112,24 @@ const ChatPage = () => {
   }, []);
 
   useEffect(() => {
-    messages?.forEach((message) => {
-      if (
-        message.event === 'chatNotification' &&
-        message.data &&
-        typeof message.data === 'object'
-      ) {
-        const { roomId, message: newMessage, unread } = message.data;
+    messages?.forEach(({ event, data }) => {
+      if (event === 'chatNotification' && data && typeof data === 'object') {
+        const { roomId, message: newMessage, unread } = data;
         console.log(messages);
 
         setChatList((prevChatList) => {
           return prevChatList.map((chatItem) => {
             if (chatItem.chatroomId === roomId) {
+              const currentISODate = getCurrentISODate();
               return {
                 ...chatItem,
                 chatLogs: {
                   ...chatItem.chatLogs,
                   lastMessage: newMessage,
                   unReadCount: unread,
-                  updateAt: new Date().toISOString(),
+                  updateAt: currentISODate,
                 },
-                lastUpdate: new Date().toISOString(),
+                lastUpdate: currentISODate,
               };
             }
             return chatItem;
