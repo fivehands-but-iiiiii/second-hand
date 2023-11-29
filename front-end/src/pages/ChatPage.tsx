@@ -31,6 +31,7 @@ const isEventData = (data: unknown): data is EventData => {
 
 const ChatPage = () => {
   const title = TITLE.CHATS;
+  const token = sessionStorage.getItem('token');
   const { itemId } = useParams();
   const [page, setPage] = useState(0);
   const [chatList, setChatList] = useState<ChatListItemInfo[]>([]);
@@ -80,11 +81,10 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    getChatList();
+    token && getChatList();
   }, [freshCount]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
     if (!token) return;
 
     const xhr = new XMLHttpRequest();
@@ -150,11 +150,14 @@ const ChatPage = () => {
     }
   }, [messages]);
 
-  if (!isChatListExist) return <BlankPage title={title} />;
   return (
     <>
       <NavBar center={title} />
-      <ChatList chatListItems={chatList} onRoomClick={handleChatRoomClick} />
+      {isChatListExist ? (
+        <ChatList chatListItems={chatList} onRoomClick={handleChatRoomClick} />
+      ) : (
+        <BlankPage title={title} />
+      )}
       {!!selectedChatRoomId && (
         <ChatRoom
           chatId={{ roomId: selectedChatRoomId }}
