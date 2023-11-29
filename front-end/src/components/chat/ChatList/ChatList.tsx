@@ -1,7 +1,7 @@
-import ChatListItem from './ChatListItem';
+import ChatListItem, { ChatListItemInfo } from './ChatListItem';
 
 interface ChatListProps {
-  chatListItems: ChatListItem[];
+  chatListItems: ChatListItemInfo[];
   onRoomClick: (itemId: string) => void;
 }
 

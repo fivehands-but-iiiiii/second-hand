@@ -47,7 +47,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     {} as SalesItemSummary,
   );
   const [roomId, setRoomId] = useState('');
-  const [page, _] = useState(0);
+  const [page] = useState(0);
   const [opponentId, setOpponentId] = useState('');
   const [chatBubbles, setChatBubbles] = useState<ChatBubble[]>([]);
   const [chat, setChat] = useState('');
@@ -204,44 +204,55 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
 
   return (
     <PortalLayout>
-      <NavBar
-        left={
-          <MyNavBarBtn onClick={onRoomClose}>
-            <Icon name={'chevronLeft'} />
-            <span>뒤로</span>
-          </MyNavBarBtn>
-        }
-        center={opponentId}
-        right={
-          <button onClick={handleViewMorePopup}>
-            <Icon name={'ellipsis'} />
-          </button>
-        }
-      />
-      <MyChatRoomItem>
-        <ImgBox src={itemInfo.thumbnailUrl} alt={itemInfo.title} size={'sm'} />
-        <MyChatRoomItemInfo>
-          <span>{itemInfo.title}</span>
-          <span>{itemInfo.price}</span>
-        </MyChatRoomItemInfo>
-      </MyChatRoomItem>
-      {/* TODO: MyChatBubbles component 분리 */}
-      {!!chatBubbles.length && <ChatBubbles bubbles={chatBubbles} />}
-      {isMoreViewPopupOpen && (
-        <PopupSheet
-          menu={viewMorePopupSheetMenu}
-          onClick={handleViewMorePopup}
-        ></PopupSheet>
-      )}
-      <div ref={endRef}></div>
-      <ChatTabBar
-        chatInput={chat}
-        onInputChange={handleChange}
-        onChatSubmit={handleSubmit}
-      />
+      <MyChatRoom>
+        <NavBar
+          left={
+            <MyNavBarBtn onClick={onRoomClose}>
+              <Icon name={'chevronLeft'} />
+              <span>뒤로</span>
+            </MyNavBarBtn>
+          }
+          center={opponentId}
+          right={
+            <button onClick={handleViewMorePopup}>
+              <Icon name={'ellipsis'} />
+            </button>
+          }
+        />
+        <MyChatRoomItem>
+          <ImgBox
+            src={itemInfo.thumbnailUrl}
+            alt={itemInfo.title}
+            size={'sm'}
+          />
+          <MyChatRoomItemInfo>
+            <span>{itemInfo.title}</span>
+            <span>{itemInfo.price}</span>
+          </MyChatRoomItemInfo>
+        </MyChatRoomItem>
+        {!!chatBubbles.length && <ChatBubbles bubbles={chatBubbles} />}
+        {isMoreViewPopupOpen && (
+          <PopupSheet
+            menu={viewMorePopupSheetMenu}
+            onClick={handleViewMorePopup}
+          />
+        )}
+        <div ref={endRef}></div>
+        <ChatTabBar
+          chatInput={chat}
+          onInputChange={handleChange}
+          onChatSubmit={handleSubmit}
+        />
+      </MyChatRoom>
     </PortalLayout>
   );
 };
+
+const MyChatRoom = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 const MyNavBarBtn = styled.button`
   display: flex;
