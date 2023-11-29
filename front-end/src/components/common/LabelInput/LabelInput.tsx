@@ -8,7 +8,7 @@ interface LabelInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 interface LabelInputStyleProps {
-  subText?: boolean;
+  hint?: boolean;
 }
 
 const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
@@ -16,7 +16,7 @@ const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
     const isSubText = subText !== undefined;
 
     return (
-      <MyLabelInput subText={isSubText}>
+      <MyLabelInput hint={isSubText}>
         <label htmlFor="labelInput">{label}</label>
         <input
           name="labelInput"
@@ -34,8 +34,8 @@ const MyLabelInput = styled.div<LabelInputStyleProps>`
   position: relative;
   display: flex;
   border-bottom: 1px solid ${({ theme }) => theme.colors.neutral.border};
-  ${({ subText }) =>
-    subText
+  ${({ hint }) =>
+    hint
       ? css`
           align-items: flex-end;
           padding: 1vh 0;
