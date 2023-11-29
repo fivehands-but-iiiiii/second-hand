@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
-import useMediaQuery from '@hooks/useMediaQuery';
-import styled from 'styled-components';
+
 import Button from '@common/Button';
+import useMediaQuery from '@hooks/useMediaQuery';
+
+import { styled } from 'styled-components';
 
 interface ResponsiveLayoutProps {
   children: ReactNode;

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import { getStoredValue } from '@utils/sessionStorage';
 
 import { styled } from 'styled-components';
@@ -27,15 +29,32 @@ const renderBubble = (bubble: ChatBubble) => {
   );
 };
 
-const ChatBubbles = ({ bubbles }: ChatBubblesProps) => (
-  <MyChatBubbles>{bubbles.map(renderBubble)}</MyChatBubbles>
-);
+const ChatBubbles = ({ bubbles }: ChatBubblesProps) => {
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView();
+    }
+  }, [bubbles]);
+
+  return (
+    <>
+      <MyChatBubbles>
+        {bubbles.map(renderBubble)}
+        <div ref={endOfMessagesRef} />
+      </MyChatBubbles>
+    </>
+  );
+};
 
 const MyChatBubbles = styled.section`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   padding: 16px;
   margin-bottom: 75px;
+  overflow-y: scroll;
 `;
 
 const MyChatBubble = styled.div`

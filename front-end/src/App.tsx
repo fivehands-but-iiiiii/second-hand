@@ -1,11 +1,11 @@
 import { RouterProvider } from 'react-router-dom';
 
+import ResponsiveLayout from '@components/layout/ResponsiveLayout';
 import router from '@routes/router';
 import GlobalStyle from '@styles/globalStyles';
 import theme from '@styles/theme';
 
 import { ThemeProvider } from 'styled-components';
-import ResponsiveLayout from '@components/layout/ResponsiveLayout';
 
 const App = () => {
   return (

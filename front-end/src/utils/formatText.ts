@@ -15,3 +15,15 @@ export const getNumericPrice = (input: string | number): number => {
   const numericValue = Number(input.replace(/\D/g, ''));
   return numericValue;
 };
+
+export const getCurrentISODate = () => {
+  return new Date().toISOString();
+};
+
+export const parseJSONSafely = (value: string) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return value;
+  }
+};

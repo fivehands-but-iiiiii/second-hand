@@ -24,7 +24,7 @@ const ChatTabBar = ({
     <TabBar>
       <Textarea
         type="chat"
-        rows={4}
+        rows={1}
         value={chatInput}
         autoFocus
         onChange={onInputChange}
