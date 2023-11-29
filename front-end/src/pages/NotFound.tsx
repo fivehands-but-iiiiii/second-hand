@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '@common/Button';
 
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 const NotFound = () => {
   const navigate = useNavigate();

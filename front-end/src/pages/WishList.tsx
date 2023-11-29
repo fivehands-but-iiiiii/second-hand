@@ -12,9 +12,8 @@ import useIntersectionObserver from '@hooks/useIntersectionObserver';
 
 import { styled } from 'styled-components';
 
-import { HomeInfo, HomePageInfo } from '../pages/Home';
-
 import BlankPage from './BlankPage';
+import { HomeInfo, HomePageInfo } from './Home';
 import ItemDetail from './ItemDetail';
 
 type WishCategory = Omit<CategoryInfo, 'iconUrl'>;
