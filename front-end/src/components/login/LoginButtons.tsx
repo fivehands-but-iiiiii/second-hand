@@ -17,13 +17,13 @@ const LoginButtons = ({
 }: LoginButtonsProps) => {
   return (
     <>
-      <Button active fullWidth onClick={onLoginButton} type="submit">
+      <Button active stretch onClick={onLoginButton} type="submit">
         아이디로 로그인
       </Button>
-      <MyGitHubButton fullWidth>
+      <MyGitHubButton stretch>
         <Link to={OAUTH_URL}>GitHub으로 로그인</Link>
       </MyGitHubButton>
-      <Button fullWidth icon onClick={onCreateAccount}>
+      <Button stretch icon onClick={onCreateAccount}>
         회원가입
       </Button>
     </>

@@ -30,7 +30,7 @@ const RegionSelector = ({
   const regionButtons = selectedRegions.map(({ id, district, onFocus }) => (
     <Button
       key={id}
-      fullWidth
+      stretch
       active={onFocus}
       onClick={() => handleRegionClick(id)}
     >
@@ -45,7 +45,7 @@ const RegionSelector = ({
   ));
 
   const addButton = (
-    <Button fullWidth onClick={onClickAddButton}>
+    <Button stretch onClick={onClickAddButton}>
       <Icon name={'plus'} size={'xs'} />
       위치추가
     </Button>

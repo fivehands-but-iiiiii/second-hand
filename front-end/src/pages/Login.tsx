@@ -123,7 +123,7 @@ const Login = () => {
           <>
             <UserProfile {...storedUserInfo} />
             <MyButtons>
-              <Button active fullWidth onClick={handleLogout}>
+              <Button active stretch onClick={handleLogout}>
                 로그아웃
               </Button>
             </MyButtons>

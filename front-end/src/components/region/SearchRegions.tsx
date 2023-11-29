@@ -96,7 +96,7 @@ const SearchRegions = ({ onPortal, onSelectRegion }: SearchRegionsProps) => {
         />
       </NavBar>
       <MySearchRegions>
-        <Button active fullWidth onClick={getCurrentRegionList}>
+        <Button active stretch onClick={getCurrentRegionList}>
           현재 위치로 찾기
         </Button>
       </MySearchRegions>
