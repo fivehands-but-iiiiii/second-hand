@@ -32,6 +32,7 @@ const Textarea = ({
 
   const handleResizeHeight = () => {
     if (!singleLine && textRef.current) {
+      textRef.current.style.height = 'auto';
       textRef.current.style.height = textRef.current.scrollHeight + 'px';
     }
   };

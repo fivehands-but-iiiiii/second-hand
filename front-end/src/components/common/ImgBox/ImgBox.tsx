@@ -9,7 +9,7 @@ interface ImgBoxProps extends ComponentPropsWithRef<'img'> {
 }
 
 interface ImgBoxStyleProps {
-  boxSize: number;
+  size: number;
 }
 
 const ImgBox = ({ src, alt, size = 'lg' }: ImgBoxProps) => {
@@ -19,16 +19,17 @@ const ImgBox = ({ src, alt, size = 'lg' }: ImgBoxProps) => {
     lg: 120,
   };
   const boxSize = boxType[size];
+
   return (
-    <MyImgBox boxSize={boxSize}>
+    <MyImgBox size={boxSize}>
       <MyImg src={src} alt={alt} />
     </MyImgBox>
   );
 };
 
 const MyImgBox = styled.div<ImgBoxStyleProps>`
-  width: ${({ boxSize }) => boxSize}px;
-  height: ${({ boxSize }) => boxSize}px;
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
   display: flex;
   align-items: center;
   justify-content: center;

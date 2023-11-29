@@ -1,5 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Icon from '@assets/Icon';
@@ -9,15 +8,15 @@ import {
   ALERT_TITLE,
   AlertActionsProps,
 } from '@common/Alert/constants';
-import Button from '@common/Button/Button';
+import Button from '@common/Button';
 import { SaleItem } from '@common/Item';
 import NavBar from '@common/NavBar';
+import PopupSheet from '@common/PopupSheet';
 import { REGION_MENU } from '@common/PopupSheet/constants';
-import PopupSheet from '@common/PopupSheet/PopupSheet';
 import Spinner from '@common/Spinner/Spinner';
 import Category from '@components/home/category';
 import ItemList from '@components/home/ItemList';
-import { useCategories } from '@components/layout/MobileLayout';
+import { getOutletContext } from '@components/layout';
 import { RegionInfo } from '@components/login/Join';
 import New from '@components/new/New';
 import SettingRegionMap from '@components/region/SettingRegionMap';
@@ -31,7 +30,7 @@ import api from '../api';
 
 import ItemDetail from './ItemDetail';
 
-interface HomeInfo {
+export interface HomeInfo {
   page: number;
   hasPrevious: boolean;
   hasNext: boolean;
@@ -50,6 +49,7 @@ const Home = () => {
   const navigator = useNavigate();
   const userInfo = getStoredValue({ key: 'userInfo' });
   const userRegion = userInfo?.regions;
+  const [onRefresh, setOnRefresh] = useState(false);
   const [userRegions, setUserRegions] = useState<RegionInfo[]>(
     userRegion || [
       {
@@ -60,9 +60,8 @@ const Home = () => {
     ],
   );
   const currentRegion = userRegions.find(({ onFocus }) => onFocus);
-  if (!currentRegion) return;
-  const currentRegionId = currentRegion?.id;
-  const categories = useCategories();
+  const currentRegionId = currentRegion?.id || 1168064000;
+  const { categories } = getOutletContext();
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
@@ -154,32 +153,30 @@ const Home = () => {
     }
   };
 
-  const handleRegionPopupSheetModal = () => {
+  const handleRegionPopupSheetModal = () =>
     setIsRegionPopupSheetOpen((prev) => !prev);
-  };
 
   const handleRegionMapModal = () => {
     setIsRegionMapModalOpen((prev) => !prev);
     setIsRegionPopupSheetOpen(false);
-    if (isRegionMapModalOpen) {
-      const userInfo = getStoredValue({ key: 'userInfo' });
-      const userRegion: RegionInfo[] = userInfo?.regions;
-      const currentRegion = userRegion.find(({ onFocus }) => onFocus);
-      if (!currentRegion) return;
-      initData();
-      setUserRegions(userRegion);
-      setFilterInfo((prevFilterInfo) => ({
-        ...prevFilterInfo,
-        regionId: currentRegion.id,
-      }));
-    }
+    if (!isRegionMapModalOpen) return;
+
+    const userInfo = getStoredValue({ key: 'userInfo' });
+    const userRegion: RegionInfo[] = userInfo?.regions;
+    const currentRegion = userRegion.find(({ onFocus }) => onFocus);
+    if (!currentRegion) return;
+
+    initData();
+    setUserRegions(userRegion);
+    setFilterInfo((prevFilterInfo) => ({
+      ...prevFilterInfo,
+      regionId: currentRegion.id,
+    }));
   };
 
-  const handleCategoryModal = () => {
-    setIsCategoryModalOpen((prev) => !prev);
-  };
+  const handleCategoryModal = () => setIsCategoryModalOpen((prev) => !prev);
 
-  const regionPopupSheetMenu = useMemo(() => {
+  const regionPopupSheetMenu = () => {
     if (!userInfo)
       return userRegions.map(({ id, district, onFocus }) => ({
         id,
@@ -187,27 +184,24 @@ const Home = () => {
         style: onFocus ? 'font-weight: 600' : '',
         onClick: () => handleRegionSwitch(id),
       }));
-    else
-      return [
-        ...userRegions.map(({ id, district, onFocus }) => {
-          return {
-            id,
-            title: district,
-            style: onFocus ? 'font-weight: 600' : '',
-            onClick: () => handleRegionSwitch(id),
-          };
-        }),
-        ...REGION_MENU.map(({ id, title }) => {
-          return {
-            id,
-            title,
-            onClick: handleRegionMapModal,
-          };
-        }),
-      ];
-  }, [userRegions]);
-
-  const [onRefresh, setOnRefresh] = useState(false);
+    return [
+      ...userRegions.map(({ id, district, onFocus }) => {
+        return {
+          id,
+          title: district,
+          style: onFocus ? 'font-weight: 600' : '',
+          onClick: () => handleRegionSwitch(id),
+        };
+      }),
+      ...REGION_MENU.map(({ id, title }) => {
+        return {
+          id,
+          title,
+          onClick: handleRegionMapModal,
+        };
+      }),
+    ];
+  };
 
   const handleNewButtonClick = () => {
     if (!userInfo) {
@@ -235,10 +229,9 @@ const Home = () => {
 
   const handleNewModal = () => {
     setIsNewModalOpen((prev) => !prev);
-    if (isNewModalOpen) {
-      initData();
-      setOnRefresh(true);
-    }
+    if (!isNewModalOpen) return;
+    initData();
+    setOnRefresh(true);
   };
 
   const handleFilterCategory = (categoryId: number) => {
@@ -256,22 +249,21 @@ const Home = () => {
 
   const handleItemDetail = (id: number) => {
     setSelectedItem(id);
-    if (id === 0) {
-      initData();
-      setOnRefresh(true);
-    }
+    if (id) return;
+    initData();
+    setOnRefresh(true);
   };
 
   const fetchItems = async () => {
     if (!homePageInfo.hasNext) return;
 
     const filterQuery = createFilterQuery();
-
     try {
+      // TODO: useAPI 사용하기
       setIsLoading(true);
-
       const { data } = await api.get(`items${filterQuery}`);
       setSaleItems((prevItems) => {
+        // TODO: Set 자료구조 사용하지 않기
         const newSet = new Set(prevItems);
         data.data.items.forEach((item: SaleItem) => newSet.add(item));
         return [...newSet];
@@ -312,9 +304,9 @@ const Home = () => {
             </MyNavBarBtn>
             {isRegionPopupSheetOpen && (
               <PopupSheet
-                type={'slideDown'}
-                menu={regionPopupSheetMenu}
-                onSheetClose={handleRegionPopupSheetModal}
+                isSlideDown
+                menu={regionPopupSheetMenu()}
+                onClick={handleRegionPopupSheetModal}
               />
             )}
           </>
@@ -325,35 +317,29 @@ const Home = () => {
           </button>
         }
       />
-      {isRegionMapModalOpen &&
-        createPortal(
-          <SettingRegionMap
-            regions={userRegions}
-            onPortal={handleRegionMapModal}
-          />,
-          document.body,
-        )}
+      {isRegionMapModalOpen && (
+        <SettingRegionMap
+          regions={userRegions}
+          onPortal={handleRegionMapModal}
+        />
+      )}
       <ItemList saleItems={saleItems} onItemClick={handleItemDetail} />
       {!!saleItems.length && <MyOnFetchItems ref={setTarget}></MyOnFetchItems>}
       {isLoading && <Spinner />}
-      {!!selectedItem &&
-        createPortal(
-          <ItemDetail
-            id={selectedItem}
-            categoryInfo={categories}
-            handleBackBtnClick={handleItemDetail}
-          />,
-          document.body,
-        )}
-      {isCategoryModalOpen &&
-        createPortal(
-          <Category
-            categoryInfo={categories}
-            handleCategoryModal={handleCategoryModal}
-            onCategoryClick={handleFilterCategory}
-          />,
-          document.body,
-        )}
+      {!!selectedItem && (
+        <ItemDetail
+          id={selectedItem}
+          categoryInfo={categories}
+          handleBackBtnClick={handleItemDetail}
+        />
+      )}
+      {isCategoryModalOpen && (
+        <Category
+          categoryInfo={categories}
+          handleCategoryModal={handleCategoryModal}
+          onCategoryClick={handleFilterCategory}
+        />
+      )}
       <MyNewBtn active circle={'lg'} onClick={handleNewButtonClick}>
         <Icon name={'plus'} fill={palette.neutral.backgroundWeak} />
       </MyNewBtn>
@@ -361,11 +347,9 @@ const Home = () => {
         <Alert.Title>{ALERT_TITLE.LOGIN}</Alert.Title>
         <Alert.Button>{alertButtons(ALERT_ACTIONS.LOGIN)}</Alert.Button>
       </Alert>
-      {isNewModalOpen &&
-        createPortal(
-          <New categoryInfo={categories} onClick={handleNewModal} />,
-          document.body,
-        )}
+      {isNewModalOpen && (
+        <New categoryInfo={categories} onClick={handleNewModal} />
+      )}
     </>
   );
 };
@@ -380,7 +364,7 @@ const MyOnFetchItems = styled.div`
 `;
 
 const MyNewBtn = styled(Button)`
-  position: fixed;
+  position: absolute;
   right: 24px;
   bottom: 120px;
 `;

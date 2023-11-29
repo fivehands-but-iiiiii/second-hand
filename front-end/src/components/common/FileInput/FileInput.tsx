@@ -6,27 +6,33 @@ import Button from '@common/Button';
 import { styled } from 'styled-components';
 
 interface FileInputProps {
-  fileCount?: string;
-  onChage: (e: ChangeEvent<HTMLInputElement>) => void;
+  fileDescription?: string;
+  onChange: (files: FileList) => void;
 }
 
-const FileInput = ({ fileCount, onChage }: FileInputProps) => {
+const FileInput = ({ fileDescription, onChange }: FileInputProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const handleInputFile = () => {
-    fileInputRef.current?.click();
+
+  const handleInputFile = () => fileInputRef.current?.click();
+
+  const handleFileChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { files } = target;
+    if (!files) return;
+    onChange(files);
+    target.value = '';
   };
 
   return (
     <MyFileInput>
       <MyFileButton icon onClick={handleInputFile}>
         <Icon name="camera" size="xl" />
-        {fileCount && <label>{fileCount}</label>}
+        {fileDescription && <label>{fileDescription}</label>}
       </MyFileButton>
       <input
         type="file"
         ref={fileInputRef}
         accept="image/jpg, image/png, image/jpeg, image/gif"
-        onChange={onChage}
+        onChange={handleFileChange}
         multiple
       />
     </MyFileInput>

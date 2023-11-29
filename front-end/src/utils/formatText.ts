@@ -10,9 +10,20 @@ export const getFormattedPrice = (input: string): string => {
   return formattedPrice;
 };
 
-export const getFormattedNumber = (won: string): number => {
-  const noPricePattern = /가격없음/i;
-  if (noPricePattern.test(won)) return 0;
-  const numericValue = parseInt(won.replace(/,/g, ''), 10);
+export const getNumericPrice = (input: string | number): number => {
+  if (typeof input === 'number') return input;
+  const numericValue = Number(input.replace(/\D/g, ''));
   return numericValue;
+};
+
+export const getCurrentISODate = () => {
+  return new Date().toISOString();
+};
+
+export const parseJSONSafely = (value: string) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return value;
+  }
 };

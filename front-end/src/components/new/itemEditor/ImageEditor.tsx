@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 import Icon from '@assets/Icon';
 import Button from '@common/Button';
@@ -11,15 +11,15 @@ import { styled } from 'styled-components';
 
 interface ImageEditorProps {
   files: InputFile[];
-  onChage: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (files: FileList) => void;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ImageEditor = ({ files, onChage, onClick }: ImageEditorProps) => {
+const ImageEditor = ({ files, onChange, onClick }: ImageEditorProps) => {
   return (
     <MyImagesList>
       <MyFileBox>
-        <FileInput fileCount={`${files.length}/10`} onChage={onChage} />
+        <FileInput fileDescription={`${files.length}/10`} onChange={onChange} />
       </MyFileBox>
       {files.map((img, index) => (
         <MyImageBox key={index}>

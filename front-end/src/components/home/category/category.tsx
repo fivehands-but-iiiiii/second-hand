@@ -2,6 +2,7 @@ import Icon from '@assets/Icon';
 import Button from '@common/Button';
 import ImgBox from '@common/ImgBox';
 import NavBar from '@common/NavBar/NavBar';
+import PortalLayout from '@components/layout/PortalLayout';
 
 import { styled } from 'styled-components';
 
@@ -16,7 +17,7 @@ interface CategoryProps {
   handleCategoryModal: () => void;
   onCategoryClick?: (categoryId: number) => void;
 }
-
+// TODO: Event Handler Prop prefix 'on'
 const Category = ({
   categoryInfo,
   handleCategoryModal,
@@ -28,7 +29,7 @@ const Category = ({
   };
 
   return (
-    <MyCategoryModal>
+    <PortalLayout>
       <NavBar
         left={
           <MyCategoryCloseBtn onClick={handleCategoryModal}>
@@ -55,22 +56,9 @@ const Category = ({
           </Button>
         ))}
       </MyCategoryContainer>
-    </MyCategoryModal>
+    </PortalLayout>
   );
 };
-
-const MyCategoryModal = styled.div`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.neutral.background};
-  overflow-y: auto;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 const MyCategoryCloseBtn = styled.button`
   display: flex;
@@ -78,17 +66,15 @@ const MyCategoryCloseBtn = styled.button`
 `;
 
 const MyCategoryContainer = styled.div`
+  height: 87vh;
   width: 100%;
-  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 20px 0;
   background-color: ${({ theme }) => theme.colors.neutral.background};
 `;
 
 const MyCategoryTitle = styled.span`
-  ${({ theme }) => theme.fonts.footnote};
+  font-size: 0.95em;
 `;
 
 export default Category;

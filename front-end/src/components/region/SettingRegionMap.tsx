@@ -1,10 +1,10 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 
 import NavBar from '@common/NavBar/NavBar';
 import PortalLayout from '@components/layout/PortalLayout';
 import { RegionInfo } from '@components/login/Join';
+import useAddressToCoordinates from '@hooks/useAddressToCoords';
 import useAPI from '@hooks/useAPI';
-import useGeoLocation, { coordsType } from '@hooks/useGeoLocation';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { getStoredValue, setStorageValue } from '@utils/sessionStorage';
 
@@ -31,29 +31,29 @@ interface SettingRegionMapProps {
 
 const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const [updatedRegions, setUpdatedRegions] = useState<RegionInfo[]>(regions);
-  const [, setMap] = useState(null);
-  const [center, setCenter] = useState<coordsType>({
-    lat: 37.5000776,
-    lng: 127.0385419,
-  });
-  const { getCoordinatesFromAddress } = useGeoLocation();
-  const { request } = useAPI();
+  const focusedRegion = updatedRegions.find(({ onFocus }) => onFocus)?.district;
+  const updatedCenter = useAddressToCoordinates(focusedRegion);
 
+  const { request } = useAPI();
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: GOOGLE_KEY,
   });
 
-  const onLoad = useCallback((map: any) => {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
+  const onLoad = useCallback(
+    async (map: google.maps.Map) => {
+      if (isLoaded) {
+        const bounds = new window.google.maps.LatLngBounds(updatedCenter);
+        map.fitBounds(bounds);
+        setMap(map);
+      }
+    },
+    [isLoaded, updatedCenter],
+  );
 
-  const onUnmount = useCallback(() => {
-    setMap(null);
-  }, []);
+  const onUnmount = useCallback(() => setMap(null), []);
 
   const handleSettingRegions = async () => {
     const prevRegions = regions;
@@ -84,12 +84,15 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   };
 
   const areRegionsSame = (prev: RegionInfo[], updated: RegionInfo[]) => {
-    return prev.every((prevRegion) =>
-      updated.some(
-        (updatedRegion) =>
-          prevRegion.id === updatedRegion.id &&
-          prevRegion.onFocus === updatedRegion.onFocus,
-      ),
+    return (
+      prev.length === updated.length &&
+      prev.every((prevRegion) =>
+        updated.some(
+          (updatedRegion) =>
+            prevRegion.id === updatedRegion.id &&
+            prevRegion.onFocus === updatedRegion.onFocus,
+        ),
+      )
     );
   };
 
@@ -97,34 +100,27 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
     return (
       prev.length === updated.length &&
       prev.every(
-        (prevRegion, index) => prevRegion.onFocus !== updated[index].onFocus,
+        (prevRegion, index) =>
+          prevRegion.id === updated[index].id &&
+          prevRegion.district === updated[index].district &&
+          prevRegion.onFocus !== updated[index].onFocus,
       )
     );
   };
 
   const haveChangedRegions = (prev: RegionInfo[], updated: RegionInfo[]) => {
+    if (prev.length !== updated.length) return true;
     return (
-      prev.length !== updated.length ||
       prev.some(
         (prevRegion) =>
           !updated.some((updated) => prevRegion.id === updated.id),
-      )
+      ) ||
+      !prev.every((prevRegion, index) => prevRegion.id === updated[index].id)
     );
   };
 
-  const handleUpdateRegions = (regions: RegionInfo[]) => {
+  const handleUpdateRegions = async (regions: RegionInfo[]) =>
     setUpdatedRegions(regions);
-  };
-
-  useEffect(() => {
-    const getCenter = async () => {
-      const coords = await getCoordinatesFromAddress(
-        updatedRegions.find(({ onFocus }) => onFocus)?.district || '역삼1동',
-      );
-      setCenter(coords);
-    };
-    getCenter();
-  }, [updatedRegions]);
 
   return (
     <PortalLayout>
@@ -133,17 +129,19 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
         center={'동네 설정'}
       />
       <MySettingRegionMap>
-        {isLoaded && (
-          <GoogleMap
-            mapContainerStyle={MAP_STYLE}
-            center={center}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-            options={OPTIONS}
-          >
-            <Marker position={center}></Marker>
-          </GoogleMap>
-        )}
+        <div>
+          {isLoaded && (
+            <GoogleMap
+              mapContainerStyle={MAP_STYLE}
+              center={updatedCenter}
+              onLoad={onLoad}
+              onUnmount={onUnmount}
+              options={OPTIONS}
+            >
+              <Marker position={updatedCenter}></Marker>
+            </GoogleMap>
+          )}
+        </div>
         <SettingRegionSelector
           regions={updatedRegions}
           onSetRegions={handleUpdateRegions}
@@ -154,10 +152,13 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
 };
 
 const MySettingRegionMap = styled.div`
-  height: 50vh;
-  padding: 0 2.7vw;
+  height: 390px;
+  padding: 0 15px;
   > div:first-child {
-    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    margin: 10px 0;
+    border: 1px solid ${({ theme }) => theme.colors.neutral.border};
   }
 `;
 

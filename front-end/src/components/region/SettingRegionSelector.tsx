@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 
 import Alert from '@common/Alert';
 import {
@@ -34,6 +33,7 @@ const SettingRegionSelector = ({
 
   const handleSelectRegion = (id: number, district: string) => {
     if (selectedRegions.some((region) => region.id === id)) return;
+
     const newRegion = { id, district, onFocus: true };
     setSelectedRegions((prev) => [
       ...prev.map((region) =>
@@ -45,6 +45,8 @@ const SettingRegionSelector = ({
   };
 
   const handleRegionClick = (id: number) => {
+    if (selectedRegions.find((region) => region.id === id)?.onFocus) return;
+
     setSelectedRegions((prev) =>
       prev.map((region) =>
         region.id === id
@@ -56,6 +58,7 @@ const SettingRegionSelector = ({
 
   const handleDeleteRegion = (id: number) => {
     if (selectedRegions.length === 1) return;
+
     const isSelectingRegion = selectedRegions.some(
       (region) => region.id === id && region.onFocus,
     );
@@ -100,9 +103,7 @@ const SettingRegionSelector = ({
       </button>
     ));
 
-  const handleRegionModal = () => {
-    setIsSettingRegionsModalOpen((prev) => !prev);
-  };
+  const handleRegionModal = () => setIsSettingRegionsModalOpen((prev) => !prev);
 
   useEffect(() => {
     onSetRegions(selectedRegions);
@@ -116,14 +117,12 @@ const SettingRegionSelector = ({
         onClickDeleteButton={handleDeleteRegion}
         onClickAddButton={handleRegionModal}
       />
-      {isSettingRegionsModalOpen &&
-        createPortal(
-          <SearchRegions
-            onPortal={handleRegionModal}
-            onSelectRegion={handleSelectRegion}
-          />,
-          document.body,
-        )}
+      {isSettingRegionsModalOpen && (
+        <SearchRegions
+          onPortal={handleRegionModal}
+          onSelectRegion={handleSelectRegion}
+        />
+      )}
       <Alert isOpen={isDeleteRegionAlertOpen}>
         <Alert.Title>{ALERT_TITLE.DELETE(deleteRegionDistrict)}</Alert.Title>
         <Alert.Button>

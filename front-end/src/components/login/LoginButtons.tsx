@@ -6,24 +6,24 @@ import { styled } from 'styled-components';
 
 interface LoginButtonsProps {
   OAUTH_URL: string;
-  handleLogin: () => void;
-  handleCreateAccount: () => void;
+  onLoginButton: () => void;
+  onCreateAccount: () => void;
 }
 
 const LoginButtons = ({
   OAUTH_URL,
-  handleLogin,
-  handleCreateAccount,
+  onLoginButton,
+  onCreateAccount,
 }: LoginButtonsProps) => {
   return (
     <>
-      <Button active fullWidth onClick={handleLogin} type="submit">
+      <Button active stretch onClick={onLoginButton} type="submit">
         아이디로 로그인
       </Button>
-      <MyGitHubButton fullWidth>
+      <MyGitHubButton stretch>
         <Link to={OAUTH_URL}>GitHub으로 로그인</Link>
       </MyGitHubButton>
-      <Button fullWidth icon onClick={handleCreateAccount}>
+      <Button stretch icon onClick={onCreateAccount}>
         회원가입
       </Button>
     </>

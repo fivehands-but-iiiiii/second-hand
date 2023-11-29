@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 import Icon from '@assets/Icon';
 import Button from '@common/Button/Button';
@@ -20,59 +20,49 @@ const RegionSelector = ({
   onClickDeleteButton,
   onClickAddButton,
 }: RegionSelectorProps) => {
-  const [regionMessage, setRegionMessage] = useState('');
-
-  const handleRegionClick = (id: number) => {
-    onClickRegionButton(id);
-  };
+  const handleRegionClick = (id: number) => onClickRegionButton(id);
 
   const handleRemoveClick = (id: number, event: MouseEvent) => {
     event.stopPropagation();
     onClickDeleteButton(id);
   };
 
-  const regionButtons = useMemo(() => {
-    const selectedRegionButtons = selectedRegions.map(
-      ({ id, district, onFocus }) => {
-        return (
-          <Button
-            key={id}
-            fullWidth
-            active={onFocus}
-            onClick={() => handleRegionClick(id)}
-          >
-            {district}
-            <MyRemoveIcon
-              name={'x'}
-              size={'xs'}
-              fill={palette.neutral.background}
-              onClick={(event) => handleRemoveClick(id, event)}
-            />
-          </Button>
-        );
-      },
-    );
-    const addButton = (
-      <Button fullWidth onClick={onClickAddButton}>
-        <Icon name={'plus'} size={'xs'} />
-        위치추가
-      </Button>
-    );
+  const regionButtons = selectedRegions.map(({ id, district, onFocus }) => (
+    <Button
+      key={id}
+      stretch
+      active={onFocus}
+      onClick={() => handleRegionClick(id)}
+    >
+      {district}
+      <MyRemoveIcon
+        name={'x'}
+        size={'xs'}
+        fill={palette.neutral.background}
+        onClick={(event) => handleRemoveClick(id, event)}
+      />
+    </Button>
+  ));
 
-    return selectedRegions.length < 2
-      ? [...selectedRegionButtons, addButton]
-      : selectedRegionButtons;
-  }, [selectedRegions]);
+  const addButton = (
+    <Button stretch onClick={onClickAddButton}>
+      <Icon name={'plus'} size={'xs'} />
+      위치추가
+    </Button>
+  );
 
-  useEffect(() => {
-    if (selectedRegions.length < 2) {
-      setRegionMessage('최소 1개 이상 최대 2개까지 선택 가능해요');
-    } else setRegionMessage('');
-  }, [selectedRegions.length]);
+  const canAddMoreRegions = selectedRegions.length < 2;
+
+  const regionMessage = canAddMoreRegions
+    ? '최소 1개 이상 최대 2개까지 선택 가능해요'
+    : '';
 
   return (
     <>
-      <MyRegionButton>{regionButtons}</MyRegionButton>
+      <MyRegionButton>
+        {regionButtons}
+        {canAddMoreRegions && addButton}
+      </MyRegionButton>
       <MyRegionMessage>{regionMessage}</MyRegionMessage>
     </>
   );
