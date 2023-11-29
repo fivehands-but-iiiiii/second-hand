@@ -6,7 +6,7 @@ import ChatList from '@components/chat/ChatList';
 import { ChatListItemInfo } from '@components/chat/ChatList/ChatListItem';
 import ChatRoom from '@components/chat/ChatRoom';
 import BlankPage from '@pages/BlankPage';
-import { getCurrentISODate } from '@utils/currentDate';
+import { getCurrentISODate, parseJSONSafely } from '@utils/formatText';
 
 import api from '../api';
 
@@ -35,10 +35,11 @@ const isEventData = (data: any): data is EventData => {
 };
 
 const ChatPage = () => {
-  const { itemId } = useParams();
   const title = TITLE.CHATS;
+  const { itemId } = useParams();
   const [page, setPage] = useState(0);
   const [chatList, setChatList] = useState<ChatListItemInfo[]>([]);
+  const [messages, setMessages] = useState<EventMessage[]>([]);
   const [selectedChatRoomId, setSelectedChatRoomId] = useState('');
   const [freshCount, setFreshCount] = useState(0);
   const isChatListExist = !!chatList.length;
@@ -67,11 +68,25 @@ const ChatPage = () => {
     setFreshCount((prev) => prev + 1);
   };
 
+  const parseSSEMessage = (rawMessage: string): EventMessage[] => {
+    return rawMessage
+      .trim()
+      .split('\n\n')
+      .map((chunk) => {
+        return chunk.split('\n').reduce((result, line) => {
+          const [key, ...values] = line.split(':');
+          const value = values.join(':').trim();
+          return {
+            ...result,
+            [key]: key === 'data' ? parseJSONSafely(value) : value,
+          };
+        }, {}) as EventMessage;
+      });
+  };
+
   useEffect(() => {
     getChatList();
   }, [freshCount]);
-
-  const [messages, setMessages] = useState<EventMessage[]>([]);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -112,102 +127,26 @@ const ChatPage = () => {
   }, []);
 
   useEffect(() => {
-    messages?.forEach(({ event, data }) => {
-      if (event === 'chatNotification' && data && typeof data === 'object') {
-        const { roomId, message: newMessage, unread } = data;
-        console.log(messages);
+    if (messages.length === 0) return;
 
-        setChatList((prevChatList) => {
-          return prevChatList.map((chatItem) => {
-            if (chatItem.chatroomId === roomId) {
-              const currentISODate = getCurrentISODate();
-              return {
-                ...chatItem,
-                chatLogs: {
-                  ...chatItem.chatLogs,
-                  lastMessage: newMessage,
-                  unReadCount: unread,
-                  updateAt: currentISODate,
-                },
-                lastUpdate: currentISODate,
-              };
-            }
-            return chatItem;
-          });
-        });
-      }
-    });
-  }, [messages]);
+    const { event, data } = messages[messages.length - 1];
 
-  const parseSSEMessage = (rawMessage: string): EventMessage[] => {
-    const messages = rawMessage
-      .trim()
-      .split('\n\n')
-      .map((chunk) => {
-        const result: Partial<EventMessage> = {};
-        const lines = chunk.split('\n');
-
-        lines.forEach((line) => {
-          const [key, ...values] = line.split(':');
-          const value = values.join(':').trim();
-
-          switch (key) {
-            case 'id':
-              result.id = value;
-              break;
-            case 'event':
-              result.event = value;
-              break;
-            case 'data':
-              try {
-                result.data = JSON.parse(value);
-              } catch (error) {
-                result.data = value;
-              }
-              break;
-            default:
-              break;
-          }
-        });
-
-        return result as EventMessage;
-      });
-
-    return messages;
-  };
-
-  useEffect(() => {
-    const latestMessage = messages[messages.length - 1];
-    // messages :
-    // {
-    //   "id": "12345",
-    //   "event": "chatNotification",
-    //   "data": {
-    //     "roomId": "b2e55401-4005-11ee-869c-0242ac110002",
-    //     "message": "새로운 메시지가 도착했습니다",
-    //     "unread": 3
-    //   }
-    // }
-
-    if (
-      latestMessage &&
-      latestMessage.event === 'chatNotification' &&
-      isEventData(latestMessage.data)
-    ) {
-      const { roomId, message: newMessage, unread } = latestMessage.data;
+    if (event === 'chatNotification' && isEventData(data)) {
+      const { roomId, message: newMessage, unread } = data;
 
       setChatList((prevChatList) =>
         prevChatList.map((chatItem) => {
           if (chatItem.chatroomId === roomId) {
+            const currentISODate = getCurrentISODate();
             return {
               ...chatItem,
               chatLogs: {
                 ...chatItem.chatLogs,
                 lastMessage: newMessage,
                 unReadCount: unread,
-                updateAt: new Date().toISOString(),
+                updateAt: currentISODate,
               },
-              lastUpdate: new Date().toISOString(),
+              lastUpdate: currentISODate,
             };
           }
           return chatItem;
