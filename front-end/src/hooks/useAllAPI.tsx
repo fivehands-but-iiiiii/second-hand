@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// eslint-disable-next-line import/named
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 import api from '../api';

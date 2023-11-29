@@ -31,7 +31,7 @@ interface SettingRegionMapProps {
 
 const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   const userInfo = getStoredValue({ key: 'userInfo' });
-  const [, setMap] = useState(null);
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const [updatedRegions, setUpdatedRegions] = useState<RegionInfo[]>(regions);
   const focusedRegion = updatedRegions.find(({ onFocus }) => onFocus)?.district;
   const updatedCenter = useAddressToCoordinates(focusedRegion);
@@ -43,7 +43,7 @@ const SettingRegionMap = ({ regions, onPortal }: SettingRegionMapProps) => {
   });
 
   const onLoad = useCallback(
-    async (map: any) => {
+    async (map: google.maps.Map) => {
       if (isLoaded) {
         const bounds = new window.google.maps.LatLngBounds(updatedCenter);
         map.fitBounds(bounds);
