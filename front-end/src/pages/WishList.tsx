@@ -17,7 +17,6 @@ import { HomeInfo, HomePageInfo } from './Home';
 import ItemDetail from './ItemDetail';
 
 type WishCategory = Omit<CategoryInfo, 'iconUrl'>;
-
 type WishCategoryInfo = {
   categories: number[];
 };
