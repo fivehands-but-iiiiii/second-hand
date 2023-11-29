@@ -24,14 +24,9 @@ interface EventMessage {
   event?: string;
 }
 
-const isEventData = (data: any): data is EventData => {
-  return (
-    data &&
-    typeof data === 'object' &&
-    'roomId' in data &&
-    'message' in data &&
-    'unread' in data
-  );
+const isEventData = (data: unknown): data is EventData => {
+  if (typeof data !== 'object' || data === null) return false;
+  return 'roomId' in data && 'message' in data && 'unread' in data;
 };
 
 const ChatPage = () => {
