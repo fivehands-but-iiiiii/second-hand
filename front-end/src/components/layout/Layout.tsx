@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
 import MainTabBar from '@common/TabBar/MainTabBar';
-import { CategoryInfo } from '@components/home/category';
+import { CategoryInfo } from '@components/home/Category';
 import useCategory from '@hooks/useCategory';
 import usePortalBackDismiss, {
   PortalHandler,

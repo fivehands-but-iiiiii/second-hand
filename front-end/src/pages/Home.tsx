@@ -14,7 +14,7 @@ import NavBar from '@common/NavBar';
 import PopupSheet from '@common/PopupSheet';
 import { REGION_MENU } from '@common/PopupSheet/constants';
 import Spinner from '@common/Spinner/Spinner';
-import Category from '@components/home/category';
+import Category from '@components/home/Category';
 import ItemList from '@components/home/ItemList';
 import { getOutletContext } from '@components/layout';
 import { RegionInfo } from '@components/login/Join';

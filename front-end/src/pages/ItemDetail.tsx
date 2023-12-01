@@ -17,7 +17,7 @@ import {
 } from '@common/PopupSheet/constants';
 import SubTabBar from '@common/TabBar/SubTabBar';
 import ChatRoom from '@components/chat/ChatRoom';
-import { CategoryInfo } from '@components/home/category';
+import { CategoryInfo } from '@components/home/Category';
 import Carousel from '@components/home/ItemDetail/Carousel';
 import { ItemStatus } from '@components/ItemStatus';
 import { getOutletContext } from '@components/layout';

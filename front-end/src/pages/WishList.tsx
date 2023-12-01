@@ -4,7 +4,7 @@ import Button from '@common/Button';
 import { SaleItem } from '@common/Item';
 import NavBar from '@common/NavBar';
 import Spinner from '@common/Spinner/Spinner';
-import { CategoryInfo } from '@components/home/category';
+import { CategoryInfo } from '@components/home/Category';
 import ItemList from '@components/home/ItemList';
 import { getOutletContext } from '@components/layout';
 import useAllAPI from '@hooks/useAllAPI';
