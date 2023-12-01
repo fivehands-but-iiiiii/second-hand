@@ -49,14 +49,6 @@ export const SALESHISTORY_VIEWMORE_MENU = [
 
 export const CHAT_VIEWMORE_MENU = [
   {
-    id: 'alarmOff',
-    title: '알람끄기',
-  },
-  {
-    id: 'report',
-    title: '신고하기',
-  },
-  {
     id: 'quitChat',
     title: '채팅방 나가기',
   },

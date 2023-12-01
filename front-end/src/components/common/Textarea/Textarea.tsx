@@ -1,4 +1,4 @@
-import { useRef, ComponentPropsWithRef, KeyboardEvent, useEffect } from 'react';
+import { useRef, ComponentPropsWithRef, useEffect } from 'react';
 
 import Icon from '@assets/Icon';
 import * as iconTypes from '@assets/svgs/index';

@@ -7,13 +7,19 @@ import PopupSheet from '@common/PopupSheet';
 import { CHAT_VIEWMORE_MENU } from '@common/PopupSheet/constants';
 import ChatTabBar from '@common/TabBar/ChatTabBar';
 import PortalLayout from '@components/layout/PortalLayout';
+import usePopupSheet from '@hooks/usePopupSheet';
 import * as StompJs from '@stomp/stompjs';
 import { getFormattedPrice } from '@utils/formatPrice';
 import { getStoredValue } from '@utils/sessionStorage';
 
 import { styled } from 'styled-components';
 
-import api from '../../../api';
+import {
+  createRoomId,
+  getChatData,
+  getChatBubbles,
+  deleteChatRoom,
+} from '../../../api/chat';
 
 import ChatBubbles from './ChatBubbles';
 
@@ -22,7 +28,6 @@ export interface ChatBubble {
   sender: string;
   receiver: string;
   message: string;
-  // 서버에서 iOS 확인 후 삭제 예정 (프론트는 사용 안 함)
   isMine?: boolean;
 }
 
@@ -51,7 +56,6 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
   const [opponentId, setOpponentId] = useState('');
   const [chatBubbles, setChatBubbles] = useState<ChatBubble[]>([]);
   const [chat, setChat] = useState('');
-  const [isMoreViewPopupOpen, setIsMoreViewPopupOpen] = useState(false);
 
   const endRef = useRef<HTMLDivElement | null>(null);
   const client = useRef<StompJs.Client | null>(null);
@@ -64,16 +68,12 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     setOpponentId(opponentId);
   };
 
-  const getChatData = async (roomId?: string, itemId?: number) => {
-    try {
-      if (!roomId && itemId === undefined) {
-        console.error('roomId or itemId must be provided');
-        return;
-      }
+  const fetchChatData = async () => {
+    const { roomId, itemId } = chatId;
+    const chatData = await getChatData(roomId, itemId);
 
-      const endpoint = roomId ? `chats/${roomId}` : `chats/items/${itemId}`;
-      const { data } = await api.get(endpoint);
-      const { item, chatroomId, opponentId } = data.data;
+    if (chatData) {
+      const { item, chatroomId, opponentId } = chatData;
 
       setItemAndOpponentInfo(
         {
@@ -88,40 +88,25 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
 
       if (chatroomId) {
         setRoomId(chatroomId);
-        getChatBubbles(chatroomId, page);
+        const bubbles = await getChatBubbles(chatroomId, page);
+        setChatBubbles(bubbles);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
   useEffect(() => {
     const { roomId, itemId } = chatId;
-    getChatData(roomId, itemId);
-  }, [chatId]);
-
-  const createRoomId = async () => {
-    try {
-      const { itemId } = chatId;
-      const { data } = await api.post('/chats', {
-        itemId,
-      });
-      return data.data;
-    } catch (error) {
-      console.error(error);
+    if (roomId || itemId) {
+      fetchChatData();
     }
-  };
-
-  const getChatBubbles = async (roomId: number, page: number) => {
-    const { data } = await api.get(`chats/${roomId}/logs?page=${page}`);
-    setChatBubbles(data.data.chatBubbles);
-  };
+  }, []);
 
   const connect = () => {
     const token = getStoredValue({ key: 'token' }).replace(/['"]+/g, '');
+    const baseUrl = import.meta.env.VITE_APP_WS_URL;
 
     client.current = new StompJs.Client({
-      brokerURL: 'ws://43.202.132.236/api/chat',
+      brokerURL: `${baseUrl}/chat`,
       connectHeaders: {
         Authorization: token,
       },
@@ -170,25 +155,24 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
   };
 
   const handleSubmit = async (chat: string) => {
-    if (!roomId) {
-      const newRoomId = await createRoomId();
+    if (!roomId && chatId.itemId) {
+      const newRoomId = await createRoomId(chatId.itemId);
       setRoomId(newRoomId);
     }
 
     publish(chat);
   };
 
-  const handleViewMorePopup = () => {
-    setIsMoreViewPopupOpen(!isMoreViewPopupOpen);
+  const popupSheetActions: { [key: string]: () => void } = {
+    quitChat: () => deleteChatRoom(roomId),
   };
+
+  const { isPopupOpen, handleAction, togglePopup } =
+    usePopupSheet(popupSheetActions);
 
   const viewMorePopupSheetMenu = CHAT_VIEWMORE_MENU.map((menu) => ({
     ...menu,
-    onClick: () => {
-      // TODO: popup sheet 메뉴 클릭 시 동작
-      console.log('');
-      setIsMoreViewPopupOpen(false);
-    },
+    onClick: () => handleAction(menu.id),
   }));
 
   useEffect(() => {
@@ -214,7 +198,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
           }
           center={opponentId}
           right={
-            <button onClick={handleViewMorePopup}>
+            <button onClick={togglePopup}>
               <Icon name={'ellipsis'} />
             </button>
           }
@@ -230,14 +214,15 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
             <span>{itemInfo.price}</span>
           </MyChatRoomItemInfo>
         </MyChatRoomItem>
-        {!!chatBubbles.length && <ChatBubbles bubbles={chatBubbles} />}
-        {isMoreViewPopupOpen && (
-          <PopupSheet
-            menu={viewMorePopupSheetMenu}
-            onClick={handleViewMorePopup}
-          />
+        {!!chatBubbles.length && (
+          <>
+            <div ref={endRef} />
+            <ChatBubbles bubbles={chatBubbles} />
+          </>
         )}
-        <div ref={endRef}></div>
+        {isPopupOpen && (
+          <PopupSheet menu={viewMorePopupSheetMenu} onClick={togglePopup} />
+        )}
         <ChatTabBar
           chatInput={chat}
           onInputChange={handleChange}
