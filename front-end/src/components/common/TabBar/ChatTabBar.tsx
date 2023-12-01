@@ -12,7 +12,7 @@ interface ChatTabBarProps {
   onInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChatSubmit: (chat: string) => void;
 }
-// TODO: Event Handler props prefix 'on'
+
 const ChatTabBar = ({
   chatInput,
   onInputChange,
@@ -27,6 +27,7 @@ const ChatTabBar = ({
         rows={1}
         value={chatInput}
         autoFocus
+        singleLine
         onChange={onInputChange}
       ></Textarea>
       <MyChatTabBarButton icon active circle="md" onClick={handleChatSubmit}>

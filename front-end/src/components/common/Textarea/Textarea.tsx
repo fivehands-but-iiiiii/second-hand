@@ -33,15 +33,7 @@ const Textarea = ({
   const handleResizeHeight = () => {
     if (!singleLine && textRef.current) {
       textRef.current.style.height = 'auto';
-      textRef.current.style.height = textRef.current.scrollHeight + 'px';
-    }
-  };
-
-  const handlePrevNewLineOnEnter = (
-    event: KeyboardEvent<HTMLTextAreaElement>,
-  ) => {
-    if (singleLine && event.key === 'Enter') {
-      event.preventDefault();
+      textRef.current.style.height = `${textRef.current.scrollHeight}px`;
     }
   };
 
@@ -58,7 +50,6 @@ const Textarea = ({
         value={value}
         singleLine={singleLine}
         onInput={handleResizeHeight}
-        onKeyDown={handlePrevNewLineOnEnter}
         {...rest}
       />
       {icon && (
@@ -85,6 +76,7 @@ const MyTextarea = styled.textarea<TextareaProps>`
   outline: none;
   resize: none;
   overflow: hidden;
+  white-space: pre-wrap;
   ${({ singleLine }) => singleLine && 'white-space: nowrap; overflow: hidden;'}
   ::placeholder {
     color: ${({ theme }) => theme.colors.neutral.textWeak};
