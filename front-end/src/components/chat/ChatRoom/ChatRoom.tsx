@@ -1,11 +1,10 @@
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Icon from '@assets/Icon';
 import ImgBox from '@common/ImgBox';
 import NavBar from '@common/NavBar';
 import PopupSheet from '@common/PopupSheet';
 import { CHAT_VIEWMORE_MENU } from '@common/PopupSheet/constants';
-import ChatTabBar from '@common/TabBar/ChatTabBar';
 import PortalLayout from '@components/layout/PortalLayout';
 import usePopupSheet from '@hooks/usePopupSheet';
 import * as StompJs from '@stomp/stompjs';
@@ -22,6 +21,7 @@ import {
 } from '../../../api/chat';
 
 import ChatBubbles from './ChatBubbles';
+import ChatInput from './ChatInput';
 
 export interface ChatBubble {
   roomId: string;
@@ -148,20 +148,16 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     client.current?.deactivate();
   };
 
-  const handleChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setChat(event.target.value);
-  };
-
-  const handleSubmit = async (chat: string) => {
-    if (!roomId && chatId.itemId) {
-      const newRoomId = await createRoomId(chatId.itemId);
-      setRoomId(newRoomId);
-    }
-
-    publish(chat);
-  };
+  const handleSubmit = useCallback(
+    async (chat: string) => {
+      if (!roomId && chatId.itemId) {
+        const newRoomId = await createRoomId(chatId.itemId);
+        setRoomId(newRoomId);
+      }
+      publish(chat);
+    },
+    [roomId, chatId, publish],
+  );
 
   const popupSheetActions: { [key: string]: () => void } = {
     quitChat: () => deleteChatRoom(roomId),
@@ -223,11 +219,7 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
         {isPopupOpen && (
           <PopupSheet menu={viewMorePopupSheetMenu} onClick={togglePopup} />
         )}
-        <ChatTabBar
-          chatInput={chat}
-          onInputChange={handleChange}
-          onChatSubmit={handleSubmit}
-        />
+        <ChatInput onChatSubmit={handleSubmit} />
       </MyChatRoom>
     </PortalLayout>
   );
