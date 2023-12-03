@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 public class NotificationService implements SendChatNotificationUsecase {
-    private final Long DEFAULT_TIMEOUT = 864000000L;
+    private final Long DEFAULT_TIMEOUT = 86400L;
     private final NotificationRepository notificationRepository;
 
     @Transactional
