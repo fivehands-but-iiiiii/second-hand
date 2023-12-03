@@ -37,16 +37,15 @@ public class NotificationService implements SendChatNotificationUsecase {
 
         emitter.onCompletion(() -> {
             log.info("SSE onCompletion");
-            notificationRepository.deleteAllStartByWithId(id);
+            notificationRepository.deleteById(sseId);
         });
         emitter.onTimeout(() -> {
             log.info("SSE onTimeout");
-            notificationRepository.deleteAllStartByWithId(id);
             emitter.complete();
         });
         emitter.onError(e -> {
             log.info("SSE error : {}", e.getMessage());
-            notificationRepository.deleteAllStartByWithId(id);
+            emitter.complete();
         });
 
         log.debug("connected successfully member key : {}", id);
