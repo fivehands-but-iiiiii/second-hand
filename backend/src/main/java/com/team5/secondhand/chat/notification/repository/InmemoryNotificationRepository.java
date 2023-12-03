@@ -2,6 +2,7 @@ package com.team5.secondhand.chat.notification.repository;
 
 import com.team5.secondhand.chat.notification.domain.SseKey;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-//TODO Redis로 스케일아웃의 필요성이 있을지???
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class InmemoryNotificationRepository implements NotificationRepository {
@@ -29,6 +30,7 @@ public class InmemoryNotificationRepository implements NotificationRepository {
         String prefix = id.substring(0, regIdx+1);
         emitters.forEach((key, value) -> {
             if (key.startsWith(prefix)) {
+                log.debug("🧹 SSE deleteById : {}", key.getKey());
                 emitters.remove(key);
             }
         });
@@ -48,8 +50,14 @@ public class InmemoryNotificationRepository implements NotificationRepository {
         int regIdx = id.indexOf("_");
         String prefix = id.substring(0, regIdx+1);
         return emitters.entrySet().stream()
-                .filter(e -> e.getKey().startsWith(id))
+                .filter(e -> e.getKey().startsWith(prefix))
                 .map(Map.Entry::getValue)
                 .findAny();
+    }
+
+    @Override
+    public void deleteById(SseKey sseId) {
+        log.debug("🧹 SSE deleteById : {}", sseId.getKey());
+        emitters.remove(sseId);
     }
 }

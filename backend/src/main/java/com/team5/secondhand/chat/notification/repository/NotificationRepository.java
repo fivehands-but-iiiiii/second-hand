@@ -11,4 +11,6 @@ public interface NotificationRepository {
     void deleteAllStartByWithId(String id);
     Map<SseKey, SseEmitter> findAllStartById(String id);
     Optional<SseEmitter> findStartById(String id);
+
+    void deleteById(SseKey sseId);
 }

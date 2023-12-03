@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 public class NotificationService implements SendChatNotificationUsecase {
-    private final Long DEFAULT_TIMEOUT = 120L * 1000 * 60;
+    private final Long DEFAULT_TIMEOUT = 86400L;
     private final NotificationRepository notificationRepository;
 
     @Transactional
@@ -37,16 +37,15 @@ public class NotificationService implements SendChatNotificationUsecase {
 
         emitter.onCompletion(() -> {
             log.info("SSE onCompletion");
-            notificationRepository.deleteAllStartByWithId(id);
+            notificationRepository.deleteById(sseId);
         });
         emitter.onTimeout(() -> {
             log.info("SSE onTimeout");
-            notificationRepository.deleteAllStartByWithId(id);
             emitter.complete();
         });
         emitter.onError(e -> {
             log.info("SSE error : {}", e.getMessage());
-            notificationRepository.deleteAllStartByWithId(id);
+            emitter.complete();
         });
 
         log.debug("connected successfully member key : {}", id);
