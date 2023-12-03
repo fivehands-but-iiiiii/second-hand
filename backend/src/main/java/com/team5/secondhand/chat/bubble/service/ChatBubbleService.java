@@ -31,7 +31,7 @@ public class ChatBubbleService {
     public Slice<ChatBubble> getChatBubbles(int page, String roomId) {
         String key = generateChatLogKey(roomId);
         Pageable pageable = PageRequest.of(page, chatLoadSize);
-        Slice<ChatBubble> list = chatBubbleRepository.findAllByRoomIdAndOrderByCreatedAtDesc(roomId, pageable);
+        Slice<ChatBubble> list = chatBubbleRepository.findAllByRoomIdOrderByCreatedAtDesc(roomId, pageable);
         List<ChatBubble> content = list.getContent();
         content.sort(Comparator.comparing(ChatBubble::getCreatedAt));
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface ChatBubbleRepository extends MongoRepository<ChatBubble, UUID> {
 
     Slice<ChatBubble> findAllByRoomId(String roomId, Pageable pageable);
-    Slice<ChatBubble> findAllByRoomIdAndOrderByCreatedAtDesc(String roomId, Pageable pageable);
+    Slice<ChatBubble> findAllByRoomIdOrderByCreatedAtDesc(String roomId, Pageable pageable);
 
     ChatBubble findFirstByOrderByIdDesc();
 }
