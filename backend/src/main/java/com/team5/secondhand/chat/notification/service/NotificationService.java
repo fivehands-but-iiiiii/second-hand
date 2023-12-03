@@ -79,9 +79,7 @@ public class NotificationService implements SendChatNotificationUsecase {
     @Transactional
     public void sendChatNotificationToMember(String id, Chatroom chatroom, ChatNotification chatNotification) {
         SseEmitter sseEmitter = notificationRepository.findStartById(id).orElseThrow(() -> new NoSuchElementException("상대방이 접속중이 아닙니다."));
-        log.debug("👋 sse receiverId : {}, notification : {}", id, chatNotification.getMessage());
         if (chatroom.hasPaticipant(id)) {
-            log.debug("🥹 has participant : {}");
             sendToClient(sseEmitter, id, chatNotification);
         }
     }
@@ -92,7 +90,6 @@ public class NotificationService implements SendChatNotificationUsecase {
         //TODO 유효성 검증이 필요
             //TODO 현재 채팅방에 존재하는 멤버(1인 이상)에게 알람을 보내야 한다.
             //TODO 현재 채팅방을 구독중(websocket 통신중인) 멤버에게는 보내지 않아야 한다.
-        log.debug("👋 sse receiverId : {}", receiverId);
         sendChatNotificationToMember(receiverId, event.getChatroom(), ChatNotification.of(event.getChatBubble(), event.getChatroom()));
     }
 
