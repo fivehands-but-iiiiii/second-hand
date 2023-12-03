@@ -47,11 +47,9 @@ public class InmemoryNotificationRepository implements NotificationRepository {
 
     @Override
     public Optional<SseEmitter> findStartById(String id) {
-        int regIdx = id.indexOf("_");
-        String prefix = id.substring(0, regIdx+1);
-        log.debug("🧹 SSE findStartById : {}", prefix);
+        log.debug("🧹 SSE findStartById : {}", id);
         return emitters.entrySet().stream()
-                .filter(e -> e.getKey().startsWith(prefix))
+                .filter(e -> e.getKey().startsWith(id))
                 .map(Map.Entry::getValue)
                 .findAny();
     }

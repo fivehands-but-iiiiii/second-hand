@@ -30,8 +30,6 @@ public class ChatBubbleService {
         String key = generateChatLogKey(roomId);
         Pageable pageable = PageRequest.of(page, chatLoadSize, Sort.by("createdAt").ascending());
         Slice<ChatBubble> list = chatBubbleRepository.findAllByRoomId(roomId, pageable);
-        ChatBubble last = chatBubbleRepository.findFirstByOrderByIdDesc();
-
         return list;
     }
 
@@ -39,7 +37,7 @@ public class ChatBubbleService {
     @Transactional
     public void saveChatBubble(ChatBubble chatBubble) {
         String key = generateChatLogKey(chatBubble.getRoomId());
-        ChatBubble save = chatBubbleRepository.save(chatBubble);
+        chatBubbleRepository.save(chatBubble);
     }
 
     @Async
