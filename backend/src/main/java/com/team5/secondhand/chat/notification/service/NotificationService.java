@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 @Service
 @RequiredArgsConstructor
 public class NotificationService implements SendChatNotificationUsecase {
-    private final Long DEFAULT_TIMEOUT = 86400L;
+    private final Long DEFAULT_TIMEOUT = 8640000L;
     private final NotificationRepository notificationRepository;
 
     @Transactional
@@ -76,17 +76,12 @@ public class NotificationService implements SendChatNotificationUsecase {
     @Override
     @Transactional
     public void sendChatNotificationToMember(String id, Chatroom chatroom, ChatNotification chatNotification) {
-        try {
-            SseEmitter sseEmitter = notificationRepository.findStartById(id).get(); //TODO 에러 작성해주기
-            log.debug("👋 sse receiverId : {}, notification : {}", id, chatNotification.getMessage());
-            if (chatroom.hasPaticipant(id)) {
-                log.debug("🥹 has participant : {}");
-                sendToClient(sseEmitter, id, chatNotification);
-            }
-        } catch (NoSuchElementException e) {
-            log.info("상대방이 접속중이 아닙니다.");
+        SseEmitter sseEmitter = notificationRepository.findStartById(id).orElseThrow(() -> new NoSuchElementException("상대방이 접속중이 아닙니다."));
+        log.debug("👋 sse receiverId : {}, notification : {}", id, chatNotification.getMessage());
+        if (chatroom.hasPaticipant(id)) {
+            log.debug("🥹 has participant : {}");
+            sendToClient(sseEmitter, id, chatNotification);
         }
-
     }
 
     @EventListener
