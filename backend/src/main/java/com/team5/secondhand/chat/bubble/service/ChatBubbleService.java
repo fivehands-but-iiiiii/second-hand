@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,9 @@ public class ChatBubbleService {
     @Transactional(readOnly = true)
     public Slice<ChatBubble> getChatBubbles(int page, String roomId) {
         String key = generateChatLogKey(roomId);
-        Pageable pageable = PageRequest.of(page, chatLoadSize);
-        Slice<ChatBubble> list = chatBubbleRepository.findAllByRoomIdAndOrderByCreatedAtDesc(roomId, pageable);
-        List<ChatBubble> content = list.getContent();
-        content.sort(Comparator.comparing(ChatBubble::getCreatedAt));
-
-        return new SliceImpl<>(content, pageable, list.hasNext());
+        Pageable pageable = PageRequest.of(page, chatLoadSize, Sort.by("createdAt").descending());
+        Slice<ChatBubble> list = chatBubbleRepository.findAllByRoomId(roomId, pageable);
+        return list;
     }
 
 
