@@ -28,10 +28,10 @@ public class SseKey {
     }
 
     private static String generateId(String memberId, Instant createdAt) {
-        return String.format("%s__%d",memberId,createdAt.getEpochSecond());
+        return String.format("%s_%d",memberId,createdAt.getEpochSecond());
     }
 
     public boolean startsWith(String memberId) {
-        return this.memberId.equals(memberId+"_");
+        return this.memberId.equals(memberId);
     }
 }

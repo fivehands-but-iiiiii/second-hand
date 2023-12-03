@@ -31,6 +31,8 @@ public class NotificationService implements SendChatNotificationUsecase {
     public SseEmitter subscribe(String id, String lastEventId, HttpServletResponse response) {
         SseKey sseId = SseKey.of(id);
 
+        log.debug("🧹 SSE subscribe : {}", sseId.getKey());
+
         SseEmitter emitter = notificationRepository.save(sseId, new SseEmitter(DEFAULT_TIMEOUT));
         response.setHeader("X-Accel-Buffering", "no");
         response.setHeader("Last-Event-ID", sseId.getKey());
