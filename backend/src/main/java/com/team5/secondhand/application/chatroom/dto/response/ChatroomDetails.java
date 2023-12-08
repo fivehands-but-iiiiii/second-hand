@@ -42,4 +42,13 @@ public class ChatroomDetails {
                 .chatroomId(null)
                 .build();
     }
+
+    public static ChatroomDetails from(Chatroom chatroom) {
+        return ChatroomDetails.builder()
+                .opponentId(chatroom.getBuyer().getMemberId())
+                .isOpponentIn(chatroom.isChatroomMember(chatroom.getBuyer())) // 무조건 buyer 정보로 반환
+                .item(ChatItemDetails.from(chatroom.getItem()))
+                .chatroomId(chatroom.getChatroomId().toString())
+                .build();
+    }
 }
