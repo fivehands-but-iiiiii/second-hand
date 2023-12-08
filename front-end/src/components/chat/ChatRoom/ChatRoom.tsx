@@ -159,6 +159,13 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     [roomId, chatId, publish],
   );
 
+  useEffect(() => {
+    chatId.roomId && setRoomId(chatId.roomId);
+    connect();
+
+    return () => disconnect();
+  }, [roomId]);
+
   const popupSheetActions: { [key: string]: () => void } = {
     quitChat: () => deleteChatRoom(roomId),
   };
@@ -170,13 +177,6 @@ const ChatRoom = ({ chatId, onRoomClose }: ChatRoomProps) => {
     ...menu,
     onClick: () => handleAction(menu.id),
   }));
-
-  useEffect(() => {
-    chatId.roomId && setRoomId(chatId.roomId);
-    connect();
-
-    return () => disconnect();
-  }, [roomId]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });

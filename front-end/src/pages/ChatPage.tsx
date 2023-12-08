@@ -90,8 +90,6 @@ const ChatPage = () => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://43.202.132.236/api/chats/subscribe', true);
     xhr.setRequestHeader('Authorization', token.replace(/["']/g, ''));
-    // xhr.setRequestHeader('Content-Type', 'text/event-stream');
-    // xhr.setRequestHeader('Cache-Control', 'no-store');
 
     xhr.onprogress = () => {
       const rawMessages = xhr.responseText.split('\n\n');
