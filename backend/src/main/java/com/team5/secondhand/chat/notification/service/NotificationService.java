@@ -87,6 +87,7 @@ public class NotificationService implements SendChatNotificationUsecase {
     @Override
     public void sendChatRoomNotificationToMember(String member, Chatroom chatroom,
             ChatroomDetails of) {
+        log.debug("🧹 sendChatRoomNotificationToMember : {}", member);
         SseEmitter sseEmitter = notificationRepository.findStartById(member)
                 .orElseThrow(() -> new NoSuchElementException("상대방이 접속중이 아닙니다."));
         sendToClient(sseEmitter, member, of);
