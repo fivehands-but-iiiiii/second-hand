@@ -1,5 +1,15 @@
 import api from './index';
 
+// Chat List API
+export const getChatList = async (page: number, itemId?: string) => {
+  const endpoint = `/chats?page=${page}${itemId ? `&itemId=${itemId}` : ''}`;
+  const {
+    data: { data },
+  } = await api.get(endpoint);
+  return data;
+};
+
+// Chat Room API
 export const createRoomId = async (itemId: number) => {
   const { data } = await api.post('/chats', {
     itemId,
