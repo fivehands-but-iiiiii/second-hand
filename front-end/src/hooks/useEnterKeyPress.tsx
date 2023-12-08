@@ -5,8 +5,8 @@ interface useEnterKeyPressProps {
 }
 
 const useEnterKeyPress = ({ onEnterPress }: useEnterKeyPressProps) => {
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
+  const handleKeyDown = ({ key }: KeyboardEvent) => {
+    if (key === 'Enter') {
       onEnterPress();
     }
   };

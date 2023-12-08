@@ -66,17 +66,15 @@ const MyCategoryCloseBtn = styled.button`
 `;
 
 const MyCategoryContainer = styled.div`
+  height: 87vh;
   width: 100%;
-  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 20px 0;
   background-color: ${({ theme }) => theme.colors.neutral.background};
 `;
 
 const MyCategoryTitle = styled.span`
-  ${({ theme }) => theme.fonts.footnote};
+  font-size: 0.95em;
 `;
 
 export default Category;
