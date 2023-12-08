@@ -8,8 +8,6 @@ import com.team5.secondhand.chat.chatroom.domain.Chatroom;
 import com.team5.secondhand.chat.notification.dto.ChatNotification;
 import com.team5.secondhand.global.event.chatbubble.ChatNotificationEvent;
 import com.team5.secondhand.global.event.chatroom.ChatroomCreatedEvent;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -17,16 +15,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class NotificationEventListener {
+public class NotificationEventHandler {
 
-    private final SendChatNotificationUsecase sendChatNotificationUsecase;
+    private final NotificationService notificationService;
     private final ChatroomFacade chatroomFacade;
 
     @Async
     @EventListener
     public void getChatBubble(ChatNotificationEvent event) {
         String receiverId = event.getChatBubble().getReceiver();
-        sendChatNotificationUsecase.sendChatNotificationToMember(receiverId, event.getChatroom(),
+        notificationService.sendChatNotificationToMember(receiverId, event.getChatroom(),
                 ChatNotification.of(event.getChatBubble(), event.getChatroom()));
     }
 
@@ -34,7 +32,7 @@ public class NotificationEventListener {
     public void getNewChatroom(ChatroomCreatedEvent event) throws ExistChatRoomException {
         ChatroomInfo info = event.getInfo();
         ChatroomDetails chatroomInfo = chatroomFacade.findChatroomInfo(info.getRoomId());
-        info.getMembers().forEach(e -> sendChatNotificationUsecase.sendChatRoomNotificationToMember(
+        info.getMembers().forEach(e -> notificationService.sendChatRoomNotificationToMember(
                 e, Chatroom.init(info), chatroomInfo));
     }
 

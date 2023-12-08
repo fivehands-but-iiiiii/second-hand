@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NotificationService implements SendChatNotificationUsecase {
+public class NotificationService {
 
     private final Long DEFAULT_TIMEOUT = 864000L;
     private final NotificationRepository notificationRepository;
@@ -73,7 +73,6 @@ public class NotificationService implements SendChatNotificationUsecase {
         }
     }
 
-    @Override
     @Transactional
     public void sendChatNotificationToMember(String id, Chatroom chatroom,
             ChatNotification chatNotification) {
@@ -84,7 +83,7 @@ public class NotificationService implements SendChatNotificationUsecase {
         }
     }
 
-    @Override
+    @Transactional
     public void sendChatRoomNotificationToMember(String member, Chatroom chatroom,
             ChatroomDetails of) {
         log.debug("🧹 sendChatRoomNotificationToMember : {}", member);
