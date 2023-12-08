@@ -2,11 +2,14 @@ package com.team5.secondhand.application.chatroom.dto.response;
 
 import com.team5.secondhand.application.item.domain.Item;
 import com.team5.secondhand.application.item.domain.Status;
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
-public class ChatItemDetails {
+@ToString
+public class ChatItemDetails implements Serializable {
     private final Long itemId;
     private final String title;
     private final Integer price;
