@@ -4,12 +4,14 @@ import com.team5.secondhand.application.chatroom.domian.Chatroom;
 import com.team5.secondhand.application.chatroom.exception.NotChatroomMemberException;
 import com.team5.secondhand.application.item.domain.Item;
 import com.team5.secondhand.application.member.domain.Member;
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-public class ChatroomDetails {
+@ToString
+public class ChatroomDetails implements Serializable {
     private final String chatroomId;
     private final String opponentId;
     private final Boolean isOpponentIn;
