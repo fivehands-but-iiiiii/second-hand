@@ -19,4 +19,14 @@ api.interceptors.request.use(
   },
 );
 
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    window.location.href = '/error';
+    return Promise.reject(error);
+  },
+);
+
 export default api;
