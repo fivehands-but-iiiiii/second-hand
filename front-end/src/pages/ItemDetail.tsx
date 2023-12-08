@@ -177,7 +177,6 @@ const ItemDetail = ({
     }
   };
 
-  // TODO: 채팅하기 버튼에도 적용하기
   const handleLoginAlertOpen = () => setIsLoginAlertOpen(true);
 
   const handleLoginAlert = (type: string) => {
@@ -256,6 +255,11 @@ const ItemDetail = ({
   const handleChatRoom = () => setIsChatRoomOpen(!isChatRoomOpen);
 
   const handleChatButton = () => {
+    if (!isLogin) {
+      handleLoginAlertOpen();
+      return;
+    }
+
     isMyItem ? chatNavigator(`/chat-list/${id}`) : handleChatRoom();
   };
 
