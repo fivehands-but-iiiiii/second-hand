@@ -36,7 +36,7 @@ public class NotificationEventListener {
         ChatroomInfo info = event.getInfo();
         ChatroomDetails chatroomInfo = chatroomFacade.findChatroomInfo(info.getRoomId());
         List<String> recivers = info.getMembers().stream()
-                .filter(e -> !e.equals(chatroomInfo.getOpponentId())).collect(
+                .filter(e -> e.equals(chatroomInfo.getOpponentId())).collect(
                         Collectors.toList());
         recivers.forEach(e -> sendChatNotificationUsecase.sendChatRoomNotificationToMember(
                 e, Chatroom.init(info), chatroomInfo));
