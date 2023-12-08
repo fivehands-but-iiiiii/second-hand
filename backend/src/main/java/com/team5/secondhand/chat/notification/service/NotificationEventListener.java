@@ -30,7 +30,6 @@ public class NotificationEventListener {
                 ChatNotification.of(event.getChatBubble(), event.getChatroom()));
     }
 
-    @Async
     @EventListener
     public void getNewChatroom(ChatroomCreatedEvent event) throws ExistChatRoomException {
         ChatroomInfo info = event.getInfo();
