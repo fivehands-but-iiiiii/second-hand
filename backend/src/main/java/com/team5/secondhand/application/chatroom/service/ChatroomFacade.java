@@ -87,4 +87,9 @@ public class ChatroomFacade {
         Chatroom chatroom = chatRoomService.findByChatroomId(chatId);
         chatRoomService.exitChatroom(chatroom, member);
     }
+
+    public ChatroomDetails findChatroomInfo(String roomId) throws ExistChatRoomException {
+        Chatroom chatroom = chatRoomService.findByChatroomId(roomId);
+        return ChatroomDetails.from(chatroom);
+    }
 }
