@@ -6,6 +6,7 @@ import com.team5.secondhand.application.item.domain.Item;
 import com.team5.secondhand.application.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 public class ChatroomDetails {
