@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { CategoryInfo } from '@components/home/category';
+import { CategoryInfo } from '@components/home/Category';
 
 import useAPI from './useAPI';
 

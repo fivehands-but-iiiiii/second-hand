@@ -17,7 +17,7 @@ import {
 } from '@common/PopupSheet/constants';
 import SubTabBar from '@common/TabBar/SubTabBar';
 import ChatRoom from '@components/chat/ChatRoom';
-import { CategoryInfo } from '@components/home/category';
+import { CategoryInfo } from '@components/home/Category';
 import Carousel from '@components/home/ItemDetail/Carousel';
 import { ItemStatus } from '@components/ItemStatus';
 import { getOutletContext } from '@components/layout';
@@ -177,7 +177,6 @@ const ItemDetail = ({
     }
   };
 
-  // TODO: 채팅하기 버튼에도 적용하기
   const handleLoginAlertOpen = () => setIsLoginAlertOpen(true);
 
   const handleLoginAlert = (type: string) => {
@@ -256,6 +255,11 @@ const ItemDetail = ({
   const handleChatRoom = () => setIsChatRoomOpen(!isChatRoomOpen);
 
   const handleChatButton = () => {
+    if (!isLogin) {
+      handleLoginAlertOpen();
+      return;
+    }
+
     isMyItem ? chatNavigator(`/chat-list/${id}`) : handleChatRoom();
   };
 

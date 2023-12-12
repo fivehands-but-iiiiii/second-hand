@@ -8,7 +8,7 @@ import ChatRoom from '@components/chat/ChatRoom';
 import BlankPage from '@pages/BlankPage';
 import { getCurrentISODate, parseJSONSafely } from '@utils/formatText';
 
-import api from '../api';
+import { getChatList } from '../api/chat';
 
 import { TITLE } from './constants';
 
@@ -31,6 +31,7 @@ const isEventData = (data: unknown): data is EventData => {
 
 const ChatPage = () => {
   const title = TITLE.CHATS;
+  const token = sessionStorage.getItem('token');
   const { itemId } = useParams();
   const [page, setPage] = useState(0);
   const [chatList, setChatList] = useState<ChatListItemInfo[]>([]);
@@ -39,21 +40,10 @@ const ChatPage = () => {
   const [freshCount, setFreshCount] = useState(0);
   const isChatListExist = !!chatList.length;
 
-  const buildChatListApiUrl = (page: number, itemId?: string) => {
-    return `/chats?page=${page}${itemId ? `&itemId=${itemId}` : ''}`;
-  };
-
-  const getChatList = async () => {
-    const apiUrl = buildChatListApiUrl(page, itemId);
-    try {
-      const {
-        data: { data },
-      } = await api.get(apiUrl);
-      setPage(data.page);
-      setChatList(data.chatRooms);
-    } catch (error) {
-      console.error(error);
-    }
+  const fetchChatList = async () => {
+    const data = await getChatList(page, itemId);
+    setPage(data.page);
+    setChatList(data.chatRooms);
   };
 
   const handleChatRoomClick = (chatId: string) => setSelectedChatRoomId(chatId);
@@ -80,18 +70,16 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    getChatList();
+    token && fetchChatList();
   }, [freshCount]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
     if (!token) return;
 
+    const baseURL = import.meta.env.VITE_APP_BASE_URL;
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://43.202.132.236/api/chats/subscribe', true);
+    xhr.open('GET', `${baseURL}/chats/subscribe`, true);
     xhr.setRequestHeader('Authorization', token.replace(/["']/g, ''));
-    // xhr.setRequestHeader('Content-Type', 'text/event-stream');
-    // xhr.setRequestHeader('Cache-Control', 'no-store');
 
     xhr.onprogress = () => {
       const rawMessages = xhr.responseText.split('\n\n');
@@ -150,11 +138,14 @@ const ChatPage = () => {
     }
   }, [messages]);
 
-  if (!isChatListExist) return <BlankPage title={title} />;
   return (
     <>
       <NavBar center={title} />
-      <ChatList chatListItems={chatList} onRoomClick={handleChatRoomClick} />
+      {isChatListExist ? (
+        <ChatList chatListItems={chatList} onRoomClick={handleChatRoomClick} />
+      ) : (
+        <BlankPage title={title} />
+      )}
       {!!selectedChatRoomId && (
         <ChatRoom
           chatId={{ roomId: selectedChatRoomId }}

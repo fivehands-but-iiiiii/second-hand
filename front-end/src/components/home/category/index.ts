@@ -1,2 +1,2 @@
-export { default } from './category';
-export type { CategoryInfo } from './category';
+export { default } from './Category';
+export type { CategoryInfo } from './Category';

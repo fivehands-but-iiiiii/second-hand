@@ -1,4 +1,4 @@
-import { CategoryInfo } from '@components/home/category';
+import { CategoryInfo } from '@components/home/Category';
 import PortalLayout from '@components/layout/PortalLayout';
 import ItemEditor, { OriginItem } from '@components/new/itemEditor/ItemEditor';
 interface NewProps {

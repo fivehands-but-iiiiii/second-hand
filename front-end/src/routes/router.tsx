@@ -49,6 +49,10 @@ const router = createBrowserRouter([
     element: <Join />,
   },
   {
+    path: '/error',
+    element: <NotFound />,
+  },
+  {
     path: '*',
     element: <Navigate to="/" />,
   },
