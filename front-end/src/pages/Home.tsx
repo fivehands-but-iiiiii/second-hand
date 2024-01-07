@@ -261,14 +261,9 @@ const Home = () => {
     try {
       // TODO: useAPI 사용하기
       setIsLoading(true);
-      const { data } = await api.get(`items${filterQuery}`);
-      setSaleItems((prevItems) => {
-        // TODO: Set 자료구조 사용하지 않기
-        const newSet = new Set(prevItems);
-        data.data.items.forEach((item: SaleItem) => newSet.add(item));
-        return [...newSet];
-      });
 
+      const { data } = await api.get(`items${filterQuery}`);
+      setSaleItems((prevItems) => [...prevItems, ...data.data.items]);
       setHomePageInfo({
         page: data.number + 1,
         hasPrevious: data.hasPrevious,
